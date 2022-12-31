@@ -18,4 +18,36 @@ This repo will track the iterative process I'll be using to first configure my n
 
 ---
 
+## Prereqs
+### 💻 Local Setup
 
+I'm using [Task](https://taskfile.dev/) to setup the necessary packages and applications on my local machine for interacting and deploying the cluster.
+
+1. Install [go-task](https://github.com/go-task/task) via Brew
+
+    ```sh
+    brew install go-task/tap/go-task
+    ```
+
+2. Install workstation dependencies via Brew
+
+    ```sh
+    task init
+    ```
+
+This installs all of the packages listed in `Taskfile.yml`. 
+
+### ⚠️ pre-commit
+[pre-commit](https://pre-commit.com/) runs checks on your code before commiting them to git so you can fix issues before it gets up to your repo. 
+
+1. Enable Pre-Commit
+
+    ```sh
+    task precommit:init
+    ```
+
+2. Update Pre-Commit, though it will occasionally make mistakes, so verify its results.
+
+    ```sh
+    task precommit:update
+    ```
