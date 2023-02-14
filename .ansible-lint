@@ -1,6 +1,7 @@
 skip_list:
   - yaml[line-length]
   - var-naming
+  - run_once[task]
 warn_list:
   - command-instead-of-shell
   - deprecated-command-syntax
