@@ -1,0 +1,23 @@
+---
+apiVersion: operator.tigera.io/v1
+kind: Installation
+metadata:
+  name: default
+spec:
+  registry: quay.io
+  imagePath: calico
+  calicoNetwork:
+    bgp: Enabled
+    hostPorts: Disabled
+    linuxDataplane: BPF
+    ipPools: # Note: The ipPools section cannot be modified post-install.
+      - blockSize: 26
+        cidr: "10.42.0.0/16"
+        encapsulation: "None"
+        natOutgoing: Enabled
+        nodeSelector: all()
+    nodeAddressAutodetectionV4:
+      cidrs:
+        - "10.1.0.0/16"
+  nodeMetricsPort: 9091
+  typhaMetricsPort: 9093
