@@ -6,7 +6,7 @@ k3s_server:
     - "{{ k3s_registration_address }}"
   https-listen-port: 6443
   docker: false
-  flannel-backend: "none" # quote
+  flannel-backend: "none"
   disable:
     - flannel
     - local-storage
@@ -15,14 +15,13 @@ k3s_server:
     - traefik
   disable-network-policy: true
   disable-cloud-controller: true
-  disable-kube-proxy: false # Disable when using eBPF
+  disable-kube-proxy: true
   write-kubeconfig-mode: "0644"
+  cluster-cidr: "10.42.0.0/16"
+  service-cidr: "10.43.0.0/16"
   etcd-expose-metrics: true
   kube-controller-manager-arg:
     - "bind-address=0.0.0.0"
-  # Enable when not using eBPF
-  # kube-proxy-arg:
-  #   - "metrics-bind-address=0.0.0.0"
   kube-scheduler-arg:
     - "bind-address=0.0.0.0"
   kube-apiserver-arg:

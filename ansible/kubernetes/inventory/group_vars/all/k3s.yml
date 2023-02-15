@@ -7,8 +7,10 @@ k3s_etcd_datastore: true
 k3s_use_unsupported_config: true
 k3s_registration_address: 10.1.0.2
 k3s_server_manifests_templates:
-  - "templates/calico-installation.yaml.j2"
-  - "templates/calico-ebpf.yaml.j2"
+  - "calico-installation.yaml.j2"
+  - "calico-ebpf.yaml.j2"
+  - "calico-bgpconfiguration.yaml.j2"
+  - "calico-bgppeer.yaml.j2"
 k3s_server_manifests_urls:
   - url: https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/tigera-operator.yaml
     filename: calico-tigera-operator.yaml

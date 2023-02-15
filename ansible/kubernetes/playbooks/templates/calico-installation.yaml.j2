@@ -12,12 +12,12 @@ spec:
     linuxDataplane: BPF
     ipPools: # Note: The ipPools section cannot be modified post-install.
       - blockSize: 26
-        cidr: "10.42.0.0/16"
-        encapsulation: "None"
+        cidr: "{{ k3s_server['cluster-cidr'] }}"
+        encapsulation: "{{ calico_encapsulation }}"
         natOutgoing: Enabled
         nodeSelector: all()
     nodeAddressAutodetectionV4:
       cidrs:
-        - "10.1.0.0/16"
+        - "{{ calico_node_cidr }}"
   nodeMetricsPort: 9091
   typhaMetricsPort: 9093

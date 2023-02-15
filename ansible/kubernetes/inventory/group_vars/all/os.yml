@@ -17,6 +17,7 @@ packages_install:
   - gdisk
   - hdparm
   - htop
+  - intel-gpu-tools
   - iputils-ping
   - ipvsadm
   - lm-sensors
