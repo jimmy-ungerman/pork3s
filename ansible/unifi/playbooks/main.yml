@@ -1,0 +1,52 @@
+---
+- name: Configure UDMP for k3s
+  hosts:
+    - unifi
+  become: true
+  gather_facts: false
+  any_errors_fatal: true
+  tasks:
+    - name: Basic Config
+      block:
+        - name: Basic Config | Set timezone
+          community.general.timezone:
+            name: "{{ timezone | default('Etc/UTC') }}"
+        - name: Basic Config | Add Authorized Keys
+          ansible.posix.authorized_key:
+            user: "{{ ansible_user }}"
+            key: "{{ item }}"
+          loop: "{{ public_ssh_keys | default([]) }}"
+    - name: Install and Configure FRR
+      block:
+        - name: Install and Configure FRR | Add FRR GPG Key
+          ansible.builtin.apt_key:
+            url: https://deb.frrouting.org/frr/keys.asc
+            state: present
+        - name: Install and Configure FRR | Install FRR Repository
+          ansible.builtin.apt_repository:
+            repo: deb https://deb.frrouting.org/frr bullseye frr-stable
+            state: present
+        - name: Install and Configure FRR | Install FRR package
+          ansible.builtin.apt:
+            update_cache: true
+            pkg:
+            - frr
+            - frr-pythontools
+            state: present
+        - name: Install and Configure FRR | Copy FRR config
+          ansible.builtin.template:
+            src: bgpd.conf.j2
+            dest: ~/bgpd.conf
+        - name: Install and Configure FRR | Remove frr.conf
+          file:
+            path: /etc/frr/frr.cong
+            state: absent
+        - name: Install and Configure FRR | Ensure bgpd daemon is enabled
+          ansible.builtin.lineinfile:
+            path: /etc/frr/daemons
+            regexp: '^bgpd='
+            line: 'bgpd=yes'
+        - name: Install and Configure FRR | Restart frr to take effect
+          ansible.builtin.systemd:
+            state: restarted
+            name: frr.service
