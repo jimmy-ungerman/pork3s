@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
+    targetRevision: 3.29.5
+    chart: argo-cd
+    helm:
+      values: |
+        server:
+          extraArgs:
+            - "--disable-auth"
+            - "--insecure"
+          ingress:
+            enabled: "true"
+            hosts:
+              - argocd.local
+            annotations:
+              # kubernetes.io/ingress.class: ambassador ### For some ingress controllers required
+        dex:
+          enabled: "false"        
+  destination:
+    server: {{ .Values.spec.destination.server }}
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
