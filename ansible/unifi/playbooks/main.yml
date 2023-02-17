@@ -30,15 +30,18 @@
           ansible.builtin.apt:
             update_cache: true
             pkg:
-            - frr
-            - frr-pythontools
+              - frr
+              - frr-pythontools
             state: present
         - name: Install and Configure FRR | Copy FRR config
           ansible.builtin.template:
             src: bgpd.conf.j2
-            dest: ~/bgpd.conf
+            dest: /etc/frr/bgpd.conf
+            owner: frr
+            group: frr
+            mode: "0640"
         - name: Install and Configure FRR | Remove frr.conf
-          file:
+          ansible.builtin.file:
             path: /etc/frr/frr.cong
             state: absent
         - name: Install and Configure FRR | Ensure bgpd daemon is enabled
