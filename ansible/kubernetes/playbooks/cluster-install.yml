@@ -57,6 +57,17 @@
         regexp: "https://127.0.0.1:6443"
         replace: "https://{{ k3s_registration_address }}:6443"
 
+    - name: Install Cilium CNI
+      delegate_to: localhost
+      become: false
+      run_once: true
+      kubernetes.core.helm:
+        name: cilium
+        chart_ref: cilium/cilium
+        release_namespace: kube-system
+        values_files:
+          - templates/ciliumValues.yml
+
     - name: Resource Readiness Check
       run_once: true
       kubernetes.core.k8s_info:
@@ -68,17 +79,29 @@
         wait_sleep: 10
         wait_timeout: 360
       loop:
-        - kind: Deployment
-          name: tigera-operator
-          namespace: tigera-operator
-        - kind: Installation
-          name: default
+        - kind: DaemonSet
+          name: cilium
+          namespace: kube-system
+        - kind: DaemonSet
+          name: kube-vip-ds
+          namespace: kube-system
       register: resource_check
-      when:
-        - k3s_server_manifests_templates | length > 0
-            or k3s_server_manifests_urls | length > 0
-        - k3s_control_node is defined
-        - k3s_control_node
+
+    - name: Install Cilium BGPPeerPolicy
+      delegate_to: localhost
+      become: false
+      run_once: true
+      kubernetes.core.k8s:
+        state: present
+        src: templates/ciliumBGPPeeringPolicy.yml
+
+    - name: Install Cilium BGPPeerPolicy
+      delegate_to: localhost
+      become: false
+      run_once: true
+      kubernetes.core.k8s:
+        state: present
+        src: templates/ciliumLoadBalancerIPPool.yml
 
     # Cleaning up the manifests from the /var/lib/rancher/k3s/server/manifests
     # directory is needed because k3s has an awesome

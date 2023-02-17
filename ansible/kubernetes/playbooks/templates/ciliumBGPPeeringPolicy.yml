@@ -1,0 +1,14 @@
+apiVersion: "cilium.io/v2alpha1"
+kind: CiliumBGPPeeringPolicy
+metadata:
+ name: 01-bgp-peering-policy
+spec: # CiliumBGPPeeringPolicySpec
+ nodeSelector:
+   matchLabels:
+    kubernetes.io/hostname: aang
+ virtualRouters: # []CiliumBGPVirtualRouter
+ - localASN: 64512
+   exportPodCIDR: true
+   neighbors: # []CiliumBGPNeighbor
+    - peerAddress: '10.1.0.1/32'
+      peerASN: 64512

@@ -47,17 +47,19 @@ spec:
         - name: bgp_enable
           value: "true"
         - name: bgp_routerid
-          value: 10.1.0.1
+          value: {{ bgp_router_ip }}
         - name: bgp_as
-          value: "65412"
-        - name: bgp_peeraddress
-        - name: bgp_peerpass
+          value: "{{ bgp_local_as_number }}"
         - name: bgp_peeras
-          value: "65412"
+          value: "{{ bgp_peer_as_number }}"
         - name: bgp_peers
-          value: 10.1.0.2:65412::false
+          value: {% for host in groups['master']  %}
+{{ ansible_host }}:{{ bgp_local_as_number }}::false
+{%- if not loop.last %},{% endif %}
+{% endfor %}
+
         - name: address
-          value: 10.1.0.10
+          value: {{ k3s_registration_address }}
         image: ghcr.io/kube-vip/kube-vip:v0.4.0
         imagePullPolicy: Always
         name: kube-vip

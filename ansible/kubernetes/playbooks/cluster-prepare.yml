@@ -1,5 +1,6 @@
 ---
-- hosts:
+- name: Cluster Node Prepare
+  hosts:
     - master
     - worker
   become: true
@@ -27,11 +28,6 @@
               127.0.1.1   {{ inventory_hostname }}
     - name: Packages
       block:
-        - name: Packages | Add apt repositories
-          ansible.builtin.apt_repository:
-            repo: "{{ item }}"
-            update_cache: true
-          loop: "{{ packages_repositories | default([]) }}"
         - name: Packages | Install common packages
           ansible.builtin.apt:
             name: "{{ packages_install | default([]) }}"
@@ -45,6 +41,7 @@
       ansible.builtin.package_facts:
         manager: auto
     - name: Packages | Uninstall Snap
+      when: "'snapd' in ansible_facts.packages"
       block:
         - name: Packages | Uninstall Snap | Check if snap is installed
           ansible.builtin.debug:
@@ -59,7 +56,6 @@
             name: snapd
             state: absent
             autoremove: true
-      when: "'snapd' in ansible_facts.packages"
     - name: User Configuration
       block:
         - name: User Configuration | Add user to sudoers
@@ -72,10 +68,6 @@
             user: "{{ ansible_user }}"
             key: "{{ item }}"
           loop: "{{ public_ssh_keys | default([]) }}"
-        - name: User Configuration | Set fish shell
-          ansible.builtin.user:
-            name: "{{ ansible_user }}"
-            shell: /usr/bin/fish
         - name: User Configuration | Silence the login prompt
           ansible.builtin.file:
             dest: "/home/{{ ansible_user }}/.hushlogin"
@@ -105,6 +97,7 @@
             modification_time: preserve
             access_time: preserve
     - name: System Configuration (2)
+      notify: Reboot
       block:
         - name: System Configuration (2) | Enable kernel modules now
           community.general.modprobe:
@@ -136,8 +129,8 @@
               fs.inotify.max_user_watches: 524288
               fs.inotify.max_user_instances: 512
         - name: System Configuration (2) | Disable swap at runtime
-          ansible.builtin.command: swapoff -a
           when: ansible_swaptotal_mb > 0
+          ansible.builtin.command: swapoff -a
         - name: System Configuration (2) | Disable swap at boot
           ansible.posix.mount:
             name: "{{ item }}"
@@ -156,9 +149,8 @@
               mitigations: "off"
           register: grub_status
         - name: System Configuration (2) | Reconfigure grub and initramfs
-          ansible.builtin.command: update-grub
           when: grub_status.changed
-      notify: Reboot
+          ansible.builtin.command: update-grub
 
   handlers:
     - name: Reboot

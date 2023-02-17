@@ -11,6 +11,11 @@
       ansible.builtin.pause:
         seconds: 2
   tasks:
+    - name: Remove Cilium ipTables
+      become: true
+      ansible.builtin.shell: set -o pipefail && iptables-save | grep -v KUBE- | grep -v CNI- | grep -v CILIUM_ | iptables-restore
+      register: output
+      changed_when: output.rc != 0
     - name: Uninstall k3s
       ansible.builtin.include_role:
         name: xanmanning.k3s
