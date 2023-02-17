@@ -1,4 +1,0 @@
----
-cilium_pod_network_ip: 192.168.0.0/8
-bgp_router_ip: 10.1.0.1
-bgp_as_number: 64512
