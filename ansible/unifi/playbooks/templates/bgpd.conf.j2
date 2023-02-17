@@ -1,0 +1,24 @@
+hostname UDM-SE
+frr defaults datacenter
+log file stdout
+service integrated-vtysh-config
+!
+!
+router bgp {{ AS }}
+ bgp router-id {{ k3s_router }}
+{% for node in k3s_nodes %}
+ neighbor {{ node }} remote-as {{ AS }}
+{% endfor %}
+ !
+ address-family ipv4 unicast
+  redistribute connected
+  redistribute kernel
+  neighbor V4 soft-reconfiguration inbound
+  neighbor V4 route-map ALLOW-ALL in
+  neighbor V4 route-map ALLOW-ALL out
+ exit-address-family
+ !
+route-map ALLOW-ALL permit 10
+!
+line vty
+!
