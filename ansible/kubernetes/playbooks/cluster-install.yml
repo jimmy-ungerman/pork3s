@@ -65,8 +65,7 @@
         name: cilium
         chart_ref: cilium/cilium
         release_namespace: kube-system
-        values_files:
-          - templates/ciliumValues.yml
+        values: "{{ lookup('template', 'ciliumValues.yml.j2') | from_yaml }}"
 
     - name: Resource Readiness Check
       run_once: true
@@ -93,7 +92,7 @@
       run_once: true
       kubernetes.core.k8s:
         state: present
-        src: templates/ciliumBGPPeeringPolicy.yml
+        definition: "{{ lookup('template', 'ciliumBGPPeeringPolicy.yml.j2') | from_yaml }}"
 
     - name: Install Cilium BGPPeerPolicy
       delegate_to: localhost
@@ -101,7 +100,7 @@
       run_once: true
       kubernetes.core.k8s:
         state: present
-        src: templates/ciliumLoadBalancerIPPool.yml
+        definition: "{{ lookup('template', 'ciliumLoadBalancerIPPool.yml.j2') | from_yaml }}"
 
     # Cleaning up the manifests from the /var/lib/rancher/k3s/server/manifests
     # directory is needed because k3s has an awesome

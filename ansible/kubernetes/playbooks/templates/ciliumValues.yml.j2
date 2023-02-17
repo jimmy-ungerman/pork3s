@@ -1,0 +1,10 @@
+bgpControlPlane:
+  enabled: true
+ipam:
+  operator:
+    clusterPoolIPv4PodCIDR: {{ cilium_pod_network_ip }}
+k8sServiceHost: {{ k3s_registration_address }}
+k8sServicePort: {{ k3s_server['https-listen-port'] }}
+kubeProxyReplacement: strict
+operator:
+  replicas: 1

@@ -49,12 +49,12 @@ spec:
         - name: bgp_routerid
           value: {{ bgp_router_ip }}
         - name: bgp_as
-          value: "{{ bgp_local_as_number }}"
+          value: "{{ bgp_as_number }}"
         - name: bgp_peeras
-          value: "{{ bgp_peer_as_number }}"
+          value: "{{ bgp_as_number }}"
         - name: bgp_peers
           value: {% for host in groups['master']  %}
-{{ ansible_host }}:{{ bgp_local_as_number }}::false
+{{ ansible_host }}:{{ bgp_as_number }}::false
 {%- if not loop.last %},{% endif %}
 {% endfor %}
 
