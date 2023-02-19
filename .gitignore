@@ -15,3 +15,6 @@ xanmanning.k3s*
 .terraform
 .terraform.tfstate*
 terraform.tfstate*
+
+# Directories
+charts/
