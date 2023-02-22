@@ -21,6 +21,7 @@ env:
     sabnzbd.media.svc,
     sabnzbd.media.svc.cluster,
     sabnzbd.media.svc.cluster.local
+  TZ: 'America/Boise'
   # SABNZBD__API_KEY:
   #   valueFrom:
   #     secretKeyRef:
@@ -51,8 +52,6 @@ resources:
   requests:
     cpu: 15m
     memory: "2048M"
-  # limits:
-  #   memory: "4096M"
 
 volumeClaimTemplates:
   - name: config
