@@ -21,6 +21,14 @@ cephClusterSpec:
     ssl: false
   mon:
     count: 1
+  resources:
+    prepareosd:
+      limits:
+        cpu: 500m
+        memory: 800Mi
+      requests:
+        cpu: 500m
+        memory: 50Mi
   storage:
     useAllNodes: false
     useAllDevices: false
