@@ -1,0 +1,66 @@
+controller:
+  type: statefulset
+  
+image:
+  repository: ghcr.io/onedr0p/sonarr-develop
+  tag: 4.0.0.388@sha256:30183b05125afe3e44b6f59ecb7c37491746813ed31b14352ba75c446a3f9ffb
+
+env:
+  TZ: America/Boise
+  SONARR__INSTANCE_NAME: sonarr
+  SONARR__PORT: &port 8989
+  SONARR__LOG_LEVEL: info
+
+service:
+  main:
+    ports:
+      http:
+        port: *port
+
+probes:
+  liveness: &probes
+    enabled: true
+    custom: true
+    spec:
+      httpGet:
+        path: /ping
+        port: *port
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      timeoutSeconds: 1
+      failureThreshold: 3
+  readiness: *probes
+  startup:
+    enabled: false
+
+podSecurityContext:
+  runAsUser: 568
+  runAsGroup: 568
+  fsGroup: 568
+  fsGroupChangePolicy: "OnRootMismatch"
+  supplementalGroups: [10000]
+
+volumeClaimTemplates:
+  - name: config
+    mountPath: /config
+    accessMode: ReadWriteOnce
+    size: 10Gi
+    storageClass: ceph-filesystem
+
+persistence:
+  config:
+    enabled: true
+    existingClaim: downloads-sabnzbd-0
+  media:
+    enabled: true
+    type: nfs
+    server: 10.0.0.25
+    path: /data/media
+    mountPath: /data/media
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 250Mi
+  limits:
+    memory: 2000Mi
