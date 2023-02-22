@@ -1,0 +1,22 @@
+ingressRoute:
+  dashboard:
+    enabled: true
+    entryPoints: ["websecure"]
+    matchRule: Host(`traefik.jimmycodes.io`)
+
+tlsStore:
+  default:
+    defaultCertificate:
+      secretName: traefik-cert
+
+service:
+  spec:
+    loadBalancerIP: 192.0.0.1
+
+kubernetesIngress:
+  publishedService:
+    enabled: true
+
+logs:
+  general:
+    level: DEBUG
