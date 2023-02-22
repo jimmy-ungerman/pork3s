@@ -1,7 +1,7 @@
 ---
 monitoring:
-  enabled: true
-  createPrometheusRules: true
+  enabled: false
+  createPrometheusRules: false
 
 ingress:
   enabled: false
