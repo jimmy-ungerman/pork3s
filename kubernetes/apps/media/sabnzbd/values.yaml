@@ -20,7 +20,8 @@ env:
     sabnzbd.media,
     sabnzbd.media.svc,
     sabnzbd.media.svc.cluster,
-    sabnzbd.media.svc.cluster.local
+    sabnzbd.media.svc.cluster.local,
+    sabnzbd.jimmycodes.io
   TZ: 'America/Boise'
 
 service:
