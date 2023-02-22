@@ -48,9 +48,6 @@ volumeClaimTemplates:
     storageClass: ceph-filesystem
 
 persistence:
-  config:
-    enabled: true
-    existingClaim: downloads-sabnzbd-0
   media:
     enabled: true
     type: nfs
