@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: sabnzbd
+  namespace: media
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`sabnzbd.jimmycodes.io`)
+      services:
+        - name: sabnzbd
+          port: 8080
