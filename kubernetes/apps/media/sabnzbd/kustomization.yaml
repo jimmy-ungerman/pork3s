@@ -13,4 +13,3 @@ helmCharts:
 
 resources:
   - ingressRoute.yaml
-  - app.yaml
