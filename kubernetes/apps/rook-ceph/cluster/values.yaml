@@ -19,6 +19,8 @@ cephClusterSpec:
     enabled: true
     urlPrefix: /
     ssl: false
+  mon:
+    count: 1
   storage:
     useAllNodes: false
     useAllDevices: false
@@ -27,7 +29,8 @@ cephClusterSpec:
     nodes:
       - name: zuko
         devices:
-          - name: "/dev/disk/by-id/nvme-Seagate_FireCuda_530_ZP4000GM30013_7VS005DG"
+          - name: "/dev/nvme0n1"
+    
 
 # Don't need Block Pools
 cephBlockPools: []
