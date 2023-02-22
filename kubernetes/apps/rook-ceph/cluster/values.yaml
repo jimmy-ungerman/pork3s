@@ -29,7 +29,7 @@ cephClusterSpec:
     nodes:
       - name: zuko
         devices:
-          - name: "/dev/disk/by-id/nvme-Seagate_FireCuda_530_ZP4000GM30013_7VS005DG"
+          - name: /dev/disk/by-id/nvme-Seagate_FireCuda_530_ZP4000GM30013_7VS005DG
     
 
 # Don't need Block Pools
