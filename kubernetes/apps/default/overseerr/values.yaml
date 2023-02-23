@@ -1,0 +1,35 @@
+controller:
+  type: statefulset
+image:
+  repository: ghcr.io/sct/overseerr
+  tag: 1.32.5
+env:
+  TZ: America/Boise
+  LOG_LEVEL: "info"
+  PORT: &port 5055
+
+service:
+  main:
+    ports:
+      http:
+        port: *port
+
+podSecurityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+  fsGroupChangePolicy: "OnRootMismatch"
+
+volumeClaimTemplates:
+  - name: config
+    mountPath: /app/config
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    storageClass: ceph-block
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 250Mi
+  limits:
+    memory: 1500Mi
