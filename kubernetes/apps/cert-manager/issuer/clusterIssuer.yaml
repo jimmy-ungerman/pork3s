@@ -18,4 +18,4 @@ spec:
               key: apiToken
         selector:
           dnsZones:
-            - jimmycodes.io
+            - porkboi.io
