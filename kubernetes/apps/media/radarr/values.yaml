@@ -1,0 +1,68 @@
+values:
+controller:
+  type: statefulset
+image:
+  repository: ghcr.io/onedr0p/radarr-nightly
+  tag: 4.4.3.6966@sha256:be5de823c2b0f27d66cddd929d02815c475a9fc1b272d9bfe5ca5bd4cb6b30a8
+env:
+  TZ: America/Boise
+
+  RADARR__INSTANCE_NAME: radarr
+  RADARR__PORT: &port 7979
+  RADARR__APPLICATION_URL: "https://{{ .Release.Name }}.jimmycodes.io"
+  RADARR__LOG_LEVEL: info
+
+service:
+  main:
+    ports:
+      http:
+        port: *port
+
+probes:
+  liveness: &probes
+    enabled: true
+    custom: true
+    spec:
+      httpGet:
+        path: /ping
+        port: *port
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      timeoutSeconds: 1
+      failureThreshold: 3
+  readiness: *probes
+  startup:
+    enabled: false
+
+podSecurityContext:
+  runAsUser: 568
+  runAsGroup: 568
+  fsGroup: 568
+  fsGroupChangePolicy: "OnRootMismatch"
+  supplementalGroups: [10000]
+
+volumeClaimTemplates:
+  - name: config
+    mountPath: /config
+    accessMode: ReadWriteOnce
+    size: 15Gi
+    storageClass: ceph-filesystem
+
+persistence:
+  media:
+    enabled: true
+    type: nfs
+    server: 10.0.0.25
+    path: /data/media
+    mountPath: /data/media
+  downloads:
+    enabled: true
+    existingClaim: usenet-data
+    mountPath: /data/usenet
+    
+resources:
+  requests:
+    cpu: 10m
+    memory: 250Mi
+  limits:
+    memory: 2000Mi
