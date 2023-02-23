@@ -1,0 +1,49 @@
+controller:
+  type: statefulset
+
+image:
+  repository: ghcr.io/onedr0p/plex-beta
+  tag: 1.31.0.6654-02189b09f@sha256:e854f1da4812afd3712cea99b6c7d3d056b9bef1a6b376b6798ec673a730f089
+
+env:
+  TZ: America/Boise
+
+service:
+  main:
+    type: LoadBalancer
+    ports:
+      http:
+        port: 32400
+
+podSecurityContext:
+  runAsUser: 568
+  runAsGroup: 568
+  fsGroup: 568
+  fsGroupChangePolicy: "OnRootMismatch"
+  supplementalGroups: [44, 109, 10000]
+
+volumeClaimTemplates:
+  - name: config
+    mountPath: /config
+    accessMode: ReadWriteOnce
+    size: 100Gi
+    storageClass: ceph-block
+
+persistence:
+  media:
+    enabled: true
+    type: nfs
+    server: 10.0.0.25
+    path: /data/media
+    mountPath: /data/media
+    readOnly: true
+  transcode:
+    enabled: true
+    type: emptyDir
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 2000Mi
+  limits:
+    memory: 10000Mi
