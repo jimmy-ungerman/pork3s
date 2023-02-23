@@ -12,5 +12,4 @@ helmCharts:
     valuesFile: values.yaml
 
 resources:
-  - pvc.yaml
   - ingressRoute.yaml
