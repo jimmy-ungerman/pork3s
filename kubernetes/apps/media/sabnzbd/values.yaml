@@ -30,6 +30,12 @@ service:
       http:
         port: *port
 
+persistence:
+  downloads:
+    enabled: true
+    existingClaim: usenet-data
+    mountPath: /data/usenet
+
 resources:
   requests:
     cpu: 15m
@@ -40,9 +46,4 @@ volumeClaimTemplates:
     mountPath: /config
     accessMode: ReadWriteOnce
     size: 1Gi
-    storageClass: ceph-filesystem
-  - name: usenet-data
-    mountPath: /data/usenet
-    accessMode: ReadWriteMany
-    size: 1Ti
     storageClass: ceph-filesystem
