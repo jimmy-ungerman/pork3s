@@ -6,6 +6,9 @@ monitoring:
 ingress:
   enabled: false
 
+toolbox:
+  enabled: true
+
 configOverride: |
   [global]
   bdev_enable_discard = true
