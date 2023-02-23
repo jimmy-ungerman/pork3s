@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: traefik-cert
+  namespace: networking
+spec:
+  secretName: traefik-cert
+  dnsNames:
+  - "porkboi.io"
+  - "*.porkboi.io"
+  issuerRef:
+    name: le-prod
+    kind: ClusterIssuer

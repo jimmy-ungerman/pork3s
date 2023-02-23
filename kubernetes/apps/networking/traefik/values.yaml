@@ -1,0 +1,22 @@
+ingressRoute:
+  dashboard:
+    enabled: true
+    entryPoints: ["web", "websecure"]
+    matchRule: Host(`traefik.porkboi.io`)
+
+tlsStore:
+  default:
+    defaultCertificate:
+      secretName: traefik-cert
+
+service:
+  spec:
+    loadBalancerIP: 192.0.0.1
+
+kubernetesIngress:
+  publishedService:
+    enabled: true
+
+logs:
+  general:
+    level: DEBUG
