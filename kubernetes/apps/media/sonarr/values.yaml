@@ -44,20 +44,20 @@ volumeClaimTemplates:
   - name: config
     mountPath: /config
     accessMode: ReadWriteOnce
-    size: 10Gi
+    size: 15Gi
     storageClass: ceph-filesystem
 
 persistence:
-  config:
-    enabled: true
-    existingClaim: usenet-data-sabnzbd-0
-    
   media:
     enabled: true
     type: nfs
     server: 10.0.0.25
     path: /data/media
     mountPath: /data/media
+  downloads:
+    enabled: true
+    existingClaim: usenet-data
+    mountPath: /data/usenet
 
 resources:
   requests:
