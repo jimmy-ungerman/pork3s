@@ -8,10 +8,10 @@ spec:
   source:
     repoURL: https://github.com/jimmy-ungerman/pork3s.git
     targetRevision: main
-    path: kubernetes/bootstrap/3-traefik
+    path: kubernetes/apps/networking/traefik
   destination:
     server: https://kubernetes.default.svc
-    namespace: traefik
+    namespace: networking
   syncPolicy:
     automated:
       prune: true
