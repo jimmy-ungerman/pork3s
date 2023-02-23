@@ -8,7 +8,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`rook-ceph.jimmycodes.io`)
+      match: Host(`rook-ceph.porkboi.io`)
       services:
         - name: rook-ceph-mgr-dashboard
           port: 7000
