@@ -39,6 +39,10 @@ persistence:
     path: /data/media
     mountPath: /data/media
 
+  config:
+    enabled: true
+    existingClaim: usenet-data
+
 resources:
   requests:
     cpu: 15m
