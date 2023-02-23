@@ -50,8 +50,3 @@ volumeClaimTemplates:
     accessMode: ReadWriteOnce
     size: 1Gi
     storageClass: ceph-filesystem
-  - name: downloads
-    mountPath: /data/usenet
-    accessMode: ReadWriteOnce
-    size: 500Gi
-    storageClass: ceph-filesystem
