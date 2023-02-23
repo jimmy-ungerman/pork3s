@@ -30,15 +30,6 @@ service:
       http:
         port: *port
 
-
-persistence:
-  media:
-    enabled: true
-    type: nfs
-    server: 10.0.0.25
-    path: /data/media
-    mountPath: /data/media
-
 resources:
   requests:
     cpu: 15m
@@ -53,5 +44,5 @@ volumeClaimTemplates:
   - name: usenet-data
     mountPath: /data/usenet
     accessMode: ReadWriteMany
-    size: 500Gi
+    size: 1Ti
     storageClass: ceph-filesystem
