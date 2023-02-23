@@ -53,4 +53,5 @@ volumeClaimTemplates:
   - name: usenet-data
     mountPath: /data/usenet
     accessMode: ReadWriteMany
+    size: 500Gi
     storageClass: ceph-filesystem
