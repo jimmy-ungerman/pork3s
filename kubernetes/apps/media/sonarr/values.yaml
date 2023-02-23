@@ -48,6 +48,10 @@ volumeClaimTemplates:
     storageClass: ceph-filesystem
 
 persistence:
+  config:
+    enabled: true
+    existingClaim: usenet-data-sabnzbd-0
+    
   media:
     enabled: true
     type: nfs
