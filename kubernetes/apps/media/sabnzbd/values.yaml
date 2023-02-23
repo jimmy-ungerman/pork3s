@@ -39,10 +39,6 @@ persistence:
     path: /data/media
     mountPath: /data/media
 
-  config:
-    enabled: true
-    existingClaim: usenet-data
-
 resources:
   requests:
     cpu: 15m
@@ -53,4 +49,8 @@ volumeClaimTemplates:
     mountPath: /config
     accessMode: ReadWriteOnce
     size: 1Gi
+    storageClass: ceph-filesystem
+  - name: usenet-data
+    mountPath: /data/usenet
+    accessMode: ReadWriteMany
     storageClass: ceph-filesystem
