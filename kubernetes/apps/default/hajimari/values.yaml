@@ -36,11 +36,14 @@ hajimari:
         - name: Plex
           url: "https://plex.porkboi.io"
           icon: plex
+podAnnotations:
+  configmap.reloader.stakater.com/reload: "hajimari-settings"
 
 persistence:
   data:
     enabled: true
     type: emptyDir
+    
 resources:
   requests:
     cpu: 100m
