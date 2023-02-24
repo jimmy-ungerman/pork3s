@@ -1,0 +1,21 @@
+interval: 2m
+
+provider: cloudflare
+
+env:
+  - name: CF_API_EMAIL
+    valueFrom:
+      secretKeyRef:
+        name: external-dns-secret
+        key: CF_API_EMAIL
+  - name: CF_API_KEY
+    valueFrom:
+      secretKeyRef:
+        name: external-dns-secret
+        key: CF_API_KEY
+
+extraArgs:
+  - --cloudflare-proxied
+
+sources: ["service"]
+domainFilters: ["porkboi.io"]
