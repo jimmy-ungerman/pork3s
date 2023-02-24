@@ -7,7 +7,7 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/hostname: argocd.porkboi.io
   labels:
-    app.kubernetes.io/name: plex
+    app.kubernetes.io/name: argocd
 spec:
   type: ExternalName
   externalName: porkboi.io
