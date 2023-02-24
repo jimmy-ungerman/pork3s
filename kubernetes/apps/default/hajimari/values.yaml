@@ -31,6 +31,11 @@ hajimari:
         - name: Requests
           url: "https://requests.porkboi.io"
           icon: television-ambient-light
+    - group: media
+      apps:
+        - name: Plex
+          url: "https://plex.porkboi.io"
+          icon: plex
 
 persistence:
   data:
