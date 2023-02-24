@@ -8,7 +8,7 @@ helmCharts:
   releaseName: node-feature-discovery
   namespace: kube-system
   valuesFile: values.yaml
-  includeCRDs: 
+  includeCRDs: true
 
 resources:
   - rules.yaml
