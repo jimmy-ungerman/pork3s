@@ -3,8 +3,6 @@ kind: IngressRoute
 metadata:
   name: plex
   namespace: default
-  annotations:
-    hajimari.io/enable: true
 spec:
   entryPoints:
     - websecure

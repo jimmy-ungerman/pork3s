@@ -1,6 +1,6 @@
 env:
   TZ: America/Boise
-  
+
 hajimari:
   title: Apps
   darkTheme: espresso
@@ -12,14 +12,12 @@ hajimari:
   showGlobalBookmarks: false
   showAppUrls: false
   defaultEnable: true
-  namespaceSelector:
-    matchNames:
-      - default
-      - argocd
-      - networking
-      - rook-ceph
-
-
+  customApps:
+    - group: Media
+      apps:
+        - name: Plex
+          url: "https://plex.porkboi.io"
+          icon: plex
 persistence:
   data:
     enabled: true
