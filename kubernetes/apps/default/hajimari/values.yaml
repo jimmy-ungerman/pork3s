@@ -41,8 +41,11 @@ hajimari:
           icon: plex
         - name: Argocd 
           url: "https://argocd.porkboi.io"
+          icon: git
         - name: ceph
           url: "https://ceph.porkboi.io"
+          icon: harddisk
+          
 podAnnotations:
   configmap.reloader.stakater.com/reload: "hajimari-settings"
 
