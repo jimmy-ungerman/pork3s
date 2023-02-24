@@ -3,8 +3,8 @@ env:
 
 hajimari:
   title: Apps
-  lightTheme: espresso
-  darkTheme: espresso
+  lightTheme: horizon
+  darkTheme: horizon
   alwaysTargetBlank: true
   showGreeting: false
   showAppGroups: true
