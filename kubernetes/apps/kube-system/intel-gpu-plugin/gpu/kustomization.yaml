@@ -7,3 +7,6 @@ helmCharts:
   repo: https://intel.github.io/helm-charts/
   releaseName: intel-device-plugins-gpu
   namespace: kube-system
+  valuesInline:
+    name: "Intel QuickSync"
+    resourceManager: false
