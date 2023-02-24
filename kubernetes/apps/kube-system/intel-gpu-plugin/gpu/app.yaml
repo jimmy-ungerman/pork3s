@@ -4,6 +4,11 @@ metadata:
   name: intel-gpu
   namespace: argocd
 spec:
+  ignoreDifferences:
+    - group: deviceplugin.intel.com
+      kind: GpuDevicePlugin
+      jqPathExpressions:
+      - .spec.resourceManager
   project: default
   source:
     repoURL: https://github.com/jimmy-ungerman/pork3s.git
