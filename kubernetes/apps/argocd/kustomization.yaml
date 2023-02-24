@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/install.yaml
-- ingress.yaml
+- ingressRoute.yaml
 
 components:
 - https://github.com/argoproj-labs/argocd-extensions/manifests
