@@ -9,5 +9,8 @@
         "https://json.schemastore.org/yamllint.json": [
             "ansible/**/inventory/**/*.yml",
         ]
-    }
+    },
+    "yaml.customTags": [
+        "!env_var scalar"
+    ]
 }
