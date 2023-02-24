@@ -19,3 +19,4 @@ extraArgs:
 
 sources: ["service"]
 domainFilters: ["porkboi.io"]
+policy: sync
