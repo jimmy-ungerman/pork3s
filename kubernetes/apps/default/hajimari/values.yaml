@@ -1,0 +1,30 @@
+env:
+  TZ: America/Boise
+  
+hajimari:
+  title: Apps
+  darkTheme: espresso
+  alwaysTargetBlank: true
+  showGreeting: false
+  showAppGroups: false
+  showAppStatus: false
+  showBookmarkGroups: false
+  showGlobalBookmarks: false
+  showAppUrls: false
+  defaultEnable: true
+  namespaceSelector:
+    matchNames:
+      - default
+      - argocd
+      - networking
+      - rook-ceph
+
+
+persistence:
+  data:
+    enabled: true
+    type: emptyDir
+resources:
+  requests:
+    cpu: 100m
+    memory: 128M
