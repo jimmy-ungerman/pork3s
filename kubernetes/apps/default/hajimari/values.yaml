@@ -6,18 +6,31 @@ hajimari:
   darkTheme: espresso
   alwaysTargetBlank: true
   showGreeting: false
-  showAppGroups: false
-  showAppStatus: false
-  showBookmarkGroups: false
+  showAppGroups: true
+  showAppStatus: true
+  showBookmarkGroups: true
   showGlobalBookmarks: false
   showAppUrls: false
   defaultEnable: true
   customApps:
-    - group: Media
+    - group: downloads
       apps:
-        - name: Plex
-          url: "https://plex.porkboi.io"
-          icon: plex
+        - name: Sabnzbd
+          url: "https://sabnzbd.porkboi.io"
+          icon: download
+        - name: Radarr
+          url: "https://radarr.porkboi.io"
+          icon: movie
+        - name: Sonarr
+          url: "https://sonarr.porkboi.io"
+          icon: television
+        - name: Radarr4k
+          url: "https://radarr4k.porkboi.io"
+          icon: movie
+        - name: Requests
+          url: "https://requests.porkboi.io"
+          icon: television-ambient-light
+
 persistence:
   data:
     enabled: true
