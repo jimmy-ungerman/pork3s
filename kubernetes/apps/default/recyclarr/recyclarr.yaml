@@ -1,7 +1,8 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
 radarr:
   main:
     base_url: http://radarr:7878
-    api_key: test
+    api_key: !env_var RADARR__API_KEY
     quality_definition:
       type: movie
       preferred_ratio: 0.5
@@ -50,7 +51,7 @@ radarr:
           - name: Movies
   4k:
     base_url: http://radarr4k:7878
-    api_key: test
+    api_key: !env_var RADARR4K__API_KEY
     quality_definition:
       type: movie
       preferred_ratio: 0.5
@@ -112,7 +113,7 @@ radarr:
 sonarr:
   main:
     base_url: http://sonarr:8989
-    api_key: test
+    api_key: !env_var RADARR4K__API_KEY
     quality_definition:
       type: series
     delete_old_custom_formats: true
