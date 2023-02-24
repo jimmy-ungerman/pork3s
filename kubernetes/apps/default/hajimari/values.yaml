@@ -3,6 +3,7 @@ env:
 
 hajimari:
   title: Apps
+  lightThese: espresso
   darkTheme: espresso
   alwaysTargetBlank: true
   showGreeting: false
