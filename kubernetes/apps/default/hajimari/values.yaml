@@ -31,11 +31,18 @@ hajimari:
         - name: Requests
           url: "https://requests.porkboi.io"
           icon: television-ambient-light
+        - name: prowlarr
+          url: "https://prowlarr.porkboi.io"
+          icon: search
     - group: media
       apps:
         - name: Plex
           url: "https://plex.porkboi.io"
           icon: plex
+        - name: Argocd 
+          url: "https://argocd.porkboi.io"
+        - name: ceph
+          url: "https://ceph.porkboi.io"
 podAnnotations:
   configmap.reloader.stakater.com/reload: "hajimari-settings"
 
@@ -43,7 +50,7 @@ persistence:
   data:
     enabled: true
     type: emptyDir
-    
+
 resources:
   requests:
     cpu: 100m
