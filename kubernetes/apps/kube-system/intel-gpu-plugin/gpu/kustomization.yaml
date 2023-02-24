@@ -8,5 +8,5 @@ helmCharts:
   releaseName: intel-device-plugins-gpu
   namespace: kube-system
   valuesInline:
-    name: "Intel QuickSync"
+    name: "intel-quicksync"
     resourceManager: false
