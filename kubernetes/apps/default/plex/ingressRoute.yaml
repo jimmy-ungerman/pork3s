@@ -27,6 +27,9 @@ spec:
       services:
         - name: plex
           port: 32400
+      middlewares:
+        - name: http-https-redirectscheme
+          namespace: networking
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
