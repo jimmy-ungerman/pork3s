@@ -23,7 +23,7 @@ spec:
               name: sops-age
       initContainers:
       - name: install-ksops
-        image: viaductoss/ksops:v3.0.2
+        image: viaductoss/ksops:v4.1.0
         command: ["/bin/sh", "-c"]
         args:
         - 'echo "Installing KSOPS..."; cp ksops /custom-tools/; cp $GOPATH/bin/kustomize /custom-tools/; echo "Done.";'
