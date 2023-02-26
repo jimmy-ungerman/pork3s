@@ -31,5 +31,14 @@ kustomize build --enable-alpha-plugins kubernetes/apps/networking/traefik | kube
 
 ### Deploy Argocd
 
+```bash
+kustomize build --enable-alpha-plugins kubernetes/apps/networking/traefik | kubectl apply -f -
+```
 
 ### Import the existing apps back into ArgoCD
+
+```bash
+k apply -f kubernetes/apps/kube-system/external-secrets/app.yaml
+k apply -f kubernetes/apps/cert-manager/app.yaml
+k apply -f kubernetes/apps/networking/traefik/app.yaml
+k apply -f kubernetes/apps/argocd/app.yaml
