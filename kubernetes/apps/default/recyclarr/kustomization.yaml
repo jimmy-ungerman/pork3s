@@ -14,4 +14,4 @@ helmCharts:
 configMapGenerator:
   - name: recyclarr-configmap
     files:
-      - recyclarr.yaml
+      - recyclarr.yml
