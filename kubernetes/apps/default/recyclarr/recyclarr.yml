@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
 radarr:
   main:
-    base_url: http://radarr:7878
+    base_url: http://radarr:7979
     api_key: !env_var RADARR__API_KEY
     quality_definition:
       type: movie
@@ -50,7 +50,7 @@ radarr:
         quality_profiles:
           - name: Movies
   4k:
-    base_url: http://radarr4k:7878
+    base_url: http://radarr4k:7979
     api_key: !env_var RADARR4K__API_KEY
     quality_definition:
       type: movie
