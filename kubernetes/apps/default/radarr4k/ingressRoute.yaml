@@ -27,7 +27,7 @@ spec:
         - name: radarr4k
           port: 7979
       middlewares:
-        - name: http-https-redirectscheme
+        - name: redirect-https
           namespace: networking
 ---
 apiVersion: traefik.containo.us/v1alpha1
