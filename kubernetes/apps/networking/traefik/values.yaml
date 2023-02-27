@@ -20,5 +20,3 @@ kubernetesIngress:
 logs:
   general:
     level: DEBUG
-
-hostNetwork: true
