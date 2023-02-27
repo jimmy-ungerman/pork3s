@@ -12,6 +12,7 @@ tlsStore:
 service:
   spec:
     loadBalancerIP: 192.0.0.1
+    externalTrafficPolicy: Local
 
 kubernetesIngress:
   publishedService:
