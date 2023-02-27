@@ -113,7 +113,7 @@ radarr:
 sonarr:
   main:
     base_url: http://sonarr:8989
-    api_key: !env_var RADARR4K__API_KEY
+    api_key: !env_var SONARR__API_KEY
     quality_definition:
       type: series
     delete_old_custom_formats: true
