@@ -7,7 +7,7 @@ ingress:
   enabled: false
 
 toolbox:
-  enabled: true
+  enabled: false
 
 configOverride: |
   [global]
@@ -41,9 +41,7 @@ cephClusterSpec:
       - name: zuko
         devices:
           - name: /dev/disk/by-id/nvme-Seagate_FireCuda_530_ZP4000GM30013_7VS005DG
-    
-
-
+  
 cephBlockPools:
   - name: ceph-blockpool
     spec:

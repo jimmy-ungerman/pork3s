@@ -23,16 +23,24 @@ After external-secrets is successfully deployed, we can deploy the rest of our a
 kustomize build --enable-alpha-plugins kubernetes/apps/cert-manager | kubectl apply -f -
 ```
 
-### Deploy Traefik
+### Deploy Ingress-Nginx
 
 ```bash
-kustomize build --enable-alpha-plugins kubernetes/apps/networking/traefik | kubectl apply -f -
+kustomize build --enable-alpha-plugins kubernetes/apps/networking/ingress | kubectl apply -f -
 ```
 
 ### Deploy Argocd
 
 ```bash
 kustomize build --enable-alpha-plugins kubernetes/apps/networking/traefik | kubectl apply -f -
+```
+
+### Deploy Rook-Ceph
+Deploy Rook Ceph Cluster to allow for storage
+
+```bash
+kustomize build --enable-alpha-plugins kubernetes/apps/rook-ceph/operator/ | kubectl apply -f -
+kustomize build --enable-alpha-plugins kubernetes/apps/rook-ceph/cluster/ | kubectl apply -f -
 ```
 
 ### Import the existing apps back into ArgoCD

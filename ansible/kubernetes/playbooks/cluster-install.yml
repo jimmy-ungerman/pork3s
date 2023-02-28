@@ -89,12 +89,12 @@
     - name: Install Cilium BGPPeerPolicy
       delegate_to: localhost
       become: false
-      run_once: true
       kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('template', 'ciliumBGPPeeringPolicy.yml.j2') | from_yaml }}"
+      with_items: "{{ groups['kubernetes'] }}"
 
-    - name: Install Cilium BGPPeerPolicy
+    - name: Install Cilium LB Pool
       delegate_to: localhost
       become: false
       run_once: true

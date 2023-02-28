@@ -10,3 +10,6 @@ helmCharts:
     repo: https://charts.rook.io/release
     version: v1.10.11
     valuesFile: values.yaml
+
+resources:
+  - namespace.yaml
