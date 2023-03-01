@@ -1,0 +1,17 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: kube-system
+
+helmCharts:
+- name: snapshot-controller
+  repo: https://piraeus.io/helm-charts/
+  releaseName: snapshot-controller
+  namespace: kube-system
+  includeCRDs: true
+  valuesFile: values.yaml
+- name: snapshot-validation-webhook
+  repo: https://piraeus.io/helm-charts/
+  releaseName: snapshot-validation-webhook
+  version: 1.7.1
+  namespace: kube-system
