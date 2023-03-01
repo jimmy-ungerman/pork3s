@@ -15,6 +15,6 @@ env:
 extraArgs:
   - --cloudflare-proxied
 
-sources: ["service"]
+sources: ["ingress"]
 domainFilters: ["porkboi.io"]
 policy: sync
