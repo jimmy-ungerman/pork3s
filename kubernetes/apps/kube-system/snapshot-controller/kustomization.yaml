@@ -15,3 +15,4 @@ helmCharts:
   releaseName: snapshot-validation-webhook
   version: 1.7.1
   namespace: kube-system
+  includeCRDs: true
