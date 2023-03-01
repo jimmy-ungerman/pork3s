@@ -55,7 +55,7 @@ spec:
     pruneIntervalDays: 10
     repository: usenet-restic-secret
     cacheCapacity: 5Gi
-    volumeSnapshotClassName: csi-ceph-blockpool
+    volumeSnapshotClassName: csi-ceph-cephfs
     storageClassName: ceph-filesystem
     moverSecurityContext:
       runAsUser: 568
