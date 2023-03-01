@@ -3,11 +3,11 @@ controller:
   type: statefulset
 image:
   repository: ghcr.io/onedr0p/radarr-nightly
-  tag: 4.4.3.6966@sha256:be5de823c2b0f27d66cddd929d02815c475a9fc1b272d9bfe5ca5bd4cb6b30a8
+  tag: 4.4.3.6983
 env:
   TZ: America/Boise
 
-  RADARR__INSTANCE_NAME: radarr4k
+  RADARR__INSTANCE_NAME: Radarr4k
   RADARR__PORT: &port 7979
   RADARR__APPLICATION_URL: "https://{{ .Release.Name }}.porkboi.io"
   RADARR__LOG_LEVEL: info
