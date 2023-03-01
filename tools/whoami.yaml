@@ -22,7 +22,7 @@ spec:
   tls:
   - hosts:
     - whoami.porkboi.io
-    secretName: whoami
+
 ---
 apiVersion: v1
 kind: Service
