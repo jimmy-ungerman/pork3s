@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: intel-gpu-pluging
+  name: intel-gpu-plugin
   namespace: argocd
 spec:
   ignoreDifferences:
