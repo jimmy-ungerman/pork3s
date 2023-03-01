@@ -13,3 +13,4 @@ helmCharts:
 
 resources:
   - pvc.yaml
+  - volsync.yaml
