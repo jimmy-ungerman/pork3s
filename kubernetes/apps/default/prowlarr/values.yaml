@@ -39,7 +39,7 @@ ingress:
     tls:
       - hosts:
           - *host
-        secretName: prowlarr
+
 
 volumeClaimTemplates:
   - name: config

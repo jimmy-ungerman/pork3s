@@ -49,7 +49,6 @@ ingress:
     tls:
       - hosts:
           - *host
-        secretName: radarr4k
 
 podSecurityContext:
   runAsUser: 1000

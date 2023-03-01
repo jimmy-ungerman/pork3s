@@ -51,7 +51,6 @@ ingress:
     tls:
       - hosts:
           - *host
-        secretName: sabnzbd
 
 resources:
   requests:

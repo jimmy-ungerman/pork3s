@@ -42,7 +42,7 @@ ingress:
     tls:
       - hosts:
           - *host
-        secretName: overseerr
+
 
 resources:
   requests:
