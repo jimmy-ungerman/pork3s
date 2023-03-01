@@ -180,7 +180,11 @@ sonarr:
           - 4fc15eeb8f2f9a749f918217d4234ad8 # v4
           - 44a8ee6403071dd7b8a3a8dd3fe8cb20 # VRV
           - b2550eb333d27b75833e25b8c2557b38 # 10bit
-          - 418f50b10f1907201b6cfdf881f467b7 # Anime Dual Audio
           - 9c14d194486c4014d422adc64092d794 # Dubs Only
         quality_profiles:
           - name: Anime
+      - trash_ids:
+          - 418f50b10f1907201b6cfdf881f467b7 # Anime Dual Audio
+        quality_profiles:
+          - name: Anime
+            score: 2000
