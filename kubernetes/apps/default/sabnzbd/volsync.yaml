@@ -7,6 +7,14 @@ metadata:
 spec:
   itemPath: "vaults/kube-secrets/items/sabnzbd-restic-secret"
 ---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  name: usenet-restic-secret
+  namespace: default
+spec:
+  itemPath: "vaults/kube-secrets/items/usenet-restic-secret"
+---
 # yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/replicationsource_v1alpha1.json
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
