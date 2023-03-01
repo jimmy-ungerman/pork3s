@@ -34,6 +34,23 @@ probes:
   startup:
     enabled: false
 
+ingress:
+  main:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      cert-manager.io/cluster-issuer: le-prod
+    hosts:
+      - host: &host "radarr4k.porkboi.io"
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - *host
+        secretName: radarr4k
+
 podSecurityContext:
   runAsUser: 1000
   runAsGroup: 1000
@@ -53,7 +70,7 @@ persistence:
     enabled: true
     type: nfs
     server: 10.0.0.25
-    path: /data/media
+    path: /mnt/fire/media
     mountPath: /data/media
   downloads:
     enabled: true

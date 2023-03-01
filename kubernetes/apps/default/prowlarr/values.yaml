@@ -24,6 +24,23 @@ podSecurityContext:
   fsGroup: 1000
   fsGroupChangePolicy: "OnRootMismatch"
 
+ingress:
+  main:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      cert-manager.io/cluster-issuer: le-prod
+    hosts:
+      - host: &host "prowlarr.porkboi.io"
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - *host
+        secretName: prowlarr
+
 volumeClaimTemplates:
   - name: config
     mountPath: /config

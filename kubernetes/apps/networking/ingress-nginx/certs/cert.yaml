@@ -6,7 +6,6 @@ metadata:
 spec:
   secretName: porkboi-cert
   dnsNames:
-  - "porkboi.io"
   - "*.porkboi.io"
   issuerRef:
     name: le-prod

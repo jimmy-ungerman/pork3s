@@ -12,5 +12,4 @@ helmCharts:
     valuesFile: values.yaml
 
 resources:
-  - ingressRoute.yaml
   - externalSecret.yaml

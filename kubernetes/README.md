@@ -48,5 +48,4 @@ kustomize build --enable-alpha-plugins kubernetes/apps/rook-ceph/cluster/ | kube
 ```bash
 k apply -f kubernetes/apps/kube-system/external-secrets/app.yaml
 k apply -f kubernetes/apps/cert-manager/app.yaml
-k apply -f kubernetes/apps/networking/traefik/app.yaml
 k apply -f kubernetes/apps/argocd/app.yaml

@@ -10,6 +10,3 @@ helmCharts:
     repo: https://bjw-s.github.io/helm-charts
     version: v1.3.2
     valuesFile: values.yaml
-
-resources:
-  - ingressRoute.yaml

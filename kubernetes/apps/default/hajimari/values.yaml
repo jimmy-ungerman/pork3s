@@ -49,6 +49,19 @@ hajimari:
 podAnnotations:
   configmap.reloader.stakater.com/reload: "hajimari-settings"
 
+ingress:
+  main:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - host: &host "hajimari.porkboi.io"
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - *host
+
 persistence:
   data:
     enabled: true
