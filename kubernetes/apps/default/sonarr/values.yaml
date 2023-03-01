@@ -48,7 +48,7 @@ ingress:
     tls:
       - hosts:
           - *host
-        secretName: sonarr
+
 
 podSecurityContext:
   runAsUser: 1000
