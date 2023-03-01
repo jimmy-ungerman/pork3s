@@ -12,4 +12,5 @@ helmCharts:
     namespace: rook-ceph
     repo: https://charts.rook.io/release
     version: v1.10.11
+    includeCRDs: true
     valuesFile: values.yaml
