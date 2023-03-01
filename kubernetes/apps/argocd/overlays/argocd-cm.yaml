@@ -4,6 +4,7 @@ metadata:
   name: argocd-cm
 data:
   kustomize.buildOptions: "--enable-alpha-plugins"
+  server.insecure: "true"
   resource.exclusions: |
      - apiGroups:
          - cilium.io
