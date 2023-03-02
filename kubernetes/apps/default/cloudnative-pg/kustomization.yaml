@@ -12,3 +12,6 @@ helmCharts:
     valuesInline:
       crds:
         create: true
+
+resources:
+  - cluster/
