@@ -85,7 +85,7 @@ cephObjectStores:
             cpu: 1000m
             memory: 1Gi
           limits:
-            memory: 4Gi
+            memory: 6Gi
         instances: 1
       healthCheck:
         bucket:
