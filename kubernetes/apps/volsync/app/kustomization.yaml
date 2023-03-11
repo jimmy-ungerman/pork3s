@@ -9,7 +9,7 @@ helmCharts:
     releaseName: volsync
     namespace: volsync
     repo: https://backube.github.io/helm-charts/
-    version: 0.6.0
+    version: 0.6.1
     includeCRDs: true
     valuesInline:
       manageCRDs: true
