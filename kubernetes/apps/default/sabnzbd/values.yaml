@@ -6,12 +6,10 @@ image:
   tag: 3.7.2@sha256:1650ac838f239899cb3701fd28ffb551e2abdc6b3001d6c19bd80dca0564ec2a
 
 podSecurityContext:
-  runAsUser: 1000
-  runAsGroup: 1000
-  fsGroup: 1000
+  runAsUser: 950
+  runAsGroup: 950
+  fsGroup: 950
   fsGroupChangePolicy: "OnRootMismatch"
-  supplementalGroups:
-    - 65539
 
 env:
   SABNZBD__PORT: &port 8080
