@@ -8,7 +8,6 @@ spec:
   project: default
   sources:
   - repoURL: https://github.com/jimmy-ungerman/pork3s.git
-    path: kubernetes/apps/default/tautulli/values
     targetRevision: main
     ref: values
   - repoURL: https://bjw-s.github.io/helm-charts/
@@ -16,7 +15,7 @@ spec:
     targetRevision: 1.3.2
     helm:
       valueFiles:
-      - $values/values.yaml
+      - $values/kubernetes/apps/default/tautulli/values/values.yaml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: default
