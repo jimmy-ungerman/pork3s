@@ -1,0 +1,23 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tautulli
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: app-template
+    repoURL: https://bjw-s.github.io/helm-charts
+    targetRevision: 1.3.2
+    helm:
+      valueFiles:
+      - values.yaml
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true

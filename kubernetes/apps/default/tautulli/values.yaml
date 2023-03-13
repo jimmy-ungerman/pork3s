@@ -1,0 +1,42 @@
+controller:
+  type: statefulset
+image:
+  repository: ghcr.io/onedr0p/tautulli
+  tag: 2.12.0@sha256:c3a48db978e3886817c6c8b7895136a720e2667ae037f5c52500fd404b2a9233
+env:
+  TZ: America/Boise
+service:
+  main:
+    ports:
+      http:
+        port: 8181
+ingress:
+  main:
+    enabled: true
+    annotations:
+      hajimari.io/icon: mdi:chart-bar
+    hosts:
+      - host: &host "{{ .Release.Name }}.porkboi.io"
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - *host
+podSecurityContext:
+  runAsUser: 950
+  runAsGroup: 950
+  fsGroup: 950
+  fsGroupChangePolicy: OnRootMismatch
+volumeClaimTemplates:
+  - name: config
+    mountPath: /config
+    accessMode: ReadWriteOnce
+    size: 5Gi
+    storageClass: ceph-block
+resources:
+  requests:
+    cpu: 10m
+    memory: 250Mi
+  limits:
+    memory: 500Mi
