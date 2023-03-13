@@ -242,7 +242,7 @@ pgchecker:
     # Docker image used to check Postgresql readiness at startup
     repository: docker.io/busybox
     # Image tag for the pgchecker image
-    tag: 1.32
+    tag: 1.36
     # Image pull policy for the pgchecker image
     pullPolicy: IfNotPresent
   # SecurityContext for the pgchecker container
