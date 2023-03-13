@@ -18,6 +18,11 @@ ingress:
     tls:
       - hosts:
           - *host
+service:
+  main:
+    ports:
+      http:
+        port: 8181
 podSecurityContext:
   runAsUser: 950
   runAsGroup: 950
