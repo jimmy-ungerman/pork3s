@@ -5,11 +5,6 @@ image:
   tag: 2.12.0@sha256:c3a48db978e3886817c6c8b7895136a720e2667ae037f5c52500fd404b2a9233
 env:
   TZ: America/Boise
-service:
-  main:
-    ports:
-      http:
-        port: 8181
 ingress:
   main:
     enabled: true
