@@ -32,9 +32,9 @@ ingress:
           - *host
 
 podSecurityContext:
-  runAsUser: 950
-  runAsGroup: 950
-  fsGroup: 950
+  runAsUser: 568
+  runAsGroup: 568
+  fsGroup: 568
   fsGroupChangePolicy: "OnRootMismatch"
   supplementalGroups: [44, 109, 10000]
 
@@ -50,9 +50,8 @@ persistence:
     enabled: true
     type: nfs
     server: 10.0.0.25
-    path: /mnt/fire/media
-    mountPath: /data/media
-    readOnly: true
+    path: /mnt/fire/media/data
+    mountPath: /data
   transcode:
     enabled: true
     type: emptyDir

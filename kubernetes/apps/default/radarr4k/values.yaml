@@ -52,5 +52,5 @@ persistence:
     enabled: true
     type: nfs
     server: 10.0.0.25
-    path: /mnt/fire/data
-    mountPath: /data/
+    path: /mnt/fire/media/data
+    mountPath: /data
