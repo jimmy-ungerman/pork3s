@@ -31,9 +31,10 @@ service:
 persistence:
   downloads:
     enabled: true
-    existingClaim: usenet-data
+    type: nfs
+    server: 10.0.0.25
+    path: /mnt/fire/data/usenet
     mountPath: /data/usenet
-
 ingress:
   main:
     enabled: true
