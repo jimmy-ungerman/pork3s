@@ -58,10 +58,3 @@ persistence:
     enabled: true
     existingClaim: usenet-data
     mountPath: /data/usenet
-
-resources:
-  requests:
-    cpu: 10m
-    memory: 250Mi
-  limits:
-    memory: 2000Mi
