@@ -33,9 +33,9 @@ persistence:
     enabled: true
     type: nfs
     server: 10.0.0.25
-    path: /mnt/fire/data/usenet
+    path: /mnt/fire/media/data/usenet
     mountPath: /data/usenet
-    
+
 ingress:
   main:
     enabled: true
