@@ -35,6 +35,7 @@ persistence:
     server: 10.0.0.25
     path: /mnt/fire/data/usenet
     mountPath: /data/usenet
+    
 ingress:
   main:
     enabled: true

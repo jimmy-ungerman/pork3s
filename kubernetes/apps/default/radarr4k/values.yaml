@@ -70,11 +70,7 @@ persistence:
     server: 10.0.0.25
     path: /mnt/fire/data
     mountPath: /data/
-  downloads:
-    enabled: true
-    existingClaim: usenet-data
-    mountPath: /data/usenet
-
+    
 resources:
   requests:
     cpu: 10m
