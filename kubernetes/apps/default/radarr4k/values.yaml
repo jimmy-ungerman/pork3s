@@ -50,9 +50,9 @@ ingress:
           - *host
 
 podSecurityContext:
-  runAsUser: 950
-  runAsGroup: 950
-  fsGroup: 950
+  runAsUser: 568
+  runAsGroup: 568
+  fsGroup: 568
   fsGroupChangePolicy: "OnRootMismatch"
   supplementalGroups: [10000]
 
@@ -70,7 +70,7 @@ persistence:
     server: 10.0.0.25
     path: /mnt/fire/data
     mountPath: /data/
-    
+
 resources:
   requests:
     cpu: 10m
