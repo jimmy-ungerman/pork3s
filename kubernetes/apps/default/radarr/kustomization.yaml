@@ -13,4 +13,3 @@ helmCharts:
 
 resources:
   - externalSecret.yaml
-  - volsync.yaml
