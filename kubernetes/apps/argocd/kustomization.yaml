@@ -23,11 +23,3 @@ images:
 
 generators:
 - secretGenerator.yaml
-
-patches:
-- path: overlays/argocd-server-deploy-command.yaml
-  target:
-    group: apps
-    kind: Deployment
-    name: argocd-server
-    version: v1
