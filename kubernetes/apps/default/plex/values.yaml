@@ -43,7 +43,7 @@ volumeClaimTemplates:
     mountPath: /config
     accessMode: ReadWriteOnce
     size: 100Gi
-    storageClass: ceph-block
+    storageClass: longhorn
 
 persistence:
   media:

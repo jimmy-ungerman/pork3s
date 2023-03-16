@@ -32,7 +32,7 @@ volumeClaimTemplates:
     mountPath: /config
     accessMode: ReadWriteOnce
     size: 5Gi
-    storageClass: ceph-block
+    storageClass: longhorn
 resources:
   requests:
     cpu: 10m

@@ -25,7 +25,7 @@ volumeClaimTemplates:
     mountPath: /app/config
     accessMode: ReadWriteOnce
     size: 1Gi
-    storageClass: ceph-block
+    storageClass: longhorn
 
 ingress:
   main:
