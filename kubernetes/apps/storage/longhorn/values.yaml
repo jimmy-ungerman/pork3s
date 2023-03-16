@@ -3,6 +3,8 @@ persistence:
 defaultSettings:
   defaultReplicaCount: 1
   defaultLonghornStaticStorageClass: longhorn
+  defaultDataPath: /data
+  createDefaultDiskLabeledNodes: true
 ingress:
   enabled: true
   annotations:

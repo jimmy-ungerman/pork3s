@@ -51,11 +51,6 @@ ingress:
       - hosts:
           - *host
 
-resources:
-  requests:
-    cpu: 15m
-    memory: "2048M"
-
 volumeClaimTemplates:
   - name: config
     mountPath: /config
