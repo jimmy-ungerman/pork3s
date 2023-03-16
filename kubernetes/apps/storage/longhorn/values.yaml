@@ -8,9 +8,6 @@ defaultSettings:
   backupTargetCredentialSecret: longhorn-secret
 ingress:
   enabled: true
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
+  ingressClassName: nginx
   host: longhorn.porkboi.io
-  tls:
-  - hosts:
-    - longhorn.porkboi.io
+  tls: true
