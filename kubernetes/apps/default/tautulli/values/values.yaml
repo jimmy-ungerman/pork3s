@@ -8,7 +8,8 @@ env:
 ingress:
   main:
     enabled: true
-    hajimari.io/icon: mdi:chart-bar
+    annotations:
+      hajimari.io/icon: mdi:chart-bar
     hosts:
       - host: &host "{{ .Release.Name }}.porkboi.io"
         paths:
