@@ -5,7 +5,7 @@ defaultSettings:
   defaultLonghornStaticStorageClass: longhorn
   defaultDataPath: /data
   createDefaultDiskLabeledNodes: true
-  backupTarget: s3:http://10.0.0.25:9000/longhorn
+  backupTarget: s3:10.0.0.25:9000/longhorn
   backupTargetCredentialSecret: longhorn-secret
 ingress:
   enabled: true
