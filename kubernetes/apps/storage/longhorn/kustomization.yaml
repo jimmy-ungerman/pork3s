@@ -10,3 +10,6 @@ helmCharts:
     repo: https://charts.longhorn.io
     version: v1.4.1
     valuesFile: values.yaml
+
+resources:
+  - externalSecret.yaml
