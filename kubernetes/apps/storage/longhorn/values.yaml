@@ -1,0 +1,13 @@
+persistence:
+  defaultClassReplicaCount: 1
+defaultSettings:
+  defaultReplicaCount: 1
+  defaultLonghornStaticStorageClass: longhorn
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+  host: longhorn.porkboi.io
+  tls:
+  - hosts:
+    - longhorn.porkboi.io

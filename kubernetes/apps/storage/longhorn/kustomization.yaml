@@ -1,0 +1,12 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: storage
+
+helmCharts:
+  - name: longhorn
+    releaseName: longhorn
+    namespace: storage
+    repo: https://charts.longhorn.io
+    version: v1.4.1
+    valuesFile: values.yaml

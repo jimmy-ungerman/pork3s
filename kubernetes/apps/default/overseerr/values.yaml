@@ -15,9 +15,9 @@ service:
         port: *port
 
 podSecurityContext:
-  runAsUser: 950
-  runAsGroup: 950
-  fsGroup: 950
+  runAsUser: 568
+  runAsGroup: 568
+  fsGroup: 568
   fsGroupChangePolicy: "OnRootMismatch"
 
 volumeClaimTemplates:
