@@ -24,6 +24,14 @@ ingress:
       external-dns.alpha.kubernetes.io/hostname: plex.porkboi.io
       nginx.ingress.kubernetes.io/configuration-snippet: |
         more_set_headers "Host: $host";
+        more_set_headers "X-Real-IP: $remote_addr";
+        more_set_headers "X-Forwarded-For: $proxy_add_x_forwarded_for";
+        more_set_headers "X-Forwarded-Proto: $scheme";
+        more_set_headers "Sec-WebSocket-Extensions: $http_sec_websocket_extensions;";
+        more_set_headers "Sec-WebSocket-Key: $http_sec_websocket_key";
+        more_set_headers "Sec-WebSocket-Version: $http_sec_websocket_version";
+        more_set_headers "Upgrade: $http_upgrade";
+        more_set_headers "Connection: 'Upgrade";
     hosts:
       - host: &host "plex.porkboi.io"
         paths:
