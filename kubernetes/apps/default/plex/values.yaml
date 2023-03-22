@@ -10,7 +10,6 @@ env:
 
 service:
   main:
-    type: LoadBalancer
     ports:
       http:
         port: 32400
