@@ -14,7 +14,7 @@ controller:
     client-header-timeout: 120
     enable-brotli: "true"
     enable-real-ip: "true"
-    forwarded-for-header: "proxy_protocol"
+    forwarded-for-header: "CF-Connecting-IP"
     hsts-max-age: "31449600"
     keep-alive-requests: 10000
     keep-alive: 120
