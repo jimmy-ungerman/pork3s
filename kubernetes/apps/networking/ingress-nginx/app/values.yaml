@@ -38,13 +38,13 @@ controller:
     proxy-add-original-uri-header: "true"
   extraArgs: 
       default-ssl-certificate: "networking/porkboi-cert"
-defaultBackend:
-  enabled: true
-  image:
-    repository: ghcr.io/tarampampam/error-pages
-    tag: latest # Using the latest tag is highly discouraged. Please, use tags in X.Y.Z format
-  extraEnvs:
-  - name: TEMPLATE_NAME # Optional: change the default theme
-    value: ghost
-  - name: SHOW_DETAILS # Optional: enables the output of additional information on error pages
-    value: 'true'
+# defaultBackend:
+#   enabled: true
+#   image:
+#     repository: ghcr.io/tarampampam/error-pages
+#     tag: latest # Using the latest tag is highly discouraged. Please, use tags in X.Y.Z format
+#   extraEnvs:
+#   - name: TEMPLATE_NAME # Optional: change the default theme
+#     value: ghost
+#   - name: SHOW_DETAILS # Optional: enables the output of additional information on error pages
+#     value: 'true'
