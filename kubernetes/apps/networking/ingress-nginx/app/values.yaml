@@ -4,7 +4,7 @@ controller:
     - name: TZ
       value: America/Boise
   service:
-    loadBalancerIP: 10.45.0.8
+    loadBalancerIP: 10.42.0.10
     externalTrafficPolicy: Local
   ingressClassResource:
     default: true
