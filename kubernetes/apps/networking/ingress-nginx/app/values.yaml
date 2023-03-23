@@ -33,9 +33,6 @@ controller:
     proxy-buffer-size: "16k"
     ssl-protocols: "TLSv1.3 TLSv1.2"
     use-forwarded-headers: "true"
-    compute-full-forwarded-for: "true"
-    use-proxy-protocol: "true"
-    proxy-add-original-uri-header: "true"
   extraArgs: 
       default-ssl-certificate: "networking/porkboi-cert"
 # defaultBackend:
