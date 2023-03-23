@@ -27,7 +27,7 @@ ingress:
     ingressClassName: nginx
     annotations:
       nginx.ingress.kubernetes.io/whitelist-source-range: |
-        10.1.0.0/24, 10.0.0.0/24, 10.42.0.0/16, 65.129.84.126/32
+        10.1.0.0/24
       hajimari.io/enable: "false"
     hosts:
       - host: &host "hajimari.porkboi.io"
