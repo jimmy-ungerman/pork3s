@@ -9,7 +9,7 @@ env:
   DNS_SERVER: "1.1.1.1"
 envFrom:
   - secretRef:
-      name: cloudflare-ddns-secrets
+      name: cloudflare-ddns-secret
 service:
   main:
     enabled: false
