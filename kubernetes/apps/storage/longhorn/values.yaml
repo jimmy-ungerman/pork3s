@@ -5,7 +5,10 @@ defaultSettings:
   defaultLonghornStaticStorageClass: longhorn
   defaultDataPath: /data
   createDefaultDiskLabeledNodes: true
+  backupTarget: s3://longhorn@dummyregion/backups
   backupTargetCredentialSecret: longhorn-secret
+  taintToleration: node-role.kubernetes.io/master:NoSchedule
+  storageMinimalAvailablePercentage: 10
 ingress:
   enabled: true
   ingressClassName: nginx

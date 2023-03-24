@@ -35,12 +35,11 @@ kustomize build --enable-alpha-plugins kubernetes/apps/networking/ingress | kube
 kustomize build --enable-alpha-plugins kubernetes/apps/networking/traefik | kubectl apply -f -
 ```
 
-### Deploy Rook-Ceph
+### Deploy Longhorn Storage
 Deploy Rook Ceph Cluster to allow for storage
 
 ```bash
-kustomize build --enable-alpha-plugins kubernetes/apps/rook-ceph/operator/ | kubectl apply -f -
-kustomize build --enable-alpha-plugins kubernetes/apps/rook-ceph/cluster/ | kubectl apply -f -
+kustomize build --enable-alpha-plugins kubernetes/apps/storage/longhorn/ | kubectl apply -f -
 ```
 
 ### Import the existing apps back into ArgoCD
