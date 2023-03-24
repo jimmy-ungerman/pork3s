@@ -30,6 +30,11 @@ ingress:
       - hosts:
           - *host
 
+initContainers:
+  - copyDB:
+    image: busybox:1.28
+    command: ['sleep 60']
+
 podSecurityContext:
   runAsUser: 568
   runAsGroup: 568
