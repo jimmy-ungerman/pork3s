@@ -31,7 +31,7 @@ ingress:
           - *host
 
 initContainers:
-  copyDB:
+  copydb:
     image: busybox:1.28
     command: ['sleep 60']
 
