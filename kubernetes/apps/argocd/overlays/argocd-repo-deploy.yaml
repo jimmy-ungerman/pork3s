@@ -7,6 +7,10 @@ spec:
     spec:
       containers:
         - name: argocd-repo-server
+          args:
+          - /usr/local/bin/argocd-repo-server
+          - --redis
+          - argocd-redis:6379
           env:
           - name: XDG_CONFIG_HOME
             value: /.config
