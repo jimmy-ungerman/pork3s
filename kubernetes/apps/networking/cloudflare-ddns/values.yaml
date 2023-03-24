@@ -1,0 +1,22 @@
+image:
+  repository: docker.io/oznu/cloudflare-ddns
+  tag: latest
+  pullPolicy: IfNotPresent
+env:
+  PROXIED: "true"
+  RRTYPE: "A"
+  DELETE_ON_STOP: "false"
+  DNS_SERVER: "1.1.1.1"
+envFrom:
+  - secretRef:
+      name: cloudflare-ddns-secrets
+service:
+  main:
+    enabled: false
+resources:
+  requests:
+    cpu: 15m
+    memory: 64M
+  limits:
+    # cpu: 15m
+    memory: 64M
