@@ -2,7 +2,7 @@ controller:
   type: statefulset
 image:
   repository: ghcr.io/sct/overseerr
-  tag: 1.32.5
+  tag: develop
 env:
   TZ: America/Boise
   LOG_LEVEL: "info"
