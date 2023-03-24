@@ -33,7 +33,7 @@ ingress:
 initContainers:
   copydb:
     image: busybox:1.28
-    command: ['sh', '-c', 'ls -la && sleep 30']
+    command: ['sh', '-c', 'ls -la /home/jimmy && sleep 30']
     volumeMounts:
       - name: test
         mountPath: "/home/jimmy"
