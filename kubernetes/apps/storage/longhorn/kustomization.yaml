@@ -13,3 +13,5 @@ helmCharts:
 
 resources:
   - externalSecret.yaml
+  - jobs/snapshots.yaml
+  - jobs/backups.yaml
