@@ -12,3 +12,6 @@ spec: # CiliumBGPPeeringPolicySpec
    neighbors: # []CiliumBGPNeighbor
     - peerAddress: {{ bgp_router_ip }}/32
       peerASN: {{ bgp_as_number }}
+   serviceSelector:
+      matchExpressions:
+         - {key: somekey, operator: NotIn, values: ['never-used-value']}

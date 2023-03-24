@@ -1,5 +1,5 @@
 ---
 cilium_pod_network_ip: 10.42.0.0/16
-cilium_load_balancer_ip: 10.42.0.0/24
+cilium_load_balancer_ip: 10.45.0.0/28
 bgp_router_ip: 10.1.0.1
 bgp_as_number: 64512
