@@ -14,3 +14,15 @@ ingress:
   ingressClassName: nginx
   host: longhorn.porkboi.io
   tls: true
+
+longhornManager:
+  tolerations:
+  - key: ""
+    operator: "Exists"
+    effect: "NoSchedule"
+
+longhornDriver:
+  tolerations:
+  - key: ""
+    operator: "Exists"
+    effect: "NoSchedule"
