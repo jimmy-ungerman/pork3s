@@ -30,13 +30,13 @@ ingress:
       - hosts:
           - *host
 
-initContainers:
-  copydb:
-    image: busybox:1.28
-    command: ['sh', '-c', 'ls -la /home/jimmy && sleep 30']
-    volumeMounts:
-      - name: test
-        mountPath: "/home/jimmy"
+# initContainers:
+#   copydb:
+#     image: busybox:1.28
+#     command: ['sh', '-c', 'ls -la /home/jimmy && sleep 30']
+#     volumeMounts:
+#       - name: test
+#         mountPath: "/home/jimmy"
 
 
 podSecurityContext:
@@ -63,10 +63,10 @@ persistence:
   transcode:
     enabled: true
     type: emptyDir
-  test:
-    enabled: true
-    type: hostPath
-    hostPath: /home/jimmy
+  # test:
+  #   enabled: true
+  #   type: hostPath
+  #   hostPath: /home/jimmy
 
 nodeSelector:
   node-role.kubernetes.io/worker: "true"
