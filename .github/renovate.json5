@@ -18,11 +18,12 @@
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prIgnoreNotification"],
   "rebaseWhen": "conflicted",
-  "schedule": ["every day"],
+  "timezone": "America/Boise",
+  "schedule": ["daily"],
   "pre-commit": {
     "enabled": true
   },
-  "flux": {
+  "argocd": {
     "fileMatch": ["kubernetes/.+\\.ya?ml$"]
   },
   "helm-values": {
