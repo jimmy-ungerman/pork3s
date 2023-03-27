@@ -19,7 +19,7 @@
   "suppressNotifications": ["prIgnoreNotification"],
   "rebaseWhen": "conflicted",
   "timezone": "America/Boise",
-  "schedule": ["daily"],
+  "schedule": ["before 4am"],
   "pre-commit": {
     "enabled": true
   },
