@@ -30,21 +30,12 @@ ingress:
       - hosts:
           - *host
 
-# initContainers:
-#   copydb:
-#     image: busybox:1.28
-#     command: ['sh', '-c', 'ls -la /home/jimmy && sleep 30']
-#     volumeMounts:
-#       - name: test
-#         mountPath: "/home/jimmy"
-
-
 podSecurityContext:
   runAsUser: 568
   runAsGroup: 568
   fsGroup: 568
   fsGroupChangePolicy: "OnRootMismatch"
-  supplementalGroups: [44, 109, 10000]
+  supplementalGroups: [44]
 
 volumeClaimTemplates:
   - name: config
@@ -63,10 +54,6 @@ persistence:
   transcode:
     enabled: true
     type: emptyDir
-  # test:
-  #   enabled: true
-  #   type: hostPath
-  #   hostPath: /home/jimmy
 
 nodeSelector:
   node-role.kubernetes.io/worker: "true"
