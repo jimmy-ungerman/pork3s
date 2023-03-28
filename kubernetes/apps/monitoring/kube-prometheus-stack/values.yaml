@@ -71,31 +71,31 @@ prometheus:
     tls:
       - hosts:
           - *host
-    thanosService:
-      enabled: true
-    thanosServiceMonitor:
-      enabled: true
-    prometheusSpec:
-      replicas: 1
-      replicaExternalLabelName: __replica__
-      scrapeInterval: 1m
-      ruleSelectorNilUsesHelmValues: false
-      serviceMonitorSelectorNilUsesHelmValues: false
-      podMonitorSelectorNilUsesHelmValues: false
-      probeSelectorNilUsesHelmValues: false
-      enableAdminAPI: true
-      walCompression: true
-      thanos:
-        image: quay.io/thanos/thanos:v0.31.0
-        objectStorageConfig:
-          name: thanos-secret
-          key: objstore.yml
-      retention: 2d
-      retentionSize: 15GB
-      storageSpec:
-        volumeClaimTemplate:
-          spec:
-            storageClassName: longhorn
-            resources:
-              requests:
-                storage: 20Gi
+  thanosService:
+    enabled: true
+  thanosServiceMonitor:
+    enabled: true
+  prometheusSpec:
+    replicas: 1
+    replicaExternalLabelName: __replica__
+    scrapeInterval: 1m
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
+    enableAdminAPI: true
+    walCompression: true
+    thanos:
+      image: quay.io/thanos/thanos:v0.31.0
+      objectStorageConfig:
+        name: thanos-secret
+        key: objstore.yml
+    retention: 2d
+    retentionSize: 15GB
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: longhorn
+          resources:
+            requests:
+              storage: 20Gi
