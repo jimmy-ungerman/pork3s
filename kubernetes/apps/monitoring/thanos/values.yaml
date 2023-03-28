@@ -1,0 +1,49 @@
+image:
+  registry: quay.io
+  repository: thanos/thanos
+  tag: v0.31.0
+existingObjstoreSecret: thanos-secret
+queryFrontend:
+  enabled: true
+  replicaCount: 1
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hostname: &host thanos.porkboi.io
+    tls: true
+    extraTls:
+      - hosts:
+          - *host
+query:
+  enabled: true
+  replicaCount: 1
+  replicaLabel: ["__replica__"]
+  dnsDiscovery:
+    sidecarsService: kube-prometheus-stack-thanos-discovery
+    sidecarsNamespace: monitoring
+bucketweb:
+  enabled: true
+  replicaCount: 1
+compactor:
+  enabled: true
+  extraFlags:
+    - --compact.concurrency=4
+    - --delete-delay=30m
+  retentionResolutionRaw: 14d
+  retentionResolution5m: 14d
+  retentionResolution1h: 14d
+  persistence:
+    enabled: true
+    storageClass: longhorn
+    size: 20Gi
+storegateway:
+  enabled: true
+  replicaCount: 1
+  persistence:
+    enabled: true
+    storageClass: longhorn
+    size: 20Gi
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
