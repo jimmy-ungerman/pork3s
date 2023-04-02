@@ -2,8 +2,8 @@ controller:
   type: statefulset
 
 image:
-  repository: ghcr.io/onedr0p/plex-beta
-  tag: 1.31.3.6868-28fc46b27
+  repository: ghcr.io/onedr0p/plex
+  tag: 1.31.3.6868-28fc46b27@sha256:9bc113df99bb8255aa77e79be66d7558092d361592f9934299e1353bfacb32f4
 
 env:
   TZ: America/Boise
@@ -35,7 +35,7 @@ podSecurityContext:
   runAsGroup: 568
   fsGroup: 568
   fsGroupChangePolicy: "OnRootMismatch"
-  supplementalGroups: [44]
+  supplementalGroups: [44, 109, 10000]
 
 volumeClaimTemplates:
   - name: config
