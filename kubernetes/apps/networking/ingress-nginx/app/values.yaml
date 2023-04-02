@@ -1,5 +1,7 @@
 controller:
   replicaCount: 1
+  nodeSelector:
+    kubernetes.io/hostname: aang
   extraEnvs:
     - name: TZ
       value: America/Boise
