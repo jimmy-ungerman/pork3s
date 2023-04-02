@@ -8,6 +8,9 @@ queryFrontend:
   replicaCount: 1
   ingress:
     enabled: true
+    annotations:
+      nginx.ingress.kubernetes.io/whitelist-source-range: |
+        10.1.0.0/24
     ingressClassName: nginx
     hostname: &host thanos.porkboi.io
     tls: true
