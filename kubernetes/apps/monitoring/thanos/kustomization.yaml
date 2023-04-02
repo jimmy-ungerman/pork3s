@@ -11,4 +11,6 @@ helmCharts:
   version: 12.4.0
   valuesFile: values.yaml
   includeCRDs: true
-  
+
+resources:
+  - externalSecret.yaml
