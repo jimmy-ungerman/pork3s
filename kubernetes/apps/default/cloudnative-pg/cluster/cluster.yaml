@@ -27,8 +27,8 @@ spec:
       serverName: postgres-v3
       s3Credentials:
         accessKeyId:
-          name: cloudnative-pg-secret
+          name: cloudnative-pg
           key: aws-access-key-id
         secretAccessKey:
-          name: cloudnative-pg-secret
+          name: cloudnative-pg
           key: aws-secret-access-key
