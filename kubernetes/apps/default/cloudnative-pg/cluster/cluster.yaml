@@ -15,7 +15,7 @@ spec:
     size: 20Gi
     storageClass: longhorn
   superuserSecret:
-    name: cloudnative-pg-secret
+    name: cloudnative-pg
   backup:
     retentionPolicy: 30d
     barmanObjectStore:
