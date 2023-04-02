@@ -7,7 +7,6 @@ defaultSettings:
   createDefaultDiskLabeledNodes: true
   backupTarget: s3://longhorn@dummyregion/backups
   backupTargetCredentialSecret: longhorn-secret
-  taintToleration: node-role.kubernetes.io/master:NoSchedule
   storageMinimalAvailablePercentage: 10
 ingress:
   enabled: true
@@ -17,15 +16,3 @@ ingress:
   ingressClassName: nginx
   host: longhorn.porkboi.io
   tls: true
-
-longhornManager:
-  tolerations:
-  - key: ""
-    operator: "Exists"
-    effect: "NoSchedule"
-
-longhornDriver:
-  tolerations:
-  - key: ""
-    operator: "Exists"
-    effect: "NoSchedule"

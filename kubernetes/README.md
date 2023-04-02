@@ -7,7 +7,11 @@ To get the cluster to function as intended, we need to deploy some apps in a spe
 2. Cert-Manager
 3. Traefik
 4. ArgoCD
+### Label Worker Nodes
 
+```bash
+kubectl label node zuko node-role.kubernetes.io/worker=true --overwrite
+```
 ### Deploy External-Secrets
 Begin by deploying the External-Secrets namepsace and the chart for the external-secrets application. Then we can deploy the onepassword connector to utilize OnePassword for all of our secrets
 
@@ -26,17 +30,17 @@ kustomize build --enable-alpha-plugins kubernetes/apps/cert-manager | kubectl ap
 ### Deploy Ingress-Nginx
 
 ```bash
-kustomize build --enable-alpha-plugins kubernetes/apps/networking/ingress | kubectl apply -f -
+kustomize build --enable-alpha-plugins kubernetes/apps/networking/ingress-nginx | kubectl apply -f -
 ```
 
 ### Deploy Argocd
 
 ```bash
-kustomize build --enable-alpha-plugins kubernetes/apps/networking/traefik | kubectl apply -f -
+kustomize build --enable-alpha-plugins kubernetes/apps/argocd | kubectl apply -f -
 ```
 
 ### Deploy Longhorn Storage
-Deploy Rook Ceph Cluster to allow for storage
+Deploy Longhorn storage
 
 ```bash
 kustomize build --enable-alpha-plugins kubernetes/apps/storage/longhorn/ | kubectl apply -f -
@@ -48,3 +52,6 @@ kustomize build --enable-alpha-plugins kubernetes/apps/storage/longhorn/ | kubec
 k apply -f kubernetes/apps/kube-system/external-secrets/app.yaml
 k apply -f kubernetes/apps/cert-manager/app.yaml
 k apply -f kubernetes/apps/argocd/app.yaml
+```
+
+You'll need to restart all of the csi pods for longhorn to work
