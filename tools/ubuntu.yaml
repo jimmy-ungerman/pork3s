@@ -5,6 +5,10 @@ metadata:
   labels:
     app: ubuntu
 spec:
+  volumes:
+    - name: attach-pv
+      persistentVolumeClaim:
+        claimName: config-plex-0
   containers:
   - image: ubuntu
     command:
@@ -12,3 +16,6 @@ spec:
       - "604800"
     imagePullPolicy: IfNotPresent
     name: ubuntu
+    volumeMounts:
+      - mountPath: "/config"
+        name: attach-pv
