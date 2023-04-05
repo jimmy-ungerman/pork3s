@@ -4,6 +4,7 @@ metadata:
   name: argocd-server-http-ingress
   namespace: argocd
   annotations:
+    external-dns.alpha.kubernetes.io/target: porkboi.io
     cert-manager.io/cluster-issuer: le-prod
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"

@@ -87,7 +87,7 @@ ingress:
   enabled: true
   ingressClassName: nginx
   annotations:
-    external-dns.alpha.kubernetes.io/target: ipv4.porkboi.io
+    external-dns.alpha.kubernetes.io/target: porkboi.io
     hajimari.io/icon: simple-icons:grafana
   hosts:
     - &host grafana.porkboi.io
