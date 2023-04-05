@@ -84,6 +84,7 @@ addons:
       enabled: true
       ingressClassName: nginx
       annotations:
+        external-dns.alpha.kubernetes.io/target: porkboi.io
         hajimari.io/appName: "Hass Config"
         hajimari.io/icon: cib:visual-studio-code
       hosts:
