@@ -19,6 +19,7 @@ ingress:
     enabled: true
     ingressClassName: nginx
     annotations:
+      external-dns.alpha.kubernetes.io/target: porkboi.io
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       external-dns.alpha.kubernetes.io/hostname: plex.porkboi.io
     hosts:

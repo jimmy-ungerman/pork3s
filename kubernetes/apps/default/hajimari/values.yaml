@@ -26,6 +26,7 @@ ingress:
     enabled: true
     ingressClassName: nginx
     annotations:
+      external-dns.alpha.kubernetes.io/target: porkboi.io
       nginx.ingress.kubernetes.io/whitelist-source-range: |
         10.1.0.0/24
       hajimari.io/enable: "false"
