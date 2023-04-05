@@ -15,7 +15,7 @@ env:
 extraArgs:
   - --cloudflare-proxied
   - --annotation-filter=external-dns.alpha.kubernetes.io/target
-policy: upsert-only
+policy: sync
 sources: ["ingress"]
 txtPrefix: k8s.
 txtOwnerId: default
