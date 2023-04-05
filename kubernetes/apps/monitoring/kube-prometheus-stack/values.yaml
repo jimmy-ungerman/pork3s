@@ -98,3 +98,7 @@ prometheus:
           resources:
             requests:
               storage: 20Gi
+    additionalScrapeConfigs:
+    - job_name: smartctl_exporter
+      static_configs:
+        - targets: ["smartctl-exporter:80"] # router
