@@ -8,7 +8,7 @@ helmCharts:
     releaseName: radarr4k
     namespace: default
     repo: https://bjw-s.github.io/helm-charts
-    version: v1.3.2
+    version: 1.4.0
     valuesFile: values.yaml
 
 resources:
