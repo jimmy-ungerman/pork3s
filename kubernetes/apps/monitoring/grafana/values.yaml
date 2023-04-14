@@ -50,12 +50,6 @@ datasources:
         url: http://thanos-query-frontend.monitoring.svc.cluster.local:9090
         # url: http://thanos-query-frontend.monitoring.svc.cluster.local:10902
         isDefault: true
-      - name: Loki
-        type: loki
-        access: proxy
-        url: http://loki-gateway.monitoring.svc.cluster.local
-        jsonData:
-          maxLines: 250
       - name: Alertmanager
         type: alertmanager
         access: proxy
