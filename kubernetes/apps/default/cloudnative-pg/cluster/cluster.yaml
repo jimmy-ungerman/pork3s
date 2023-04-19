@@ -9,7 +9,7 @@ metadata:
     kyverno.io/ignore: "true"
 spec:
   instances: 1
-  imageName: ghcr.io/cloudnative-pg/postgresql:14.5
+  imageName: ghcr.io/cloudnative-pg/postgrkesql:14.5
   primaryUpdateStrategy: unsupervised
   storage:
     size: 100Gi
@@ -23,7 +23,7 @@ spec:
         compression: bzip2
         maxParallel: 8
       destinationPath: s3://postgresql/
-      endpointURL: http://10.0.0.25:9000
+      endpointURL: http://10.0.0.25:9001
       serverName: postgres-v3
       s3Credentials:
         accessKeyId:
