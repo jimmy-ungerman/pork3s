@@ -28,7 +28,7 @@ spec:
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg
-          key: aws-access-key-id
+          key: AWS_SECRET_KEY_ID
         secretAccessKey:
           name: cloudnative-pg
-          key: aws-secret-access-key
+          key: AWS_SECRET_ACCESS_KEY
