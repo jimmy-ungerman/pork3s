@@ -23,12 +23,12 @@ spec:
         compression: bzip2
         maxParallel: 8
       destinationPath: s3://postgresql/
-      endpointURL: http://10.0.0.25:9001
+      endpointURL: http://10.0.0.25:9000
       serverName: postgres-v3
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg
-          key: AWS_SECRET_KEY_ID
+          key: aws-access-key-id
         secretAccessKey:
           name: cloudnative-pg
-          key: AWS_SECRET_ACCESS_KEY
+          key: aws-secret-access-key
