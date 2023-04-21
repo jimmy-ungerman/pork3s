@@ -6,8 +6,11 @@ controller:
     - name: TZ
       value: America/Boise
   service:
-    loadBalancerIP: 10.45.0.10
+    type: LoadBalancer
+    externalIPs: ["10.45.0.10"]
     externalTrafficPolicy: Local
+  publishService:
+    enabled: true
   ingressClassResource:
     default: true
   config:
