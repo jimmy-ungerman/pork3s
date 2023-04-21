@@ -19,7 +19,7 @@ router bgp {{ AS }}
  ! Neighbors for k8s
  {% for node in k3s_nodes %}
  neighbor {{ node }} peer-group k8s
-{% endfor %}
+ {% endfor %}
 
  address-family ipv4 unicast
   redistribute connected
