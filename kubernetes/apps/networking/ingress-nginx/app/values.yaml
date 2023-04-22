@@ -7,7 +7,7 @@ controller:
       value: America/Boise
   service:
     type: LoadBalancer
-    externalIPs: ["10.45.0.10"]
+    loadBalancerIP: 10.45.0.10
     externalTrafficPolicy: Local
   publishService:
     enabled: true
