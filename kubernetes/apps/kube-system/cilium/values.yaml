@@ -2,18 +2,18 @@
 # nodes if worker nodes share a common L2 network segment.
 autoDirectNodeRoutes: true
 
-bgp:
-  # -- Enable BGP support inside Cilium; embeds a new ConfigMap for BGP inside
-  # cilium-agent and cilium-operator
-  enabled: true
-  announce:
-    # -- Enable allocation and announcement of service LoadBalancer IPs
-    loadbalancerIP: true
-    # -- Enable announcement of node pod CIDR
-    podCIDR: false
-
-# bgpControlPlane:
+# bgp:
+#   # -- Enable BGP support inside Cilium; embeds a new ConfigMap for BGP inside
+#   # cilium-agent and cilium-operator
 #   enabled: true
+#   announce:
+#     # -- Enable allocation and announcement of service LoadBalancer IPs
+#     loadbalancerIP: true
+#     # -- Enable announcement of node pod CIDR
+#     podCIDR: false
+
+bgpControlPlane:
+  enabled: true
 
 # -- Configure cgroup related configuration
 cgroup:

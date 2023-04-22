@@ -7,7 +7,7 @@ controller:
       value: America/Boise
   service:
     type: LoadBalancer
-    externalTrafficPolicy: Local
+    externalTrafficPolicy: Cluster
     annotations:
       "io.cilium/lb-ipam-ips": "10.45.0.10"
     externalIPs:
