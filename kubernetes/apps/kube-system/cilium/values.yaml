@@ -9,10 +9,6 @@ cgroup:
     enabled: false
   hostRoot: "/sys/fs/cgroup"
 
-cluster:
-  name: "${CLUSTER_NAME}"
-  id: "${CLUSTER_ID}"
-
 tunnel: disabled
 autoDirectNodeRoutes: true
 ipv4NativeRoutingCIDR: "10.42.0.0/16"
@@ -31,3 +27,38 @@ kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
 rollOutCiliumPods: true
 operator:
   rollOutPods: true
+bgpControlPlane:
+      enabled: true
+loadBalancer:
+  algorithm: maglev
+  # mode: snat
+  mode: dsr
+nodePort:
+    enabled: true
+    range: 9993,32767
+bandwidthManager:
+  enabled: true
+l7Proxy: true
+hubble:
+  enabled: true
+  peerService:
+    clusterDomain: cluster.local
+  relay:
+    enabled: true
+  ui:
+    enabled: true
+    rollOutPods: true
+    ingress:
+      enabled: true
+      className: "nginx"
+      hosts:
+        - "hubble.porkboi.io"
+      tls:
+        - hosts:
+            - "hubble.porkboi.io"
+  tls:
+    enabled: true
+    auto:
+      enabled: true
+      method: "helm"
+      certValidityDuration: 3650
