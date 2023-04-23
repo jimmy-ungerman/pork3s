@@ -11,7 +11,7 @@ queryFrontend:
     annotations:
       external-dns.alpha.kubernetes.io/target: porkboi.io
       nginx.ingress.kubernetes.io/whitelist-source-range: |
-        10.1.0.0/24
+        10.0.0.0/24
     ingressClassName: nginx
     hostname: &host thanos.porkboi.io
     tls: true
