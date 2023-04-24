@@ -38,12 +38,12 @@ podSecurityContext:
   fsGroupChangePolicy: "OnRootMismatch"
   supplementalGroups: [44, 109, 10000]
 
-volumeClaimTemplates:
-  - name: config
-    mountPath: /config
-    accessMode: ReadWriteOnce
-    size: 100Gi
-    storageClass: longhorn
+# volumeClaimTemplates:
+#   - name: config
+#     mountPath: /config
+#     accessMode: ReadWriteOnce
+#     size: 100Gi
+#     storageClass: longhorn
 
 persistence:
   media:
@@ -55,6 +55,10 @@ persistence:
   transcode:
     enabled: true
     type: emptyDir
+  config:
+    enabled: true
+    type: pvc
+    existingClaim: config-plex-0
 
 nodeSelector:
   node-role.kubernetes.io/worker: "true"
