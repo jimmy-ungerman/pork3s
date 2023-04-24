@@ -2,8 +2,8 @@ controller:
   type: statefulset
 
 image:
-  repository: ghcr.io/onedr0p/plex-beta
-  tag: 1.32.1.6954-56a60573f@sha256:c1e26fcf378ec77e9fa5c486562c3c6497ad0baf7deaff2d9fa33c2a809b69df
+  repository: ghcr.io/onedr0p/plex
+  tag: 1.32.0.6973-a787c5a8e@sha256:970a7f3226b6d9e3dcda12134647b465a4f14115c03d52751264d603a8f621e5
 
 env:
   TZ: America/Boise
@@ -22,6 +22,7 @@ ingress:
       external-dns.alpha.kubernetes.io/target: porkboi.io
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       external-dns.alpha.kubernetes.io/hostname: plex.porkboi.io
+      hajimari.io/icon: mdi:plex
     hosts:
       - host: &host "plex.porkboi.io"
         paths:
@@ -37,13 +38,6 @@ podSecurityContext:
   fsGroup: 568
   fsGroupChangePolicy: "OnRootMismatch"
   supplementalGroups: [44, 109, 10000]
-
-# volumeClaimTemplates:
-#   - name: config
-#     mountPath: /config
-#     accessMode: ReadWriteOnce
-#     size: 100Gi
-#     storageClass: longhorn
 
 persistence:
   media:
