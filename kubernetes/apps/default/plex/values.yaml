@@ -1,67 +1,17 @@
-controller:
-  type: statefulset
-
-image:
-  repository: ghcr.io/onedr0p/plex-beta
-  tag: 1.32.1.6954-56a60573f@sha256:c1e26fcf378ec77e9fa5c486562c3c6497ad0baf7deaff2d9fa33c2a809b69df
-
-env:
-  TZ: America/Boise
-
-service:
-  main:
-    ports:
-      http:
-        port: 32400
-
-ingress:
-  main:
-    enabled: true
-    ingressClassName: nginx
-    annotations:
-      external-dns.alpha.kubernetes.io/target: porkboi.io
-      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-      external-dns.alpha.kubernetes.io/hostname: plex.porkboi.io
-    hosts:
-      - host: &host "plex.porkboi.io"
-        paths:
-          - path: /
-            pathType: Prefix
-    tls:
-      - hosts:
-          - *host
-
-podSecurityContext:
-  runAsUser: 568
-  runAsGroup: 568
-  fsGroup: 568
-  fsGroupChangePolicy: "OnRootMismatch"
-  supplementalGroups: [44, 109, 10000]
-
-volumeClaimTemplates:
-  - name: config
-    mountPath: /config
-    accessMode: ReadWriteOnce
-    size: 100Gi
-    storageClass: longhorn
-
-persistence:
-  media:
-    enabled: true
-    type: nfs
-    server: 10.0.0.25
-    path: /mnt/fire/media/data
-    mountPath: /data
-  transcode:
-    enabled: true
-    type: emptyDir
-
-nodeSelector:
-  node-role.kubernetes.io/worker: "true"
-  intel.feature.node.kubernetes.io/gpu: "true"
-
-resources:
-  requests:
-    gpu.intel.com/i915: 1
-  limits:
-    gpu.intel.com/i915: 1
+bgpControlPlane:
+  enabled: true
+ipam:
+  mode: kubernetes
+ipv4NativeRoutingCIDR: 10.42.0.0/16
+loadBalancer:
+  algorithm: maglev
+  mode: dsr
+tunnel: disabled
+autoDirectNodeRoutes: true
+endpointRoutes:
+  enabled: true
+k8sServiceHost: 10.1.0.10
+k8sServicePort: 6443
+kubeProxyReplacement: strict
+operator:
+  replicas: 1

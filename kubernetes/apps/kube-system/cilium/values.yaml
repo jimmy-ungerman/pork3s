@@ -81,8 +81,13 @@ hubble:
 
     # -- hubble-ui ingress configuration.
     ingress:
-      enabled: false
-
+      enabled: true
+      annotations:
+        external-dns.alpha.kubernetes.io/target: porkboi.io
+        external-dns.alpha.kubernetes.io/hostname: hubble.porkboi.io
+      className: nginx
+      hosts:
+        - hubble.porkboi.io
     # -- Roll out Hubble-ui pods automatically when configmap is updated.
     rollOutPods: true
 
