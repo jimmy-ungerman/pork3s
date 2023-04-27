@@ -18,5 +18,3 @@ configMapGenerator:
 
 resources:
   - externalSecret.yaml
-generators:
-- secretGenerator.yaml
