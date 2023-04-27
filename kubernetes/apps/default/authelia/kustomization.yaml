@@ -14,7 +14,9 @@ helmCharts:
 configMapGenerator:
   - name: authelia-configmap
     files:
-      - ./config/configuration.yml
+      - ./config/configuration.sops.yml
 
 resources:
   - externalSecret.yaml
+generators:
+- secretGenerator.yaml
