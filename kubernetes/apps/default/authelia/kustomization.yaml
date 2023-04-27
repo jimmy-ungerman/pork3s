@@ -11,11 +11,6 @@ helmCharts:
     version: 1.4.0
     valuesFile: values.yaml
 
-# configMapGenerator:
-#   - name: authelia-configmap
-#     files:
-#       - ./config/configuration.sops.yml
-
 resources:
   - externalSecret.yaml
 
