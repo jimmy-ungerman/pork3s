@@ -8,6 +8,7 @@ queryFrontend:
   replicaCount: 1
   ingress:
     enabled: true
+    ingressClassName: nginx
     annotations:
       nginx.ingress.kubernetes.io/auth-method: GET
       nginx.ingress.kubernetes.io/auth-url: http://authelia.default.svc.cluster.local/api/verify
@@ -18,7 +19,6 @@ queryFrontend:
       external-dns.alpha.kubernetes.io/target: porkboi.io
       nginx.ingress.kubernetes.io/whitelist-source-range: |
         10.0.0.0/24
-    ingressClassName: nginx
     hostname: &host thanos.porkboi.io
     tls: true
     extraTls:
