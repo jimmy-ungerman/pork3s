@@ -1,4 +1,6 @@
 cleanPrometheusOperatorObjectNames: true
+alertmanager:
+  enabled: false
 grafana:
   enabled: false
   forceDeployDashboards: true
@@ -8,7 +10,10 @@ grafana:
         etcd:
           enabled: true
 kube-state-metrics:
-  metricLabelsAllowlist: ["persistentvolumeclaims=[*]"]
+  metricLabelsAllowlist:
+    - "pods=[*]"
+    - "deployments=[*]"
+    - "persistentvolumeclaims=[*]"
   prometheus:
     monitor:
       enabled: true
@@ -46,23 +51,23 @@ kubeApiServer:
         action: drop
 kubeControllerManager:
   enabled: true
-  endpoints: ["10.1.0.2"]
+  endpoints: &cp
+    - 10.1.0.2
   serviceMonitor:
     metricRelabelings:
       # Remove duplicate metrics
       - sourceLabels: ["__name__"]
         regex: "(apiserver_audit|apiserver_client|apiserver_delegated|apiserver_envelope|apiserver_storage|apiserver_webhooks|attachdetach_controller|authenticated_user|authentication|cronjob_controller|disabled_metric|endpoint_slice|ephemeral_volume|garbagecollector_controller|get_token|go|hidden_metric|job_controller|kubernetes_build|kubernetes_feature|leader_election|node_collector|node_ipam|process_cpu|process_max|process_open|process_resident|process_start|process_virtual|pv_collector|registered_metric|replicaset_controller|rest_client|retroactive_storageclass|root_ca|running_managed|scrape_duration|scrape_samples|scrape_series|service_controller|storage_count|storage_operation|ttl_after|volume_operation|workqueue)_(.+)"
         action: keep
-kubeStateMetrics:
-  enabled: true
 kubeEtcd:
   enabled: true
-  endpoints: ["10.1.0.2"]
+  endpoints: *cp
 kubeProxy:
   enabled: false # Disabled because eBPF
+  endpoints: *cp
 kubeScheduler:
   enabled: true
-  endpoints: ["10.1.0.2"]
+  endpoints: *cp
   serviceMonitor:
     metricRelabelings:
       # Remove duplicate metrics
@@ -74,15 +79,10 @@ prometheus:
     enabled: true
     ingressClassName: nginx
     annotations:
-      external-dns.alpha.kubernetes.io/target: porkboi.io
+      nginx.ingress.kubernetes.io/whitelist-source-range: |
+        10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
       hajimari.io/appName: Prometheus
       hajimari.io/icon: simple-icons:prometheus
-      nginx.ingress.kubernetes.io/auth-method: GET
-      nginx.ingress.kubernetes.io/auth-url: http://authelia.default.svc.cluster.local/api/verify
-      nginx.ingress.kubernetes.io/auth-signin: https://auth.porkboi.io?rm=$request_method
-      nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
-      nginx.ingress.kubernetes.io/auth-snippet: |
-        proxy_set_header X-Forwarded-Method $request_method;
     pathType: Prefix
     hosts:
       - &host prometheus.porkboi.io
@@ -94,9 +94,8 @@ prometheus:
   thanosServiceMonitor:
     enabled: true
   prometheusSpec:
-    replicas: 1
+    replicas: 3
     replicaExternalLabelName: __replica__
-    scrapeInterval: 1m
     ruleSelectorNilUsesHelmValues: false
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
@@ -106,14 +105,14 @@ prometheus:
     thanos:
       image: quay.io/thanos/thanos:v0.31.0
       objectStorageConfig:
-        name: thanos-secret
+        name: thanos-objstore-secret
         key: objstore.yml
     retention: 2d
     retentionSize: 15GB
     storageSpec:
       volumeClaimTemplate:
         spec:
-          storageClassName: longhorn
+          storageClassName: local-path
           resources:
             requests:
               storage: 20Gi
