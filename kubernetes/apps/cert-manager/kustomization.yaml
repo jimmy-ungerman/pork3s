@@ -14,3 +14,4 @@ resources:
   - namespace.yaml
   - issuer/cloudflareSecret.yaml
   - issuer/clusterIssuer.yaml
+  - prometheusRule.yaml
