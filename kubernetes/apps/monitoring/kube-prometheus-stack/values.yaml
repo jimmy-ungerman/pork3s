@@ -112,7 +112,7 @@ prometheus:
     storageSpec:
       volumeClaimTemplate:
         spec:
-          storageClassName: local-path
+          storageClassName: longhorn
           resources:
             requests:
               storage: 20Gi
