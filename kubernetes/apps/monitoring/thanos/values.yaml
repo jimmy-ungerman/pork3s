@@ -2,7 +2,7 @@ image:
   registry: quay.io
   repository: thanos/thanos
   tag: v0.31.0
-existingObjstoreSecret: thanos-secret
+existingObjstoreSecret: thanos-objstore-secret
 queryFrontend:
   enabled: true
   replicaCount: 1
@@ -54,7 +54,8 @@ storegateway:
     storageClass: longhorn
     size: 20Gi
   podAnnotations:
-    argocd.argoproj.io/compare-options: IgnoreExtraneous
+    annotations:
+      argocd.argoproj.io/compare-options: IgnoreExtraneous
 metrics:
   enabled: true
   serviceMonitor:
