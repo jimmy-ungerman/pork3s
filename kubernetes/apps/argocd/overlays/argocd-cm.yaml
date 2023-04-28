@@ -13,7 +13,7 @@ data:
          - "*"
   oidc.config: |
     name: Authelia
-    issuer: https://auth.example.com
+    issuer: https://auth.porkboi.io
     clientID: argocd
     clientSecret: 28e4925b359e600b3f490bf051669a8c6a81ad77a25d0acdfde7e56f0fe28646ba6ebd55c30a5b35da5b18324d67818864267944d2626e89adba595bba3b1516
     cliClientID: argocd-cli
