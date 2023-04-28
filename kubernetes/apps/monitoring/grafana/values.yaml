@@ -33,7 +33,7 @@ grafana.ini:
     enabled: true
     name: Authelia
     icon: signin
-    scopes: openid profile groups
+    scopes: openid groups
     empty_scopes: false
     login_attribute_path: preferred_username
     groups_attribute_path: groups
