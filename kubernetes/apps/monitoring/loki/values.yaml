@@ -15,6 +15,13 @@ gateway:
     enabled: true
     ingressClassName: "nginx"
     annotations:
+      nginx.ingress.kubernetes.io/auth-method: GET
+      nginx.ingress.kubernetes.io/auth-url: http://authelia.default.svc.cluster.local/api/verify
+      nginx.ingress.kubernetes.io/auth-signin: https://auth.porkboi.io?rm=$request_method
+      nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+      nginx.ingress.kubernetes.io/auth-snippet: |
+        proxy_set_header X-Forwarded-Method $request_method;
+      external-dns.alpha.kubernetes.io/target: porkboi.io
       hajimari.io/enable: "false"
     hosts:
       - host: &host "loki.porkboi.io"
@@ -39,7 +46,7 @@ write:
             topologyKey: kubernetes.io/hostname
   persistence:
     size: 10Gi
-    storageClass: rook-ceph-block
+    storageClass: longhorn
 read:
   replicas: 1
   affinity: |
