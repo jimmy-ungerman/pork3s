@@ -53,9 +53,6 @@ storegateway:
     enabled: true
     storageClass: longhorn
     size: 20Gi
-  podAnnotations:
-    annotations:
-      argocd.argoproj.io/compare-options: IgnoreExtraneous
 metrics:
   enabled: true
   serviceMonitor:

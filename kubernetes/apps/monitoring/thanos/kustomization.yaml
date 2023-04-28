@@ -11,8 +11,5 @@ helmCharts:
   version: 12.4.3
   valuesFile: values.yaml
   includeCRDs: true
-generatorOptions:
-  annotations:
-    argocd.argoproj.io/compare-options: IgnoreExtraneous
 resources:
   - externalSecret.yaml
