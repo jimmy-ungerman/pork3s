@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: argocd-cm
 data:
+  admin.enabled: "false"
   url: https://argocd.porkboi.io
   kustomize.buildOptions: "--enable-alpha-plugins"
   resource.exclusions: |
@@ -25,3 +26,4 @@ data:
       - email
       - groups
   oidc.tls.insecure.skip.verify: "true"
+  users.anonymous.enabled: "true"
