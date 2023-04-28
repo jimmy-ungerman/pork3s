@@ -1,4 +1,5 @@
-existingSecretForConfig: loki-config-secret
+loki:
+  existingSecretForConfig: loki-config-secret
 gateway:
   enabled: true
   replicas: 1
