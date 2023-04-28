@@ -11,3 +11,15 @@ data:
          - CiliumIdentity
        clusters:
          - "*"
+  oidc.config: |
+    name: Authelia
+    issuer: https://auth.example.com
+    clientID: argocd
+    clientSecret: 28e4925b359e600b3f490bf051669a8c6a81ad77a25d0acdfde7e56f0fe28646ba6ebd55c30a5b35da5b18324d67818864267944d2626e89adba595bba3b1516
+    cliClientID: argocd-cli
+    cliClientSecret: cc2cc5459312fc53495dd1cc958a0c0a72515c1e8534215c5e1fa20749928b121a6c9bcb4fce0ec89c8d10f222fbf4581d8251bf999cfdc2aec4ab1ec20f86b2
+    requestedScopes:
+      - openid
+      - profile
+      - email
+      - groups
