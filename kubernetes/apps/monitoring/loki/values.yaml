@@ -24,6 +24,8 @@ gateway:
     tls:
       - hosts:
           - *host
+backend:
+  replicas: 1
 write:
   replicas: 1
   affinity: |
