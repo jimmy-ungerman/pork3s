@@ -18,3 +18,8 @@ spec:
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
+  ignoreDifferences:
+  - group: apps
+    kind: StatefulSet
+    jqPathExpressions:
+    - .spec.persistentVolumeClaimRetentionPolicy
