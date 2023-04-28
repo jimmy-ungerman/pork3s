@@ -9,7 +9,6 @@ components:
 - https://github.com/argoproj-labs/argocd-extensions/manifests
 
 patchesStrategicMerge:
-- overlays/argocd-cm.yaml
 - overlays/argocd-server-service.yaml
 - overlays/argocd-repo-deploy.yaml
 - overlays/argocd-cmd-params-cm.yaml
