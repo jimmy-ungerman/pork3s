@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: argocd-cm
 data:
+  url: https://argocd.porkboi.io
   kustomize.buildOptions: "--enable-alpha-plugins"
   resource.exclusions: |
      - apiGroups:
