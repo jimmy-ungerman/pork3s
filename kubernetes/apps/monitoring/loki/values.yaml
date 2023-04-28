@@ -1,6 +1,6 @@
 existingSecretForConfig: loki-config-secret
 gateway:
-  enabled: false
+  enabled: true
   replicas: 1
   affinity: |
     podAntiAffinity:
