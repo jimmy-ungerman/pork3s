@@ -23,3 +23,4 @@ data:
       - profile
       - email
       - groups
+  oidc.tls.insecure.skip.verify: "true"
