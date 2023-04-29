@@ -8,7 +8,7 @@ helmCharts:
     releaseName: cloudnative-pg
     namespace: default
     repo: https://cloudnative-pg.github.io/charts
-    version: 0.17.2
+    version: 0.18.0
     valuesInline:
       crds:
         create: true
