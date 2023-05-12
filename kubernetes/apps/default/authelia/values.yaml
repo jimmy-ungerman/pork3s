@@ -41,7 +41,7 @@ env:
 image:
   repository: ghcr.io/authelia/authelia
   # TODO: Switch to release tag on next release
-  tag: master@sha256:b45feb650a37e4b1f899c1912623518ffee3649ff9d53cfce86ab5f71cbe435a
+  tag: master@sha256:5560c2aa2cf09d625ca21c38cbea039a351414969b8cec6d65d2ef5df1896570
 args: ["--config", "/config/configuration.yml", "--config.experimental.filters", "expand-env"]
 envFrom:
   - secretRef:
@@ -65,10 +65,18 @@ service:
 #         interval: 1m
 #         scrapeTimeout: 10s
 probes:
-  liveness:
-    enabled: false
-  readiness:
-    enabled: false
+  liveness: &probes
+    enabled: true
+    custom: true
+    spec:
+      httpGet:
+        path: /api/health
+        port: *port
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      timeoutSeconds: 1
+      failureThreshold: 3
+  readiness: *probes
   startup:
     enabled: false
 ingress:
