@@ -21,8 +21,6 @@
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prIgnoreNotification"],
   "rebaseWhen": "conflicted",
-  "timezone": "America/Boise",
-  "schedule": ["before 4am"],
   "pre-commit": {
     "enabled": true
   },
