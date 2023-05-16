@@ -45,14 +45,14 @@ compactor:
   persistence:
     enabled: true
     storageClass: longhorn
-    size: 20Gi
+    size: 100Gi
 storegateway:
   enabled: true
   replicaCount: 1
   persistence:
     enabled: true
     storageClass: longhorn
-    size: 20Gi
+    size: 100Gi
 metrics:
   enabled: true
   serviceMonitor:
