@@ -3,7 +3,7 @@ controller:
   type: statefulset
 image:
   repository: ghcr.io/onedr0p/radarr-nightly
-  tag: 4.5.2.7298
+  tag: 4.5.2.7300
 env:
   TZ: America/Boise
 
