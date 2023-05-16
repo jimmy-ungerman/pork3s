@@ -52,7 +52,7 @@ storegateway:
   persistence:
     enabled: true
     storageClass: longhorn
-    size: 100Gi
+    size: 20Gi
 metrics:
   enabled: true
   serviceMonitor:
