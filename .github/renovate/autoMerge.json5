@@ -11,6 +11,15 @@
       "matchPackagePattern": ["ghcr.io/onedr0p"]
     },
     {
+      "description": "Auto merge radarr nightly",
+      "matchDatasources": ["docker"],
+      "automerge": true,
+      "automergeType": "branch",
+      "ignoreTests": true,
+      "matchUpdateTypes": ["patch"],
+      "matchPackagePattern": ["ghcr.io/onedr0p/radarr-nightly"]
+    },
+    {
       "description": "Auto merge GitHub Actions",
       "matchManagers": ["github-actions"],
       "matchDatasources": ["github-tags"],
