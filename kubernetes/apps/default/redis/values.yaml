@@ -5,6 +5,7 @@ master:
   persistence:
     enabled: false
 replica:
+  count: 2
   persistence:
     enabled: false
 sentinel:
