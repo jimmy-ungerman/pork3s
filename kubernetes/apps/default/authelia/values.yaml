@@ -41,7 +41,6 @@ env:
 image:
   repository: ghcr.io/authelia/authelia
   tag: master@sha256:9a5e1b917c18d60b8f9bcf22bdf0c28fa83319f9cbcd18c7224511edacfa33be
-args: ["--config", "/config/configuration.yml"]
 envFrom:
   - secretRef:
       name: authelia-secret
