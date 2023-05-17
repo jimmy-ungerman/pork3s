@@ -30,7 +30,7 @@ spec:
         image: viaductoss/ksops:v4.1.2
         command: ["/bin/sh", "-c"]
         args:
-        - 'echo "Installing KSOPS..."; cp ksops /custom-tools/; cp $GOPATH/bin/kustomize /custom-tools/; echo "Done.";'
+        - 'echo "Installing KSOPS..."; mv ksops /custom-tools/; mv $GOPATH/bin/kustomize /custom-tools/; echo "Done.";'
         volumeMounts:
           - mountPath: /custom-tools
             name: custom-tools
