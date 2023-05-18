@@ -70,9 +70,9 @@ spec:
       containers:
         - name: argocd-repo-server
           volumeMounts:
-            - mountPath: /usr/local/bin/kustomize
+            - mountPath: /usr/local/bin/
               name: custom-tools
               subPath: kustomize
-            - mountPath: /usr/local/bin/ksops
+            - mountPath: /usr/local/bin/ 
               name: custom-tools
               subPath: ksops
