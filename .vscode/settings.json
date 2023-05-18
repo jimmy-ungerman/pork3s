@@ -12,5 +12,6 @@
     },
     "yaml.customTags": [
         "!env_var scalar"
-    ]
+    ],
+    "ansible.python.interpreterPath": "/usr/local/bin/python3.11"
 }
