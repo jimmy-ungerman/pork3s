@@ -41,7 +41,6 @@ env:
 image:
   repository: ghcr.io/authelia/authelia
   tag: 4.37.5
-args: ["--config", "/config/configuration.yml", "--config.experimental.filters", "expand-env"]
 envFrom:
   - secretRef:
       name: authelia-secret
