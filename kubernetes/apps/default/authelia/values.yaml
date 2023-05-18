@@ -40,7 +40,7 @@ env:
 
 image:
   repository: ghcr.io/authelia/authelia
-  tag: master@sha256:12b18ce58fce7e7ca3c1d44beb92ddc49798f1e2c77fabd3dabe2fb66605556c
+  tag: v4.37.5
 envFrom:
   - secretRef:
       name: authelia-secret
