@@ -19,8 +19,10 @@ spec:
           volumeMounts:
             - mountPath: /usr/local/bin/kustomize
               name: custom-tools
+              subPath: kustomize
             - mountPath: /.config/kustomize/plugin/viaduct.ai/v1/ksops/ksops
               name: custom-tools
+              subPath: ksops
             - mountPath: /.config/sops/age
               name: sops-age
       initContainers:
@@ -30,7 +32,7 @@ spec:
         args:
         - 'echo "Installing KSOPS..."; mv ksops /custom-tools/; mv $GOPATH/bin/kustomize /custom-tools/; echo "Done.";'
         volumeMounts:
-          - mountPath: /custom-tools
+          - mountPath: /custom-tools/
             name: custom-tools
       volumes:
       - name: custom-tools
