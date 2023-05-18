@@ -17,13 +17,13 @@ spec:
           - name: SOPS_AGE_KEY_FILE
             value: /.config/sops/age/key.txt
           volumeMounts:
-            - mountPath: /usr/local/bin/kustomize
+            - mountPath: /usr/local/bin/kustomize/
               name: custom-tools
               subPath: kustomize
-            - mountPath: /.config/kustomize/plugin/viaduct.ai/v1/ksops/ksops
+            - mountPath: /.config/kustomize/plugin/viaduct.ai/v1/ksops/ksops/
               name: custom-tools
               subPath: ksops
-            - mountPath: /.config/sops/age
+            - mountPath: /.config/sops/age/
               name: sops-age
       initContainers:
       - name: install-ksops
