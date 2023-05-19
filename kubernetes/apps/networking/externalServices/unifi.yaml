@@ -23,6 +23,7 @@ metadata:
   namespace: networking
   annotations:
     external-dns.alpha.kubernetes.io/target: porkboi.io
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 spec:
   ingressClassName: nginx
   rules:
