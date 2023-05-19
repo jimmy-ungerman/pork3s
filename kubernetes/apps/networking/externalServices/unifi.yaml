@@ -19,11 +19,10 @@ endpoints:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: unifi
+  name: unifi-slice
   namespace: networking
   annotations:
     external-dns.alpha.kubernetes.io/target: porkboi.io
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   ingressClassName: nginx
@@ -45,7 +44,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: unifi
+  name: unifi-slice
   namespace: networking
 spec:
   ports:
