@@ -32,7 +32,7 @@ spec:
         paths:
           - backend:
               service:
-               name: unifi
+               name: unifi-slice
                port:
                  number: 80
             path: /
