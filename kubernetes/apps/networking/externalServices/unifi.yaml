@@ -3,7 +3,7 @@ kind: EndpointSlice
 metadata:
   name: unifi-slice
   labels:
-    kubernetes.io/service-name: unifi
+    kubernetes.io/service-name: unifi-slice
   namespace: networking
 addressType: IPv4
 ports:
