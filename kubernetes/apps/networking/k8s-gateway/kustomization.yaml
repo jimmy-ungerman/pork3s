@@ -7,6 +7,6 @@ helmCharts:
   releaseName: k8s-gateway
   namespace: networking
   repo: https://ori-edge.github.io/k8s_gateway
-  version: "2.0.3"
+  version: "2.0.4"
   valuesFile: values.yaml
   includeCRDs: true
