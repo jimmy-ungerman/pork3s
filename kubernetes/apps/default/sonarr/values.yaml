@@ -29,10 +29,6 @@ ingress:
       nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
       nginx.ingress.kubernetes.io/auth-snippet: |
         proxy_set_header X-Forwarded-Method $request_method;
-      nginx.ingress.kubernetes.io/configuration-snippet: |
-        proxy_set_header Accept-Encoding "";
-        sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.porkboi.io/css/base/sonarr/dracula.css"></head>';
-        sub_filter_once on;
     hosts:
       - host: &host "sonarr.porkboi.io"
         paths:
