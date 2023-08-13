@@ -8,6 +8,6 @@ helmCharts:
   repo: https://prometheus-community.github.io/helm-charts
   releaseName: smartctl-exporter
   namespace: monitoring
-  version: 0.4.3
+  version: 0.5.0
   valuesFile: values.yaml
   includeCRDs: true
