@@ -7,7 +7,7 @@ restartPolicy: OnFailure
 
 image:
   repository: ghcr.io/recyclarr/recyclarr
-  tag: edge@sha256:4f486ea66802e6f256509cca676d4bbfac0bb57bb20b4aa91b25c4ceb99ffd1f
+  tag: edge@sha256:59891d02d0c54e6a498d067637d058a30bbe4f0a1aa01aec2934b2772ee874b2
 
 command: ["/app/recyclarr/recyclarr"]
 
