@@ -1,7 +1,7 @@
 image:
   registry: quay.io
   repository: thanos/thanos
-  tag: v0.31.0
+  tag: v0.32.1
 existingObjstoreSecret: thanos-objstore-secret
 queryFrontend:
   enabled: true
