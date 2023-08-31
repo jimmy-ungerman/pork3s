@@ -45,7 +45,7 @@ compactor:
   persistence:
     enabled: true
     storageClass: longhorn
-    size: 100Gi
+    size: 150Gi
 storegateway:
   enabled: true
   replicaCount: 1
