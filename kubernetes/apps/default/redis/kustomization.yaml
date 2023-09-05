@@ -8,6 +8,6 @@ helmCharts:
   repo: https://charts.bitnami.com/bitnami
   releaseName: redis
   namespace: default
-  version: 18.0.1
+  version: 18.0.2
   valuesFile: values.yaml
   includeCRDs: true
