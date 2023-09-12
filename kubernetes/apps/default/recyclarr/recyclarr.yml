@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
 radarr:
-  movies:
+  main:
     base_url: http://radarr:7979
     api_key: !env_var RADARR__API_KEY
     quality_definition:
