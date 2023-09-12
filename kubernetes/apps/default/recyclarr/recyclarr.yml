@@ -6,6 +6,9 @@ radarr:
     quality_definition:
       type: movie
       preferred_ratio: 0.5
+    quality_profiles:
+      - name: Movies
+        score_set: default
     delete_old_custom_formats: true
     replace_existing_custom_formats: true
     custom_formats:
@@ -48,8 +51,7 @@ radarr:
           # Misc
           - e7718d7a3ce595f289bfee26adc178f5 # Repack/Proper
           - ae43b294509409a6a13919dedd4764c4 # Repack2
-        quality_profiles:
-          - name: Movies
+
   4k:
     base_url: http://radarr4k:7979
     api_key: !env_var RADARR4K__API_KEY
