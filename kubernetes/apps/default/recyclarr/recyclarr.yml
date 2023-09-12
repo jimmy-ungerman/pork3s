@@ -9,6 +9,10 @@ radarr:
     quality_profiles:
       - name: Movies
         score_set: default
+        upgrade:
+          allowed: true
+          until_quality: Remux-1080p
+          until_score: 10000
     delete_old_custom_formats: true
     replace_existing_custom_formats: true
     custom_formats:
