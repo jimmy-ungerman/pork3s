@@ -80,7 +80,8 @@ radarr:
           - e36a0ba1bc902b26ee40818a1d59b8bd  # PMTP
           - c2863d2a50c9acad1fb50e53ece60817  # STAN
         quality_profiles:
-          - name: Movies:
+          - name: Movies
+          
   remux-web-2160p:
     quality_definition:
      type: movie
