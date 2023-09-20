@@ -337,3 +337,8 @@ sonarr:
           - d84935abd3f8556dcd51d4f27e22d0a6  # WEB Tier 03
         quality_profiles:
           - name: Anime
+      - trash_ids:
+          - 418f50b10f1907201b6cfdf881f467b7  # Anime Dual Audio
+        quality_profiles:
+          - name: Anime
+            score: 2000  # Adjust scoring as desired
