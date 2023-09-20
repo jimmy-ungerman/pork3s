@@ -158,7 +158,7 @@ radarr:
           - 16622a6911d1ab5d5b8b713d5b0036d4  # CRiT
           - 2a6039655313bf5dab1e43523b62c374  # MA
         quality_profiles:
-          - name: Remux + WEB 2160p
+          - name: 4K Movies
 
       - trash_ids:
           - b3b3a6ac74ecbd56bcdbefa4799fb9df  # AMZN
