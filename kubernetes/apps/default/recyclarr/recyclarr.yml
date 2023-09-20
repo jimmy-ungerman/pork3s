@@ -1,8 +1,8 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
 radarr:
   remux-web-1080p:
-    base_url: http://radarr4k:7979
-    api_key: !env_var RADARR4K__API_KEY
+    base_url: http://radarr:7979
+    api_key: !env_var RADARR__API_KEY
     quality_definition:
       type: movie
     delete_old_custom_formats: true
@@ -81,8 +81,10 @@ radarr:
           - c2863d2a50c9acad1fb50e53ece60817  # STAN
         quality_profiles:
           - name: Movies
-          
+
   remux-web-2160p:
+    base_url: http://radarr4k:7979
+    api_key: !env_var RADARR4K__API_KEY
     quality_definition:
      type: movie
     delete_old_custom_formats: true
