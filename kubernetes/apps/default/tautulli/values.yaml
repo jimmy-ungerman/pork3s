@@ -2,7 +2,7 @@ controller:
   type: statefulset
 image:
   repository: ghcr.io/onedr0p/tautulli
-  tag: 2.13.1@sha256:abf2ba5cd65661c6880ddc1db88d7956774d31a2f46915f111c2008cf71d0c78
+  tag: 2.13.1@sha256:23fb105a1745680120051af7fe778cd888de57a6838f8ccb6be91d9b47af7237
 env:
   TZ: America/Boise
 ingress:
