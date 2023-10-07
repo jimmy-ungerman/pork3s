@@ -3,7 +3,7 @@ controller:
 
 image:
   repository: ghcr.io/onedr0p/plex
-  tag: 1.32.6.7557-1cf77d501@sha256:4dc9b6a3890d83b7a3a775c1249e4f28db2810086180feccc07629eb7df70c79
+  tag: 1.32.6.7557-1cf77d501@sha256:0905a59cdb92f658ae7a84b3ce8b8bbac0ae95497c6e7532fab7f5d26528961a
 
 env:
   TZ: America/Boise
