@@ -6,10 +6,11 @@ controllers:
     statefulset:
       volumeClaimTemplates:
         - name: config
-          mountPath: /config
           accessMode: ReadWriteOnce
           size: 15Gi
           storageClass: longhorn
+          globalMounts: 
+            path: /config
     pod:
       securityContext:
         runAsUser: 568
