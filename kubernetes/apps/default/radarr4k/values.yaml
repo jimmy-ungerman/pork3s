@@ -1,16 +1,41 @@
-values:
-controller:
-  type: statefulset
-image:
-  repository: ghcr.io/onedr0p/radarr-nightly
-  tag: 5.1.2.8198
-env:
-  TZ: America/Boise
+controllers:
+  main:
+    annotations:
+      reloader.stakater.com/auto: "true"
+    type: statefulset
+    statefulset:
+      volumeClaimTemplates:
+        - name: config
+          accessMode: ReadWriteOnce
+          size: 15Gi
+          storageClass: longhorn
+          globalMounts:
+            - path: /config
 
-  RADARR__INSTANCE_NAME: Radarr4k
-  RADARR__PORT: &port 7979
-  RADARR__APPLICATION_URL: "https://{{ .Release.Name }}.porkboi.io"
-  RADARR__LOG_LEVEL: info
+    pod:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: "OnRootMismatch"
+        supplementalGroups: [10000]
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/radarr-nightly
+          tag: 5.1.2.8198
+        env:
+          TZ: America/Boise
+          RADARR__INSTANCE_NAME: Radarr
+          RADARR__PORT: &port 7979
+          RADARR__APPLICATION_URL: "https://{{ .Release.Name }}.porkboi.io"
+          RADARR__LOG_LEVEL: info
+        resources:
+          requests:
+            cpu: 14m
+            memory: 431M
+          limits:
+            memory: 431M
 
 service:
   main:
@@ -39,24 +64,8 @@ ingress:
       - hosts:
           - *host
 
-podSecurityContext:
-  runAsUser: 568
-  runAsGroup: 568
-  fsGroup: 568
-  fsGroupChangePolicy: "OnRootMismatch"
-  supplementalGroups: [10000]
-
-volumeClaimTemplates:
-  - name: config
-    mountPath: /config
-    accessMode: ReadWriteOnce
-    size: 15Gi
-    storageClass: longhorn
-
 persistence:
   media:
-    enabled: true
-    type: nfs
-    server: 10.0.0.25
-    path: /mnt/fire/media/data
-    mountPath: /data
+    existingClaim: nas-media
+    globalMounts:
+      - path: /data
