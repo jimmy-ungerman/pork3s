@@ -1,61 +1,72 @@
-controller:
-  type: statefulset
-image:
-  repository: ghcr.io/onedr0p/radarr-nightly
-  tag: 5.1.2.8198
-env:
-  TZ: America/Boise
-
-  RADARR__INSTANCE_NAME: Radarr
-  RADARR__PORT: &port 7979
-  RADARR__APPLICATION_URL: "https://{{ .Release.Name }}.porkboi.io"
-  RADARR__LOG_LEVEL: info
-
-service:
+controllers:
   main:
-    ports:
-      http:
-        port: *port
-
-ingress:
-  main:
-    enabled: true
-    ingressClassName: nginx
     annotations:
-      external-dns.alpha.kubernetes.io/target: porkboi.io
-      nginx.ingress.kubernetes.io/auth-method: GET
-      nginx.ingress.kubernetes.io/auth-url: http://authelia.default.svc.cluster.local/api/verify
-      nginx.ingress.kubernetes.io/auth-signin: https://auth.porkboi.io?rm=$request_method
-      nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
-      nginx.ingress.kubernetes.io/auth-snippet: |
-        proxy_set_header X-Forwarded-Method $request_method;
-    hosts:
-      - host: &host "radarr.porkboi.io"
-        paths:
-          - path: /
-            pathType: Prefix
-    tls:
-      - hosts:
-          - *host
+      reloader.stakater.com/auto: "true"
+    pod:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: "OnRootMismatch"
+        supplementalGroups: [10000]
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/radarr-nightly
+          tag: 5.1.2.8198
+        env:
+          TZ: America/Boise
+          RADARR__INSTANCE_NAME: Radarr
+          RADARR__PORT: &port 7979
+          RADARR__APPLICATION_URL: "https://{{ .Release.Name }}.porkboi.io"
+          RADARR__LOG_LEVEL: info
+        resources:
+          requests:
+            cpu: 14m
+            memory: 431M
+          limits:
+            memory: 431M
 
-podSecurityContext:
-  runAsUser: 568
-  runAsGroup: 568
-  fsGroup: 568
-  fsGroupChangePolicy: "OnRootMismatch"
-  supplementalGroups: [10000]
+  service:
+    main:
+      ports:
+        http:
+          port: *port
 
-volumeClaimTemplates:
-  - name: config
-    mountPath: /config
-    accessMode: ReadWriteOnce
-    size: 15Gi
-    storageClass: longhorn
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: porkboi.io
+        nginx.ingress.kubernetes.io/auth-method: GET
+        nginx.ingress.kubernetes.io/auth-url: http://authelia.default.svc.cluster.local/api/verify
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.porkboi.io?rm=$request_method
+        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+        nginx.ingress.kubernetes.io/auth-snippet: |
+          proxy_set_header X-Forwarded-Method $request_method;
+      hosts:
+        - host: &host "radarr.porkboi.io"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - *host
 
-persistence:
-  media:
-    enabled: true
-    type: nfs
-    server: 10.0.0.25
-    path: /mnt/fire/media/data
-    mountPath: /data
+
+
+  volumeClaimTemplates:
+    - name: config
+      mountPath: /config
+      accessMode: ReadWriteOnce
+      size: 15Gi
+      storageClass: longhorn
+
+  persistence:
+    media:
+      enabled: true
+      type: nfs
+      server: 10.0.0.25
+      path: /mnt/fire/media/data
+      mountPath: /data
