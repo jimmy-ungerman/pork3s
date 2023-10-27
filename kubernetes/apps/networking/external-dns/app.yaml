@@ -7,9 +7,9 @@ metadata:
 spec:
   project: default
   sources:
-  - repoURL: 'https://bjw-s.github.io/helm-charts'
-    chart: app-template
-    targetRevision: 1.5.1
+  - repoURL: 'https://kubernetes-sigs.github.io/external-dns/'
+    chart: external-dns
+    targetRevision: 1.13.1
     helm:
       valueFiles:
         - $values/kubernetes/apps/networking/external-dns/values.yaml
