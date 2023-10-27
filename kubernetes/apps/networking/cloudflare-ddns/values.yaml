@@ -7,6 +7,7 @@ env:
   RRTYPE: "A"
   DELETE_ON_STOP: "false"
   DNS_SERVER: "1.1.1.1"
+  TEST: "this is a test"
 envFrom:
   - secretRef:
       name: cloudflare-ddns-secret
