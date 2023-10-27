@@ -64,8 +64,6 @@ ingress:
 
 persistence:
   media:
-    enabled: true
-    type: nfs
-    server: 10.0.0.25
-    path: /mnt/fire/media/data
-    mountPath: /data
+    existingClaim: nas-media
+    globalMounts:
+      mountPath: /data
