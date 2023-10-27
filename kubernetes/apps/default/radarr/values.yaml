@@ -10,7 +10,7 @@ controllers:
           size: 15Gi
           storageClass: longhorn
           globalMounts: 
-            path: /config
+            - path: /config
     pod:
       securityContext:
         runAsUser: 568
