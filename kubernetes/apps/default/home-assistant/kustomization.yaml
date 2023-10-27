@@ -8,7 +8,7 @@ helmCharts:
     releaseName: haas
     namespace: default
     repo: https://bjw-s.github.io/helm-charts
-    version: 2.0.3
+    version: 1.5.1
     valuesFile: values.yaml
 
 resources:
