@@ -2,6 +2,14 @@ controllers:
   main:
     annotations:
       reloader.stakater.com/auto: "true"
+    type: statefulset
+    statefulset:
+      volumeClaimTemplates:
+        - name: config
+          mountPath: /config
+          accessMode: ReadWriteOnce
+          size: 15Gi
+          storageClass: longhorn
     pod:
       securityContext:
         runAsUser: 568
@@ -53,15 +61,6 @@ ingress:
     tls:
       - hosts:
           - *host
-
-
-
-volumeClaimTemplates:
-  - name: config
-    mountPath: /config
-    accessMode: ReadWriteOnce
-    size: 15Gi
-    storageClass: longhorn
 
 persistence:
   media:
