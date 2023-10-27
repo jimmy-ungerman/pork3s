@@ -1,8 +1,7 @@
 controllers:
   main:
-    annotations:
-      reloader.stakater.com/auto: "true"
     type: statefulset
+    
     statefulset:
       volumeClaimTemplates:
         - name: config
