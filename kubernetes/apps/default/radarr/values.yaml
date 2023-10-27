@@ -27,46 +27,46 @@ controllers:
           limits:
             memory: 431M
 
-  service:
-    main:
-      ports:
-        http:
-          port: *port
+service:
+  main:
+    ports:
+      http:
+        port: *port
 
-  ingress:
-    main:
-      enabled: true
-      ingressClassName: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: porkboi.io
-        nginx.ingress.kubernetes.io/auth-method: GET
-        nginx.ingress.kubernetes.io/auth-url: http://authelia.default.svc.cluster.local/api/verify
-        nginx.ingress.kubernetes.io/auth-signin: https://auth.porkboi.io?rm=$request_method
-        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
-        nginx.ingress.kubernetes.io/auth-snippet: |
-          proxy_set_header X-Forwarded-Method $request_method;
-      hosts:
-        - host: &host "radarr.porkboi.io"
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - *host
+ingress:
+  main:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      external-dns.alpha.kubernetes.io/target: porkboi.io
+      nginx.ingress.kubernetes.io/auth-method: GET
+      nginx.ingress.kubernetes.io/auth-url: http://authelia.default.svc.cluster.local/api/verify
+      nginx.ingress.kubernetes.io/auth-signin: https://auth.porkboi.io?rm=$request_method
+      nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+      nginx.ingress.kubernetes.io/auth-snippet: |
+        proxy_set_header X-Forwarded-Method $request_method;
+    hosts:
+      - host: &host "radarr.porkboi.io"
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - *host
 
 
 
-  volumeClaimTemplates:
-    - name: config
-      mountPath: /config
-      accessMode: ReadWriteOnce
-      size: 15Gi
-      storageClass: longhorn
+volumeClaimTemplates:
+  - name: config
+    mountPath: /config
+    accessMode: ReadWriteOnce
+    size: 15Gi
+    storageClass: longhorn
 
-  persistence:
-    media:
-      enabled: true
-      type: nfs
-      server: 10.0.0.25
-      path: /mnt/fire/media/data
-      mountPath: /data
+persistence:
+  media:
+    enabled: true
+    type: nfs
+    server: 10.0.0.25
+    path: /mnt/fire/media/data
+    mountPath: /data
