@@ -9,8 +9,9 @@ controllers:
           accessMode: ReadWriteOnce
           size: 15Gi
           storageClass: longhorn
-          globalMounts: 
+          globalMounts:
             - path: /config
+
     pod:
       securityContext:
         runAsUser: 568
