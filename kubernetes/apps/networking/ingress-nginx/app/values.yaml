@@ -1,5 +1,6 @@
 controller:
   replicaCount: 1
+  allowSnippetAnnotations: true
   extraEnvs:
     - name: TZ
       value: America/Boise
