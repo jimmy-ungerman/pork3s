@@ -9,7 +9,7 @@ spec:
   sources:
   - repoURL: 'https://bjw-s.github.io/helm-charts'
     chart: app-template
-    targetRevision: 1.5.1
+    targetRevision: 2.0.3
     helm:
       valueFiles:
         - $values/kubernetes/apps/networking/cloudflare-ddns/values.yaml
