@@ -14,6 +14,8 @@ configOverride: |
 cephClusterSpec:
   mgr:
     count: 1
+  mon:
+    count: 2
   dashboard:
     enabled: true
     urlPrefix: /
