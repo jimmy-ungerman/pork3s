@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/jimmy-ungerman/pork3s.git
-    targetRevision: talos
+    targetrevision: main
     path: kubernetes/apps/argocd
   destination:
     server: https://kubernetes.default.svc

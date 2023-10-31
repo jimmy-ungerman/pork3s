@@ -19,7 +19,7 @@ spec:
       valueFiles:
         - $values/kubernetes/apps/kube-system/intel-gpu-plugin/app/gpu/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
-    targetRevision: talos
+    targetrevision: main
     path: kubernetes/apps/kube-system/intel-gpu-plugin/app/gpu
     ref: values
   destination:

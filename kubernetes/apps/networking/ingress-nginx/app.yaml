@@ -14,7 +14,7 @@ spec:
       valueFiles:
         - $values/kubernetes/apps/networking/ingress-nginx/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
-    targetRevision: talos
+    targetrevision: main
     path: kubernetes/apps/networking/ingress-nginx/app
     ref: values
   destination:
