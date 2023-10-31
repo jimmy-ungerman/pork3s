@@ -3,7 +3,7 @@ controller:
 
 image:
   repository: ghcr.io/onedr0p/sabnzbd
-  tag: 4.0.3@sha256:fd8695c1f3829f628220078c4aa11a82087f928ae5ed5ec3983c3dafff438396
+  tag: 4.1.0@sha256:91f3cd6b9f1c9988af5447f464b299630706eb7f691dee857eab1487d4bb626e
 
 podSecurityContext:
   runAsUser: 568

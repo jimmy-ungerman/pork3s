@@ -3,7 +3,7 @@ controller:
   
 image:
   repository: ghcr.io/onedr0p/sonarr-develop
-  tag: 4.0.0.669@sha256:df6283fd3d747f8f7ca10dfb13a51b26e0b48cd7dd497e4cf32786d909a2bc6d
+  tag: 4.0.0.703@sha256:7f97e4783153bedc1c70568beb2bf925826fc92a4461d61ba58e8eda1649b49f
 
 env:
   TZ: America/Boise

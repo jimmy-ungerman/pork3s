@@ -3,7 +3,7 @@ controller:
 
 image:
   repository: ghcr.io/onedr0p/prowlarr-nightly
-  tag: 1.8.6.3943@sha256:69e99cd48db3b94bc521f41282d8f43bb4b3e02d7e0dfc2b745c100f0a3284ed
+  tag: 1.10.1.4058@sha256:21116158933a3fd52ececf049c0dd273e888fb8eb6131e25e4003c46524931cd
 
 env:
   TZ: America/Boise
