@@ -6,10 +6,17 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://github.com/jimmy-ungerman/pork3s.git
-    path: kubernetes/apps/networking/cloudflare-ddns
+  sources:
+  - repoURL: 'https://bjw-s.github.io/helm-charts'
+    chart: app-template
+    targetRevision: 1.5.1
+    helm:
+      valueFiles:
+        - $values/kubernetes/apps/networking/cloudflare-ddns/app/values.yaml
+  - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
+    path: kubernetes/apps/networking/cloudflare-ddns/app
+    ref: values
   destination:
     server: "https://kubernetes.default.svc"
     namespace: networking
