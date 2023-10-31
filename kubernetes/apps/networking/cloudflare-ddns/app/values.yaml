@@ -26,7 +26,3 @@ controllers:
 service:
   main:
     enabled: false
-ingress:
-  main:
-    enabled: false
-
