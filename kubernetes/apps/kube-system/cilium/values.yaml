@@ -115,7 +115,7 @@ ipam:
 ipv4NativeRoutingCIDR: 10.42.0.0/16
 
 # -- (string) Kubernetes service host
-k8sServiceHost: 10.1.0.10
+k8sServiceHost: 10.1.0.15
 # -- (string) Kubernetes service port
 k8sServicePort: 6443
 

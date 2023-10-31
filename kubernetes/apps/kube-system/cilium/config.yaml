@@ -12,8 +12,8 @@ spec:
     - localASN: 64512
       neighbors:
         - peerASN: 64512
-          peerAddress: 10.0.0.1/32
-      exportPodCIDR: false
+          peerAddress: 10.1.0.1/32
+      exportPodCIDR: true
 # this replaces address-pools, instead of defining the range of IPs that can be assigned to LoadBalancer services, now services have to match below selectors for their LB IPs to be announced
       serviceSelector:
         matchExpressions:
@@ -26,22 +26,4 @@ metadata:
   namespace: kube-system
 spec:
   cidrs:
-    - cidr: "10.45.0.0/28"
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: bgp-config
-  namespace: kube-system
-data:
-  config.yaml: |
-    peers:
-      - peer-address: 10.0.0.1
-        peer-asn: 64512
-        my-asn: 64512
-    address-pools:
-      - name: default
-        protocol: bgp
-        avoid-buggy-ips: true
-        addresses:
-          - 10.45.0.0-10.45.0.15
+    - cidr: "10.1.0.96/28"
