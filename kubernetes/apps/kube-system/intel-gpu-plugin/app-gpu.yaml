@@ -6,6 +6,11 @@ metadata:
   namespace: argocd
 spec:
   project: default
+  ignoreDifferences:
+  - group: deviceplugin.intel.com
+    kind: GpuDevicePlugin
+    jqPathExpressions:
+    - .spec.resourceManager
   sources:
   - repoURL: 'https://intel.github.io/helm-charts/'
     chart: intel-device-plugins-gpu
