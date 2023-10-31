@@ -15,7 +15,7 @@ spec:
         - $values/kubernetes/apps/storage/rook-ceph/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: talos
-    path: kubernetes/apps/storage/rook-ceph/app
+    path: kubernetes/apps/storage/rook-ceph/cluster
     ref: values
   destination:
     server: "https://kubernetes.default.svc"
