@@ -2,24 +2,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ingress-nginx
+  name: kubelet-csr-approver
   namespace: argocd
 spec:
   project: default
   sources:
-  - repoURL: 'https://kubernetes.github.io/ingress-nginx/'
-    chart: ingress-nginx
-    targetRevision: 4.8.3
+  - repoURL: 'https://postfinance.github.io/kubelet-csr-approver'
+    chart: kubelet-csr-approver
+    targetRevision: 1.0.5
     helm:
       valueFiles:
-        - $values/kubernetes/apps/networking/ingress-nginx/app/values.yaml
+        - $values/kubernetes/apps/kube-system/kubelet-csr-approver/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetrevision: main
-    path: kubernetes/apps/networking/ingress-nginx/app
+    path: kubernetes/apps/kube-system/kubelet-csr-approver/app
     ref: values
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: networking
+    namespace: kube-system
   syncPolicy:
     automated:
       prune: true

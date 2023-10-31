@@ -12,10 +12,10 @@ spec:
     targetRevision: 1.13.1
     helm:
       valueFiles:
-        - $values/kubernetes/apps/networking/external-dns/values.yaml
+        - $values/kubernetes/apps/networking/external-dns/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
-    targetRevision: main
-    path: kubernetes/apps/networking/external-dns
+    targetrevision: main
+    path: kubernetes/apps/networking/external-dns/app
     ref: values
   destination:
     server: "https://kubernetes.default.svc"

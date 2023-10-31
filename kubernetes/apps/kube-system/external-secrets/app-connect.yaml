@@ -2,24 +2,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ingress-nginx
+  name: 1password-connect
   namespace: argocd
 spec:
   project: default
   sources:
-  - repoURL: 'https://kubernetes.github.io/ingress-nginx/'
-    chart: ingress-nginx
-    targetRevision: 4.8.3
+  - repoURL: 'https://1password.github.io/connect-helm-charts'
+    chart: connect
+    targetRevision: 1.14.0
     helm:
       valueFiles:
-        - $values/kubernetes/apps/networking/ingress-nginx/app/values.yaml
+        - $values/kubernetes/apps/kube-system/external-secrets/app/connect/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetrevision: main
-    path: kubernetes/apps/networking/ingress-nginx/app
+    path: kubernetes/apps/kube-system/external-secrets/app/connect
     ref: values
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: networking
+    namespace: kube-system
   syncPolicy:
     automated:
       prune: true
