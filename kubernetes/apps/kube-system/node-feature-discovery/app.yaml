@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -5,16 +6,22 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://github.com/jimmy-ungerman/pork3s.git
-    targetRevision: main
-    path: kubernetes/apps/kube-system/node-feature-discovery
+  sources:
+  - repoURL: 'https://kubernetes-sigs.github.io/node-feature-discovery/charts'
+    chart: node-feature-discovery
+    targetRevision: 0.14.3
+    helm:
+      valueFiles:
+        - $values/kubernetes/apps/kube-system/node-feature-discovery/app/values.yaml
+  - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
+    targetRevision: talos
+    path: kubernetes/apps/kube-system/node-feature-discovery/app
+    ref: values
   destination:
-    server: https://kubernetes.default.svc
+    server: "https://kubernetes.default.svc"
     namespace: kube-system
   syncPolicy:
     automated:
       prune: true
-      selfHeal: true
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
