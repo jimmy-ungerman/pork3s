@@ -6,10 +6,17 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://github.com/jimmy-ungerman/pork3s.git
-    path: kubernetes/apps/networking/external-dns
-    targetRevision: main
+  sources:
+  - repoURL: 'https://kubernetes-sigs.github.io/external-dns/'
+    chart: external-dns
+    targetRevision: 1.13.1
+    helm:
+      valueFiles:
+        - $values/kubernetes/apps/networking/external-dns/app/values.yaml
+  - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
+    targetRevision: talos
+    path: kubernetes/apps/networking/external-dns/app
+    ref: values
   destination:
     server: "https://kubernetes.default.svc"
     namespace: networking
