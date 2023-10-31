@@ -12,10 +12,10 @@ spec:
     targetRevision: 0.9.8
     helm:
       valueFiles:
-        - $values/kubernetes/apps/kube-system/external-secrets/app/values.yaml
+        - $values/kubernetes/apps/kube-system/external-secrets/app/external-secrets/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: talos
-    path: kubernetes/apps/kube-system/external-secrets/app
+    path: kubernetes/apps/kube-system/external-secrets/app/external-secrets
     ref: values
   destination:
     server: "https://kubernetes.default.svc"
