@@ -1,0 +1,28 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 1password-connect
+  namespace: argocd
+spec:
+  project: default
+  sources:
+  - repoURL: 'https://1password.github.io/connect-helm-charts'
+    chart: connect
+    targetRevision: 1.14.0
+    helm:
+      valuesObject:
+        operator:
+          create: true
+  - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
+    targetRevision: talos
+    path: kubernetes/apps/kube-system/external-secrets/stores
+    ref: values
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
