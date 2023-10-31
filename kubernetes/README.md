@@ -7,17 +7,18 @@ To get the cluster to function as intended, we need to deploy some apps in a spe
 2. Cert-Manager
 3. Traefik
 4. ArgoCD
-### Label Worker Nodes
 
-```bash
-kubectl label node zuko node-role.kubernetes.io/worker=true --overwrite
-```
+### Deploy Cilium and configure BGP
+
+
+### Deploy Kubelet-CSR-Approver
+
 ### Deploy External-Secrets
 Begin by deploying the External-Secrets namepsace and the chart for the external-secrets application. Then we can deploy the onepassword connector to utilize OnePassword for all of our secrets
 
 ```bash
 kustomize build --enable-alpha-plugins kubernetes/apps/kube-system/external-secrets | kubectl apply -f -
-kustomize build --enable-alpha-plugins kubernetes/apps/kube-system/external-secrets/stores | kubectl apply -f -
+kustomize build --enable-alpha-plugins --enable-exec kubernetes/apps/kube-system/external-secrets/stores | kubectl apply -f -
 ```
 
 ### Deploy Cert-Manager
