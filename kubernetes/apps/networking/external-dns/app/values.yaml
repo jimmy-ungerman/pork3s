@@ -20,7 +20,7 @@ sources: ["ingress"]
 txtPrefix: k8s.
 txtOwnerId: default
 domainFilters: ["porkboi.io"]
-serviceMonitor:
-  enabled: true
+# serviceMonitor:
+#   enabled: true
 podAnnotations:
   secret.reloader.stakater.com/reload: external-dns-secret
