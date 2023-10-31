@@ -11,9 +11,8 @@ spec:
     chart: connect
     targetRevision: 1.14.0
     helm:
-      valuesObject:
-        operator:
-          create: true
+      valueFiles:
+        - $values/kubernetes/apps/kube-system/external-secrets/app/connect/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: talos
     path: kubernetes/apps/kube-system/external-secrets/app/connect
