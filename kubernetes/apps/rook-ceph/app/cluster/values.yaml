@@ -28,10 +28,10 @@ cephClusterSpec:
     nodes:
       - name: "toph"
         devices:
-          - name: "nvme0n1"
+          - name: "/dev/nvme0n1"
       - name: "zuko"
         devices:
-          - name: "nvme0n1"
+          - name: "/dev/nvme0n1"
   resources:
     mgr:
       requests:
