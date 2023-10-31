@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -5,16 +6,22 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://github.com/jimmy-ungerman/pork3s.git
-    targetRevision: main
-    path: kubernetes/apps/networking/ingress-nginx
+  sources:
+  - repoURL: 'https://kubernetes.github.io/ingress-nginx/'
+    chart: ingress-nginx
+    targetRevision: 4.8.3
+    helm:
+      valueFiles:
+        - $values/kubernetes/apps/networking/ingress-nginx/app/values.yaml
+  - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
+    targetRevision: talos
+    path: kubernetes/apps/networking/ingress-nginx/app
+    ref: values
   destination:
-    server: https://kubernetes.default.svc
+    server: "https://kubernetes.default.svc"
     namespace: networking
   syncPolicy:
     automated:
       prune: true
-      selfHeal: true
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
