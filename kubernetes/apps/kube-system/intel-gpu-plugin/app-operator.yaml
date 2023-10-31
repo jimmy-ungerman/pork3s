@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: intel-gpu-plugin
+  name: intel-gpu-plugin-operator
   namespace: argocd
 spec:
   project: default
@@ -10,6 +10,13 @@ spec:
   - repoURL: 'https://intel.github.io/helm-charts/'
     chart: intel-device-plugins-operator
     targetRevision: 0.28.0
+    helm:
+      valueFiles:
+        - $values/kubernetes/apps/kube-system/intel-gpu-plugin/app/operator/values.yaml
+  - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
+    targetRevision: talos
+    path: kubernetes/apps/kube-system/intel-gpu-plugin/app/operator
+    ref: values
   destination:
     server: "https://kubernetes.default.svc"
     namespace: kube-system
