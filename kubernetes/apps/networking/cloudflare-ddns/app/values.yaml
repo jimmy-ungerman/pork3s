@@ -23,6 +23,6 @@ controllers:
           limits:
             cpu: 15m
             memory: 64M
-service:
-  main:
-    enabled: false
+# service:
+#   main:
+#     enabled: false
