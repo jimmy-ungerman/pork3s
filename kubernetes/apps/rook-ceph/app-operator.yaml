@@ -14,7 +14,7 @@ spec:
       valueFiles:
         - $values/kubernetes/apps/rook-ceph/app/operator/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
-    targetrevision: main
+    targetRevision: main
     path: kubernetes/apps/rook-ceph/app/operator
     ref: values
   destination:
