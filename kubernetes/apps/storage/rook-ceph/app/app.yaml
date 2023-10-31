@@ -1,0 +1,27 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rook-ceph-operator
+  namespace: argocd
+spec:
+  project: default
+  sources:
+  - repoURL: 'https://charts.rook.io/release'
+    chart: rook-ceph
+    targetRevision: 1.12.7
+    helm:
+      valueFiles:
+        - $values/kubernetes/apps/storage/rook-ceph/app/values.yaml
+  - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
+    targetRevision: talos
+    path: kubernetes/apps/storage/rook-ceph/app
+    ref: values
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: storage
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
