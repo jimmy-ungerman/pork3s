@@ -32,7 +32,7 @@ controllers:
         - name: config
           accessMode: ReadWriteOnce
           size: 100Gi
-          storageClass: ceph-block
+          storageClass: rook-ceph-block
           globalMounts:
             - path: /config
 service:
@@ -58,7 +58,7 @@ ingress:
     tls:
       - hosts:
           - *host
-          
+
 persistence:
   transcode:
     type: emptyDir
