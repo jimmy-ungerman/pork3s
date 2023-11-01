@@ -50,6 +50,10 @@ ingress:
   main:
     enabled: true
     className: internal
+    annotations:
+      external-dns.alpha.kubernetes.io/target: porkboi.io
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      external-dns.alpha.kubernetes.io/hostname: radarr.porkboi.io
     hosts:
       - host: &host "radarr.porkboi.io"
         paths:
