@@ -1,16 +1,17 @@
 controllers:
   main:
+    type: statefulset
     annotations:
       reloader.stakater.com/auto: "true"
     containers:
       main:
         image:
           repository: ghcr.io/onedr0p/sonarr-develop
-          tag: 4.0.0.710@sha256:438f46db13f15df81159118a9f1d74ce7e2a46e9bd45024b2fa6aecae6036068
+          tag: 4.0.0.710
         env:
           TZ: America/Boise
           SONARR__INSTANCE_NAME: sonarr
-          SONARR__PORT: &port 8989
+          SONARR__PORT: &port 80
           SONARR__LOG_LEVEL: info
 
         resources:
@@ -39,7 +40,6 @@ ingress:
     className: nginx
     annotations:
       external-dns.alpha.kubernetes.io/target: porkboi.io
-      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       external-dns.alpha.kubernetes.io/hostname: sonarr.porkboi.io
     hosts:
       - host: &host "sonarr.porkboi.io"
