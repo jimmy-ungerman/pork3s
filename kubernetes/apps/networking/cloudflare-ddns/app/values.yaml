@@ -5,13 +5,7 @@ controllers:
         image:
           repository: docker.io/oznu/cloudflare-ddns
           tag: latest
-        resources:
-          requests:
-            cpu: 15m
-            memory: 64M
-          limits:
-            cpu: 15m
-            memory: 64M  
+          pullPolicy: IfNotPresent
 
         env:
           PROXIED: "true"
@@ -22,7 +16,13 @@ controllers:
         envFrom:
           - secretRef:
               name: cloudflare-ddns-secret
-
+        resources:
+          requests:
+            cpu: 15m
+            memory: 64M
+          limits:
+            cpu: 15m
+            memory: 64M
 service:
   main:
     enabled: false

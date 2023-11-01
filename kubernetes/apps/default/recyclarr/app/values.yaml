@@ -1,0 +1,51 @@
+controllers:
+  main:
+    type: statefulset
+    annotations:
+      reloader.stakater.com/auto: "true"
+    containers:
+      main:
+        image:
+          repository: ghcr.io/recyclarr/recyclarr
+          tag: 6.0.2
+        env:
+          TZ: America/Boise
+        envFrom:
+          - secretRef:
+              name: radarr-secret
+          - secretRef:
+              name: radarr4k-secret
+          - secretRef:
+              name: sonarr-secret
+        resources:
+          requests:
+            cpu: 10m
+            memory: 64M
+          limits:
+            memory: 128M
+
+    pod:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+    statefulset:
+      volumeClaimTemplates:
+        - name: config
+          accessMode: ReadWriteOnce
+          size: 1Gi
+          storageClass: rook-ceph-block
+          globalMounts:
+            - path: /config
+service:
+  main:
+    enabled: false
+persistence:
+  config-file:
+    type: configMap
+    name: recyclarr-configmap
+    globalMounts:
+      - path: /app/recyclarr.yml
+        subPath: recyclarr.yml
+        readOnly: true

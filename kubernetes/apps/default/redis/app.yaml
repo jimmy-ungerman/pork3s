@@ -6,10 +6,17 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://github.com/jimmy-ungerman/pork3s.git
-    path: kubernetes/apps/default/redis
+  sources:
+  - repoURL: 'https://charts.bitnami.com/bitnami'
+    chart: redis
+    targetRevision: 18.2.0
+    helm:
+      valueFiles:
+        - $values/kubernetes/apps/default/redis/app/values.yaml
+  - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
+    path: kubernetes/apps/default/redis/app
+    ref: values
   destination:
     server: "https://kubernetes.default.svc"
     namespace: default

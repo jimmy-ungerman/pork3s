@@ -1,0 +1,69 @@
+controllers:
+  main:
+    type: statefulset
+    annotations:
+      reloader.stakater.com/auto: "true"
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/plex
+          tag: 1.32.7.7621-871adbd44@sha256:f9f77dc5e17cab9fae5ece663a64d026e3c75142b3b60bb4a52bf061957412be
+        env:
+          TZ: America/Boise
+        resources:
+          requests:
+            gpu.intel.com/i915: 1
+            cpu: 100m
+            memory: 2Gi
+          limits:
+            gpu.intel.com/i915: 1
+            memory: 10Gi
+    pod:
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: "true"
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [44, 105, 10000]
+    statefulset:
+      volumeClaimTemplates:
+        - name: config
+          accessMode: ReadWriteOnce
+          size: 100Gi
+          storageClass: rook-ceph-block
+          globalMounts:
+            - path: /config
+service:
+  main:
+    ports:
+      http:
+        port: 32400
+ingress:
+  main:
+    enabled: true
+    className: nginx
+    annotations:
+      external-dns.alpha.kubernetes.io/target: porkboi.io
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      external-dns.alpha.kubernetes.io/hostname: plex.porkboi.io
+    hosts:
+      - host: &host "plex.porkboi.io"
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              name: main
+              port: http
+    tls:
+      - hosts:
+          - *host
+
+persistence:
+  transcode:
+    type: emptyDir
+  media:
+    existingClaim: media
+    globalMounts:
+      - readOnly: true
