@@ -50,6 +50,9 @@ ingress:
   main:
     enabled: true
     className: nginx
+    annotations:
+      external-dns.alpha.kubernetes.io/target: porkboi.io
+      external-dns.alpha.kubernetes.io/hostname: radarr.porkboi.io
     hosts:
       - host: &host "{{ .Release.Name }}.porkboi.io"
         paths:
