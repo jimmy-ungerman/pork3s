@@ -10,10 +10,9 @@ controllers:
         env:
           TZ: America/Boise
           RADARR__INSTANCE_NAME: Radarr
-          RADARR__PORT: &port 80
+          RADARR__PORT: &port 7979
+          RADARR__APPLICATION_URL: "https://{{ .Release.Name }}.porkboi.io"
           RADARR__LOG_LEVEL: info
-          RADARR__APPLICATION_URL: "https://radarr.porkboi.io"
-          RADARR__THEME: dark
         resources:
           requests:
             cpu: 10m
@@ -32,6 +31,7 @@ service:
     ports:
       http:
         port: *port
+        
 ingress:
   main:
     enabled: true
