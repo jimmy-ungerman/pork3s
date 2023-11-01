@@ -29,7 +29,7 @@ controllers:
         - name: config
           accessMode: ReadWriteOnce
           size: 5Gi
-          storageClass: ceph-block
+          storageClass: rook-ceph-block
           globalMounts:
             - path: /app/config
 service:
