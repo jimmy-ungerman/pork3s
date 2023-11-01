@@ -38,7 +38,7 @@ service:
 ingress:
   main:
     enabled: true
-    className: internal
+    className: nginx
     hosts:
       - host: &host "tautulli.porkboi.io"
         paths:
