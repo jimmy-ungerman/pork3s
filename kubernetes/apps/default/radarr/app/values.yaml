@@ -1,0 +1,68 @@
+controllers:
+  main:
+    annotations:
+      reloader.stakater.com/auto: "true"
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/radarr-develop
+          tag: 5.1.2.8207@sha256:7e026aae3fa4ac9d4066a0533fdbfaa35a0ccdc41033bc4f2460aa9401ecfb46
+        env:
+          TZ: America/Boise
+          RADARR__INSTANCE_NAME: Radarr
+          RADARR__PORT: &port 80
+          RADARR__LOG_LEVEL: info
+          RADARR__THEME: dark
+        probes:
+          liveness: &probes
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /ping
+                port: *port
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 3
+          readiness: *probes
+          startup:
+            enabled: false
+        resources:
+          requests:
+            cpu: 10m
+            memory: 256M
+          limits:
+            memory: 1Gi
+    pod:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [10000]
+service:
+  main:
+    ports:
+      http:
+        port: *port
+ingress:
+  main:
+    enabled: true
+    className: internal
+    hosts:
+      - host: &host "radarr.porkboi.io"
+        paths:
+          - path: /
+            service:
+              name: main
+              port: http
+    tls:
+      - hosts:
+          - *host
+persistence:
+  config:
+    enabled: true
+    existingClaim: radarr-config
+  media:
+    existingClaim: media

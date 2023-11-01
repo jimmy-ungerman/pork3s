@@ -6,10 +6,17 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://github.com/jimmy-ungerman/pork3s.git
-    path: kubernetes/apps/default/radarr
-    targetRevision: main
+  sources:
+  - repoURL: 'https://bjw-s.github.io/helm-charts'
+    chart: app-template
+    targetRevision: 2.0.3
+    helm:
+      valueFiles:
+        - $values/kubernetes/apps/default/radarr/app/values.yaml
+  - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
+    targetRevision: app-template
+    path: kubernetes/apps/default/radarr/app
+    ref: values
   destination:
     server: "https://kubernetes.default.svc"
     namespace: default
