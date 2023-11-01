@@ -52,6 +52,7 @@ ingress:
       - host: &host "plex.porkboi.io"
         paths:
           - path: /
+            pathType: prefix
             service:
               name: main
               port: http
