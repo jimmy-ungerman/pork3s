@@ -57,7 +57,7 @@ service:
   main:
     ports:
       http:
-        port: 32400
+        port: *port
 ingress:
   main:
     enabled: true
