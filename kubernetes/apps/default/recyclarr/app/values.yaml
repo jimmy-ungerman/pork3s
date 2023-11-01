@@ -38,14 +38,14 @@ controllers:
           storageClass: rook-ceph-block
           globalMounts:
             - path: /config
-    service:
-      main:
-        enabled: false
-    persistence:
-      config-file:
-        type: configMap
-        name: recyclarr-configmap
-        globalMounts:
-          - path: recyclarr.yml
-            subPath: recyclarr.yml
-            readOnly: true
+service:
+  main:
+    enabled: false
+persistence:
+  config-file:
+    type: configMap
+    name: recyclarr-configmap
+    globalMounts:
+      - path: recyclarr.yml
+        subPath: recyclarr.yml
+        readOnly: true
