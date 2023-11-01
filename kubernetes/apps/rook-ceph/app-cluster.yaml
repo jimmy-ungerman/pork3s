@@ -14,7 +14,7 @@ spec:
       valueFiles:
         - $values/kubernetes/apps/rook-ceph/app/cluster/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
-    targetRevision: app-template
+    targetRevision: main
     path: kubernetes/apps/rook-ceph/app/cluster
     ref: values
   destination:
