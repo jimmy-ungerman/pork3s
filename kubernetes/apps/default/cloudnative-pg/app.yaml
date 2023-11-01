@@ -6,10 +6,17 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://github.com/jimmy-ungerman/pork3s.git
-    path: kubernetes/apps/default/cloudnative-pg
-    targetRevision: main
+  sources:
+  - repoURL: 'https://cloudnative-pg.github.io/charts'
+    chart: cloudnative-pg
+    targetRevision: 0.19.0
+    helm:
+      valueFiles:
+        - $values/kubernetes/apps/default/cloudnative-pg/app/operator/values.yaml
+  - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
+    targetRevision: app-template
+    path: kubernetes/apps/default/cloudnative-pg/app/operator
+    ref: values
   destination:
     server: "https://kubernetes.default.svc"
     namespace: default

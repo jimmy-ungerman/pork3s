@@ -12,7 +12,7 @@ spec:
   primaryUpdateStrategy: unsupervised
   storage:
     size: 100Gi
-    storageClass: longhorn
+    storageClass: rook-ceph-block
   superuserSecret:
     name: cloudnative-pg
   backup:
