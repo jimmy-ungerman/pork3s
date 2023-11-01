@@ -9,7 +9,7 @@ controllers:
           repository: ghcr.io/recyclarr/recyclarr
           tag: 6.0.2
         env:
-          TZ: America/New_York
+          TZ: America/Boise
         envFrom:
           - secretRef:
               name: radarr-secret
@@ -46,6 +46,6 @@ controllers:
         type: configMap
         name: recyclarr-configmap
         globalMounts:
-          - path: /config/recyclarr.yml
+          - path: recyclarr.yml
             subPath: recyclarr.yml
             readOnly: true
