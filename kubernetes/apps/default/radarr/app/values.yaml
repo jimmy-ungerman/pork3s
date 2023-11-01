@@ -44,7 +44,7 @@ ingress:
       - host: &host "radarr.porkboi.io"
         paths:
           - path: /
-            pathType: prefix
+            pathType: Prefix
             service:
               name: main
               port: http
