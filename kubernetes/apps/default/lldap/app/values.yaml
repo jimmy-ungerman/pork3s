@@ -49,7 +49,7 @@ service:
 ingress:
   main:
     enabled: true
-    className: internal
+    className: nginx
     hosts:
       - host: &host "{{ .Release.Name }}.porkboi.io"
         paths:
