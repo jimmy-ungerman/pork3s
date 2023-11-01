@@ -1,43 +1,51 @@
-controller:
-  type: statefulset
-image:
-  repository: ghcr.io/onedr0p/tautulli
-  tag: 2.13.2@sha256:960fef79051c992dcbb077dcf196f81afad9c5753cb04462910b59dbac3f21f6
-env:
-  TZ: America/Boise
-ingress:
+controllers:
   main:
-    enabled: true
+    type: statefulset
     annotations:
-      external-dns.alpha.kubernetes.io/target: porkboi.io
-      hajimari.io/icon: mdi:chart-bar
-    hosts:
-      - host: &host "{{ .Release.Name }}.porkboi.io"
-        paths:
-          - path: /
-            pathType: Prefix
-    tls:
-      - hosts:
-          - *host
+      reloader.stakater.com/auto: "true"
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/tautulli
+          tag: 2.13.2@sha256:960fef79051c992dcbb077dcf196f81afad9c5753cb04462910b59dbac3f21f6
+        env:
+          TZ: America/Boise
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            memory: 512Mi
+    pod:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+    statefulset:
+      volumeClaimTemplates:
+        - name: config
+          accessMode: ReadWriteOnce
+          size: 5Gi
+          storageClass: rook-ceph-block
+          globalMounts:
+            - path: /config
 service:
   main:
     ports:
       http:
         port: 8181
-podSecurityContext:
-  runAsUser: 950
-  runAsGroup: 950
-  fsGroup: 950
-  fsGroupChangePolicy: OnRootMismatch
-volumeClaimTemplates:
-  - name: config
-    mountPath: /config
-    accessMode: ReadWriteOnce
-    size: 5Gi
-    storageClass: longhorn
-resources:
-  requests:
-    cpu: 10m
-    memory: 250Mi
-  limits:
-    memory: 500Mi
+ingress:
+  main:
+    enabled: true
+    className: internal
+    hosts:
+      - host: &host "tautulli.porkboi.io"
+        paths:
+          - path: /
+            service:
+              name: main
+              port: http
+    tls:
+      - hosts:
+          - *host
