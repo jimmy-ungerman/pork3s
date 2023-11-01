@@ -38,7 +38,7 @@ controllers:
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
-              app.kubernetes.io/name: *app
+              app.kubernetes.io/name: lldap
 service:
   main:
     ports:
