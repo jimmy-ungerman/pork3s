@@ -14,21 +14,6 @@ controllers:
           RADARR__LOG_LEVEL: info
           RADARR__APPLICATION_URL: "https://radarr.porkboi.io"
           RADARR__THEME: dark
-        probes:
-          liveness: &probes
-            enabled: true
-            custom: true
-            spec:
-              httpGet:
-                path: /ping
-                port: *port
-              initialDelaySeconds: 0
-              periodSeconds: 10
-              timeoutSeconds: 1
-              failureThreshold: 3
-          readiness: *probes
-          startup:
-            enabled: false
         resources:
           requests:
             cpu: 10m
