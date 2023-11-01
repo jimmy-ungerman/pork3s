@@ -12,6 +12,7 @@ controllers:
           RADARR__INSTANCE_NAME: Radarr
           RADARR__PORT: &port 80
           RADARR__LOG_LEVEL: info
+          RADARR__APPLICATION_URL: radarr.porkboi.io
           RADARR__THEME: dark
         probes:
           liveness: &probes
