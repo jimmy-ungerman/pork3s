@@ -12,7 +12,11 @@ controllers:
           TZ: America/New_York
         envFrom:
           - secretRef:
-              name: recyclarr-secret
+              name: radarr-secret
+          - secretRef:
+              name: radarr4k-secret
+          - secretRef:
+              name: sonarr-secret
         resources:
           requests:
             cpu: 10m
@@ -45,29 +49,3 @@ controllers:
           - path: /config/recyclarr.yml
             subPath: recyclarr.yml
             readOnly: true
-
-
-
-
-
-service:
-  main:
-    enabled: false
-
-envFrom:
-  - secretRef:
-      name: radarr-secret
-  - secretRef:
-      name: radarr4k-secret
-  - secretRef:
-      name: sonarr-secret
-
-persistence:
-  config:
-    enabled: true
-    type: configMap
-    name: recyclarr-configmap
-    subPath: recyclarr.yml
-    mountPath: /config/recyclarr.yml
-    defaultMode: 0775
-    readOnly: true
