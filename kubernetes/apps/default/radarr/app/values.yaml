@@ -49,7 +49,7 @@ service:
 ingress:
   main:
     enabled: true
-    className: internal
+    className: nginx
     annotations:
       external-dns.alpha.kubernetes.io/target: porkboi.io
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
