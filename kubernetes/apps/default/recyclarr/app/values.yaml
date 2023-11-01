@@ -46,6 +46,6 @@ persistence:
     type: configMap
     name: recyclarr-configmap
     globalMounts:
-      - path: recyclarr.yml
+      - path: /app/recyclarr.yml
         subPath: recyclarr.yml
         readOnly: true
