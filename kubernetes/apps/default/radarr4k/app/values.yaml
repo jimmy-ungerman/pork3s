@@ -1,0 +1,58 @@
+controllers:
+  main:
+    annotations:
+      reloader.stakater.com/auto: "true"
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/radarr-nightly
+          tag: 5.1.3.8224
+        env:
+          TZ: America/Boise
+          RADARR__INSTANCE_NAME: Radarr4k
+          RADARR__PORT: &port 80
+          RADARR__APPLICATION_URL: "https://radarr4k.porkboi.io/"
+          RADARR__LOG_LEVEL: info
+        resources:
+          requests:
+            cpu: 10m
+            memory: 256M
+          limits:
+            memory: 1Gi
+    pod:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [10000]
+service:
+  main:
+    ports:
+      http:
+        port: *port
+
+ingress:
+  main:
+    enabled: true
+    className: nginx
+    annotations:
+      external-dns.alpha.kubernetes.io/target: porkboi.io
+      external-dns.alpha.kubernetes.io/hostname: radarr4k.porkboi.io
+    hosts:
+      - host: &host "radarr4k.porkboi.io"
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              name: main
+              port: http
+    tls:
+      - hosts:
+          - *host
+persistence:
+  config:
+    enabled: true
+    existingClaim: radarr4k-config
+  media:
+    existingClaim: media

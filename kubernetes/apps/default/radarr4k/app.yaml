@@ -9,13 +9,13 @@ spec:
   sources:
   - repoURL: 'https://bjw-s.github.io/helm-charts'
     chart: app-template
-    targetRevision: 1.5.1
+    targetRevision: 2.0.3
     helm:
       valueFiles:
-        - $values/kubernetes/apps/default/radarr/values.yaml
+        - $values/kubernetes/apps/default/radarr4k/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
-    targetRevision: main
-    path: kubernetes/apps/default/radarr
+    targetRevision: app-template
+    path: kubernetes/apps/default/radarr4k/app
     ref: values
   destination:
     server: "https://kubernetes.default.svc"
