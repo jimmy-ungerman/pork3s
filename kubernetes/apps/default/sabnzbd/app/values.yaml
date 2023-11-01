@@ -18,11 +18,6 @@ controllers:
             sabnzbd.default.svc.cluster,
             sabnzbd.default.svc.cluster.local,
             sabnzbd.porkboi.io
-        resources:
-            cpu: 100m
-            memory: 2Gi
-        limits:
-          memory: 8Gi
         probes:
           liveness: &probes
             enabled: true
@@ -38,6 +33,11 @@ controllers:
           readiness: *probes
           startup:
             enabled: false
+          resources:
+            cpu: 100m
+            memory: 2Gi
+          limits:
+            memory: 8Gi
     pod:
       securityContext:
         runAsUser: 568
