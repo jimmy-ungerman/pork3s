@@ -5,7 +5,7 @@ controllers:
     containers:
       main:
         image:
-          repository: ghcr.io/onedr0p/radarr-develop
+          repository: ghcr.io/onedr0p/radarr-dev
           tag: 5.1.2.8207@sha256:7e026aae3fa4ac9d4066a0533fdbfaa35a0ccdc41033bc4f2460aa9401ecfb46
         env:
           TZ: America/Boise
@@ -38,7 +38,6 @@ ingress:
     className: nginx
     annotations:
       external-dns.alpha.kubernetes.io/target: porkboi.io
-      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       external-dns.alpha.kubernetes.io/hostname: radarr.porkboi.io
     hosts:
       - host: &host "radarr.porkboi.io"
