@@ -31,7 +31,7 @@ service:
     ports:
       http:
         port: *port
-        
+
 ingress:
   main:
     enabled: true
@@ -44,6 +44,7 @@ ingress:
       - host: &host "radarr.porkboi.io"
         paths:
           - path: /
+            pathType: prefix
             service:
               name: main
               port: http
