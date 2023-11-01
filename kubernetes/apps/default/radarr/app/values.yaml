@@ -11,7 +11,7 @@ controllers:
           TZ: America/Boise
           RADARR__INSTANCE_NAME: Radarr
           RADARR__PORT: &port 7979
-          RADARR__APPLICATION_URL: "https://{{ .Release.Name }}.porkboi.io"
+          RADARR__APPLICATION_URL: "https://radarr.porkboi.io/"
           RADARR__LOG_LEVEL: info
         resources:
           requests:
