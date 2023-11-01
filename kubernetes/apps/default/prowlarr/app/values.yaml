@@ -1,0 +1,72 @@
+controllers:
+  main:
+    type: statefulset
+    annotations:
+      reloader.stakater.com/auto: "true"
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/prowlarr-develop
+          tag: 1.10.1.4059
+        env:
+          TZ: America/Boise
+          PROWLARR__INSTANCE_NAME: Prowlarr
+          PROWLARR__PORT: &port 80
+          PROWLARR__LOG_LEVEL: info
+          PROWLARR__AUTHENTICATION_METHOD: External
+          PROWLARR__THEME: dark
+        probes:
+          liveness: &probes
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /ping
+                port: *port
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 3
+          readiness: *probes
+          startup:
+            enabled: false
+        resources:
+          requests:
+            cpu: 10m
+            memory: 128M
+          limits:
+            memory: 1Gi
+    pod:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+    
+service:
+  main:
+    ports:
+      http:
+        port: *port
+ingress:
+  main:
+    enabled: true
+    className: nginx
+    annotations:
+      external-dns.alpha.kubernetes.io/target: porkboi.io
+      external-dns.alpha.kubernetes.io/hostname: prowlarr.porkboi.io
+    hosts:
+      - host: &host "prowlarr.porkboi.io"
+        paths:
+          - path: /
+            service:
+              name: main
+              port: http
+    tls:
+      - hosts:
+          - *host
+
+persistence:
+  config:
+    enabled: true
+    type: emptyDir
