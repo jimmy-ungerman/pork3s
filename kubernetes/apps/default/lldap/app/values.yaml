@@ -23,7 +23,7 @@ controllers:
           LLDAP_HTTP_PORT: &port 80
           LLDAP_HTTP_URL: https://lldap.porkboi.io
           LLDAP_LDAP_PORT: &ldapPort 389
-          LLDAP_LDAP_BASE_DN: dc=home,dc=arpa
+          LLDAP_LDAP_BASE_DN: dc=home
           LLDAP_VERBOSE: true
         envFrom: *envFrom
         resources:
