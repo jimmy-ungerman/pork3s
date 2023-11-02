@@ -62,17 +62,27 @@ duo_api:
   disable: true
 
 access_control:
-  default_policy: two_factor
+  default_policy: one_factor
   networks:
     - name: internal
-      networks: ["10.0.0.0/24", "10.1.0.0/24", "10.42.0.0/24"]
+      networks:
+        - 10.1.0.0/16
+        - 10.0.0.0/16
+        - 172.16.0.0/12
+        - 192.168.0.0/16
   rules:
     - domain: ["radarr.porkboi.io"]
       resources: ["^/api.*$"]
-      policy: deny
+      policy: bypass
     - domain: ["radarr4k.porkboi.io"]
       resources: ["^/api.*$"]
       policy: bypass
     - domain: ["sonarr.porkboi.io"]
+      resources: ["^/api.*$"]
+      policy: bypass
+    - domain: ["prowlarr.porkboi.io"]
+      resources: ["^/api.*$"]
+      policy: bypass
+    - domain: ["sabnzbd.porkboi.io"]
       resources: ["^/api.*$"]
       policy: bypass
