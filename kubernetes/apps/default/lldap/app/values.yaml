@@ -1,0 +1,68 @@
+controllers:
+  main:
+    replicas: 2
+    strategy: RollingUpdate
+    annotations:
+      reloader.stakater.com/auto: "true"
+    initContainers:
+      init-db:
+        image:
+          repository: ghcr.io/onedr0p/postgres-init
+          tag: 14.9
+          pullPolicy: IfNotPresent
+        envFrom: &envFrom
+          - secretRef:
+              name: lldap-secret
+    containers:
+      main:
+        image:
+          repository: ghcr.io/lldap/lldap
+          tag: v0.5.0
+        env:
+          TZ: America/Boise
+          LLDAP_HTTP_PORT: &port 80
+          LLDAP_HTTP_URL: https://lldap.porkboi.io
+          LLDAP_LDAP_PORT: &ldapPort 389
+          LLDAP_LDAP_BASE_DN: dc=porkboi,dc=io
+        envFrom: *envFrom
+        resources:
+          requests:
+            cpu: 5m
+            memory: 36M
+          limits:
+            memory: 128M
+    pod:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: lldap
+service:
+  main:
+    ports:
+      http:
+        port: *port
+      ldap:
+        port: *ldapPort
+ingress:
+  main:
+    enabled: true
+    className: nginx
+    annotations:
+      external-dns.alpha.kubernetes.io/target: porkboi.io
+      external-dns.alpha.kubernetes.io/hostname: radarr.porkboi.io
+    hosts:
+      - host: &host "{{ .Release.Name }}.porkboi.io"
+        paths:
+          - path: /
+            service:
+              name: main
+              port: http
+    tls:
+      - hosts:
+          - *host
+persistence:
+  data:
+    type: emptyDir
