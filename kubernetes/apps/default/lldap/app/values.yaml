@@ -23,7 +23,7 @@ controllers:
           LLDAP_HTTP_PORT: &port 80
           LLDAP_HTTP_URL: https://lldap.porkboi.io
           LLDAP_LDAP_PORT: &ldapPort 389
-          LLDAP_LDAP_BASE_DN: "dc=home"
+          LLDAP_LDAP_BASE_DN: dc=porkboi,dc=io
           LLDAP_VERBOSE: true
         envFrom: *envFrom
         resources:
@@ -32,7 +32,14 @@ controllers:
             memory: 36M
           limits:
             memory: 128M
-
+    pod:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: lldap
 service:
   main:
     ports:
