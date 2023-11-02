@@ -1,0 +1,109 @@
+controllers:
+  main:
+    replicas: 2
+    strategy: RollingUpdate
+    annotations:
+      reloader.stakater.com/auto: "true"
+    initContainers:
+      init-db:
+        image:
+          repository: ghcr.io/onedr0p/postgres-init
+          tag: 14.9
+          pullPolicy: IfNotPresent
+        envFrom: &envFrom
+          - secretRef:
+              name: authelia-secret
+    containers:
+      main:
+        image:
+          repository: ghcr.io/authelia/authelia
+          tag: v4.38.0-beta3@sha256:c888bc055deab08fa3fb344ea1c98eb791d20cb6283f0cf76f277a2923e573dc
+        env:
+          AUTHELIA_SERVER_ADDRESS: tcp://0.0.0.0:80
+          AUTHELIA_SERVER_DISABLE_HEALTHCHECK: "true"
+          AUTHELIA_TELEMETRY_METRICS_ADDRESS: tcp://0.0.0.0:8080
+          AUTHELIA_TELEMETRY_METRICS_ENABLED: "true"
+          AUTHELIA_THEME: dark
+          X_AUTHELIA_CONFIG: /app/configuration.yaml
+          X_AUTHELIA_CONFIG_FILTERS: expand-env
+        envFrom: *envFrom
+        probes:
+          liveness: &probes
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /api/health
+                port: &port 80
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 3
+          readiness: *probes
+          startup:
+            enabled: false
+        resources:
+          requests:
+            cpu: 10m
+            memory: 32Mi
+          limits:
+            memory: 128Mi
+    pod:
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+      # topologySpreadConstraints:
+      #   - maxSkew: 1
+      #     topologyKey: kubernetes.io/hostname
+      #     whenUnsatisfiable: DoNotSchedule
+      #     labelSelector:
+      #       matchLabels:
+      #         app.kubernetes.io/name: authelia
+service:
+  main:
+    ports:
+      http:
+        port: *port
+      metrics:
+        port: 8080
+# serviceMonitor:
+#   main:
+#     enabled: true
+#     endpoints:
+#       - port: metrics
+#         scheme: http
+#         path: /metrics
+#         interval: 1m
+#         scrapeTimeout: 10s
+ingress:
+  main:
+    enabled: true
+    className: nginx
+    annotations:
+      external-dns.alpha.kubernetes.io/target: porkboi.io
+      external-dns.alpha.kubernetes.io/hostname: auth.porkboi.io
+      nginx.ingress.kubernetes.io/configuration-snippet: |
+        add_header Cache-Control "no-store";
+        add_header Pragma "no-cache";
+        add_header X-Frame-Options "SAMEORIGIN";
+        add_header X-XSS-Protection "1; mode=block";
+    hosts:
+      - host: &host auth.porkboi.io
+        paths:
+          - path: /
+            service:
+              name: main
+              port: http
+    tls:
+      - hosts:
+          - *host
+persistence:
+  config:
+    enabled: true
+    type: configMap
+    name: authelia-configmap
+    globalMounts:
+      - path: /app/configuration.yaml
+        subPath: configuration.yaml
+        readOnly: true
