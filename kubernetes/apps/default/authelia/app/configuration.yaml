@@ -47,6 +47,8 @@ session:
           port: 26379
 
 notifier:
+  filesystem:
+    filename: /config/notification.txt
   disable_startup_check: true
 
 totp:
