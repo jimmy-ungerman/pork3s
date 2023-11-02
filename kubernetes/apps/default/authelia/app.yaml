@@ -14,7 +14,7 @@ spec:
       valueFiles:
         - $values/kubernetes/apps/default/authelia/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
-    targetRevision: authelia
+    targetRevision: main
     path: kubernetes/apps/default/authelia/app
     ref: values
   destination:
