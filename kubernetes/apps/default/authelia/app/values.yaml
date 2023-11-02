@@ -59,7 +59,7 @@ controllers:
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
-              app.kubernetes.io/name: *app
+              app.kubernetes.io/name: authelia
 service:
   main:
     ports:
