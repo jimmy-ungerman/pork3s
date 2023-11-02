@@ -15,7 +15,7 @@ spec:
     storageClass: rook-ceph-block
   superuserSecret:
     name: cloudnative-pg
-postgresql:
-    parameters:
-      max_connections: "600"
-      shared_buffers: 512MB
+  postgresql:
+      parameters:
+        max_connections: "600"
+        shared_buffers: 512MB
