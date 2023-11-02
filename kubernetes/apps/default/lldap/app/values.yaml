@@ -23,7 +23,7 @@ controllers:
           LLDAP_HTTP_PORT: &port 80
           LLDAP_HTTP_URL: https://lldap.porkboi.io
           LLDAP_LDAP_PORT: &ldapPort 389
-          LLDAP_LDAP_BASE_DN: dc=porkboi,dc=io
+          LLDAP_LDAP_BASE_DN: dc=home,dc=arpa
         envFrom: *envFrom
         resources:
           requests:
@@ -52,7 +52,7 @@ ingress:
     className: nginx
     annotations:
       external-dns.alpha.kubernetes.io/target: porkboi.io
-      external-dns.alpha.kubernetes.io/hostname: radarr.porkboi.io
+      external-dns.alpha.kubernetes.io/hostname: lldap.porkboi.io
     hosts:
       - host: &host "{{ .Release.Name }}.porkboi.io"
         paths:
