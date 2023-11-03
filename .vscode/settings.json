@@ -5,7 +5,6 @@
     },
     "yaml.schemaStore.enable": true,
     "yaml.schemas": {
-        "file:///Users/jimmy/.vscode/extensions/docsmsft.docs-yaml-1.0.1/dist/toc.schema.json": "/toc\\.yml/i",
         "https://json.schemastore.org/yamllint.json": [
             "ansible/**/inventory/**/*.yml",
             "file:///Users/jimmy/code/projects/pork3s/kubernetes/apps/default/cloudnative-pg/cluster/cluster.yaml",

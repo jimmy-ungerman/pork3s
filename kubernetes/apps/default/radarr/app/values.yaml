@@ -10,6 +10,8 @@ controllers:
         env:
           TZ: America/Boise
           RADARR__INSTANCE_NAME: Radarr
+          RADARR__AUTHENTICATION_METHOD: External
+          RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
           RADARR__PORT: &port 80
           RADARR__APPLICATION_URL: "https://radarr.porkboi.io/"
           RADARR__LOG_LEVEL: info
