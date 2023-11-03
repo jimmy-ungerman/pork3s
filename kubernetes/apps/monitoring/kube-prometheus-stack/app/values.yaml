@@ -54,7 +54,7 @@ alertmanager:
   ingress:
     enabled: true
     pathType: Prefix
-    ingressClassName: internal
+    ingressClassName: nginx
     hosts:
       - &host alertmanager.porkboi.io
     tls:
