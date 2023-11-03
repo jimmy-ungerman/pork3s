@@ -2,11 +2,6 @@ crds:
   enabled: true
 cleanPrometheusOperatorObjectNames: true
 
-defaultRules:
-  create: true
-  rules:
-    alertmanager: false
-
 prometheus:
   ingress:
     enabled: true
@@ -56,8 +51,26 @@ prometheus:
               storage: 20Gi
 
 alertmanager:
-  enabled: false
-
+  ingress:
+    enabled: true
+    pathType: Prefix
+    ingressClassName: internal
+    hosts:
+      - &host alertmanager.porkboi.io
+    tls:
+      - hosts:
+          - *host
+  alertmanagerSpec:
+    replicas: 2
+    useExistingSecret: true
+    configSecret: alertmanager-secret
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: rook-ceph-block
+          resources:
+            requests:
+              storage: 1Gi
 grafana:
   enabled: false
   forceDeployDashboards: true
