@@ -5,7 +5,7 @@ route:
   group_by: ["alertname", "job"]
   group_interval: 10m
   group_wait: 1m  
-  receiver: null
+  receiver: "null"
   repeat_interval: 12h
   routes:
     - receiver: "null"
