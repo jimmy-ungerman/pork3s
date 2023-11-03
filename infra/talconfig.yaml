@@ -125,18 +125,32 @@ controlPlane:
         allowSchedulingOnMasters: false
         proxy:
           disabled: true
+        etcd:
+          extraArgs:
+            metrics: extensive
+            listen-metrics-urls: http://0.0.0.0:2381
+        scheduler:
+          extraArgs:
+            feature-gates: StatefulSetStartOrdinal=true,StatefulSetAutoDeletePVC=true
+            bind-address: 0.0.0.0
+        controllerManager:
+          extraArgs:
+            feature-gates: StatefulSetStartOrdinal=true,StatefulSetAutoDeletePVC=true
+            bind-address: 0.0.0.0
+          
 
     # Configure containerd
     - |-
       machine:
         files:
-          - op: create
+          - content: |
+              [plugins."io.containerd.grpc.v1.cri"]
+                enable_unprivileged_ports = true
+                enable_unprivileged_icmp = true
+              [metrics]
+                address = "0.0.0.0:11234"
             path: /etc/cri/conf.d/20-customization.part
-            content: |
-              [plugins]
-                [plugins."io.containerd.grpc.v1.cri"]
-                  enable_unprivileged_ports = true
-                  enable_unprivileged_icmp = true
+            op: create
 
     # Disable default API server admission plugins.
     - |-
@@ -196,13 +210,14 @@ worker:
     - |-
       machine:
         files:
-          - op: create
+          - content: |
+              [plugins."io.containerd.grpc.v1.cri"]
+                enable_unprivileged_ports = true
+                enable_unprivileged_icmp = true
+              [metrics]
+                address = "0.0.0.0:11234"
             path: /etc/cri/conf.d/20-customization.part
-            content: |
-              [plugins]
-                [plugins."io.containerd.grpc.v1.cri"]
-                  enable_unprivileged_ports = true
-                  enable_unprivileged_icmp = true
+            op: create
 
     # Kubelet configuration
     - |-
@@ -223,3 +238,20 @@ worker:
         sysctls:
           fs.inotify.max_user_watches: "1048576"
           fs.inotify.max_user_instances: "8192"
+
+    - |-
+      machine:
+        files:
+          - content: |
+              [plugins."io.containerd.grpc.v1.cri"]
+                enable_unprivileged_ports = true
+                enable_unprivileged_icmp = true
+              [metrics]
+                address = "0.0.0.0:11234"
+              [plugins."io.containerd.tracing.processor.v1.otlp"]
+                endpoint = "http://tempo.monitoring.svc.cluster.local:4318"
+              [plugins."io.containerd.internal.v1.tracing"]
+                sampling_ratio = 1.0
+                service_name = "containerd"
+            path: /etc/cri/conf.d/20-customization.part
+            op: create
