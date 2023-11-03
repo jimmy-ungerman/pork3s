@@ -2,6 +2,11 @@ crds:
   enabled: true
 cleanPrometheusOperatorObjectNames: true
 
+defaultRules:
+  create: true
+  rules:
+    alertmanager: false
+
 prometheus:
   ingress:
     enabled: true
