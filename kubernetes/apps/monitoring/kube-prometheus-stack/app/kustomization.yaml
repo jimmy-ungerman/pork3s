@@ -5,8 +5,8 @@ kind: Kustomization
 namespace: monitoring
 # resources:
 #   - ./externalSecret.yaml
-configMapGenerator:
-  - name: alertmanager-config
+secretGenerator:
+  - name: alertmanager-secret
     files:
       - alertmanager.yaml=./config/alertmanager.yaml
 generatorOptions:
