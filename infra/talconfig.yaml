@@ -125,18 +125,32 @@ controlPlane:
         allowSchedulingOnMasters: false
         proxy:
           disabled: true
+        etcd:
+          extraArgs:
+            metrics: extensive
+            listen-metrics-urls: http://0.0.0.0:2381
+        scheduler:
+          extraArgs:
+            feature-gates: StatefulSetStartOrdinal=true,StatefulSetAutoDeletePVC=true
+            bind-address: 0.0.0.0
+        controllerManager:
+          extraArgs:
+            feature-gates: StatefulSetStartOrdinal=true,StatefulSetAutoDeletePVC=true
+            bind-address: 0.0.0.0
+          
 
     # Configure containerd
     - |-
       machine:
         files:
-          - op: create
+          - content: |
+              [plugins."io.containerd.grpc.v1.cri"]
+                enable_unprivileged_ports = true
+                enable_unprivileged_icmp = true
+              [metrics]
+                address = "0.0.0.0:11234"
             path: /etc/cri/conf.d/20-customization.part
-            content: |
-              [plugins]
-                [plugins."io.containerd.grpc.v1.cri"]
-                  enable_unprivileged_ports = true
-                  enable_unprivileged_icmp = true
+            op: create
 
     # Disable default API server admission plugins.
     - |-
@@ -165,16 +179,42 @@ controlPlane:
 worker:
   patches:
     - |-
-      machine:
-        network:
-          disableSearchDomain: true
+      - op: add
+        path: /machine/kubelet/nodeIP
+        value:
+          validSubnets:
+            - 10.1.0.0/24
+
+    - |-
+      - op: add
+        path: /machine/kubelet/extraArgs
+        value:
+          feature-gates: StatefulSetStartOrdinal=true,StatefulSetAutoDeletePVC=true,KubeletTracing=true
+          rotate-server-certificates: "true"
+
+    - |-
+      - op: add
+        path: /machine/features/kubePrism
+        value:
+          enabled: true
+          port: 7445
 
     - |-
       machine:
-        features:
-          kubePrism:
-            enabled: true
-            port: 7445
+        files:
+          - content: |
+              [plugins."io.containerd.grpc.v1.cri"]
+                enable_unprivileged_ports = true
+                enable_unprivileged_icmp = true
+              [metrics]
+                address = "0.0.0.0:11234"
+              [plugins."io.containerd.tracing.processor.v1.otlp"]
+                endpoint = "http://tempo.monitoring.svc.cluster.local:4318"
+              [plugins."io.containerd.internal.v1.tracing"]
+                sampling_ratio = 1.0
+                service_name = "containerd"
+            path: /etc/cri/conf.d/20-customization.part
+            op: create
 
     # Configure cluster loopback
     - |-
@@ -184,38 +224,6 @@ worker:
             - ip: 10.1.0.15
               aliases:
                 - kube.porkboi.io
-
-    # Cluster configuration
-    - |-
-      cluster:
-        allowSchedulingOnMasters: false
-        proxy:
-          disabled: true
-
-    # Configure containerd
-    - |-
-      machine:
-        files:
-          - op: create
-            path: /etc/cri/conf.d/20-customization.part
-            content: |
-              [plugins]
-                [plugins."io.containerd.grpc.v1.cri"]
-                  enable_unprivileged_ports = true
-                  enable_unprivileged_icmp = true
-
-    # Kubelet configuration
-    - |-
-      machine:
-        kubelet:
-          extraArgs:
-            feature-gates: CronJobTimeZone=true,GracefulNodeShutdown=true,NewVolumeManagerReconstruction=false
-            rotate-server-certificates: "true"
-          extraConfig:
-            maxPods: 150
-          nodeIP:
-            validSubnets:
-                - 10.1.0.0/24
 
     # Custom sysctls
     - |-
