@@ -6,7 +6,7 @@ namespace: monitoring
 # resources:
 #   - ./externalSecret.yaml
 configMapGenerator:
-  - name: alertmanager-config-tpl
+  - name: alertmanager-config
     files:
       - alertmanager.yaml=./config/alertmanager.yaml
 generatorOptions:
