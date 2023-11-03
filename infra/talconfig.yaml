@@ -179,65 +179,25 @@ controlPlane:
 worker:
   patches:
     - |-
-      machine:
-        network:
-          disableSearchDomain: true
+      - op: add
+        path: /machine/kubelet/nodeIP
+        value:
+          validSubnets:
+            - 10.1.0.0/24
 
     - |-
-      machine:
-        features:
-          kubePrism:
-            enabled: true
-            port: 7445
+      - op: add
+        path: /machine/kubelet/extraArgs
+        value:
+          feature-gates: StatefulSetStartOrdinal=true,StatefulSetAutoDeletePVC=true,KubeletTracing=true
+          rotate-server-certificates: "true"
 
-    # Configure cluster loopback
     - |-
-      machine:
-        network:
-          extraHostEntries:
-            - ip: 10.1.0.15
-              aliases:
-                - kube.porkboi.io
-
-    # Cluster configuration
-    - |-
-      cluster:
-        allowSchedulingOnMasters: false
-        proxy:
-          disabled: true
-
-    # Configure containerd
-    - |-
-      machine:
-        files:
-          - content: |
-              [plugins."io.containerd.grpc.v1.cri"]
-                enable_unprivileged_ports = true
-                enable_unprivileged_icmp = true
-              [metrics]
-                address = "0.0.0.0:11234"
-            path: /etc/cri/conf.d/20-customization.part
-            op: create
-
-    # Kubelet configuration
-    - |-
-      machine:
-        kubelet:
-          extraArgs:
-            feature-gates: CronJobTimeZone=true,GracefulNodeShutdown=true,NewVolumeManagerReconstruction=false
-            rotate-server-certificates: "true"
-          extraConfig:
-            maxPods: 150
-          nodeIP:
-            validSubnets:
-                - 10.1.0.0/24
-
-    # Custom sysctls
-    - |-
-      machine:
-        sysctls:
-          fs.inotify.max_user_watches: "1048576"
-          fs.inotify.max_user_instances: "8192"
+      - op: add
+        path: /machine/features/kubePrism
+        value:
+          enabled: true
+          port: 7445
 
     - |-
       machine:
@@ -255,3 +215,19 @@ worker:
                 service_name = "containerd"
             path: /etc/cri/conf.d/20-customization.part
             op: create
+
+    # Configure cluster loopback
+    - |-
+      machine:
+        network:
+          extraHostEntries:
+            - ip: 10.1.0.15
+              aliases:
+                - kube.porkboi.io
+
+    # Custom sysctls
+    - |-
+      machine:
+        sysctls:
+          fs.inotify.max_user_watches: "1048576"
+          fs.inotify.max_user_instances: "8192"
