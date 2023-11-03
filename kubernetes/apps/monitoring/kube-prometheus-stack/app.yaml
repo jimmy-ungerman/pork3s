@@ -14,7 +14,7 @@ spec:
       valueFiles:
         - $values/kubernetes/apps/monitoring/kube-prometheus-stack/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
-    targetRevision: prometheus
+    targetRevision: main
     path: kubernetes/apps/monitoring/kube-prometheus-stack/app
     ref: values
   destination:
