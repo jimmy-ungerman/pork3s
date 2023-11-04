@@ -140,30 +140,30 @@ cephFileSystems:
         csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
         csi.storage.k8s.io/fstype: ext4
 cephObjectStores:
-  - name: ceph-objectstore
-    spec:
-      metadataPool:
-        failureDomain: host
-        replicated:
-          size: 2
-      dataPool:
-        failureDomain: host
-        erasureCoded:
-          dataChunks: 2
-          codingChunks: 1
-      preservePoolsOnDelete: false
-      gateway:
-        port: 80
-        resources:
-          requests:
-            cpu: 1000m
-            memory: 1Gi
-          limits:
-            memory: 2Gi
-        instances: 2
-    storageClass:
-      enabled: true
-      name: ceph-bucket
-      reclaimPolicy: Delete
-      parameters:
-        region: us-east-1
+  # - name: ceph-objectstore
+  #   spec:
+  #     metadataPool:
+  #       failureDomain: host
+  #       replicated:
+  #         size: 2
+  #     dataPool:
+  #       failureDomain: host
+  #       erasureCoded:
+  #         dataChunks: 2
+  #         codingChunks: 1
+  #     preservePoolsOnDelete: false
+  #     gateway:
+  #       port: 80
+  #       resources:
+  #         requests:
+  #           cpu: 1000m
+  #           memory: 1Gi
+  #         limits:
+  #           memory: 2Gi
+  #       instances: 2
+  #   storageClass:
+  #     enabled: true
+  #     name: ceph-bucket
+  #     reclaimPolicy: Delete
+  #     parameters:
+  #       region: us-east-1
