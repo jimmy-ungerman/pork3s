@@ -149,7 +149,7 @@ cephObjectStores:
       dataPool:
         failureDomain: host
         erasureCoded:
-          dataChunks: 1
+          dataChunks: 2
           codingChunks: 1
       preservePoolsOnDelete: true
       gateway:
