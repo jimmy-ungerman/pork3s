@@ -161,9 +161,6 @@ cephObjectStores:
           limits:
             memory: 2Gi
         instances: 2
-      healthCheck:
-        bucket:
-          interval: 60s
     storageClass:
       enabled: true
       name: ceph-bucket
