@@ -20,7 +20,7 @@ inhibit_rules:
   - equal: ["namespace"]
     source_matchers:
       - alertname = "InfoInhibitor"
-    target_matchers":
+    target_matchers:
       - severity = "info"
 receivers:
   - name: "null"
