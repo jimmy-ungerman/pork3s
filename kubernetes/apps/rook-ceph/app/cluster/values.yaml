@@ -114,7 +114,7 @@ cephFileSystems:
       dataPools:
         - failureDomain: host
           replicated:
-            size: 3
+            size: 2
       metadataServer:
         activeCount: 1
         activeStandby: true
