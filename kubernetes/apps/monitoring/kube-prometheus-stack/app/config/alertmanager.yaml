@@ -17,5 +17,10 @@ inhibit_rules:
       - severity = "critical"
     target_matchers:
       - severity = "warning"
+  - equal: ["namespace"]
+    source_matchers:
+      - alertname = "InfoInhibitor"
+    target_matchers":
+      - severity = "info"
 receivers:
   - name: "null"
