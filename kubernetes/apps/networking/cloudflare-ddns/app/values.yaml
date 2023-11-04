@@ -15,13 +15,6 @@ controllers:
         envFrom:
           - secretRef:
               name: cloudflare-ddns-secret
-        resources:
-          requests:
-            cpu: 25m
-            memory: 64M
-          limits:
-            cpu: 25m
-            memory: 64M
 service:
   main:
     enabled: false
