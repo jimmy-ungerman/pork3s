@@ -85,7 +85,7 @@ grafana:
           enabled: true
 
 kube-state-metrics:
-  releaseLabel: true
+
   metricLabelsAllowlist:
     - "pods=[*]"
     - "deployments=[*]"
