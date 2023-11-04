@@ -14,7 +14,7 @@ metadata:
 spec:
   storageClassName: media
   capacity:
-    storage: 1Mi # Size does not matter ...twss
+    storage: 5Mi # Size does not matter ...twss
   accessModes: ["ReadWriteMany"]
   persistentVolumeReclaimPolicy: Retain
   nfs:
@@ -38,4 +38,4 @@ spec:
   storageClassName: media
   resources:
     requests:
-      storage: 1Mi
+      storage: 5Mi

@@ -17,10 +17,10 @@ controllers:
               name: cloudflare-ddns-secret
         resources:
           requests:
-            cpu: 15m
+            cpu: 25m
             memory: 64M
           limits:
-            cpu: 15m
+            cpu: 25m
             memory: 64M
 service:
   main:
