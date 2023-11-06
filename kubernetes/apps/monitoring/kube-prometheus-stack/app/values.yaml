@@ -85,7 +85,6 @@ grafana:
           enabled: true
 
 kube-state-metrics:
-
   metricLabelsAllowlist:
     - "pods=[*]"
     - "deployments=[*]"
@@ -186,4 +185,4 @@ prometheus-node-exporter:
     rbac:
       pspEnabled: false
 kubeStateMetrics:
-  enabled: false
+  enabled: true
