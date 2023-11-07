@@ -2,12 +2,7 @@ image:
   registry: quay.io
   repository: thanos/thanos
   tag: v0.32.5
-objstoreConfig:
-  type: s3
-  config:
-    bucket: thanos
-    endpoint: rook-ceph-rgw-ceph-objectstore.rook-ceph.svc
-    insecure: true
+existingObjstoreSecret: thanos-objstore-secret
 queryFrontend:
   enabled: true
   replicaCount: 3
