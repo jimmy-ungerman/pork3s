@@ -61,6 +61,35 @@ dashboardProviders:
         editable: true
         options:
           path: /var/lib/grafana/dashboards/default
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        uid: prometheus
+        access: proxy
+        url: http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
+        isDefault: true
+dashboards:
+  default:
+    external-secrets:
+      url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
+      datasource: Prometheus
+sidecar:
+  dashboards:
+    enabled: true
+    searchNamespace: ALL
+    labelValue: ""
+    label: grafana_dashboard
+    folderAnnotation: grafana_folder
+    provider:
+      disableDelete: true
+      foldersFromFilesStructure: true
+  datasources:
+    enabled: true
+    searchNamespace: ALL
+    labelValue: ""
 plugins:
   - grafana-clock-panel
   - grafana-piechart-panel
