@@ -1,0 +1,65 @@
+loki:
+  existingSecretForConfig: loki-config-secret
+gateway:
+  replicas: 2
+  image:
+    registry: ghcr.io
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      external-dns.alpha.kubernetes.io/target: porkboi.io
+      external-dns.alpha.kubernetes.io/hostname: loki.porkboi.io
+    hosts:
+      - host: &host loki.porkboi.io
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - *host
+read:
+  replicas: 2
+  persistence:
+    storageClass: ceph-block
+  extraVolumeMounts:
+    - name: rules
+      mountPath: /rules
+  extraVolumes:
+    - name: rules
+      emptyDir: {}
+write:
+  replicas: 2
+  persistence:
+    storageClass: ceph-block
+backend:
+  replicas: 2
+  persistence:
+    storageClass: ceph-block
+  extraVolumeMounts:
+    - name: rules
+      mountPath: /rules/fake
+    - name: scratch
+      mountPath: /tmp/scratch
+  extraVolumes:
+    - name: rules
+      configMap:
+        name: loki-alerting-rules
+    - name: scratch
+      emptyDir: {}
+monitoring:
+  dashboards:
+    annotations:
+      grafana_folder: Loki
+  serviceMonitor:
+    enabled: false
+    metricsInstance:
+      enabled: false
+  selfMonitoring:
+    enabled: false
+    grafanaAgent:
+      installOperator: false
+  lokiCanary:
+    enabled: false
+test:
+  enabled: false
