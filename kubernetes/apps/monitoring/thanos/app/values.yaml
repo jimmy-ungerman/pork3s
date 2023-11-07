@@ -5,6 +5,8 @@ image:
 objstoreConfig:
   type: s3
   config:
+    bucket: thanos
+    endpoint: rook-ceph-rgw-ceph-objectstore.rook-ceph.svc
     insecure: true
 queryFrontend:
   enabled: true
