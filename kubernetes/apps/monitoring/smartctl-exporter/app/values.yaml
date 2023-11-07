@@ -1,4 +1,4 @@
-fullnameOverride: *app
+fullnameOverride: smartctl-exporter
 config:
   devices:
     - /dev/sda
