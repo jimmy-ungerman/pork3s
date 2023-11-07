@@ -1,0 +1,96 @@
+extraInitContainers:
+  - name: 01-init-db
+    image: ghcr.io/onedr0p/postgres-init:14.9
+    imagePullPolicy: IfNotPresent
+    envFrom:
+      - secretRef:
+          name: &secret grafana-secret
+
+replicas: 2
+
+env:
+  GF_AUTH_GENERIC_OAUTH_API_URL: https://auth.porkboi.io/api/oidc/userinfo
+  GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.porkboi.io/api/oidc/authorization
+  GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
+  GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://auth.porkboi.io/api/oidc/token
+  GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
+  GF_EXPLORE_ENABLED: true
+  GF_FEATURE_TOGGLES_ENABLE: publicDashboards
+  GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
+  GF_SECURITY_COOKIE_SAMESITE: grafana
+  GF_SERVER_ROOT_URL: https://grafana.porkboi.io
+envFromSecrets:
+  - name: *secret
+grafana.ini:
+  analytics:
+    check_for_updates: false
+    check_for_plugin_updates: false
+    reporting_enabled: false
+  auth:
+    oauth_auto_login: true
+    oauth_allow_insecure_email_lookup: true
+  auth.generic_oauth:
+    enabled: true
+    name: Authelia
+    icon: signin
+    scopes: openid profile email groups
+    empty_scopes: false
+    login_attribute_path: preferred_username
+    groups_attribute_path: groups
+    name_attribute_path: name
+    use_pkce: true
+  auth.generic_oauth.group_mapping:
+    org_id: 1
+    role_attribute_path: |
+      contains(groups[*], 'admin') && 'Admin' || contains(groups[*], 'people') && 'Viewer'
+  auth.basic:
+    enabled: false
+  auth.anonymous:
+    enabled: false
+  news:
+    news_feed_enabled: false
+sidecar:
+  dashboards:
+    enabled: true
+    searchNamespace: ALL
+    labelValue: ""
+    label: grafana_dashboard
+    folderAnnotation: grafana_folder
+    provider:
+      disableDelete: true
+      foldersFromFilesStructure: true
+  datasources:
+    enabled: true
+    searchNamespace: ALL
+    labelValue: ""
+plugins:
+  - grafana-clock-panel
+  - grafana-piechart-panel
+  - grafana-worldmap-panel
+  - natel-discrete-panel
+  - pr0ps-trackmap-panel
+  - vonage-status-panel
+serviceMonitor:
+  enabled: true
+ingress:
+  enabled: true
+  ingressClassName: external
+  annotations:
+    external-dns.alpha.kubernetes.io/target: porkboi.io
+    external-dns.alpha.kubernetes.io/hostname: grafana.porkboi.io
+  hosts:
+    - &host grafana.porkboi.io
+  tls:
+    - hosts:
+        - *host
+persistence:
+  enabled: false
+testFramework:
+  enabled: false
+topologySpreadConstraints:
+  - maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: DoNotSchedule
+    labelSelector:
+      matchLabels:
+        app.kubernetes.io/name: grafana
