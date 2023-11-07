@@ -84,21 +84,6 @@ grafana:
         etcd:
           enabled: true
 
-kube-state-metrics:
-  metricLabelsAllowlist:
-    - "pods=[*]"
-    - "deployments=[*]"
-    - "persistentvolumeclaims=[*]"
-  prometheus:
-    monitor:
-      enabled: true
-      honorLabels: true
-      relabelings:
-        - action: replace
-          regex: ^(.*)$
-          replacement: $1
-          sourceLabels: ["__meta_kubernetes_pod_node_name"]
-          targetLabel: kubernetes_node
 kubelet:
   enabled: true
   serviceMonitor:
@@ -184,5 +169,6 @@ prometheus-node-exporter:
             regex: /var/lib/kubelet/pods.+
     rbac:
       pspEnabled: false
+
 kubeStateMetrics:
-  enabled: true
+  enabled: false
