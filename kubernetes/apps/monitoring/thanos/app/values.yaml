@@ -28,7 +28,7 @@ query:
   replicaCount: 3
   replicaLabel: ["__replica__"]
   dnsDiscovery:
-    sidecarsService: kube-prometheus-stack-thanos-discovery
+    sidecarsService: prometheus-kube-prometheus-thanos-discovery
     sidecarsNamespace: monitoring
 bucketweb:
   enabled: true
@@ -56,7 +56,7 @@ ruler:
   enabled: true
   replicaCount: 3
   replicaLabel: __replica__
-  alertmanagers: ["http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093"]
+  alertmanagers: ["http://prometheus-kube-prometheus-alertmanager.monitoring.svc.cluster.local:9093"]
   extraFlags: ["--web.prefix-header=X-Forwarded-Prefix"]
   config: |-
     groups:
