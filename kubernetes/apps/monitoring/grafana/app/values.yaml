@@ -49,20 +49,6 @@ grafana.ini:
     enabled: false
   news:
     news_feed_enabled: false
-sidecar:
-  dashboards:
-    enabled: true
-    searchNamespace: ALL
-    labelValue: ""
-    label: grafana_dashboard
-    folderAnnotation: grafana_folder
-    provider:
-      disableDelete: true
-      foldersFromFilesStructure: true
-  datasources:
-    enabled: true
-    searchNamespace: ALL
-    labelValue: ""
 plugins:
   - grafana-clock-panel
   - grafana-piechart-panel
@@ -74,7 +60,7 @@ serviceMonitor:
   enabled: true
 ingress:
   enabled: true
-  ingressClassName: external
+  ingressClassName: nginx
   annotations:
     external-dns.alpha.kubernetes.io/target: porkboi.io
     external-dns.alpha.kubernetes.io/hostname: grafana.porkboi.io
