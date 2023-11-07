@@ -27,3 +27,10 @@ controller:
     keep-alive: 120    
   extraArgs: 
       default-ssl-certificate: "networking/porkboi-cert"
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    namespace: networking
+    namespaceSelector:
+      any: true
