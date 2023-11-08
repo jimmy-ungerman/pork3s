@@ -52,6 +52,7 @@ hubble:
     # -- Roll out Hubble Relay pods automatically when configmap is updated.
     rollOutPods: true
     prometheus:
+      enabled: true    
       serviceMonitor:
         enabled: true
 
