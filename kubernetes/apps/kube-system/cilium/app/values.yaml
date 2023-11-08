@@ -46,6 +46,8 @@ hubble:
       - http
       - icmp
       - port-distribution
+    serviceMonitor:
+      enabled: true
   relay:
     # -- Enable Hubble Relay (requires hubble.enabled=true)
     enabled: true
