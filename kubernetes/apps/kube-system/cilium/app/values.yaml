@@ -38,22 +38,6 @@ hubble:
   # -- Enable Hubble (true by default).
   enabled: true
   metrics:
-    # -- Configures the list of metrics to collect. If empty or null, metrics
-    # are disabled.
-    # Example:
-    #
-    #   enabled:
-    #   - dns:query;ignoreAAAA
-    #   - drop
-    #   - tcp
-    #   - flow
-    #   - icmp
-    #   - http
-    #
-    # You can specify the list of metrics from the helm CLI:
-    #
-    #   --set metrics.enabled="{dns:query;ignoreAAAA,drop,tcp,flow,icmp,http}"
-    #
     enabled:
       - dns:query;ignoreAAAA,
       - drop
@@ -62,18 +46,14 @@ hubble:
       - http
       - icmp
       - port-distribution
-
   relay:
     # -- Enable Hubble Relay (requires hubble.enabled=true)
     enabled: true
     # -- Roll out Hubble Relay pods automatically when configmap is updated.
     rollOutPods: true
-
-  serviceMonitor:
-    # -- Create ServiceMonitor resources for Prometheus Operator.
-    # This requires the prometheus CRDs to be available.
-    # ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml)
-    enabled: false
+    prometheus:
+      serviceMonitor:
+        enabled: true
 
   ui:
     # -- Whether to enable the Hubble UI.
@@ -149,7 +129,16 @@ operator:
 
   # -- Roll out cilium-operator pods automatically when configmap is updated.
   rollOutPods: true
+  prometheus:
+    enabled: true
+    serviceMonitor:
+      enabled: true
 
+prometheus:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    trustCRDsExist: true
 # -- Roll out cilium agent pods automatically when configmap is updated.
 rollOutCiliumPods: false
 
