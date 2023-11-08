@@ -4,6 +4,7 @@ resources:
 - namespace.yaml
 - https://raw.githubusercontent.com/argoproj/argo-cd/v2.8.5/manifests/install.yaml
 - ingressRoute.yaml
+- serviceMonitors.yaml
 
 components:
 - https://github.com/argoproj-labs/argocd-extensions/manifests
