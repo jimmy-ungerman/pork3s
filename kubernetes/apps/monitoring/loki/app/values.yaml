@@ -21,7 +21,7 @@ gateway:
 read:
   replicas: 2
   persistence:
-    storageClass: ceph-block
+    storageClass: rook-ceph-block
   extraVolumeMounts:
     - name: rules
       mountPath: /rules
@@ -31,11 +31,11 @@ read:
 write:
   replicas: 2
   persistence:
-    storageClass: ceph-block
+    storageClass: rook-ceph-block
 backend:
   replicas: 2
   persistence:
-    storageClass: ceph-block
+    storageClass: rook-ceph-block
   extraVolumeMounts:
     - name: rules
       mountPath: /rules/fake
