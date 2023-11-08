@@ -95,6 +95,20 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 10.1.0.1
             metric: 1024
+
+  - hostname: iroh
+    ipAddress: 10.1.0.7
+    controlPlane: false
+    installDiskSelector:
+      busPath: /pci0000:00/0000:00:17.0/ata1/host0/target0:0:0/0:0:0:0/
+    networkInterfaces:
+      - interface: enp89s0
+        addresses:
+          - 10.1.0.7/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 10.1.0.1
+            metric: 1024
             
 controlPlane:
   patches:
