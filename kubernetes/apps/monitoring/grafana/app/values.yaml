@@ -98,6 +98,7 @@ datasources:
     apiVersion: 1
     deleteDatasources:
       - { name: Alertmanager, orgId: 1 }
+      - { name: Loki, orgId: 1 }
       - { name: Prometheus, orgId: 1 }
     datasources:
       - name: Prometheus
@@ -115,6 +116,13 @@ datasources:
         url: http://alertmanager-operated.monitoring.svc.cluster.local:9093
         jsonData:
           implementation: prometheus
+      - name: Loki
+        type: loki
+        uid: loki
+        access: proxy
+        url: http://loki-gateway.monitoring.svc.cluster.local
+        jsonData:
+          maxLines: 250
 dashboards:
   default:
     external-dns:
