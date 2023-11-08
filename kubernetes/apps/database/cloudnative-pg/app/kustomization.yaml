@@ -6,3 +6,4 @@ namespace: database
 resources:
   - cluster/cluster.yaml
   - cluster/externalSecret.yaml
+  - cluster/prometheusRule.yaml
