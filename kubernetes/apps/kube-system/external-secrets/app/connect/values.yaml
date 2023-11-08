@@ -1,2 +1,6 @@
 operator:
   create: true
+connect:
+  api:
+    serviceMonitor:
+      enabled: true
