@@ -93,6 +93,14 @@ dashboardProviders:
         editable: true
         options:
           path: /var/lib/grafana/dashboards/thanos
+      - name: argocd
+        orgId: 1
+        folder: ArgoCD
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/argocd
 datasources:
   datasources.yaml:
     apiVersion: 1
