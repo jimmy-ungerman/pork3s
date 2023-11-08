@@ -14,7 +14,6 @@ configOverride: |
   [global]
   bdev_enable_discard = true
   bdev_async_discard = true
-  osd_pool_default_size = 2
 cephClusterSpec:
   mgr:
     count: 1
@@ -34,6 +33,9 @@ cephClusterSpec:
         devices:
           - name: "/dev/nvme0n1"
       - name: "zuko"
+        devices:
+          - name: "/dev/nvme0n1"
+      - name: "iroh"
         devices:
           - name: "/dev/nvme0n1"
   resources:
@@ -92,7 +94,7 @@ cephBlockPools:
     spec:
       failureDomain: host
       replicated:
-        size: 2
+        size: 3
     storageClass:
       enabled: true
       name: rook-ceph-block
@@ -114,11 +116,11 @@ cephFileSystems:
     spec:
       metadataPool:
         replicated:
-          size: 2
+          size: 3
       dataPools:
         - failureDomain: host
           replicated:
-            size: 2
+            size: 3
       metadataServer:
         activeCount: 1
         activeStandby: true
@@ -149,7 +151,7 @@ cephObjectStores:
       metadataPool:
         failureDomain: osd
         replicated:
-          size: 2
+          size: 3
       dataPool:
         failureDomain: osd
         erasureCoded:
