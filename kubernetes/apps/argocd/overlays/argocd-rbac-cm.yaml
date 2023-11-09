@@ -4,4 +4,4 @@ metadata:
     name: argocd-rbac-cm
 data:
     policy.default: role:readonly
-    policy.csv: u, jimmy.ungerman@gmail.com, role:admin
+    policy.csv: g, lldap_admin, role:admin
