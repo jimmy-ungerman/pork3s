@@ -95,7 +95,7 @@ dashboardProviders:
           path: /var/lib/grafana/dashboards/thanos
       - name: argocd
         orgId: 1
-        folder: ArgoCD
+        folder: Argo
         type: file
         disableDeletion: false
         editable: true
