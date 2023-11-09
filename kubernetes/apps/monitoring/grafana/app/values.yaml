@@ -93,14 +93,14 @@ dashboardProviders:
         editable: true
         options:
           path: /var/lib/grafana/dashboards/thanos
-      - name: argo
-        orgId: 1
-        folder: Argo
-        type: file
-        disableDeletion: false
-        editable: true
-        options:
-          path: /var/lib/grafana/dashboards/argocd
+      # - name: argo
+      #   orgId: 1
+      #   folder: Argo
+      #   type: file
+      #   disableDeletion: false
+      #   editable: true
+      #   options:
+      #     path: /var/lib/grafana/dashboards/argocd
 datasources:
   datasources.yaml:
     apiVersion: 1
@@ -234,10 +234,10 @@ dashboards:
     thanos-store:
       url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/store.json
       datasource: Prometheus
-  argo:
-    argocd-dashboard:
-      url: https://raw.githubusercontent.com/argoproj/argo-cd/master/examples/dashboard.json
-      datasource: Prometheus
+  # argo:
+  #   argocd-dashboard:
+  #     url: https://raw.githubusercontent.com/argoproj/argo-cd/master/examples/dashboard.json
+  #     datasource: Prometheus
 sidecar:
   dashboards:
     enabled: true
