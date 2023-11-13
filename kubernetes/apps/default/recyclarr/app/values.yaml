@@ -15,8 +15,8 @@ controllers:
               name: radarr-secret
           # - secretRef:
           #     name: radarr4k-secret
-          # - secretRef:
-          #     name: sonarr-secret
+          - secretRef:
+              name: sonarr-secret
         resources:
           requests:
             cpu: 10m
