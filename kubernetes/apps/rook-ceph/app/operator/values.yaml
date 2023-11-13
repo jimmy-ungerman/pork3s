@@ -3,3 +3,4 @@ crds:
 pspEnable: false
 monitoring:
   enabled: true
+enableDiscoveryDaemon: true
