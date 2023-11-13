@@ -2,6 +2,15 @@ controllers:
   main:
     annotations:
       reloader.stakater.com/auto: "true"
+    initContainers:
+      init-db:
+        image:
+          repository: ghcr.io/onedr0p/postgres-init
+          tag: 14.9
+          pullPolicy: IfNotPresent
+        envFrom: &envFrom
+          - secretRef:
+              name: radarr-secret
     containers:
       main:
         image:
