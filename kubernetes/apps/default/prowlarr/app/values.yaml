@@ -23,6 +23,7 @@ controllers:
           PROWLARR__LOG_LEVEL: info
           PROWLARR__AUTHENTICATION_METHOD: External
           PROWLARR__THEME: dark
+        envFrom: *envFrom
         probes:
           liveness: &probes
             enabled: true
