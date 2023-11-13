@@ -15,12 +15,6 @@ configOverride: |
   bdev_enable_discard = true
   bdev_async_discard = true
 cephClusterSpec:
-  network:
-    provider: host
-    connections:
-      compression:
-        enabled: true
-      requireMsgr2: true
   crashCollector:
     disable: false
   dashboard:
