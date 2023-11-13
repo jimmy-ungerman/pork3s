@@ -10,7 +10,7 @@ controllers:
           pullPolicy: IfNotPresent
         envFrom: &envFrom
           - secretRef:
-              name: radarr-secret
+              name: radarr4k-secret
     containers:
       main:
         image:
