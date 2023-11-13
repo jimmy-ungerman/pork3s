@@ -24,6 +24,7 @@ controllers:
           RADARR__PORT: &port 80
           RADARR__APPLICATION_URL: "https://radarr.porkboi.io/"
           RADARR__LOG_LEVEL: info
+        envFrom: *envFrom
         resources:
           requests:
             cpu: 10m
