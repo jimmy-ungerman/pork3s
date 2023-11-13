@@ -9,7 +9,7 @@ spec:
   sources:
   - repoURL: 'https://charts.external-secrets.io'
     chart: external-secrets
-    targetRevision: 0.9.8
+    targetRevision: 0.9.9
     helm:
       valueFiles:
         - $values/kubernetes/apps/kube-system/external-secrets/app/external-secrets/values.yaml
