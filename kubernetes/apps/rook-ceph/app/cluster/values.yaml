@@ -33,9 +33,9 @@ cephClusterSpec:
       - name: "zuko"
         devices:
           - name: "/dev/nvme0n1"
-      # - name: "iroh"
-      #   devices:
-      #     - name: "/dev/nvme0n1"
+      - name: "iroh"
+        devices:
+          - name: "/dev/nvme0n1"
   resources:
     mgr:
       requests:
