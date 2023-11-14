@@ -1,0 +1,52 @@
+global:
+  fullnameOverride: graphite-exporter
+
+controllers:
+  main:
+    annotations:
+      reloader.stakater.com/auto: "true"
+    containers:
+      main:
+        image:
+          repository: quay.io/prometheus/graphite-exporter
+          tag: latest
+    command:
+      [
+        /bin/graphite_exporter,
+        "--graphite.listen-address=:2003",
+        --graphite.mapping-config=/config/graphite_mapping.yml,
+      ]
+    env:
+      TZ: Europe/Berlin
+persistence:
+  config:
+    enabled: true
+    type: configMap
+    name: graphite-exporter-configmap
+    globalMounts:
+      - path: /config
+        readOnly: true
+
+service:
+  main:
+    annotations:
+      "io.cilium/lb-ipam-ips": "10.1.0.105"
+    type: LoadBalancer
+    externalTrafficPolicy: Local
+    ports:
+      http:
+        enabled: false
+      metrics:
+        port: 9108
+      graphite:
+        port: 2003
+
+serviceMonitor:
+  main:
+    enabled: true
+    endpoints:
+      - port: metrics
+        scheme: http
+        path: /metrics
+        interval: 2m
+        scrapeTimeout: 30s
