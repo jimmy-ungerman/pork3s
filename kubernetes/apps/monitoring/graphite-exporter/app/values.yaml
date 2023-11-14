@@ -10,17 +10,15 @@ controllers:
         image:
           repository: quay.io/prometheus/graphite-exporter
           tag: latest
-    command:
-      [
-        /bin/graphite_exporter,
-        "--graphite.listen-address=:2003",
-        --graphite.mapping-config=/config/graphite_mapping.yaml,
-      ]
-    env:
-      TZ: America/Boise
-    probes:
-      startup:
-        enabled: false
+        command:
+          [
+            /bin/graphite_exporter,
+            "--graphite.listen-address=:2003",
+            --graphite.mapping-config=/config/graphite_mapping.yaml,
+          ]
+        env:
+          TZ: America/Boise
+
 persistence:
   config:
     enabled: true
