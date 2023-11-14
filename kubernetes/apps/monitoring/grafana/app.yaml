@@ -9,7 +9,7 @@ spec:
   sources:
   - repoURL: 'https://grafana.github.io/helm-charts'
     chart: grafana
-    targetRevision: 7.0.3
+    targetRevision: 7.0.4
     helm:
       valueFiles:
         - $values/kubernetes/apps/monitoring/grafana/app/values.yaml
