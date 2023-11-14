@@ -14,7 +14,7 @@ controllers:
       [
         /bin/graphite_exporter,
         "--graphite.listen-address=:2003",
-        --graphite.mapping-config=/config/graphite_mapping.yml,
+        --graphite.mapping-config=/config/graphite_mapping.yaml,
       ]
     env:
       TZ: Europe/Berlin
