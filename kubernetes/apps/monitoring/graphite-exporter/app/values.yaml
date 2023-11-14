@@ -17,7 +17,10 @@ controllers:
         --graphite.mapping-config=/config/graphite_mapping.yaml,
       ]
     env:
-      TZ: Europe/Berlin
+      TZ: America/Boise
+    probes:
+      startup:
+        enabled: false
 persistence:
   config:
     enabled: true
