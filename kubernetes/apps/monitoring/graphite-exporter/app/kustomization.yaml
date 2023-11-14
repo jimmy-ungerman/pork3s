@@ -6,6 +6,6 @@ namespace: monitoring
 configMapGenerator:
   - name: graphite-exporter-configmap
     files:
-      - ./config/graphite_mapping.yml
+      - ./config/graphite_mapping.yaml
 generatorOptions:
   disableNameSuffixHash: true
