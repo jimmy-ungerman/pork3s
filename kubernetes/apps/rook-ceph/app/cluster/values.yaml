@@ -48,7 +48,7 @@ cephClusterSpec:
         cpu: "125m"
         memory: "512Mi"
       limits:
-        cpu: null
+        cpu: "2000m"
         memory: "1Gi"
     mon:
       requests:
@@ -67,6 +67,7 @@ cephClusterSpec:
         cpu: "50m"
         memory: "100Mi"
       limits:
+        cpu: "2000m"
         memory: "200Mi"
     crashcollector:
       requests:
