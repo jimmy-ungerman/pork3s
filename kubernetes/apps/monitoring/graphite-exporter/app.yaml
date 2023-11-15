@@ -2,20 +2,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: thanos
+  name: graphite-exporter
   namespace: argocd
 spec:
   project: default
   sources:
-  - repoURL: 'https://charts.bitnami.com/bitnami'
-    chart: thanos
-    targetRevision: 12.13.13
+  - repoURL: 'https://bjw-s.github.io/helm-charts'
+    chart: app-template
+    targetRevision: 2.0.3
     helm:
       valueFiles:
-        - $values/kubernetes/apps/monitoring/thanos/app/values.yaml
+        - $values/kubernetes/apps/monitoring/graphite-exporter/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/monitoring/thanos/app
+    path: kubernetes/apps/monitoring/graphite-exporter/app
     ref: values
   destination:
     server: "https://kubernetes.default.svc"
@@ -23,6 +23,5 @@ spec:
   syncPolicy:
     automated:
       prune: true
-      selfHeal: true
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
