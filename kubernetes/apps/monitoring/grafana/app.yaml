@@ -15,7 +15,7 @@ spec:
         - $values/kubernetes/apps/monitoring/grafana/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/monitoring/grafana/app
+    path: kubernetes/apps/monitoring/grafana
     ref: values
   destination:
     server: "https://kubernetes.default.svc"

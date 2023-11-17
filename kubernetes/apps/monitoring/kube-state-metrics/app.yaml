@@ -15,7 +15,7 @@ spec:
         - $values/kubernetes/apps/monitoring/kube-state-metrics/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/monitoring/kube-state-metrics/app
+    path: kubernetes/apps/monitoring/kube-state-metrics
     ref: values
   destination:
     server: "https://kubernetes.default.svc"

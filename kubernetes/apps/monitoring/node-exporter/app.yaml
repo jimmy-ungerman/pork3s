@@ -15,7 +15,7 @@ spec:
         - $values/kubernetes/apps/monitoring/node-exporter/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/monitoring/node-exporter/app
+    path: kubernetes/apps/monitoring/node-exporter
     ref: values
   destination:
     server: "https://kubernetes.default.svc"
