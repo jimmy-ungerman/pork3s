@@ -38,7 +38,7 @@ defaultBackend:
   enabled: true
   image:
     repository: ghcr.io/tarampampam/error-pages
-    tag: 2.25.0
+    tag: 2.26.0
   extraEnvs:
     - name: TEMPLATE_NAME
       value: ghost
