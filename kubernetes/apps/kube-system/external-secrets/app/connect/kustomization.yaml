@@ -4,6 +4,7 @@ kind: Kustomization
 
 resources:
   - clusterStore.yaml
+  - app-connect.yaml
   
 generators:
   - secretGenerator.yaml
