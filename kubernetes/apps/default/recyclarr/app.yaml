@@ -9,7 +9,7 @@ spec:
   sources:
   - repoURL: 'https://bjw-s.github.io/helm-charts'
     chart: app-template
-    targetRevision: 2.2.0
+    targetRevision: 2.3.0
     helm:
       valueFiles:
         - $values/kubernetes/apps/default/recyclarr/app/values.yaml
