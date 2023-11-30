@@ -2,20 +2,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ingress-nginx
+  name: external-dns
   namespace: argocd
 spec:
   project: default
   sources:
-  - repoURL: 'https://kubernetes.github.io/ingress-nginx/'
-    chart: ingress-nginx
-    targetRevision: 4.8.3
+  - repoURL: 'https://kubernetes-sigs.github.io/external-dns/'
+    chart: external-dns
+    targetRevision: 1.13.1
     helm:
       valueFiles:
-        - $values/kubernetes/apps/networking/ingress-nginx/app/values.yaml
+        - $values/kubernetes/apps/networking/external-dns/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/networking/ingress-nginx/app
+    path: kubernetes/apps/networking/external-dns
     ref: values
   destination:
     server: "https://kubernetes.default.svc"
@@ -23,6 +23,5 @@ spec:
   syncPolicy:
     automated:
       prune: true
-      selfHeal: true
     syncOptions:
       - CreateNamespace=true

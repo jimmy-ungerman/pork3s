@@ -2,20 +2,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cloudflare-ddns
+  name: ingress-nginx
   namespace: argocd
 spec:
   project: default
   sources:
-  - repoURL: 'https://bjw-s.github.io/helm-charts'
-    chart: app-template
-    targetRevision: 2.3.0
+  - repoURL: 'https://kubernetes.github.io/ingress-nginx/'
+    chart: ingress-nginx
+    targetRevision: 4.8.3
     helm:
       valueFiles:
-        - $values/kubernetes/apps/networking/cloudflare-ddns/app/values.yaml
+        - $values/kubernetes/apps/networking/ingress-nginx/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/networking/cloudflare-ddns/app
+    path: kubernetes/apps/networking/ingress-nginx
     ref: values
   destination:
     server: "https://kubernetes.default.svc"
@@ -23,5 +23,6 @@ spec:
   syncPolicy:
     automated:
       prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
