@@ -15,7 +15,7 @@ spec:
         - $values/kubernetes/apps/database/redis/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/database/redis/app
+    path: kubernetes/apps/database/redis
     ref: values
   destination:
     server: "https://kubernetes.default.svc"
