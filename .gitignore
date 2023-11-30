@@ -19,3 +19,4 @@ terraform.tfstate*
 
 # Directories
 charts/
+.vscode
