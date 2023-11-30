@@ -15,7 +15,7 @@ spec:
         - $values/kubernetes/apps/kube-system/node-feature-discovery/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/kube-system/node-feature-discovery/app
+    path: kubernetes/apps/kube-system/node-feature-discovery
     ref: values
   destination:
     server: "https://kubernetes.default.svc"

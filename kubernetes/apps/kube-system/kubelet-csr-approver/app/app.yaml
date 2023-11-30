@@ -2,20 +2,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: reloader
+  name: kubelet-csr-approver
   namespace: argocd
 spec:
   project: default
   sources:
-  - repoURL: 'https://stakater.github.io/stakater-charts'
-    chart: reloader
-    targetRevision: 1.0.52
+  - repoURL: 'https://postfinance.github.io/kubelet-csr-approver'
+    chart: kubelet-csr-approver
+    targetRevision: 1.0.5
     helm:
       valueFiles:
-        - $values/kubernetes/apps/kube-system/reloader/app/values.yaml
+        - $values/kubernetes/apps/kube-system/kubelet-csr-approver/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/kube-system/reloader/app
+    path: kubernetes/apps/kube-system/kubelet-csr-approver
     ref: values
   destination:
     server: "https://kubernetes.default.svc"

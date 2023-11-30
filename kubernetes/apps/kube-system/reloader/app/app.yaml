@@ -2,20 +2,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cilium
+  name: reloader
   namespace: argocd
 spec:
   project: default
   sources:
-  - repoURL: 'https://helm.cilium.io/'
-    chart: cilium
-    targetRevision: 1.14.4
+  - repoURL: 'https://stakater.github.io/stakater-charts'
+    chart: reloader
+    targetRevision: 1.0.52
     helm:
       valueFiles:
-        - $values/kubernetes/apps/kube-system/cilium/app/values.yaml
+        - $values/kubernetes/apps/kube-system/reloader/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/kube-system/cilium/app
+    path: kubernetes/apps/kube-system/reloader
     ref: values
   destination:
     server: "https://kubernetes.default.svc"
