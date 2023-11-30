@@ -8,8 +8,8 @@ controllers:
     containers:
       main:
         image:
-          repository: quay.io/prometheus/graphite-exporter
-          tag: latest
+          repository: docker.io/prom/graphite-exporter
+          tag: v0.14.0
         command:
           [
             /bin/graphite_exporter,
