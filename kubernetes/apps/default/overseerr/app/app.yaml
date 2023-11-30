@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prowlarr
+  name: overseerr
   namespace: argocd
 spec:
   project: default
@@ -12,10 +12,10 @@ spec:
     targetRevision: 2.3.0
     helm:
       valueFiles:
-        - $values/kubernetes/apps/default/prowlarr/app/values.yaml
+        - $values/kubernetes/apps/default/overseerr/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/default/prowlarr/app
+    path: kubernetes/apps/default/overseerr
     ref: values
   destination:
     server: "https://kubernetes.default.svc"

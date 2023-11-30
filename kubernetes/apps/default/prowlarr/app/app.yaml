@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: recyclarr
+  name: prowlarr
   namespace: argocd
 spec:
   project: default
@@ -12,10 +12,10 @@ spec:
     targetRevision: 2.3.0
     helm:
       valueFiles:
-        - $values/kubernetes/apps/default/recyclarr/app/values.yaml
+        - $values/kubernetes/apps/default/prowlarr/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/default/recyclarr/app
+    path: kubernetes/apps/default/prowlarr
     ref: values
   destination:
     server: "https://kubernetes.default.svc"

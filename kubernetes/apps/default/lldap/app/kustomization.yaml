@@ -6,10 +6,3 @@ kind: Kustomization
 resources:
   - externalSecret.yaml
   - app.yaml
-
-configMapGenerator:
-  - name: authelia-configmap
-    files:
-      - configuration.yaml=configuration.yaml
-generatorOptions:
-  disableNameSuffixHash: true
