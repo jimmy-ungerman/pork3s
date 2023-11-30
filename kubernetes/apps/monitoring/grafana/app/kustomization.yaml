@@ -5,3 +5,4 @@ namespace: monitoring
 
 resources:
   - externalSecret.yaml
+  - app.yaml
