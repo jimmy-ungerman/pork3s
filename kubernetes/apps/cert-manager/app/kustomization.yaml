@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - issuer/cloudflareSecret.yaml
   - issuer/clusterIssuer.yaml
+  - app.yaml
