@@ -15,7 +15,7 @@ spec:
         - $values/kubernetes/apps/cert-manager/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/cert-manager/app
+    path: kubernetes/apps/cert-manager
     ref: values
   destination:
     server: "https://kubernetes.default.svc"
