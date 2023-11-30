@@ -47,7 +47,6 @@
     {
       "description": "Process custom dependencies",
       "fileMatch": [
-        "ansible/.+\\.ya?ml$",
         "kubernetes/.+\\.ya?ml$"
       ],
       "matchStrings": [
