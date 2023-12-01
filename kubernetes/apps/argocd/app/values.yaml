@@ -271,8 +271,8 @@ configs:
     # -- File containing user-defined policies and role definitions.
     # @default -- `''` (See [values.yaml])
     policy.csv: |
-      p, role:org-admin, exec, create, */*, allow
-      g, lldap_admin, role:org-admin
+      p, role:admin, exec, create, */*, allow
+      g, lldap_admin, role:admin
 
     # -- OIDC scopes to examine during rbac enforcement (in addition to `sub` scope).
     # The scope value can be a string, or a list of strings.
