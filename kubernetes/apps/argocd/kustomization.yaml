@@ -14,6 +14,7 @@ patchesStrategicMerge:
 - overlays/argocd-repo-deploy.yaml
 - overlays/argocd-cmd-params-cm.yaml
 - overlays/argocd-rbac-cm.yaml
+- overlays/argocd-server-role.yaml
 
 
 namespace: argocd
