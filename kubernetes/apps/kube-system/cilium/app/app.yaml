@@ -37,7 +37,7 @@ spec:
         - $values/kubernetes/apps/kube-system/cilium/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/kube-system/cilium
+    path: kubernetes/apps/kube-system/cilium/app
     ref: values
   destination:
     server: "https://kubernetes.default.svc"
