@@ -40,9 +40,9 @@ redis:
   exporter:
     enabled: true
   metrics:
+    enabled: true
     service:
       clusterIP: ""
-    enabled: true
     serviceMonitor:
       enabled: true
 
