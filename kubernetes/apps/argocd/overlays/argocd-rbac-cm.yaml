@@ -4,4 +4,6 @@ metadata:
     name: argocd-rbac-cm
 data:
     policy.default: role:readonly
-    policy.csv: g, lldap_admin, role:admin
+    policy.csv: |
+        g, lldap_admin, role:admin
+        p, role:admin, exec, create, */*, allow
