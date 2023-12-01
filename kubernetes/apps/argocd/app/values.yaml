@@ -125,7 +125,11 @@ applicationSet:
 
 notifications:
   enabled: true
+  argocdUrl: "https://argocd.porkboi.io"
   metrics:
     enabled: true
     serviceMonitor:
       enabled: true
+  notifiers:
+    service.pushover: |
+      token: as77ior9ta9tehqi4ige3y7vdkiiv5
