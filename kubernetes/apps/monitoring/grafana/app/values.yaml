@@ -96,6 +96,7 @@ dashboardProviders:
 datasources:
   datasources.yaml:
     apiVersion: 1
+    deleteDataSources:
       - { name: Alertmanager, orgId: 1 }
       - { name: Loki, orgId: 1 }
     datasources:
@@ -112,12 +113,6 @@ dashboards:
       gnetId: 15038
       revision: 1
       datasource: Prometheus
-    minio:
-      # renovate: depName="MinIO Dashboard"
-      gnetId: 13502
-      revision: 24
-      datasource:
-        - { name: DS_PROMETHEUS, value: Prometheus }
     node-exporter-full:
       # renovate: depName="Node Exporter Full"
       gnetId: 1860
