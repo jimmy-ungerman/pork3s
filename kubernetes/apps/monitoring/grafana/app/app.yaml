@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-    notifications.argoproj.io/subscribe.on-sync-succeeded.pushover: ui6cxf78gwxa6n93zkwddw1g8s3yio
+    notifications.argoproj.io/subscribe.on-deployed-github.pushover: ui6cxf78gwxa6n93zkwddw1g8s3yio
   name: grafana
   namespace: argocd
 spec:
