@@ -35,16 +35,12 @@ controller:
 
 dex:
   enabled: false
+externalRedis:
+  # -- External Redis server host
+  host: redis.database.svc.cluster.local
 
 redis:
-  exporter:
-    enabled: true
-  metrics:
-    enabled: true
-    service:
-      clusterIP: ""
-    serviceMonitor:
-      enabled: true
+  enabled: false
 
 server:
   metrics:
