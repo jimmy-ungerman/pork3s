@@ -6,6 +6,7 @@ metadata:
 type: ENC[AES256_GCM,data:AQkTjijb,iv:AVfIkGyP56ssvZ6QMqtS7cg5F7gQLwXEXsRL0h9jNes=,tag:PNaoDsXx8SlGek53yFl8nA==,type:str]
 data:
     oidc.authelia.clientSecret: ENC[AES256_GCM,data:BKcZESTqaKjS34Flp4DS+bIZDrhwTaQUlfJDOaFW8ArLGtnZU2DAWZ5jw4R27iqlRS1I9TtmwrBRsFGvuzSHcuTuANNocvjWtmXkQ8F5v50ticfckJYzLa57A9zaQz2rvtbKJ3bQpKFqRGDn5uSt/TKmtmV+uToXBENdHAxqYDq+no0D6Z6BoKxa4nRR9cESdWX4svFT0jvzPHGhHdVZ25WP4rMMFGl10N+CBA==,iv:Y+//+VNl7Rmn/8FcMDOVFbPk6o5kO6oqYwkbvO5qhvA=,tag:euidF6VjhBrL7QwzrlrY3A==,type:str]
+    server.secretkey: ENC[AES256_GCM,data:E/I2HFJ2z1gkFFGH+2kCArJySCjROiw8Q9ufhbYADxeF+ttic2PL2iDo6xoVDEbThTPnICEZWolxFKq7,iv:9oB1ztJihO9gs3XSIATpFCx+EN6vp5N6uSii/KMa9b4=,tag:S/izic9m2jmPHjpLbmCORA==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -21,8 +22,8 @@ sops:
             SjdSWjhySHdxWG9udjJFczhtWTVUTVUKa/jbCk/V2yFdbn8am33CYW/56qxBDiCj
             zBVeyT8Jgc2NK4u6O2/oCqGCGyevJlHuXNwQigsv8C6j7CcGfpqp9w==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-01T17:14:45Z"
-    mac: ENC[AES256_GCM,data:NOIJdMJKHfLcGPmi9d+yRa0BUEnL2xHxrMH5ZlonRQ8+6WUnSm+jENwvpoYdTCeyrqx9RUdr6dVo620VRuf7q9euSCGBaHAA2LIrbRxPwwBqgR6RZxfLsqHlZQQquG02U9FaLfEEggO/9xOqV+vLTkfZitbcLe25+w6SIRQbDnI=,iv:gDT0hOaIQX30A/H/OxSmgMo3R4QCpoNhgbq4gxp5KvA=,tag:/WpPoydsNeiDW8UUhM7l+w==,type:str]
+    lastmodified: "2023-12-01T17:38:55Z"
+    mac: ENC[AES256_GCM,data:yexV5AFgKjlzUJntZpzkzq91o6MedXcsVwav++a1RtjHUltwkw0hfihpgIHqShJYlmARWN+1xtECkaZLF8r6MRQ/6BLVmbuvvt9Ff8dkLHSZDVAbqPIrYfOnVsHrqARfia0Q0rS5gABZMmNIBDO92VzfVO1N2nt8DM1lDTdlink=,iv:nP4CAXYfFQihwEaSmzCHmMBEGSYH79C28vAIH7MbGR0=,tag:/IJsI8AaOTeOb0VUdkdH5w==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.3
