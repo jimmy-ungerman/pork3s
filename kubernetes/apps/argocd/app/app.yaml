@@ -5,10 +5,17 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://github.com/jimmy-ungerman/pork3s.git
+  sources:
+  - repoURL: 'https://argoproj.github.io/argo-helm'
+    chart: argo-cd
+    targetRevision: 5.51.5
+    helm:
+      valueFiles:
+        - $values/kubernetes/apps/argocd/app/values.yaml
+  - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
     path: kubernetes/apps/argocd
+    ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd

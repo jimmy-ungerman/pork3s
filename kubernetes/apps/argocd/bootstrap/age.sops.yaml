@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: sops-age
+    namespace: argocd
+type: Opaque
+stringData:
+    key.txt: ENC[AES256_GCM,data:uAI5yOZGLwIzXeCi14nK6oLcbVkns9tkecj36B0Mj54AB3rII0JknNYPk7eWveR+3+NIr3DCBoWA5PhaFSEjM1rKd5sOALsihFkn9AQ/Yyocig9KBvqR0ujzkn654RK1xI4v4WgeZKdFoaiS7BC4ZpwzCuwm83rgwVhA74ge7E8ZIB2qaiAOvSi2HUgohPxMJ6dcLhLVBW96SZO/9xwyK/MRz9VSMfzqHxy2fmtc01IaPFsYcmTJYVIpMVQ=,iv:RWHhsxKxtjg5NyKUFGz3SsyU1FMogH9Z1xX7YD6yqYM=,tag:dc8E6iSS+7SGD6sb5YaozA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age160xmmjztxl2n8pqfexusejr3xf9wz3f8ma2jpxjqde34n2jp795qw86wv9
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBEa3pTNzVCWXVLK1ROWXRk
+            OHYvMVJMRmI1WVNWVEdTc1NwR05PeTVWWDA4CjFNdWJQVWJVazRiZzZrMWQwN25j
+            dzZMRHhkeERnZ1VVaE5sbHlJRVZBM1kKLS0tIDRNbVZySXRsVjNhU29aaUJPMitj
+            VEJvcFBXVjZWWUc1Y25JWjh5YzZXd2sKrQJBgqi/OxoTsjoymB4rBJwEARYZggRK
+            3O6HxDe6eWhEQ0FbwR9PWs7yKqjdp9PUW5dv9GnJbPPzDI7DojW5pw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-02-21T22:12:03Z"
+    mac: ENC[AES256_GCM,data:BmIvDrSePSvMVU1xfnQe+kCQoEMmCQqnIPpZ2Y26h3dzgXLNL9phs2Nt8HqQ0txXXGX/SGBcHnY3VlRv74qF0bIGnUp8mlY5gFbGbZ57qYSpQ3xV/dXAiVsN/hOUUu6LRTINzm5sQhYKF3IbZYs4LoyN6W0xEam7F+kM4jByhhA=,iv:PcwZHa/rBHwOvWMZkqJEGjLNLOh92aQqVQUJyBYr2Jo=,tag:SxbHnGVth6wFrCx9mtH3pQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3
