@@ -37,10 +37,10 @@ dex:
   enabled: false
 
 redis:
+  exporter:
+    enabled: true
   metrics:
     enabled: true
-    service:
-      clusterIP: ""
     serviceMonitor:
       enabled: true
 
