@@ -6,4 +6,4 @@ data:
     policy.default: role:readonly
     policy.csv: |
         g, lldap_admin, role:admin
-        g, lldap_admin, exec, create, */*, allow
+        p, lldap_admin, exec, create, */*, allow
