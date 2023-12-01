@@ -182,6 +182,8 @@ configs:
     # -- Timeout to refresh application data as well as target manifests cache
     timeout.hard.reconciliation: 0s
 
+    kustomize.buildOptions: --enable-alpha-plugins --enable-exec
+
 
     # OIDC configuration as an alternative to dex (optional).
     oidc.config: |
