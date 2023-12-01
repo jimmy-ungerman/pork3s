@@ -39,6 +39,8 @@ dex:
 redis:
   metrics:
     enabled: true
+    service:
+      clusterIP: ""
     serviceMonitor:
       enabled: true
 
