@@ -4,6 +4,8 @@ kind: Application
 metadata:
   name: cilium
   namespace: argocd
+  labels:
+    argocd.argoproj.io/instance: cilium
 spec:
   ignoreDifferences:
     - group: ""
