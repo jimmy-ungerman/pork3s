@@ -141,7 +141,7 @@ notifications:
   triggers:
     trigger.on-deployed-github: |
       - description: Application syncing has succeeded
-        oncePer: app.status.sync.revision
+        oncePer: app.status.operationState.syncResult.revision
         send:
         - app-sync-succeeded
-        when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy' and time.Now().Sub(time.Parse(app.status.operationState.startedAt)).Minutes() < 2
+        when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'

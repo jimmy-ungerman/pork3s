@@ -4,6 +4,8 @@ kind: CiliumBGPPeeringPolicy
 metadata:
   name: bgp-config-peering-policy
   namespace: kube-system
+  annotations:
+    notifications.argoproj.io/subscribe.on-deployed-github.pushover: ui6cxf78gwxa6n93zkwddw1g8s3yio
 spec:
   nodeSelector:
     matchLabels:
