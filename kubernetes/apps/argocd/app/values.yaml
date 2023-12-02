@@ -134,8 +134,8 @@ notifications:
   templates:
     template.app-sync-succeeded: |
       message: |
-        Application {{.app.metadata.name}} sync is {{.app.status.sync.status}}.
-        Application details: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}.
+        Application {{.app.metadata.name}} has been successfully synced at {{.app.status.operationState.finishedAt}}.
+        Sync operation details are available at: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true .
   triggers:
     trigger.on-deployed-github: |
       - description: Application syncing has succeeded
