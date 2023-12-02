@@ -16,6 +16,7 @@ spec:
       name: cilium-ca
       jsonPointers:
       - /data/ca.crt
+      - /data/ca.key
     - group: ""
       kind: Secret
       name: hubble-relay-client-certs
