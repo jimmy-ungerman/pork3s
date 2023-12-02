@@ -93,6 +93,14 @@ dashboardProviders:
         editable: true
         options:
           path: /var/lib/grafana/dashboards/argocd
+      - name: unifi
+        orgId: 1
+        folder: Unifi
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/unifi
 datasources:
   datasources.yaml:
     apiVersion: 1
@@ -194,6 +202,27 @@ dashboards:
   argo:
     argocd-dashboard:
       url: https://raw.githubusercontent.com/argoproj/argo-cd/master/examples/dashboard.json
+      datasource: Prometheus
+  unifi:
+    unifi-insights:
+      # renovate: depName="UniFi-Poller: Client Insights - Prometheus"
+      gnetId: 11315
+      revision: 9
+      datasource: Prometheus
+    unifi-network-sites:
+      # renovate: depName="UniFi-Poller: Network Sites - Prometheus"
+      gnetId: 11311
+      revision: 5
+      datasource: Prometheus
+    unifi-uap:
+      # renovate: depName="UniFi-Poller: UAP Insights - Prometheus"
+      gnetId: 11314
+      revision: 10
+      datasource: Prometheus
+    unifi-usw:
+      # renovate: depName="UniFi-Poller: USW Insights - Prometheus"
+      gnetId: 11312
+      revision: 9
       datasource: Prometheus
 sidecar:
   dashboards:
