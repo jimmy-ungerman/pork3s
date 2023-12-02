@@ -6,6 +6,7 @@ metadata:
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-deployed-github.pushover: ui6cxf78gwxa6n93zkwddw1g8s3yio
+    argocd.argoproj.io/manifest-generate-paths: .
   labels:
     argocd.argoproj.io/instance: cilium
 spec:
