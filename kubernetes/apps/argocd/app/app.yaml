@@ -3,6 +3,7 @@ kind: Application
 metadata:
   name: argocd
   namespace: argocd
+  argocd.argoproj.io/manifest-generate-paths: kubernetes/apps/argocd
 spec:
   project: default
   sources:
