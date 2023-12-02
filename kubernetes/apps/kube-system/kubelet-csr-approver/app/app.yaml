@@ -4,6 +4,9 @@ kind: Application
 metadata:
   name: kubelet-csr-approver
   namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-deployed-github.pushover: ui6cxf78gwxa6n93zkwddw1g8s3yio
+    argocd.argoproj.io/manifest-generate-paths: /kubernetes/apps/kube-system/kubelet-csr-approver
 spec:
   project: default
   sources:
