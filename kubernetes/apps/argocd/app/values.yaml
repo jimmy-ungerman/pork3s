@@ -58,9 +58,9 @@ server:
     enabled: true
     annotations:
       external-dns.alpha.kubernetes.io/target: porkboi.io
-      cert-manager.io/cluster-issuer: le-prod
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+      external-dns.alpha.kubernetes.io/hostname: argocd.porkboi.io
     ingressClassName: "nginx"
     hosts:
       - argocd.porkboi.com
