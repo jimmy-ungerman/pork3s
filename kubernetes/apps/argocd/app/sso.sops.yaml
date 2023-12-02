@@ -3,6 +3,8 @@ kind: ENC[AES256_GCM,data:pdHATheh,iv:KxtBehPunxQUPMdJ76enOR18WIo7eHn66iOpskYPQb
 metadata:
     name: ENC[AES256_GCM,data:TnSXoaPuyjm24mfWsA==,iv:dEwYR5yRh2zGyKQAKeO1eHxHdvgFfnhdyo+c4ichFew=,tag:H6nDyWlxSZxv28QHQp235w==,type:str]
     namespace: ENC[AES256_GCM,data:qbu2/NzV,iv:Maw4u8dkzWmJrgMVeN3ehjwTJYQDkzadSi+DNMfWZxM=,tag:OnPttS1QwIga68OVQM2z/w==,type:str]
+    labels:
+        app.kubernetes.io/part-of: ENC[AES256_GCM,data:HBGDy3gg,iv:+6zm6XN2eF+H1LSHRjbUU2w4JePZJ7wqgycTatQryaY=,tag:dAS6okI4yxO2Lwyx/bOFMQ==,type:str]
 type: ENC[AES256_GCM,data:AQkTjijb,iv:AVfIkGyP56ssvZ6QMqtS7cg5F7gQLwXEXsRL0h9jNes=,tag:PNaoDsXx8SlGek53yFl8nA==,type:str]
 data:
     oidc.authelia.clientSecret: ENC[AES256_GCM,data:BKcZESTqaKjS34Flp4DS+bIZDrhwTaQUlfJDOaFW8ArLGtnZU2DAWZ5jw4R27iqlRS1I9TtmwrBRsFGvuzSHcuTuANNocvjWtmXkQ8F5v50ticfckJYzLa57A9zaQz2rvtbKJ3bQpKFqRGDn5uSt/TKmtmV+uToXBENdHAxqYDq+no0D6Z6BoKxa4nRR9cESdWX4svFT0jvzPHGhHdVZ25WP4rMMFGl10N+CBA==,iv:Y+//+VNl7Rmn/8FcMDOVFbPk6o5kO6oqYwkbvO5qhvA=,tag:euidF6VjhBrL7QwzrlrY3A==,type:str]
@@ -22,8 +24,8 @@ sops:
             SjdSWjhySHdxWG9udjJFczhtWTVUTVUKa/jbCk/V2yFdbn8am33CYW/56qxBDiCj
             zBVeyT8Jgc2NK4u6O2/oCqGCGyevJlHuXNwQigsv8C6j7CcGfpqp9w==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-01T17:38:55Z"
-    mac: ENC[AES256_GCM,data:yexV5AFgKjlzUJntZpzkzq91o6MedXcsVwav++a1RtjHUltwkw0hfihpgIHqShJYlmARWN+1xtECkaZLF8r6MRQ/6BLVmbuvvt9Ff8dkLHSZDVAbqPIrYfOnVsHrqARfia0Q0rS5gABZMmNIBDO92VzfVO1N2nt8DM1lDTdlink=,iv:nP4CAXYfFQihwEaSmzCHmMBEGSYH79C28vAIH7MbGR0=,tag:/IJsI8AaOTeOb0VUdkdH5w==,type:str]
+    lastmodified: "2023-12-02T05:04:43Z"
+    mac: ENC[AES256_GCM,data:quTNFADZ09LsW0fmYKysjYuLrv/IYWPIT5STJ3KCMdV1h9ltOU0y8vwEc7kybt9DFJTc4CrDjLL3fBTqHwjvoOwHdg5vx/sYuU5gGlHDWu308g4w4NTQPMEJhOy7PQKmulnCQ+AR5ms8QqvfUJX90H8U6FNpMxaVTKLnQF0yOYU=,iv:QaiNXHatxI1l1kTvBqgckIgd32YfzoVwTU31iH9QgfQ=,tag:sv5WuIE1Cg5s06qj9YEbkA==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.3
