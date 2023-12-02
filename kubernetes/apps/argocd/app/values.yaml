@@ -61,7 +61,6 @@ server:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
       external-dns.alpha.kubernetes.io/hostname: argocd.porkboi.io
-    ingressClassName: "nginx"
     hosts:
       - argocd.porkboi.com
     tls:
@@ -71,7 +70,6 @@ server:
     enabled: true
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
-    ingressClassName: "nginx"
     hosts:
       - grpc.argocd.porkboi.io
     tls:
