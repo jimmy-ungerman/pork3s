@@ -12,7 +12,7 @@ metadata:
 spec:
   ignoreDifferences:
     - group: ""
-      kind: ConfigMap
+      kind: Secret
       name: cilium-ca
       jsonPointers:
       - /data/ca.crt
