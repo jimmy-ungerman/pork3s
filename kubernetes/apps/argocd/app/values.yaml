@@ -62,10 +62,10 @@ server:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
       external-dns.alpha.kubernetes.io/hostname: argocd.porkboi.io
     hosts:
-      - argocd.porkboi.com
+      - argocd.porkboi.io
     tls:
       - hosts:
-          - argocd.porkboi.com
+          - argocd.porkboi.io
   ingressGrpc:
     enabled: true
     annotations:
