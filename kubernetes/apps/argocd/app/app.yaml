@@ -4,6 +4,7 @@ metadata:
   name: argocd
   namespace: argocd
   annotations:
+    notifications.argoproj.io/subscribe.on-deployed-github.pushover: ui6cxf78gwxa6n93zkwddw1g8s3yio
     argocd.argoproj.io/manifest-generate-paths: kubernetes/apps/argocd
 spec:
   project: default
