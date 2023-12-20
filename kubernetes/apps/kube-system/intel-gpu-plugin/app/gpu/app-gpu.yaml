@@ -17,7 +17,7 @@ spec:
   sources:
   - repoURL: 'https://intel.github.io/helm-charts/'
     chart: intel-device-plugins-gpu
-    targetRevision: 0.28.1-helm.0
+    targetRevision: 0.29.0
     helm:
       valueFiles:
         - $values/kubernetes/apps/kube-system/intel-gpu-plugin/app/gpu/values.yaml
