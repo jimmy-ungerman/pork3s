@@ -215,7 +215,6 @@ sonarr:
           - dc262f88d74c651b12e9d90b39f6c753  # Anime Web Tier 06 (FanSubs)
           - e3515e519f3b1360cbfc17651944354c  # Anime LQ Groups
           - b4a1b3d705159cdca36d71e57ca86871  # Anime Raws
-          - 9c14d194486c4014d422adc64092d794  # Dubs Only
           - d2d7b8a9d39413da5f44054080e028a3  # v0
           - 273bd326df95955e1b6c26527d1df89b  # v1
           - 228b8ee9aa0a609463efca874524a6b8  # v2
@@ -248,3 +247,8 @@ sonarr:
         quality_profiles:
           - name: Anime
             score: 2000  # Adjust scoring as desired
+      - trash_ids:
+          - 9c14d194486c4014d422adc64092d794  # Dubs Only
+        quality_profiles:
+          - name: Anime
+            score: 1000  # Adjust scoring as desired
