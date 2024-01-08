@@ -229,3 +229,6 @@ tunnel: "disabled"
 bpf:
   masquerade: true
 l7Proxy: true
+ingressController:
+  enabled: true
+  loadbalancerMode: dedicated
