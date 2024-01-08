@@ -228,3 +228,4 @@ tunnel: "disabled"
 
 bpf:
   masquerade: true
+l7Proxy: true
