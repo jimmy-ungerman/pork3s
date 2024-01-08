@@ -225,3 +225,6 @@ securityContext:
 #   - vxlan (default)
 #   - geneve
 tunnel: "disabled"
+
+bpf:
+  masquerade: true
