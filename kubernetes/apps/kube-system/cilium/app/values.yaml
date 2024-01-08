@@ -232,3 +232,5 @@ l7Proxy: true
 ingressController:
   enabled: true
   loadbalancerMode: dedicated
+  defaultSecretNamespace: networking 
+  defaultSecretName: porkboi-cert
