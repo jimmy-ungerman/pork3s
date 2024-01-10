@@ -86,7 +86,7 @@ repoServer:
 
   initContainers:
     - name: install-ksops
-      image: viaductoss/ksops:v4.3.0
+      image: viaductoss/ksops:v4.3.1
       command: ["/bin/sh", "-c"]
       args:
       - 'echo "Installing KSOPS..."; mv /usr/local/bin/ksops /custom-tools/; mv /usr/local/bin/kustomize /custom-tools/; echo "Done.";'
