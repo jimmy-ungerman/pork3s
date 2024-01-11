@@ -142,8 +142,9 @@ prometheus:
   serviceMonitor:
     enabled: true
     trustCRDsExist: true
+
 # -- Roll out cilium agent pods automatically when configmap is updated.
-rollOutCiliumPods: false
+rollOutCiliumPods: true
 
 securityContext:
   # -- Run the pod with elevated privileges
