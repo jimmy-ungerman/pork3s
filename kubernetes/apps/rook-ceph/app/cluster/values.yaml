@@ -15,8 +15,6 @@ configOverride: |
   bdev_enable_discard = true
   bdev_async_discard = true
 cephClusterSpec:
-  cephVersion:
-    image: docker.io/rkachach/ceph:v18.2.1_patched_v0
   mgr:
     modules:
       - name: pg_autoscaler # This is already enabled by default, but needs to be here so that we don't override the default behavior.
