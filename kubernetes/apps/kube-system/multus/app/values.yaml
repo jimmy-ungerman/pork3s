@@ -1,0 +1,22 @@
+image:
+  repository: ghcr.io/k8snetworkplumbingwg/multus-cni
+  tag: v4.0.2-thick
+
+cni:
+  image:
+    repository: ghcr.io/angelnu/cni-plugins
+    tag: 1.4.0
+
+  paths:
+    config: /etc/cni/net.d
+    bin: /opt/cni/bin
+
+resources:
+  requests:
+    cpu: 5m
+    memory: 96Mi
+  limits:
+    memory: 96Mi
+
+hostPaths:
+  netns: /var/run/netns
