@@ -10,9 +10,9 @@ metadata:
 spec:
   project: default
   sources:
-  - repoURL: 'https://bjw-s.github.io/helm-charts'
-    chart: app-template
-    targetRevision: 2.4.0
+  - repoURL: 'https://angelnu.github.io/helm-charts'
+    chart: multus
+    targetRevision: 5.0.4
     helm:
       valueFiles:
         - $values/kubernetes/apps/kube-system/multus/app/values.yaml
