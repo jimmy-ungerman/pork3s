@@ -1,0 +1,30 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: home-assistant
+  namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-deployed-github.pushover: ui6cxf78gwxa6n93zkwddw1g8s3yio
+    argocd.argoproj.io/manifest-generate-paths: /kubernetes/apps/home/home-assistant
+spec:
+  project: default
+  sources:
+  - repoURL: 'https://bjw-s.github.io/helm-charts'
+    chart: app-template
+    targetRevision: 2.4.0
+    helm:
+      valueFiles:
+        - $values/kubernetes/apps/home/home-assistant/app/values.yaml
+  - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
+    targetRevision: main
+    path: kubernetes/apps/home/home-assistant
+    ref: values
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: home
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
