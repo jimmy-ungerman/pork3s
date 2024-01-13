@@ -55,7 +55,8 @@ ingress:
 persistence:
   config:
     enabled: true
-    advancedMounts:
-      main:
-        main:
-          - path: /config
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    size: 10Gi
+    globalMounts:
+      - path: /config
