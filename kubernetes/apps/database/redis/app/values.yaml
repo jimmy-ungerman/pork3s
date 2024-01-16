@@ -4,9 +4,13 @@ auth:
 master:
   persistence:
     enabled: false
+  serviceAccount:
+    name: "redis-master"
 replica:
   persistence:
     enabled: false
+  serviceAccount:
+    name: "redis-replica"
 sentinel:
   enabled: true
   masterSet: redis-master
