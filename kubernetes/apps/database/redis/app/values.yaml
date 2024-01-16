@@ -1,5 +1,7 @@
 redis:
   serviceAccountName: redis
+  masterServiceAccountName: redis-master
+  replicaServiceAccountName: redis-replica
 auth:
   enabled: false
   sentinel: false
