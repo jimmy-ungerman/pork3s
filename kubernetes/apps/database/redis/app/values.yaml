@@ -1,3 +1,5 @@
+redis:
+  serviceAccountName: "redis"
 auth:
   enabled: false
   sentinel: false
