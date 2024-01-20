@@ -40,7 +40,8 @@ service:
         enabled: false
       graphite:
         port: 2003
-  metrics:
+  second:
+    controller: main
     ports:
       http:
         enabled: false
