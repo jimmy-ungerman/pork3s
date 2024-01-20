@@ -49,7 +49,7 @@ service:
         port: 9108
 
 serviceMonitor:
-  main:
+  second:
     enabled: true
     endpoints:
       - port: metrics
