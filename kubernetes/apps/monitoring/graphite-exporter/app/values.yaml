@@ -19,6 +19,26 @@ controllers:
         env:
           TZ: America/Boise
 
+probes:
+  liveness:
+    # -- Enable the liveness probe
+    enabled: true
+    # -- Set this to `true` if you wish to specify your own livenessProbe
+    custom: true
+    # -- sets the probe type when not using a custom probe
+    # @default -- "TCP"
+    type: TCP
+    # -- The spec field contains the values for the default livenessProbe.
+    # If you selected `custom: true`, this field holds the definition of the livenessProbe.
+    # @default -- See below
+    spec:
+      failureThreshold: 3
+      periodSeconds: 10
+      successThreshold: 1
+      tcpSocket:
+        port: 2003
+      timeoutSeconds: 1
+
 persistence:
   config:
     enabled: true
