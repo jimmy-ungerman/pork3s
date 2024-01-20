@@ -42,6 +42,7 @@ service:
         port: 2003
   second:
     controller: main
+    nameOverride: metrics
     ports:
       http:
         enabled: false
@@ -49,8 +50,9 @@ service:
         port: 9108
 
 serviceMonitor:
-  second:
+  main:
     enabled: true
+    serviceName: graphite-exporter-metrics
     endpoints:
       - port: metrics
         scheme: http
