@@ -8,12 +8,6 @@ metadata:
   name: grafana
   namespace: argocd
 spec:
-  ignoreDifferences:
-    - group: ""
-      kind: Secret
-      name: grafana
-      jsonPointers:
-      - /data/admin-password
   project: default
   sources:
   - repoURL: 'https://grafana.github.io/helm-charts'
