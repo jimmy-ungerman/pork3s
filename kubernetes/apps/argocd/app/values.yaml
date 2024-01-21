@@ -139,7 +139,7 @@ notifications:
   triggers:
     trigger.on-deployed-github: |
       - description: Application syncing has succeeded
-        oncePer: app.status.operationState.syncResult.revision
+        oncePer: app.status.sync.revision
         send:
         - app-sync-succeeded
         when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy' and app.status.sync.status == 'Synced'
