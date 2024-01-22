@@ -39,7 +39,7 @@ jobs:
       - name: Update Issue
         uses: peter-evans/create-issue-from-file@433e51abf769039ee20ba1293a088ca19d573b7f # renovate: tag=v4.0.1
         with:
-          title: Broken links detected 🔗
+          title: Link Checker Dashboard 🔗
           issue-number: "${{ steps.link-checker-issue.outputs.issue-number }}"
           content-filepath: ./lychee/out.md
           token: "${{ secrets.GITHUB_TOKEN }}"
