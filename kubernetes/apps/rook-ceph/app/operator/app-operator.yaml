@@ -12,7 +12,7 @@ spec:
   sources:
   - repoURL: 'https://charts.rook.io/release'
     chart: rook-ceph
-    targetRevision: v1.13.2
+    targetRevision: v1.13.3
     helm:
       valueFiles:
         - $values/kubernetes/apps/rook-ceph/app/operator/values.yaml
