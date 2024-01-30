@@ -25,6 +25,8 @@ sentinel:
     enabled: false
 metrics:
   enabled: true
+  containerPorts:
+    http: 9121
   serviceMonitor:
     enabled: true
     interval: 1m
