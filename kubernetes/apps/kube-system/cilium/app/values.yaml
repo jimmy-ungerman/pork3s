@@ -222,3 +222,4 @@ securityContext:
 
 bpf:
   masquerade: true
+routingMode: "native"
