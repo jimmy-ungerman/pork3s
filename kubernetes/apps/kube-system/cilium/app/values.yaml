@@ -220,20 +220,5 @@ securityContext:
       #- PERFMON
       #- BPF
 
-# -- Configure the encapsulation configuration for communication between nodes.
-# Possible values:
-#   - disabled
-#   - vxlan (default)
-#   - geneve
-tunnelProtocol: ""
-
 bpf:
   masquerade: true
-
-# l7Proxy: true
-
-# ingressController:
-#   enabled: true
-#   loadbalancerMode: shared
-#   defaultSecretNamespace: networking 
-#   defaultSecretName: porkboi-cert
