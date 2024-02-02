@@ -18,9 +18,11 @@ cniConfig:
 
 additionalApiServerCertSans:
   - kube.porkboi.io
+  - "127.0.0.1"
 
 additionalMachineCertSans:
   - kube.porkboi.io
+  - "127.0.0.1"
 
 nodes:
   - hostname: aang
@@ -114,6 +116,14 @@ nodes:
             metric: 1024
             
 controlPlane:
+  schematic:
+    customization:
+      extraKernelArgs:
+        - net.ifnames=0
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/intel-ucode
+          - siderolabs/i915-ucode
   patches:
     - |-
       machine:
