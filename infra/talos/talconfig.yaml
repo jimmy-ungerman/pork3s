@@ -189,8 +189,7 @@ controlPlane:
       machine:
         kubelet:
           extraArgs:
-            feature-gates: CronJobTimeZone=true,GracefulNodeShutdown=true,NewVolumeManagerReconstruction=false
-            rotate-server-certificates: "true"
+            feature-gates: GracefulNodeShutdown=true,NewVolumeManagerReconstruction=false
           extraConfig:
             maxPods: 150
           nodeIP:
@@ -217,7 +216,6 @@ worker:
         path: /machine/kubelet/extraArgs
         value:
           feature-gates: StatefulSetStartOrdinal=true,StatefulSetAutoDeletePVC=true,KubeletTracing=true
-          rotate-server-certificates: "true"
 
     - |-
       - op: add
