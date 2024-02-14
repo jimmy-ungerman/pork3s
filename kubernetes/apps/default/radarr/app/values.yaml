@@ -15,7 +15,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/onedr0p/radarr-nightly
-          tag: 5.3.5.8594
+          tag: 5.3.6.8604
         env:
           TZ: America/Boise
           RADARR__INSTANCE_NAME: Radarr
