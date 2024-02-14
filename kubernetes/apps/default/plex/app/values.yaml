@@ -31,7 +31,7 @@ controllers:
       volumeClaimTemplates:
         - name: config
           accessMode: ReadWriteOnce
-          size: 100Gi
+          size: 250Gi
           storageClass: rook-ceph-block
           globalMounts:
             - path: /config
