@@ -133,7 +133,7 @@ dashboards:
       revision: 5
       datasource: Prometheus
     cloudnative-pg:
-      url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
+      url: https://raw.githubusercontent.com/cloudnative-pg/charts/main/charts/cloudnative-pg/monitoring/grafana-dashboard.json
       datasource: Prometheus
     cert-manager:
       url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
