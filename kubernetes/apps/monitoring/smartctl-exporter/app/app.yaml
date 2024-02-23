@@ -12,7 +12,7 @@ spec:
   sources:
   - repoURL: 'https://prometheus-community.github.io/helm-charts'
     chart: prometheus-smartctl-exporter
-    targetRevision: 0.7.0
+    targetRevision: 0.7.1
     helm:
       valueFiles:
         - $values/kubernetes/apps/monitoring/smartctl-exporter/app/values.yaml
