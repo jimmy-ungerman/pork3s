@@ -33,14 +33,11 @@ service:
   main:
     annotations:
       io.cilium/lb-ipam-ips: 10.1.0.105
+    externalTrafficPolicy: Local
     ports:
       http:
         enabled: false
-      graphite-tcp:
-        protocol: TCP
-        port: 2003
-      graphite-udp:
-        protocol: UDP
+      graphite:
         port: 2003
       metrics:
         port: 9108
