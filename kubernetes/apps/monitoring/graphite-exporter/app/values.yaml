@@ -32,22 +32,19 @@ persistence:
 service:
   main:
     annotations:
-      "io.cilium/lb-ipam-ips": "10.1.0.105"
-    type: LoadBalancer
-    externalTrafficPolicy: Local
+      io.cilium/lb-ipam-ips: 10.1.0.105
     ports:
       http:
         enabled: false
-      graphite:
+      graphite-tcp:
+        protocol: TCP
         port: 2003
-  second:
-    controller: main
-    nameOverride: metrics
-    ports:
-      http:
-        enabled: false
+      graphite-udp:
+        protocol: UDP
+        port: 2003
       metrics:
         port: 9108
+    type: LoadBalancer
 
 serviceMonitor:
   main:
