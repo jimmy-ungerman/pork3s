@@ -174,8 +174,6 @@ controlPlane:
               [plugins."io.containerd.grpc.v1.cri"]
                 enable_unprivileged_ports = true
                 enable_unprivileged_icmp = true
-              [metrics]
-                address = "0.0.0.0:11234"
             path: /etc/cri/conf.d/20-customization.part
             op: create
 
@@ -202,6 +200,17 @@ controlPlane:
         sysctls:
           fs.inotify.max_user_watches: "1048576"
           fs.inotify.max_user_instances: "8192"
+
+    # Redirect logs
+    - |-
+      machine:
+        install:
+          extraKernelArgs:
+            - "talos.logging.kernel=udp://10.1.0.105:6050/"
+        logging:
+          destinations:
+            - endpoint: "udp://10.1.0.105:6051/"
+              format: json_lines
 worker:
   patches:
     - |-
@@ -231,13 +240,6 @@ worker:
               [plugins."io.containerd.grpc.v1.cri"]
                 enable_unprivileged_ports = true
                 enable_unprivileged_icmp = true
-              [metrics]
-                address = "0.0.0.0:11234"
-              [plugins."io.containerd.tracing.processor.v1.otlp"]
-                endpoint = "http://tempo.monitoring.svc.cluster.local:4318"
-              [plugins."io.containerd.internal.v1.tracing"]
-                sampling_ratio = 1.0
-                service_name = "containerd"
             path: /etc/cri/conf.d/20-customization.part
             op: create
 
@@ -256,3 +258,14 @@ worker:
         sysctls:
           fs.inotify.max_user_watches: "1048576"
           fs.inotify.max_user_instances: "8192"
+          
+    # Redirect logs
+    - |-
+      machine:
+        install:
+          extraKernelArgs:
+            - "talos.logging.kernel=udp://10.1.0.105:6050/"
+        logging:
+          destinations:
+            - endpoint: "udp://10.1.0.105:6051/"
+              format: json_lines

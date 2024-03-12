@@ -61,21 +61,9 @@ server:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
       external-dns.alpha.kubernetes.io/hostname: argocd.porkboi.io
-    hosts:
-      - argocd.porkboi.io
-    tls:
+    extraTls:
       - hosts:
-          - argocd.porkboi.io
-  ingressGrpc:
-    enabled: true
-    annotations:
-      nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
-    hosts:
-      - grpc.argocd.porkboi.io
-    tls:
-      - hosts:
-          - grpc.argocd.porkboi.io
-    https: false
+        - argocd.porkboi.io
 
 repoServer:
   env:
