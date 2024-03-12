@@ -1,3 +1,6 @@
+global:
+  domain: argocd.porkboi.io
+  
 configs:
   cm:
     url: "https://argocd.porkboi.io"
