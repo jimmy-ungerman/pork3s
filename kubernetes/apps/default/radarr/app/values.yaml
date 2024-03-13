@@ -39,7 +39,7 @@ controllers:
             spec:
               httpGet:
                 path: /ping
-                port: *port
+                port: 80
               initialDelaySeconds: 0
               periodSeconds: 10
               timeoutSeconds: 1
