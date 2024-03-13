@@ -56,7 +56,7 @@ controllers:
         supplementalGroups: [10000]
 service:
   app:
-    controller: radarr
+    controller: main
     ports:
       http:
         port: 80
