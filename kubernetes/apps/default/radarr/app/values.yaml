@@ -13,7 +13,7 @@ controllers:
           - secretRef:
               name: radarr-secret
     containers:
-      radarr:
+      app:
         image:
           repository: ghcr.io/onedr0p/radarr-nightly
           tag: 5.4.3.8670
@@ -22,7 +22,7 @@ controllers:
           RADARR__INSTANCE_NAME: Radarr
           RADARR__AUTHENTICATION_METHOD: External
           RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-          RADARR__PORT: &port 80
+          RADARR__PORT: 80
           RADARR__APPLICATION_URL: "https://radarr.porkboi.io/"
           RADARR__LOG_LEVEL: info
         envFrom: *envFrom
@@ -63,7 +63,6 @@ service:
 
 ingress:
   app:
-    enabled: true
     className: nginx
     annotations:
       external-dns.alpha.kubernetes.io/target: porkboi.io
