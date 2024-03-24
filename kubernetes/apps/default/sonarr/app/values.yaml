@@ -12,7 +12,7 @@ controllers:
           - secretRef:
               name: sonarr-secret
     containers:
-      main:
+      app:
         image:
           repository: ghcr.io/onedr0p/sonarr-develop
           tag: 4.0.2.1367
@@ -53,13 +53,14 @@ controllers:
         supplementalGroups: [10000]
 
 service:
-  main:
+  app:
+    controller: main
     ports:
       http:
         port: *port
 
 ingress:
-  main:
+  app:
     enabled: true
     className: nginx
     annotations:
@@ -77,7 +78,7 @@ ingress:
           - path: /
             pathType: Prefix
             service:
-              name: main
+              identifier: app
               port: http
     tls:
       - hosts:
