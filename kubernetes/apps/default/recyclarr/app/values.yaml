@@ -4,7 +4,7 @@ controllers:
     annotations:
       reloader.stakater.com/auto: "true"
     containers:
-      main:
+      app:
         image:
           repository: ghcr.io/recyclarr/recyclarr
           tag: 6.0.2
@@ -39,7 +39,8 @@ controllers:
           globalMounts:
             - path: /config
 service:
-  main:
+  app:
+    controller: main
     enabled: false
 persistence:
   config-file:
