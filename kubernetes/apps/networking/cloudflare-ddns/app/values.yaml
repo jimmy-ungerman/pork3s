@@ -1,7 +1,7 @@
 controllers:
   main:
     containers:
-      main:
+      app:
         image:
           repository: docker.io/oznu/cloudflare-ddns
           tag: latest
@@ -16,5 +16,6 @@ controllers:
           - secretRef:
               name: cloudflare-ddns-secret
 service:
-  main:
+  app:
+    controller: main
     enabled: false
