@@ -14,7 +14,7 @@ controllers:
           - secretRef:
               name: authelia-secret
     containers:
-      main:
+      app:
         image:
           repository: ghcr.io/authelia/authelia
           tag: v4.38.0-beta3@sha256:b48ae4d0ed9d1eee76efe382df60928bae550ec19e5663858dde6dc5f41cf285
@@ -61,7 +61,7 @@ controllers:
             matchLabels:
               app.kubernetes.io/name: authelia
 service:
-  main:
+  app:
     ports:
       http:
         port: *port
@@ -77,8 +77,7 @@ serviceMonitor:
         interval: 1m
         scrapeTimeout: 10s
 ingress:
-  main:
-    enabled: true
+  app:
     className: nginx
     annotations:
       external-dns.alpha.kubernetes.io/target: porkboi.io
