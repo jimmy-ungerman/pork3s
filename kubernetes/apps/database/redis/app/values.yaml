@@ -1,9 +1,3 @@
-redis:
-  serviceAccountName: redis
-  masterServiceAccountName: redis-master
-  replicaServiceAccountName: redis-replica
-commonConfiguration: |-
-  maxmemory 100mb
 auth:
   enabled: false
   sentinel: false
