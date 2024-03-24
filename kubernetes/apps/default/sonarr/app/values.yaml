@@ -12,7 +12,7 @@ controllers:
           - secretRef:
               name: sonarr-secret
     containers:
-      main:
+      app:
         image:
           repository: ghcr.io/onedr0p/sonarr-develop
           tag: 4.0.2.1312
@@ -53,7 +53,8 @@ controllers:
         supplementalGroups: [10000]
 
 service:
-  main:
+  app:
+    controller: main
     ports:
       http:
         port: *port

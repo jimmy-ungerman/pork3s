@@ -4,7 +4,7 @@ controllers:
     annotations:
       reloader.stakater.com/auto: "true"
     containers:
-      main:
+      app:
         image:
           repository: ghcr.io/sct/overseerr
           tag: 1.33.2
@@ -33,7 +33,8 @@ controllers:
           globalMounts:
             - path: /app/config
 service:
-  main:
+  app:
+    controller: main
     ports:
       http:
         port: *port

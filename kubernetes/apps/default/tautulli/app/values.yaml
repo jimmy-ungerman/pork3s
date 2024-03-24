@@ -4,7 +4,7 @@ controllers:
     annotations:
       reloader.stakater.com/auto: "true"
     containers:
-      main:
+      app:
         image:
           repository: ghcr.io/onedr0p/tautulli
           tag: 2.13.4@sha256:6651957d4678206e0dc9d389f23d88067ffc40dbc601893140daa45ffca8b728
@@ -31,12 +31,13 @@ controllers:
           globalMounts:
             - path: /config
 service:
-  main:
+  app:
+    controller: main
     ports:
       http:
         port: 8181
 ingress:
-  main:
+  app:
     enabled: true
     className: nginx
     annotations:

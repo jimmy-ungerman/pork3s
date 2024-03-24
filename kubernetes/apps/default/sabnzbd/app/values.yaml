@@ -4,7 +4,7 @@ controllers:
     annotations:
       reloader.stakater.com/auto: "true"
     containers:
-      main:
+      app:
         image:
           repository: ghcr.io/onedr0p/sabnzbd
           tag: 4.2.3@sha256:2daf5e89096f47f4d3a0c28f0bf84323f91b797c30d4efe3d7f29f2121bc0f3c
@@ -54,12 +54,13 @@ controllers:
           globalMounts:
             - path: /config
 service:
-  main:
+  app:
+    controller: main
     ports:
       http:
         port: *port
 ingress:
-  main:
+  app:
     enabled: true
     className: nginx
     annotations:

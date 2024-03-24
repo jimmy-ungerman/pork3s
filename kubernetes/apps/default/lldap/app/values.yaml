@@ -14,7 +14,7 @@ controllers:
           - secretRef:
               name: lldap-secret
     containers:
-      main:
+      app:
         image:
           repository: ghcr.io/lldap/lldap
           tag: v0.5.0
@@ -40,14 +40,15 @@ controllers:
             matchLabels:
               app.kubernetes.io/name: lldap
 service:
-  main:
+  app:
+    controller: main
     ports:
       http:
         port: *port
       ldap:
         port: *ldapPort
 ingress:
-  main:
+  app:
     enabled: true
     className: nginx
     annotations:

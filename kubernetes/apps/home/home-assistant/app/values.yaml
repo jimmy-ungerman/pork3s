@@ -13,7 +13,7 @@ controllers:
           }]
 
     containers:
-      main:
+      app:
         image:
           repository: ghcr.io/home-assistant/home-assistant
           tag: 2024.3.0
@@ -32,13 +32,14 @@ controllers:
             memory: 1254M
 
 service:
-  main:
+  app:
+    controller: main
     ports:
       http:
         port: 8123
 
 ingress:
-  main:
+  app:
     enabled: true
     className: "nginx"
     hosts:
