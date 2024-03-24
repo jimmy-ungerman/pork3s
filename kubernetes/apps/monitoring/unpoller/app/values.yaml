@@ -1,7 +1,7 @@
 controllers:
   main:
     containers:
-      main:
+      app:
         image:
           repository: ghcr.io/unpoller/unpoller
           tag: v2.10.0
@@ -24,12 +24,13 @@ controllers:
         runAsUser: 568
         runAsGroup: 568
 service:
-  main:
+  app:
+    controller: main
     ports:
       http:
         port: 9130
 serviceMonitor:
-  main:
+  app:
     enabled: true
     endpoints:
       - port: http

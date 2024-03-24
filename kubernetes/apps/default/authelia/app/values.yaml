@@ -62,14 +62,16 @@ controllers:
               app.kubernetes.io/name: authelia
 service:
   app:
+    controller: main
     ports:
       http:
         port: *port
       metrics:
         port: 8080
 serviceMonitor:
-  main:
+  app:
     enabled: true
+    serviceName: app
     endpoints:
       - port: metrics
         scheme: http
