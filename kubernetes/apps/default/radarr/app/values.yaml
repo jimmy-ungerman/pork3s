@@ -80,8 +80,8 @@ ingress:
           - path: /
             pathType: Prefix
             service:
-              name: main
-              port: http
+              identifier: app
+              port: 80
     tls:
       - hosts:
           - *host
