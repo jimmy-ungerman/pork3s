@@ -31,8 +31,6 @@ controllers:
               timeoutSeconds: 1
               failureThreshold: 3
           readiness: *probes
-          startup:
-            enabled: false
           resources:
             cpu: 100m
             memory: 2Gi
