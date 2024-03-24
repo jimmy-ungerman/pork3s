@@ -59,7 +59,7 @@ service:
       http:
         port: *port
 ingress:
-  main:
+  app:
     enabled: true
     className: nginx
     annotations:
@@ -76,7 +76,7 @@ ingress:
         paths:
           - path: /
             service:
-              identifier: main
+              identifier: app
               port: http
     tls:
       - hosts:
