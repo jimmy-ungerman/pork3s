@@ -11,7 +11,7 @@ spec:
   project: default
   sources:
   - repoURL: 'https://repos.emqx.io/charts'
-    chart: emqx
+    chart: emqx-operator
     targetRevision: 2.2.21
     helm:
       valueFiles:
