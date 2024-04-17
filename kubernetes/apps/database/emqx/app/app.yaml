@@ -4,7 +4,7 @@ kind: Application
 metadata:
   annotations:
     notifications.argoproj.io/subscribe.on-deployed-github.pushover: ui6cxf78gwxa6n93zkwddw1g8s3yio
-    argocd.argoproj.io/manifest-generate-paths: /kubernetes/apps/database/emqx/app
+    argocd.argoproj.io/manifest-generate-paths: /kubernetes/apps/database/emqx
   name: emqx-operator
   namespace: argocd
 spec:
@@ -18,7 +18,7 @@ spec:
         - $values/kubernetes/apps/database/emqx/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/database/emqx/app
+    path: kubernetes/apps/database/emqx
     ref: values
   destination:
     server: "https://kubernetes.default.svc"
