@@ -4,7 +4,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/unpoller/unpoller
-          tag: v2.11.1
+          tag: v2.11.2
         env:
           TZ: America/Boise
           UP_UNIFI_DEFAULT_ROLE: porkboi
