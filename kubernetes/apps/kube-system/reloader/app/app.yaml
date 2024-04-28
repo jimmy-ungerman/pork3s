@@ -12,7 +12,7 @@ spec:
   sources:
   - repoURL: 'https://stakater.github.io/stakater-charts'
     chart: reloader
-    targetRevision: 1.0.85
+    targetRevision: 1.0.93
     helm:
       valueFiles:
         - $values/kubernetes/apps/kube-system/reloader/app/values.yaml
