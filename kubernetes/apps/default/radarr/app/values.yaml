@@ -16,7 +16,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/onedr0p/radarr-develop
-          tag: 5.6.0.8846
+          tag: 5.5.1.8747
         env:
           TZ: America/Boise
           RADARR__INSTANCE_NAME: Radarr
@@ -25,6 +25,8 @@ controllers:
           RADARR__PORT: 80
           RADARR__APPLICATION_URL: "https://radarr.porkboi.io/"
           RADARR__LOG_LEVEL: info
+          RADARR__LOG__DBENABLED: "False"
+          RADARR__UPDATE__BRANCH: develop
         envFrom: *envFrom
         resources:
           requests:
