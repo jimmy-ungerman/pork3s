@@ -21,6 +21,10 @@ controllers:
           SONARR__INSTANCE_NAME: sonarr
           SONARR__PORT: &port 80
           SONARR__LOG_LEVEL: info
+          SONARR__AUTH__METHOD: External
+          SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+          SONARR__LOG__DBENABLED: "False"
+          SONARR__UPDATE__BRANCH: develop
         envFrom: *envFrom  
 
         resources:

@@ -23,6 +23,9 @@ controllers:
           PROWLARR__LOG_LEVEL: info
           PROWLARR__AUTHENTICATION_METHOD: External
           PROWLARR__THEME: dark
+          PROWLARR__UPDATE__BRANCH: develop
+          PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
+          PROWLARR__LOG__DBENABLED: "False"
         envFrom: *envFrom
         probes:
           liveness: &probes
