@@ -5,7 +5,6 @@ controllers:
     cronjob:
       schedule: "0 0 * * 1"
       parallelism: 6 # Set this to your number of nodes
-      successfulJobsHistory: 3
     pod:
       hostNetwork: true
       hostPID: true
