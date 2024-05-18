@@ -75,6 +75,9 @@ hubble:
         nginx.ingress.kubernetes.io/auth-snippet: |
           proxy_set_header X-Forwarded-Method $request_method;
       className: nginx
+      tls:
+        - hosts:
+          - hubble.porkboi.io
       hosts:
         - hubble.porkboi.io
     # -- Roll out Hubble-ui pods automatically when configmap is updated.
