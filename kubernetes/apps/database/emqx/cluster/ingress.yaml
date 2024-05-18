@@ -5,6 +5,9 @@ metadata:
   name: emqx-dashboard
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+      - emqx.porkboi.io
   rules:
     - host: emqx.porkboi.io
       http:
