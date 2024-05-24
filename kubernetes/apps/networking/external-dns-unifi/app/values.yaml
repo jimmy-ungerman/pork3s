@@ -4,8 +4,8 @@ provider:
   name: webhook
   webhook:
     image:
-      repository: ghcr.io/kashalls/external-dns-unifi-webhook
-      tag: main@sha256:0f4547658cf8edd7291c5a6c582a4b4935262f6d51818e5fc5a5836f65a10d54
+      repository: ghcr.io/jimmy-ungerman/external-dns-unifi-webhook
+      tag: main
     env:
       - name: UNIFI_HOST
         value: "https://10.0.0.1"
