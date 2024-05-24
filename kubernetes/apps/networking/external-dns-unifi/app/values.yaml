@@ -26,6 +26,8 @@ sources:
   - ingress
 txtOwnerId: default
 txtPrefix: k8s.
+extraArgs:
+  - --annotation-filter=external-dns.alpha.kubernetes.io/target
 domainFilters:
   - porkboi.io
 excludeDomains:
