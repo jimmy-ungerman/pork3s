@@ -1,0 +1,37 @@
+fullnameOverride: *app
+logLevel: debug
+provider:
+  name: webhook
+  webhook:
+    image:
+      repository: ghcr.io/kashalls/external-dns-unifi-webhook
+      tag: main@sha256:7b0f1ed1b217cde337b60b0b4bb71887038c38f1b45d1cd3f7b9a2243d08b506
+    env:
+      - name: UNIFI_HOST
+        value: "https://10.0.0.1"
+      - name: SERVER_HOST
+        value: "0.0.0.0"
+      - name: UNIFI_USER
+        valueFrom:
+          secretKeyRef:
+            name: &secret external-dns-unifi-secret
+            key: UNIFI_USER
+      - name: UNIFI_PASS
+        valueFrom:
+          secretKeyRef:
+            name: *secret
+            key: UNIFI_PASS
+policy: sync
+sources:
+  - ingress
+  - service
+txtOwnerId: default
+txtPrefix: k8s.
+domainFilters:
+  - porkboi.io
+excludeDomains:
+  - internal
+serviceMonitor:
+  enabled: false
+podAnnotations:
+  secret.reloader.stakater.com/reload: *secret
