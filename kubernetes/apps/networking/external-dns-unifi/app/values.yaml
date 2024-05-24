@@ -1,4 +1,4 @@
-fullnameOverride: *app
+fullnameOverride: external-dns-unifi
 logLevel: debug
 provider:
   name: webhook
