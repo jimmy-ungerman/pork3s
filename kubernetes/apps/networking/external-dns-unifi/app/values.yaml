@@ -21,6 +21,8 @@ provider:
           secretKeyRef:
             name: *secret
             key: UNIFI_PASS
+      - name: UNIFI_SKIP_TLS_VERIFY
+        value: "true"
 policy: sync
 sources:
   - ingress
