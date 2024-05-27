@@ -23,18 +23,26 @@ provider:
             key: UNIFI_PASS
       - name: UNIFI_SKIP_TLS_VERIFY
         value: "true"
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: http-wh-metrics
+      initialDelaySeconds: 10
+      timeoutSeconds: 5
+    readinessProbe:
+      httpGet:
+        path: /readyz
+        port: http-wh-metrics
+      initialDelaySeconds: 10
+      timeoutSeconds: 5
 policy: sync
 sources:
   - ingress
 txtOwnerId: default
 txtPrefix: k8s.
-extraArgs:
-  - --annotation-filter=external-dns.alpha.kubernetes.io/target
 domainFilters:
   - porkboi.io
 excludeDomains:
   - internal
-serviceMonitor:
-  enabled: false
 podAnnotations:
   secret.reloader.stakater.com/reload: *secret
