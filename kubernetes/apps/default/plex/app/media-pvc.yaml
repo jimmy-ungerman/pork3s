@@ -19,7 +19,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: 10.1.0.25
-    path: /mnt/fire/media
+    path: /mnt/earth/media
   mountOptions:
     - nfsvers=4.2
     - nconnect=8
