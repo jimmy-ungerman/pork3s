@@ -78,4 +78,4 @@ ingress:
 
 persistence:
   media:
-    existingClaim: media
+    existingClaim: media-earth

@@ -92,4 +92,4 @@ persistence:
     enabled: true
     existingClaim: radarr-config
   media:
-    existingClaim: media
+    existingClaim: media-earth

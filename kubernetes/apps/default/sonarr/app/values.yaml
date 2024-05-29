@@ -92,4 +92,4 @@ persistence:
     enabled: true
     existingClaim: sonarr-config
   media:
-    existingClaim: media
+    existingClaim: media-earth

@@ -65,6 +65,6 @@ persistence:
   transcode:
     type: emptyDir
   media:
-    existingClaim: media
+    existingClaim: media-earth
     globalMounts:
       - readOnly: true
