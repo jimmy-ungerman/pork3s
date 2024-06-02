@@ -85,7 +85,7 @@ gateway:
   image:
     registry: ghcr.io
     repository: nginxinc/nginx-unprivileged
-    tag: 1.26-alpine
+    tag: 1.27-alpine
   ingress:
     enabled: true
     ingressClassName: "nginx"
