@@ -12,7 +12,7 @@ spec:
   sources:
   - repoURL: 'https://prometheus-community.github.io/helm-charts'
     chart: prometheus-node-exporter
-    targetRevision: 4.34.0
+    targetRevision: 4.36.0
     helm:
       valueFiles:
         - $values/kubernetes/apps/monitoring/node-exporter/app/values.yaml
