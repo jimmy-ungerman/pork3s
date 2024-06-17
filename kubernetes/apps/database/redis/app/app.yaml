@@ -12,7 +12,7 @@ spec:
   sources:
   - repoURL: 'https://charts.bitnami.com/bitnami'
     chart: redis
-    targetRevision: 19.5.2
+    targetRevision: 19.5.3
     helm:
       valueFiles:
         - $values/kubernetes/apps/database/redis/app/values.yaml
