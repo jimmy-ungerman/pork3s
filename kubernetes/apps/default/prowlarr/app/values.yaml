@@ -15,7 +15,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/onedr0p/prowlarr-develop
-          tag: 1.18.0.4543
+          tag: 1.19.0.4568
         env:
           TZ: America/Boise
           PROWLARR__INSTANCE_NAME: Prowlarr
