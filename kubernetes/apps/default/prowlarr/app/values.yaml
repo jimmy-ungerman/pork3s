@@ -15,7 +15,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/onedr0p/prowlarr-develop
-          tag: 1.19.0.4568
+          tag: 1.19.0.4568@sha256:59a1b3f3f5df0f0d112a338d8b155737736ae506aaf2f227fa8bdf54b1bd634d
         env:
           TZ: America/Boise
           PROWLARR__INSTANCE_NAME: Prowlarr
@@ -28,18 +28,18 @@ controllers:
           PROWLARR__LOG__DBENABLED: "False"
         envFrom: *envFrom
         probes:
-          # liveness: &probes
-          #   enabled: true
-          #   custom: true
-          #   spec:
-          #     httpGet:
-          #       path: /ping
-          #       port: *port
-          #     initialDelaySeconds: 0
-          #     periodSeconds: 10
-          #     timeoutSeconds: 1
-          #     failureThreshold: 3
-          # readiness: *probes
+          liveness: &probes
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /ping
+                port: *port
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 3
+          readiness: *probes
           startup:
             enabled: false
         resources:
