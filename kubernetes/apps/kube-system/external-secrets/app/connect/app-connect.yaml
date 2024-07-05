@@ -12,7 +12,7 @@ spec:
   sources:
   - repoURL: 'https://1password.github.io/connect-helm-charts'
     chart: connect
-    targetRevision: 1.15.0
+    targetRevision: 1.15.1
     helm:
       valueFiles:
         - $values/kubernetes/apps/kube-system/external-secrets/app/connect/values.yaml
