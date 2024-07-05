@@ -12,7 +12,7 @@ spec:
   sources:
   - repoURL: 'https://grafana.github.io/helm-charts'
     chart: grafana
-    targetRevision: 8.2.2
+    targetRevision: 8.3.2
     helm:
       valueFiles:
         - $values/kubernetes/apps/monitoring/grafana/app/values.yaml
