@@ -13,3 +13,15 @@ presets:
   # Enables the filelogreceiver and adds it to the logs pipelines
   logsCollection:
     enabled: true
+
+extraEnvs:
+  - name: NODE_IP
+     valueFrom:
+       fieldRef:
+         apiVersion: v1
+         fieldPath: status.hostIP
+
+config:
+  receivers:
+    kubeletstats:
+      endpoint: 'https://${env:NODE_IP}:10250'
