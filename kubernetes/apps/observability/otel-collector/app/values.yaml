@@ -7,21 +7,19 @@ presets:
   # enables the k8sattributesprocessor and adds it to the traces, metrics, and logs pipelines
   kubernetesAttributes:
     enabled: true
-  # enables the kubeletstatsreceiver and adds it to the metrics pipelines
-  kubeletMetrics:
-    enabled: true
   # Enables the filelogreceiver and adds it to the logs pipelines
   logsCollection:
     enabled: true
 
-extraEnvs:
-  - name: NODE_IP
-     valueFrom:
-       fieldRef:
-         apiVersion: v1
-         fieldPath: status.hostIP
+env:
+  - name: K8S_NODE_NAME
+    valueFrom:
+      fieldRef:
+        fieldPath: spec.nodeName
 
-config:
-  receivers:
-    kubeletstats:
-      endpoint: 'https://${env:NODE_IP}:10250'
+receivers:
+  kubeletstats:
+    collection_interval: 20s
+    auth_type: "serviceAccount"
+    endpoint: "https://${env:K8S_NODE_NAME}:10250"
+    insecure_skip_verify: true
