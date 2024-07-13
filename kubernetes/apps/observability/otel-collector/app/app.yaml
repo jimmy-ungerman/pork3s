@@ -6,7 +6,7 @@ metadata:
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-deployed-github.pushover: ui6cxf78gwxa6n93zkwddw1g8s3yio
-    argocd.argoproj.io/manifest-generate-paths: /kubernetes/apps/observability/otel-collector/app1
+    argocd.argoproj.io/manifest-generate-paths: /kubernetes/apps/observability/otel-collector/app
 spec:
   project: default
   sources:
@@ -18,7 +18,7 @@ spec:
         - $values/kubernetes/apps/observability/otel-collector/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/observability/otel-collector/app1
+    path: kubernetes/apps/observability/otel-collector/app
     ref: values
   destination:
     server: "https://kubernetes.default.svc"
