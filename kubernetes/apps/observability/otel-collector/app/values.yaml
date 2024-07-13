@@ -1,10 +1,15 @@
-manager:
-  image:
-    repository: ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator
-  # Collector contrib has more features
-  collectorImage:
-    repository: ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib
-    tag: 0.103.1
-admissionWebhooks:
-  certManager:
+mode: daemonset
+
+image:
+  repository: otel/opentelemetry-collector-k8s
+
+presets:
+  # enables the k8sattributesprocessor and adds it to the traces, metrics, and logs pipelines
+  kubernetesAttributes:
+    enabled: true
+  # enables the kubeletstatsreceiver and adds it to the metrics pipelines
+  kubeletMetrics:
+    enabled: true
+  # Enables the filelogreceiver and adds it to the logs pipelines
+  logsCollection:
     enabled: true
