@@ -16,7 +16,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/onedr0p/radarr-develop
-          tag: 5.8.1.8906
+          tag: 5.8.2.8915
         env:
           TZ: America/Boise
           RADARR__INSTANCE_NAME: Radarr
