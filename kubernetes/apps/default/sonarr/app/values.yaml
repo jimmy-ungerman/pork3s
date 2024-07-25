@@ -15,7 +15,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/onedr0p/sonarr-develop
-          tag: 4.0.8.1902
+          tag: 4.0.8.1929
         env:
           TZ: America/Boise
           SONARR__INSTANCE_NAME: sonarr
