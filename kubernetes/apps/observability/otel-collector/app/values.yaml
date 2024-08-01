@@ -3,13 +3,13 @@ mode: daemonset
 image:
   repository: otel/opentelemetry-collector-k8s
 
-presets:
-  # enables the k8sattributesprocessor and adds it to the traces, metrics, and logs pipelines
-  kubernetesAttributes:
-    enabled: true
-  # enables the kubeletstatsreceiver and adds it to the metrics pipelines
-  kubeletMetrics:
-    enabled: true
-  # Enables the filelogreceiver and adds it to the logs pipelines
-  logsCollection:
-    enabled: true
+receivers:
+  kubeletstats:
+    collection_interval: 10s
+    auth_type: 'serviceAccount'
+    endpoint: '${env:K8S_NODE_NAME}:10250'
+    insecure_skip_verify: true
+    metric_groups:
+      - node
+      - pod
+      - container
