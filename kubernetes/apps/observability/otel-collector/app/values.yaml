@@ -9,3 +9,6 @@ command:
 presets:
   hostMetrics:
     enabled: true
+  logsCollection:
+    enabled: true
+    includeCollectorLogs: true
