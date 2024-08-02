@@ -13,3 +13,5 @@ presets:
   # Enables the filelogreceiver and adds it to the logs pipelines
   logsCollection:
     enabled: true
+  clusterMetrics:
+    enabled: true
