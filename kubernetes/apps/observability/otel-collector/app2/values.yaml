@@ -6,13 +6,10 @@ image:
 # We only want one of these collectors - any more and we'd produce duplicate data
 replicaCount: 1
 
-receivers:
-  kubeletstats:
-    collection_interval: 10s
-    auth_type: 'serviceAccount'
-    endpoint: '${env:K8S_NODE_NAME}:10250'
-    insecure_skip_verify: true
-    metric_groups:
-      - node
-      - pod
-      - container
+presets:
+  # enables the k8sclusterreceiver and adds it to the metrics pipelines
+  clusterMetrics:
+    enabled: true
+  # enables the k8sobjectsreceiver to collect events only and adds it to the logs pipelines
+  kubernetesEvents:
+    enabled: true
