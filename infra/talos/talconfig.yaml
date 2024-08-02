@@ -1,22 +1,20 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
-
 clusterName: porkboi
 endpoint: "https://10.1.0.15:6443"
 
 # renovate: depName=ghcr.io/siderolabs/installer datasource=docker extractVersion=^(?<version>.*)$
 talosVersion: v1.7.5
 # renovate: depName=kubernetes/kubernetes datasource=github-releases extractVersion=^v(?<version>.*)$
-kubernetesVersion: 1.30.3
+kubernetesVersion: v1.30.3
 
+
+clusterPodNets:
+  - 10.42.0.0/16
+clusterSvcNets:
+  - 10.43.0.0/16
 cniConfig:
   name: none
-
-additionalApiServerCertSans: &san
-  - kube.porkboi.io
-  - "127.0.0.1"
-
-additionalMachineCertSans: *san
 
 nodes:
   - hostname: aang

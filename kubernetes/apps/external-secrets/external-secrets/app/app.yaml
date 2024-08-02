@@ -2,27 +2,27 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: 1password-connect
+  name: external-secrets2
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-deployed-github.pushover: ui6cxf78gwxa6n93zkwddw1g8s3yio
-    argocd.argoproj.io/manifest-generate-paths: /kubernetes/apps/kube-system/external-secrets/app/connect
+    argocd.argoproj.io/manifest-generate-paths: /kubernetes/apps/external-secrets/external-secrets/app
 spec:
   project: default
   sources:
-  - repoURL: 'https://1password.github.io/connect-helm-charts'
-    chart: connect
-    targetRevision: 1.15.1
+  - repoURL: 'https://charts.external-secrets.io'
+    chart: external-secrets
+    targetRevision: 0.9.20
     helm:
       valueFiles:
-        - $values/kubernetes/apps/kube-system/external-secrets/app/connect/values.yaml
+        - $values/kubernetes/apps/kube-system/external-secrets/app/external-secrets/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/kube-system/external-secrets/app/connect
+    path: kubernetes/apps/external-secrets/external-secrets/app/
     ref: values
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: kube-system
+    namespace: external-secrets
   syncPolicy:
     automated:
       prune: true
