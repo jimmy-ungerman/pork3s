@@ -15,7 +15,7 @@ spec:
     targetRevision: 0.9.20
     helm:
       valueFiles:
-        - $values/kubernetes/apps/kube-system/external-secrets/app/external-secrets/values.yaml
+        - $values/kubernetes/apps/external-secrets/external-secrets/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
     path: kubernetes/apps/external-secrets/external-secrets/app
