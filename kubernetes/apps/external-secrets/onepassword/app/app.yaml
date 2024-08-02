@@ -15,10 +15,10 @@ spec:
     targetRevision: 3.2.1
     helm:
       valueFiles:
-        - $values/kubernetes/apps/default/overseerr/app/values.yaml
+        - $values/kubernetes/apps/external-secrets/onepassword/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/external-secrets/onepassword/app/
+    path: kubernetes/apps/external-secrets/onepassword/app
     ref: values
   destination:
     server: "https://kubernetes.default.svc"
