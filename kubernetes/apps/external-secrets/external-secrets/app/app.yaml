@@ -18,7 +18,7 @@ spec:
         - $values/kubernetes/apps/external-secrets/external-secrets/app/values.yaml
   - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
     targetRevision: main
-    path: kubernetes/apps/external-secrets/external-secrets/app
+    path: kubernetes/apps/external-secrets/external-secrets
     ref: values
   destination:
     server: "https://kubernetes.default.svc"
