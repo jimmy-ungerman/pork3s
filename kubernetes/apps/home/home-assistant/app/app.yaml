@@ -12,7 +12,7 @@ spec:
   sources:
   - repoURL: 'https://bjw-s.github.io/helm-charts'
     chart: app-template
-    targetRevision: 3.3.0
+    targetRevision: 3.3.2
     helm:
       valueFiles:
         - $values/kubernetes/apps/home/home-assistant/app/values.yaml
