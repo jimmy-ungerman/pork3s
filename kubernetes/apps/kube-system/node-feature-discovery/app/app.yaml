@@ -12,7 +12,7 @@ spec:
   sources:
   - repoURL: 'https://kubernetes-sigs.github.io/node-feature-discovery/charts'
     chart: node-feature-discovery
-    targetRevision: 0.16.3
+    targetRevision: 0.16.4
     helm:
       valueFiles:
         - $values/kubernetes/apps/kube-system/node-feature-discovery/app/values.yaml
