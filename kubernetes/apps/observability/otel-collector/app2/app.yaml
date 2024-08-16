@@ -12,7 +12,7 @@ spec:
   sources:
   - repoURL: 'https://open-telemetry.github.io/opentelemetry-helm-charts'
     chart: opentelemetry-collector
-    targetRevision: 0.102.0
+    targetRevision: 0.102.1
     helm:
       valueFiles:
         - $values/kubernetes/apps/observability/otel-collector/app2/values.yaml
