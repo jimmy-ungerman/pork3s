@@ -35,7 +35,7 @@ provider:
         port: http-wh-metrics
       initialDelaySeconds: 10
       timeoutSeconds: 5
-policy: sync
+policy: upsert-only
 sources:
   - ingress
 txtOwnerId: default
