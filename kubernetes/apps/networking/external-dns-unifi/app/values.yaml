@@ -5,7 +5,7 @@ provider:
   webhook:
     image:
       repository: ghcr.io/jimmy-ungerman/external-dns-unifi-webhook
-      tag: main
+      tag: pr-2
     env:
       - name: UNIFI_HOST
         value: "https://10.0.0.1"
