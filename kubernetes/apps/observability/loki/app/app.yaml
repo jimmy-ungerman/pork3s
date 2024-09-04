@@ -1,0 +1,31 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: loki
+  namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-deployed-github.pushover: ui6cxf78gwxa6n93zkwddw1g8s3yio
+    argocd.argoproj.io/manifest-generate-paths: /kubernetes/apps/observability/loki/app
+spec:
+  project: default
+  sources:
+  - repoURL: 'https://grafana.github.io/helm-charts'
+    chart: loki
+    targetRevision: 6.12.0
+    helm:
+      valueFiles:
+        - $values/kubernetes/apps/observability/loki/app/values.yaml
+  - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
+    targetRevision: main
+    path: kubernetes/apps/observability/loki/app
+    ref: values
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: observability
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
