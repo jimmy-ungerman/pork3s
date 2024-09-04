@@ -1,0 +1,31 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: promtail
+  namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-deployed-github.pushover: ui6cxf78gwxa6n93zkwddw1g8s3yio
+    argocd.argoproj.io/manifest-generate-paths: /kubernetes/apps/observability/promtail/app
+spec:
+  project: default
+  sources:
+  - repoURL: 'https://grafana.github.io/helm-charts'
+    chart: promtail
+    targetRevision: 6.16.5
+    helm:
+      valueFiles:
+        - $values/kubernetes/apps/observability/promtail/app/values.yaml
+  - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
+    targetRevision: main
+    path: kubernetes/apps/observability/promtail/app
+    ref: values
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: observability
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
