@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-    name: argocd-rbac-cm
-data:
-    policy.default: role:readonly
-    policy.csv: |
-        g, lldap_admin, role:admin
-        p, lldap_admin, exec, create, */*, allow
