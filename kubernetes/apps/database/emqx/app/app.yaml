@@ -12,7 +12,7 @@ spec:
   sources:
   - repoURL: 'https://repos.emqx.io/charts'
     chart: emqx-operator
-    targetRevision: 2.2.23
+    targetRevision: 2.2.24
     helm:
       valueFiles:
         - $values/kubernetes/apps/database/emqx/app/values.yaml
