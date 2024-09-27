@@ -1,5 +1,6 @@
 cleanPrometheusOperatorObjectNames: true
-
+crds:
+  enabled: false
 prometheus:
   ingress:
     enabled: true
