@@ -21,17 +21,6 @@ cgroup:
   # -- Configure cgroup root where cgroup2 filesystem is mounted on the host (see also: `cgroup.autoMount`)
   hostRoot: /sys/fs/cgroup
 
-# -- Configure container runtime specific integration.
-containerRuntime:
-  # -- Enables specific integrations for container runtimes.
-  # Supported values:
-  # - containerd
-  # - crio
-  # - docker
-  # - none
-  # - auto (automatically detect the container runtime)
-  integration: containerd
-
 endpointRoutes:
   # -- Enable use of per endpoint routes instead of routing via
   # the cilium_host interface.
