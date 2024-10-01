@@ -1,0 +1,54 @@
+global:
+  deploymentAnnotations:
+    secret.reloader.stakater.com/reload: "authentik-secret"
+  storageClass: openebs-hostpath
+  envFrom:
+    - secretRef:
+        name: authentik-secret
+authentik:
+  log_level: info
+  avatars: "gravatar,initials"
+  error_reporting:
+    enable: false
+    send_pii: false
+  outposts:
+    container_image_base: ghcr.io/goauthentik/%(type)s:%(version)s
+  # https://github.com/goauthentik/authentik/pull/7118
+  # https://github.com/goauthentik/authentik/issues/1285
+  redis:
+    host: "redis.database.svc.cluster.local"
+server:
+  initContainers:
+    - name: init-db
+      image: ghcr.io/onedr0p/postgres-init:16.3
+      imagePullPolicy: IfNotPresent
+      envFrom:
+        - secretRef:
+            name: authentik-secret
+  metrics:
+    serviceMonitor:
+      enabled: true
+  ingress:
+    enabled: true
+    ingressClassName: external
+    annotations:
+      external-dns.alpha.kubernetes.io/target: porkboi.io
+      external-dns.alpha.kubernetes.io/hostname: id.porkboi.io
+    hosts:
+      - &host id.porkboi.io
+    paths:
+      - /
+    tls:
+      - hosts:
+          - *host
+geoip:
+  enabled: false
+  existingSecret:
+    secretName: "authentik-secret"
+prometheus:
+  rules:
+    enabled: true
+postgresql:
+  enabled: false
+redis:
+  enabled: false
