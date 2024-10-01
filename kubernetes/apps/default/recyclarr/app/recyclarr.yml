@@ -95,7 +95,7 @@ sonarr:
     quality_profiles:
       - name: TV
         reset_unmatched_scores:
-          enabled: true
+          enabled: false
         upgrade:
           allowed: true
           until_quality: WEB 1080p
