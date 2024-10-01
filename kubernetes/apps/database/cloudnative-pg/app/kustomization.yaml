@@ -4,6 +4,7 @@ kind: Kustomization
 
 resources:
   - cluster/cluster16.yaml
+  - cluster/cluster17.yaml
   - cluster/externalSecret.yaml
   - cluster/prometheusRule.yaml
   - app.yaml
