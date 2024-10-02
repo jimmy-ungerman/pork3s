@@ -44,7 +44,7 @@ controller:
       enabled: true
 
 dex:
-  enabled: false
+  enabled: true
 externalRedis:
   # -- External Redis server host
   host: redis.database.svc.cluster.local
