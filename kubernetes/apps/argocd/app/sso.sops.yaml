@@ -8,6 +8,7 @@ metadata:
 type: ENC[AES256_GCM,data:AQkTjijb,iv:AVfIkGyP56ssvZ6QMqtS7cg5F7gQLwXEXsRL0h9jNes=,tag:PNaoDsXx8SlGek53yFl8nA==,type:str]
 data:
     dex.authentik.ClientSecret: ENC[AES256_GCM,data:oZCSWccbtFNuam1g384MUzwrd/TJ5/s5fAIvsfbJwJj2cUZM2iBJ7MFmOe0N8eRxt0lPVdQgd3ssH/Z9mrjyUopnWrP3THXh53GJ6aiQt0hPpP6V7X9Yoqa1jGYcM7tM+3Xt1mknC7JgLY+IW1gsR4v7GExq4scZL24CzycIuReijbrz8P2lV5Z/BW0Puy5pLYuvK7EupkjfygYyUUaVURaCsQDhwU/Q9BWwmw==,iv:GE85eo8Ls8W+9lguM9/LT+3I0mDRdJgKPcF7bJHuxJM=,tag:N3c3NI9djYmZBfVzAc7lOw==,type:str]
+    server.secretkey: ENC[AES256_GCM,data:0On+UsbJTmTp5tYIOp1bTTk3GtWd+iwkvtmnZl/hHjzbbW6nzlmpRk7Kbhupr+MVcbfIqaOjDCLE/J7g,iv:UTISPs/SEWTM1wPH4jSmgl/r54Sd3fDw6mE2iIRl35Q=,tag:Y4vmFBmK0VVsIFjr86xM0Q==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -23,8 +24,8 @@ sops:
             SjdSWjhySHdxWG9udjJFczhtWTVUTVUKa/jbCk/V2yFdbn8am33CYW/56qxBDiCj
             zBVeyT8Jgc2NK4u6O2/oCqGCGyevJlHuXNwQigsv8C6j7CcGfpqp9w==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-10-02T01:14:03Z"
-    mac: ENC[AES256_GCM,data:Niee4aP1EHpGQBHgF0WMuyAb0MEJgB6ISAZWg8F3yBQrPc7U8V9uClUwwfCwhGAF39/hpaRsbBtBoYTAfr7ZaLrLTl27BZjpZuT/d+qooeT3qLTfBnKr8kB2Uyj852UNHpkDhCcck5mwMBLNH+LaYC5eJuw1pCj3XN2Pct639NA=,iv:h3OFKJvOlLgY9UP990Z2kO65APnaE0taQmjpgQpk8uk=,tag:/Qxec+CQxae2ocOcqHX5Xw==,type:str]
+    lastmodified: "2024-10-02T01:17:16Z"
+    mac: ENC[AES256_GCM,data:STYcQxHvHbRBc5Q6HVXogsWNCtSb+lOFwK5hJJLgcG9Gg/ACilyMqsCIr5mkrbt5fDSDbOWZykOfPeV5CbWp/BEMHTI1D05ud6UWbdWVlG3DA8l7+tjL6lyOqT/HeZr9wIsr0Ag7EKuOkiKnpe1PSDVrT9/HkXrQbOyCZ0RoRFE=,iv:XBTJQlryhUJkZejyykEJmchERx5MtKfxH+f5yGwM4cg=,tag:STDL6JIJOMmeRm1IGqgP/w==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.8.1
