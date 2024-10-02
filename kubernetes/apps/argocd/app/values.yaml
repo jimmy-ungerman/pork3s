@@ -7,6 +7,20 @@ configs:
     exec.enabled: true
     admin.enabled: false
     kustomize.buildOptions: --enable-alpha-plugins --enable-exec
+    dex.config: |
+      connectors:
+      - config:
+          issuer: https://id.porkboi.io/application/o/argocd/
+          clientID: 5gRWlq2Ne2CYKhSOTE0otkykQF062QmK3rprMhse
+          clientSecret: $dex.authentik.clientSecret
+          insecureEnableGroups: true
+          scopes:
+            - openid
+            - profile
+            - email
+        name: authentik
+        type: oidc
+        id: authentik
 
   params:
     server.insecure: true
@@ -28,22 +42,6 @@ controller:
 
 dex:
   enabled: true
-  config: |
-    connectors:
-    - config:
-        issuer: https://id.porkboi.io/application/o/argocd/
-        clientID: 5gRWlq2Ne2CYKhSOTE0otkykQF062QmK3rprMhse
-        clientSecret: $dex.authentik.clientSecret
-        insecureEnableGroups: true
-        scopes:
-          - openid
-          - profile
-          - email
-      name: authentik
-      type: oidc
-      id: authentik
-
-
 
 externalRedis:
   # -- External Redis server host
