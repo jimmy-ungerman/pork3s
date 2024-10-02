@@ -36,7 +36,7 @@ grafana.ini:
     oauth_allow_insecure_email_lookup: true
   auth.generic_oauth:
     enabled: true
-    name: Authelia
+    name: Authentik
     icon: signin
     scopes: openid profile email groups
     empty_scopes: false
@@ -46,8 +46,6 @@ grafana.ini:
     use_pkce: true
   auth.generic_oauth.group_mapping:
     org_id: 1
-    role_attribute_path: |
-      contains(groups[*], 'lldap_admin') && 'Admin' || contains(groups[*], 'people') && 'Viewer'
   auth.basic:
     enabled: false
   auth.anonymous:
