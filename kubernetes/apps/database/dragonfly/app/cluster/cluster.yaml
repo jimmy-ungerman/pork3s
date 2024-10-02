@@ -17,10 +17,6 @@ spec:
     - --proactor_threads=2
     - --cluster_mode=emulated
     - --lock_on_hashtags
-  authentication:
-    passwordFromSecret:
-      name: dragonfly-secret
-      key: password
   topologySpreadConstraints:
     - maxSkew: 1
       topologyKey: kubernetes.io/hostname
