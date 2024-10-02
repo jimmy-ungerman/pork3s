@@ -14,7 +14,6 @@ configs:
           clientID: 5gRWlq2Ne2CYKhSOTE0otkykQF062QmK3rprMhse
           clientSecret: $dex.authentik.clientSecret
           insecureEnableGroups: true
-          scopes:
             - openid
             - profile
             - email
