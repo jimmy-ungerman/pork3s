@@ -45,7 +45,7 @@ dex:
 
 externalRedis:
   # -- External Redis server host
-  host: redis.database.svc.cluster.local
+  host: dragonfly.database.svc.cluster.local
 
 redis:
   enabled: false

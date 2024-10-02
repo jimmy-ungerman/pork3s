@@ -146,10 +146,8 @@ dashboards:
       gnetId: 1860
       revision: 33
       datasource: Prometheus
-    redis:
-      # renovate: depName="Redis Dashboard for Prometheus Redis Exporter 1.x"
-      gnetId: 763
-      revision: 5
+    dragonfly:
+      url: https://raw.githubusercontent.com/dragonflydb/dragonfly/main/tools/local/monitoring/grafana/provisioning/dashboards/dashboard.json
       datasource: Prometheus
     cloudnative-pg:
       url: https://raw.githubusercontent.com/cloudnative-pg/charts/main/charts/cloudnative-pg/monitoring/grafana-dashboard.json
