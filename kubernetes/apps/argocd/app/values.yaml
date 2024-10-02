@@ -31,7 +31,7 @@ configs:
   rbac:
     policy.csv: |
       p, role:admin, exec, create, */*, allow
-      g, lldap_admin, role:admin
+      g, authentik Admins, role:admin
     scopes: "[groups]"
 
   secret:
@@ -45,6 +45,23 @@ controller:
 
 dex:
   enabled: true
+  config: |
+    connectors:
+    - config:
+        issuer: https://id.porkboi.io/application/o/argocd/
+        clientID: 5gRWlq2Ne2CYKhSOTE0otkykQF062QmK3rprMhse
+        clientSecret: $dex.authentik.clientSecret
+        insecureEnableGroups: true
+        scopes:
+          - openid
+          - profile
+          - email
+      name: authentik
+      type: oidc
+      id: authentik
+
+
+
 externalRedis:
   # -- External Redis server host
   host: redis.database.svc.cluster.local
