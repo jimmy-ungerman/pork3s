@@ -7,23 +7,6 @@ configs:
     exec.enabled: true
     admin.enabled: false
     kustomize.buildOptions: --enable-alpha-plugins --enable-exec
-    oidc.config: |
-        name: Authelia
-        issuer: https://auth.porkboi.io
-        clientID: argocd
-        clientSecret: $oidc.authelia.clientSecret
-        requestedScopes:
-          - openid
-          - profile
-          - email
-          - groups
-    resource.exclusions: |
-        - apiGroups:
-            - cilium.io
-          kinds:
-            - CiliumIdentity
-          clusters:
-            - "*"
 
   params:
     server.insecure: true
