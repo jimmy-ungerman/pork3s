@@ -4,3 +4,4 @@ kind: Kustomization
 
 resources:
   - operator/app.yaml
+  - cluster/
