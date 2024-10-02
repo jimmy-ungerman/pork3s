@@ -16,7 +16,7 @@ authentik:
   # https://github.com/goauthentik/authentik/pull/7118
   # https://github.com/goauthentik/authentik/issues/1285
   redis:
-    host: "redis.database.svc.cluster.local"
+    host: "dragonfly.database.svc.cluster.local"
 server:
   initContainers:
     - name: init-db
