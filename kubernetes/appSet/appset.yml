@@ -22,16 +22,16 @@ spec:
               - path: kubernetes/appSet/*
   template:
     metadata:
-      name: '{{.path.basename}}'
+      name: '{{.path.path}}'
     spec:
       destination:
         name: in-cluster
         namespace: '{{.path.basename}}'
       project: default  # TODO
       sources:
-      - repoURL: '{{ repository }}'
-        chart: '{{.path.basename}}'
-        targetRevision: '{{ version }}'
+      - repoURL: '{{.repository}}'
+        chart: '{{.name}}'
+        targetRevision: '{{.version}}'
         helm:
           valueFiles: 
           - '$values/{{.path.path}}/values.yaml'
