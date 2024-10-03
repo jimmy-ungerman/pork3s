@@ -7,5 +7,5 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   groups:
-    - name: smartctl-exporter.rules
+  - name: smartctl-exporter.rules
 {{ .Files.Get "files/rules/rules.txt" | indent 4 }}
