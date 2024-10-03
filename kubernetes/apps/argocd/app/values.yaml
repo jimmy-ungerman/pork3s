@@ -8,7 +8,7 @@ configs:
     admin.enabled: false
     kustomize.buildOptions: --enable-alpha-plugins --enable-exec
     resource.ignoreResourceUpdatesEnabled: true
-    resource.customizations.ignoreDifferences.deviceplugin.intel.com_GpuDevicePlugin:
+    resource.customizations.ignoreDifferences.deviceplugin.intel.com_GpuDevicePlugin: |
       jqPathExpressions:
         - '.metadata.annotations'
         - '.spec.resourceManager'
