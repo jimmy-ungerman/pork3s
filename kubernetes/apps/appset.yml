@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: homelab
+  name: test
   namespace: argocd
 spec:
   goTemplate: true
@@ -13,7 +13,7 @@ spec:
             repoURL: &repoURL https://github.com/jimmy-ungerman/pork3s
             revision: &revision appset
             files:
-              - path: kubernetes/appSet/**/config.yaml
+              - path: kubernetes/apps/system/**/config.yaml
             pathParamPrefix: file
         - git:
             repoURL: &repoURL https://github.com/jimmy-ungerman/pork3s
@@ -22,7 +22,7 @@ spec:
               - path: kubernetes/apps/system/intel-device-plugins/*
   template:
     metadata:
-      name: '{{ (split "/" .path.path)._3-.path.basename }}'
+      name: '{{ (split "/" .path.path)._3 }}-{{.path.basename}}'
     spec:
       destination:
         name: in-cluster
