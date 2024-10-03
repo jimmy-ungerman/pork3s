@@ -19,14 +19,15 @@ spec:
             repoURL: &repoURL https://github.com/jimmy-ungerman/pork3s
             revision: &revision appset
             directories:
-              - path: kubernetes/appSet/*
+              - path: kubernetes/appSet/ns2/*
+              - path: kubernetes/appSet/test/*
   template:
     metadata:
-      name: '{{.path.path}}'
+      name: '{{.path.basename}}'
     spec:
       destination:
         name: in-cluster
-        namespace: '{{.path.basename}}'
+        namespace: '{{ (split "/" .path.path)._2 }}'
       project: default  # TODO
       sources:
       - repoURL: '{{.repository}}'
@@ -37,6 +38,7 @@ spec:
           - '$values/{{.path.path}}/values.yaml'
       - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
         targetRevision: appset
+        path: '{{.path.path}}'
         ref: values
       syncPolicy:
         automated:
