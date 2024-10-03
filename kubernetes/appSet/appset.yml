@@ -13,7 +13,7 @@ spec:
             repoURL: &repoURL https://github.com/jimmy-ungerman/pork3s
             revision: &revision appset
             files:
-              - path: kubernetes/appSet/**/Chart.yaml
+              - path: kubernetes/appSet/**/config.yaml
             pathParamPrefix: file
         - git:
             repoURL: &repoURL https://github.com/jimmy-ungerman/pork3s
@@ -29,9 +29,9 @@ spec:
         namespace: '{{.path.basename}}'
       project: default  # TODO
       sources:
-      - repoURL: '{{ (index .dependencies 0).repository }}'
+      - repoURL: '{{ repository }}'
         chart: '{{.path.basename}}'
-        targetRevision: '{{ (index .dependencies 0).version }}'
+        targetRevision: '{{ version }}'
         helm:
           valueFiles: 
           - '$values/{{.path.path}}/values.yaml'
