@@ -4,6 +4,8 @@ metadata:
   name: test
   namespace: argocd
 spec:
+  syncPolicy:
+    applicationsSync: create-only
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
