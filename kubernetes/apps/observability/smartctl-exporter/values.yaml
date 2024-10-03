@@ -1,4 +1,4 @@
-smartctl-explorer:
+prometheus-smartctl-exporter:
   fullnameOverride: smartctl-exporter
   config:
     devices:
