@@ -3,5 +3,3 @@ intel-device-plugins-gpu:
   sharedDevNum: 3
   nodeFeatureRule: false
   resourceManager: false
-  tolerations: 
-    - ""
