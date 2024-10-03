@@ -15,6 +15,7 @@ spec:
         directories:
           - path: kubernetes/apps/system/*
           - path: kubernetes/apps/observability/*
+          - path: kubernetes/apps/networking/*
   template:
     metadata:
       name: '{{.path.basename}}'
