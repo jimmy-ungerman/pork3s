@@ -1,2 +1,1 @@
-nodeSelector:
-  kubernetes.io/arch: amd64
+intel-device-plugins-operator:

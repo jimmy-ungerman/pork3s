@@ -1,3 +1,0 @@
-repoURL: 'https://bjw-s.github.io/helm-charts'
-chart: app-template
-targetRevision: 3.4.0
