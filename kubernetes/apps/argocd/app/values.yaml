@@ -13,6 +13,13 @@ configs:
         - '.metadata.annotations'
         - '.spec.resourceManager'
         - '.spec.tolerations'
+    resource.customizations.ignoreDifferences.external-secrets.io_ExternalSecret: |
+      jqPathExpressions:
+        - '.spec.dataFrom[]?.find.conversionStrategy'
+        - '.spec.dataFrom[]?.find.decodingStrategy'
+        - '.spec.data[]?.remoteRef.decodingStrategy'
+        - '.spec.data[]?.remoteRef.conversionStrategy'
+        - '.spec.data[]?.remoteRef.metadataPolicy'
     resource.customizations.ignoreResourceUpdates.all: |
       jsonPointers:
         - /status
