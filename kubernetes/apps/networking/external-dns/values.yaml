@@ -8,12 +8,12 @@ cloudflare:
     - name: CF_API_EMAIL
       valueFrom:
         secretKeyRef:
-          name: external-dns
+          name: &secret external-dns-secret
           key: email
     - name: CF_API_KEY
       valueFrom:
         secretKeyRef:
-          name: external-dns
+          name: *secret
           key: api-key
   extraArgs:
     - --cloudflare-proxied
@@ -45,7 +45,7 @@ unifi:
         - name: UNIFI_USER
           valueFrom:
             secretKeyRef:
-              name: &secret external-dns
+              name: *secret
               key: UNIFI_USER
         - name: UNIFI_PASS
           valueFrom:
