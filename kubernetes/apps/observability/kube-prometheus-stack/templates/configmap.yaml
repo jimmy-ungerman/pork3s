@@ -4,4 +4,4 @@ metadata:
   name: alertmanager-config-tpl
   namespace: {{ .Release.Namespace }}
 data:
-{{ (.Files.Glob "files/config/alertmanager.yaml").AsConfig | indent 2 }}
+{{ (.Files.Glob "config/alertmanager.yaml").AsConfig | indent 2 }}
