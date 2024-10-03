@@ -12,6 +12,7 @@ configs:
       jqPathExpressions:
         - '.metadata.annotations'
         - '.spec.resourceManager'
+        - '.spec.tolerations'
     resource.customizations.ignoreResourceUpdates.all: |
       jsonPointers:
         - /status
