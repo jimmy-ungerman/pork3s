@@ -1,4 +1,4 @@
-fstrim:
+app-template:
   controllers:
     fstrim:
       type: cronjob
