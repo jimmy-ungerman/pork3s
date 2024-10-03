@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alertmanager-config-tpl
+  namespace: {{ .Release.Namespace }}
+data:
+{{ (.Files.Glob "files/config/alertmanager.yaml").AsConfig | indent 2 }}
