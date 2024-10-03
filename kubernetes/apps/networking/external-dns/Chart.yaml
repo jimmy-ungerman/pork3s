@@ -9,4 +9,4 @@ dependencies:
   - name: external-dns
     version: 1.15.0
     repository: https://kubernetes-sigs.github.io/external-dns/
-    alias: cloudflare
+    alias: unifi
