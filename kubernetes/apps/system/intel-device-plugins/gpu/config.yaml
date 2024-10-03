@@ -1,0 +1,3 @@
+repoURL: 'https://intel.github.io/helm-charts/'
+chart: intel-device-plugins-gpu
+targetRevision: 0.31.0
