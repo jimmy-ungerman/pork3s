@@ -1,9 +1,8 @@
-podinfo:
-  ingress:
-    enabled: true
-    className: "nginx"
-    hosts:
-      - host: podinfo.porkboi.io
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
+ingress:
+  enabled: true
+  className: "nginx"
+  hosts:
+    - host: podinfo.porkboi.io
+      paths:
+        - path: /
+          pathType: ImplementationSpecific

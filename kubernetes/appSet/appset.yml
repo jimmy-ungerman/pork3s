@@ -4,24 +4,40 @@ metadata:
   name: homelab
   namespace: argocd
 spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
   generators:
-    - git:
-        repoURL: &repoURL https://github.com/jimmy-ungerman/pork3s
-        revision: &revision appset
-        directories:
-          - path: kubernetes/appSet/*
+    - matrix:
+        generators:
+        - git:
+            repoURL: &repoURL https://github.com/jimmy-ungerman/pork3s
+            revision: &revision appset
+            files:
+              - path: kubernetes/appSet/**/Chart.yaml
+            pathParamPrefix: file
+        - git:
+            repoURL: &repoURL https://github.com/jimmy-ungerman/pork3s
+            revision: &revision appset
+            directories:
+              - path: kubernetes/appSet/*
   template:
     metadata:
-      name: '{{path.basename}}'
+      name: '{{.path.basename}}'
     spec:
       destination:
         name: in-cluster
-        namespace: '{{path.basename}}'
+        namespace: '{{.path.basename}}'
       project: default  # TODO
-      source:
-        repoURL: *repoURL
-        path: '{{path}}'
-        targetRevision: *revision
+      sources:
+      - repoURL: '{{ (index .dependencies 0).repository }}'
+        chart: '{{.path.basename}}'
+        targetRevision: '{{ (index .dependencies 0).version }}'
+        helm:
+          valueFiles: 
+          - '$values/{{.path.path}}/values.yaml'
+      - repoURL: 'https://github.com/jimmy-ungerman/pork3s.git'
+        targetRevision: appset
+        ref: values
       syncPolicy:
         automated:
           prune: true
