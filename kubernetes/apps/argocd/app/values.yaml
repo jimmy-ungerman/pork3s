@@ -7,6 +7,10 @@ configs:
     exec.enabled: true
     admin.enabled: false
     kustomize.buildOptions: --enable-alpha-plugins --enable-exec
+    resource.ignoreResourceUpdatesEnabled: true
+    resource.customizations.ignoreResourceUpdates.all: |
+      jsonPointers:
+        - /status
     dex.config: |
       connectors:
       - config:
