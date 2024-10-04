@@ -67,7 +67,6 @@ rook-ceph-cluster:
           cpu: "125m"
           memory: "512Mi"
         limits:
-          cpu: null
           memory: "1Gi"
       mon:
         requests:
@@ -86,7 +85,6 @@ rook-ceph-cluster:
           cpu: "50m"
           memory: "100Mi"
         limits:
-          cpu: null
           memory: "200Mi"
       crashcollector:
         requests:
