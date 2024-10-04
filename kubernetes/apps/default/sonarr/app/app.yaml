@@ -12,7 +12,7 @@ spec:
   sources:
   - repoURL: 'https://bjw-s.github.io/helm-charts'
     chart: app-template
-    targetRevision: 3.4.0
+    targetRevision: 3.5.0
     helm:
       valueFiles:
         - $values/kubernetes/apps/default/sonarr/app/values.yaml
