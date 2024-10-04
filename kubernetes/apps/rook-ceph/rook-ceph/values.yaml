@@ -189,7 +189,7 @@ rook-ceph-cluster:
               memory: 1Gi
             limits:
               memory: 2Gi
-          instances: 2
+          instances: 3
       storageClass:
         enabled: true
         name: ceph-bucket
