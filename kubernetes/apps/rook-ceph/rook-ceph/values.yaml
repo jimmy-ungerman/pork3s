@@ -1,4 +1,4 @@
-rook-ceph:
+operator:
   crds:
     enabled: true
   pspEnable: false
