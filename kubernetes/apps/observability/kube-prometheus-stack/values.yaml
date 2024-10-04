@@ -27,6 +27,10 @@ kube-prometheus-stack:
       replicas: 2
       replicaExternalLabelName: __replica__
       ruleSelectorNilUsesHelmValues: false
+      serviceMonitorSelectorNilUsesHelmValues: false
+      podMonitorSelectorNilUsesHelmValues: false
+      probeSelectorNilUsesHelmValues: false
+      scrapeConfigSelectorNilUsesHelmValues: false
       scrapeConfigSelector:
         matchLabels: null
       enableAdminAPI: true
