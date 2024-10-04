@@ -32,7 +32,7 @@ kube-prometheus-stack:
       probeSelectorNilUsesHelmValues: false
       scrapeConfigSelectorNilUsesHelmValues: false
       scrapeConfigSelector:
-        matchLabels: null
+        matchLabels: {}
       enableAdminAPI: true
       walCompression: true
       enableFeatures:
