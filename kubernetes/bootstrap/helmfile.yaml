@@ -1,0 +1,24 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/helmfile
+helmDefaults:
+  wait: true
+  waitForJobs: true
+  timeout: 600
+  recreatePods: true
+  force: true
+
+releases:
+  - name: prometheus-operator-crds
+    namespace: observability
+    chart: ../apps/observability/prometheus-operator-crds
+  - name: cilium
+    namespace: kube-system
+    chart: ../apps/kube-system/cilium
+    needs:
+      - observability/prometheus-operator-crds
+  - name: kubelet-csr-approver
+    namespace: kube-system
+    chart: ../apps/kube-system/kubelet-csr-approver
+    needs:
+      - observability/prometheus-operator-crds
+      - kube-system/cilium
