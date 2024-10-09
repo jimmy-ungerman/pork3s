@@ -1,0 +1,5 @@
+kubelet-csr-approver:
+  providerRegex: |
+    ^(zuko|toph|iroh)$
+
+  bypassDnsResolution: true

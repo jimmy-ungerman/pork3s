@@ -5,6 +5,8 @@ kind: Cluster
 metadata:
   name: postgres-17
   namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": post-install, post-upgrade
 spec:
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:17.0-4
@@ -12,7 +14,7 @@ spec:
   primaryUpdateStrategy: unsupervised
   storage:
     size: 100Gi
-    storageClass: rook-ceph-block
+    storageClass: openebs-hostpath
   superuserSecret:
     name: cloudnative-pg
   postgresql:

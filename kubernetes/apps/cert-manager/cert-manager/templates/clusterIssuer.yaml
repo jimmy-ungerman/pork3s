@@ -3,6 +3,8 @@ apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: le-prod
+  annotations:
+    "helm.sh/hook": post-install, post-upgrade
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory

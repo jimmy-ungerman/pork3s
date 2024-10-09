@@ -4,6 +4,8 @@ kind: Dragonfly
 metadata:
   name: dragonfly
   namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": post-install, post-upgrade
 spec:
   image: ghcr.io/dragonflydb/dragonfly:v1.23.1
   replicas: 3

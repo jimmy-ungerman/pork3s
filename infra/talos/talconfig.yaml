@@ -1,75 +1,29 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
-clusterName: porkboi
+clusterName: porkos
 endpoint: "https://10.1.0.15:6443"
+allowSchedulingOnMasters: true
+
+additionalApiServerCertSans: &san
+  - porkos.porkboi.io
+  - "127.0.0.1" # KubePrism
+additionalMachineCertSans: *san
 
 # renovate: depName=ghcr.io/siderolabs/installer datasource=docker extractVersion=^(?<version>.*)$
-talosVersion: v1.7.5
+talosVersion: v1.8.0
 # renovate: depName=kubernetes/kubernetes datasource=github-releases extractVersion=^v(?<version>.*)$
-kubernetesVersion: v1.30.3
+kubernetesVersion: v1.31.1
 
-
-clusterPodNets:
-  - 10.42.0.0/16
-clusterSvcNets:
-  - 10.43.0.0/16
 cniConfig:
   name: none
 
 nodes:
-  - hostname: aang
-    ipAddress: 10.1.0.2
-    controlPlane: true
-    installDiskSelector:
-      busPath: /pci0000:00/0000:00:06.0/0000:01:00.0/nvme/nvme0/nvme0n1
-    networkInterfaces:
-      - interface: enp89s0
-        addresses:
-          - 10.1.0.2/24
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 10.1.0.1
-            metric: 1024
-        vip:
-          ip: 10.1.0.15
-
-  - hostname: katara
-    ipAddress: 10.1.0.3
-    controlPlane: true
-    installDiskSelector:
-      busPath: /pci0000:00/0000:00:06.0/0000:01:00.0/nvme/nvme0/nvme0n1
-    networkInterfaces:
-      - interface: enp89s0
-        addresses:
-          - 10.1.0.3/24
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 10.1.0.1
-            metric: 1024
-        vip:
-          ip: 10.1.0.15
-
-  - hostname: sokka
-    ipAddress: 10.1.0.4
-    controlPlane: true
-    installDiskSelector:
-      busPath: /pci0000:00/0000:00:06.0/0000:01:00.0/nvme/nvme0/nvme0n1
-    networkInterfaces:
-      - interface: enp89s0
-        addresses:
-          - 10.1.0.4/24
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 10.1.0.1
-            metric: 1024
-        vip:
-          ip: 10.1.0.15
-
   - hostname: zuko
     ipAddress: 10.1.0.5
-    controlPlane: false
+    controlPlane: true
     installDiskSelector:
-      busPath: /pci0000:00/0000:00:17.0/ata1/host0/target0:0:0/0:0:0:0/
+      model: "Samsung SSD 870"
+      size: "<= 256GB"
     networkInterfaces:
       - interface: enp89s0
         addresses:
@@ -78,12 +32,27 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 10.1.0.1
             metric: 1024
+        vip:
+          ip: 10.1.0.15
+    patches:
+      - &kubelet_extra_mounts |-
+        machine:
+          kubelet:
+            extraMounts:
+              - destination: /var/mnt/sata
+                type: bind
+                source: /var/mnt/sata
+                options:
+                  - rbind
+                  - rshared
+                  - rw
 
   - hostname: toph
     ipAddress: 10.1.0.6
-    controlPlane: false
+    controlPlane: true
     installDiskSelector:
-      busPath: /pci0000:00/0000:00:17.0/ata1/host0/target0:0:0/0:0:0:0/
+      model: "Samsung SSD 870"
+      size: "<= 256GB"
     networkInterfaces:
       - interface: enp89s0
         addresses:
@@ -92,12 +61,17 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 10.1.0.1
             metric: 1024
+        vip:
+          ip: 10.1.0.15
+    patches:
+      - *kubelet_extra_mounts
 
   - hostname: iroh
     ipAddress: 10.1.0.7
-    controlPlane: false
+    controlPlane: true
     installDiskSelector:
-      busPath: /pci0000:00/0000:00:17.0/ata1/host0/target0:0:0/0:0:0:0/
+      model: "Samsung SSD 870"
+      size: "<= 256GB"
     networkInterfaces:
       - interface: enp89s0
         addresses:
@@ -106,12 +80,16 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 10.1.0.1
             metric: 1024
-            
+        vip:
+          ip: 10.1.0.15
+    patches:
+      - *kubelet_extra_mounts
+    
 controlPlane:
   schematic:
     customization:
       extraKernelArgs:
-        - net.ifnames=0
+        - net.ifnames=1
       systemExtensions:
         officialExtensions:
           - siderolabs/intel-ucode
@@ -122,12 +100,44 @@ controlPlane:
         network:
           disableSearchDomain: true
 
+    # Disable Host DNS
+    - |-
+      machine:
+        features:
+          hostDNS:
+            enabled: true
+            resolveMemberNames: true
+            forwardKubeDNSToHost: false
+
     - |-
       machine:
         features:
           kubePrism:
             enabled: true
             port: 7445
+
+    # Cluster configuration
+    - |-
+      cluster:
+        allowSchedulingOnMasters: true
+        coreDNS:
+            disabled: true
+        proxy:
+          disabled: true
+        discovery:
+          enabled: true
+          registries:
+            kubernetes:
+              disabled: false
+            service:
+              disabled: true
+
+   # ETCD configuration
+    - |-
+      cluster:
+        etcd:
+          advertisedSubnets:
+            - 10.1.0.0/24
 
     # Configure cluster loopback
     - |-
@@ -136,50 +146,60 @@ controlPlane:
           extraHostEntries:
             - ip: 10.1.0.15
               aliases:
-                - kube.porkboi.io
-
-    # Cluster configuration
-    - |-
-      cluster:
-        allowSchedulingOnMasters: false
-        proxy:
-          disabled: true
-        etcd:
-          extraArgs:
-            metrics: extensive
-            listen-metrics-urls: http://0.0.0.0:2381
-        scheduler:
-          extraArgs:
-            feature-gates: StatefulSetStartOrdinal=true,StatefulSetAutoDeletePVC=true
-            bind-address: 0.0.0.0
-        controllerManager:
-          extraArgs:
-            feature-gates: StatefulSetStartOrdinal=true,StatefulSetAutoDeletePVC=true
-            bind-address: 0.0.0.0
+                - porkos.porkboi.io
           
 
     # Configure containerd
     - |-
       machine:
         files:
-          - content: |
-              [plugins."io.containerd.grpc.v1.cri"]
-                enable_unprivileged_ports = true
-                enable_unprivileged_icmp = true
+          - op: create
             path: /etc/cri/conf.d/20-customization.part
-            op: create
+            content: |
+              [plugins]
+                [plugins."io.containerd.grpc.v1.cri"]
+                  enable_unprivileged_ports = true
+                  enable_unprivileged_icmp = true
 
     # Disable default API server admission plugins.
     - |-
       - op: remove
         path: /cluster/apiServer/admissionControl
 
+    # Configure nfs mount options
+    - |
+      machine:
+        files:
+          - op: overwrite
+            path: /etc/nfsmount.conf
+            permissions: 0o644
+            content: |
+              [ NFSMount_Global_Options ]
+              nfsvers=4.2
+              hard=True
+              noatime=True
+              nodiratime=True
+              rsize=131072
+              wsize=131072
+              nconnect=8
+
+    # Enable K8s Talos API Access
+    - |-
+      machine:
+        features:
+          kubernetesTalosAPIAccess:
+            enabled: true
+            allowedRoles:
+              - os:admin
+            allowedKubernetesNamespaces:
+              - system-upgrade
+
     # Kubelet configuration
     - |-
       machine:
         kubelet:
           extraArgs:
-            feature-gates: GracefulNodeShutdown=true,NewVolumeManagerReconstruction=false
+            rotate-server-certificates: "true"
           extraConfig:
             maxPods: 150
           nodeIP:
@@ -190,74 +210,16 @@ controlPlane:
     - |-
       machine:
         sysctls:
-          fs.inotify.max_user_watches: "1048576"
+          fs.inotify.max_queued_events: "65536"
           fs.inotify.max_user_instances: "8192"
+          fs.inotify.max_user_watches: "524288"
+          net.core.rmem_max: "7500000"
+          net.core.wmem_max: "7500000"
 
-    # Redirect logs
+    # Various udev rules
     - |-
       machine:
-        install:
-          extraKernelArgs:
-            - "talos.logging.kernel=udp://10.1.0.105:6050/"
-        logging:
-          destinations:
-            - endpoint: "udp://10.1.0.105:6051/"
-              format: json_lines
-worker:
-  patches:
-    - |-
-      - op: add
-        path: /machine/kubelet/nodeIP
-        value:
-          validSubnets:
-            - 10.1.0.0/24
-
-    - |-
-      - op: add
-        path: /machine/kubelet/extraArgs
-        value:
-          feature-gates: StatefulSetStartOrdinal=true,StatefulSetAutoDeletePVC=true,KubeletTracing=true
-
-    - |-
-      - op: add
-        path: /machine/features/kubePrism
-        value:
-          enabled: true
-          port: 7445
-
-    - |-
-      machine:
-        files:
-          - content: |
-              [plugins."io.containerd.grpc.v1.cri"]
-                enable_unprivileged_ports = true
-                enable_unprivileged_icmp = true
-            path: /etc/cri/conf.d/20-customization.part
-            op: create
-
-    # Configure cluster loopback
-    - |-
-      machine:
-        network:
-          extraHostEntries:
-            - ip: 10.1.0.15
-              aliases:
-                - kube.porkboi.io
-
-    # Custom sysctls
-    - |-
-      machine:
-        sysctls:
-          fs.inotify.max_user_watches: "1048576"
-          fs.inotify.max_user_instances: "8192"
-          
-    # Redirect logs
-    - |-
-      machine:
-        install:
-          extraKernelArgs:
-            - "talos.logging.kernel=udp://10.1.0.105:6050/"
-        logging:
-          destinations:
-            - endpoint: "udp://10.1.0.105:6051/"
-              format: json_lines
+        udev:
+          rules:
+            # Intel GPU
+            - SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
