@@ -19,8 +19,9 @@ app-template:
             tag: 4.0.9.2457
           env:
             TZ: America/Boise
-            SONARR__INSTANCE_NAME: sonarr
-            SONARR__PORT: &port 80
+            SONARR__APP__INSTANCENAME: sonarr
+            SONARR__APP__THEME: dark
+            SONARR__SERVER__PORT: &port 80
             SONARR__LOG_LEVEL: info
             SONARR__AUTH__METHOD: External
             SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
