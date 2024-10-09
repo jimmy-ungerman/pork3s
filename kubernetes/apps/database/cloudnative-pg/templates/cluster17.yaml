@@ -13,7 +13,7 @@ spec:
   enableSuperuserAccess: true
   primaryUpdateStrategy: unsupervised
   storage:
-    size: 100Gi
+    size: 50Gi
     storageClass: openebs-hostpath
   superuserSecret:
     name: cloudnative-pg
