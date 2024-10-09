@@ -24,7 +24,7 @@ app-template:
             RADARR__APP__THEME: dark
             RADARR__AUTH__METHOD: External
             RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
-            RADARR__APPLICATION_URL: https://radarr.porkboi.io 
+            RADARR__APP__URL: https://radarr.porkboi.io 
             RADARR__SERVER__PORT: 80
             RADARR__LOG__LEVEL: info
             RADARR__LOG__DBENABLED: "False"
