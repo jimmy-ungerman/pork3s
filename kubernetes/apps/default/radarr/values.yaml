@@ -20,12 +20,12 @@ app-template:
             tag: 5.12.0.9255
           env:
             TZ: America/Boise
-            RADARR__INSTANCE_NAME: Radarr
-            RADARR__AUTHENTICATION_METHOD: External
-            RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-            RADARR__PORT: 80
-            RADARR__APPLICATION_URL: "https://radarr.porkboi.io/"
-            RADARR__LOG_LEVEL: info
+            RADARR__APP__INSTANCENAME: Radarr
+            RADARR__APP__THEME: dark
+            RADARR__AUTH__METHOD: External
+            RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
+            RADARR__SERVER__PORT: 80
+            RADARR__LOG__LEVEL: info
             RADARR__LOG__DBENABLED: "False"
             RADARR__UPDATE__BRANCH: develop
           envFrom: *envFrom
