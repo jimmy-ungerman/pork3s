@@ -61,11 +61,9 @@ argo-cd:
       annotations:
         external-dns.alpha.kubernetes.io/target: porkboi.io
         nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-        nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
         external-dns.alpha.kubernetes.io/hostname: argocd.porkboi.io
-      extraTls:
-        - hosts:
-          - argocd.porkboi.io
+      ingressClassName: nginx
 
   repoServer:
     env:
