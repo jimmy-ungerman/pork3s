@@ -94,9 +94,9 @@ kube-prometheus-stack:
   kubeControllerManager:
     enabled: true
     endpoints: &cp
-      - 10.1.0.2
-      - 10.1.0.3
-      - 10.1.0.4
+      - 10.1.0.5
+      - 10.1.0.6
+      - 10.1.0.7
 
   kubeEtcd:
     enabled: true
