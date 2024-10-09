@@ -13,6 +13,7 @@ app-template:
             RRTYPE: "A"
             DELETE_ON_STOP: "false"
             DNS_SERVER: "1.1.1.1"
+            ZONE: porkboi.io
           envFrom:
             - secretRef:
                 name: cloudflare-ddns-secret
