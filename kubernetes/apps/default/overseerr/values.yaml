@@ -45,7 +45,7 @@ app-template:
       className: nginx
       annotations:
         external-dns.alpha.kubernetes.io/target: porkboi.io
-        external-dns.alpha.kubernetes.io/hostname: radarr4k.porkboi.io
+        external-dns.alpha.kubernetes.io/hostname: requests.porkboi.io
       hosts:
         - host: &host requests.porkboi.io
           paths:
