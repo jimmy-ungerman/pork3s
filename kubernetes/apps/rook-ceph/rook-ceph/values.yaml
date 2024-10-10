@@ -1,11 +1,6 @@
 operator:
   crds:
     enabled: true
-  csi:
-    cephFSKernelMountOptions: ms_mode=prefer-crc
-    enableLiveness: true
-    serviceMonitor:
-      enabled: true
   pspEnable: false
   monitoring:
     enabled: true
