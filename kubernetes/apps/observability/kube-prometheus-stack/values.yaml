@@ -32,8 +32,7 @@ kube-prometheus-stack:
   kubeApiServer:
     serviceMonitor:
       selector:
-        matchLabels:
-          k8s-app: kube-apiserver
+        k8s-app: kube-apiserver
   kubeScheduler:
     service:
       selector:
