@@ -29,11 +29,6 @@ kube-prometheus-stack:
             resources:
               requests:
                 storage: 1Gi
-  kubeApiServer:
-    serviceMonitor:
-      selector:
-        matchLabels:
-          k8s-app: kube-apiserver
   kubeScheduler:
     service:
       selector:
