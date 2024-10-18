@@ -10,7 +10,6 @@ creation_rules:
           - age160xmmjztxl2n8pqfexusejr3xf9wz3f8ma2jpxjqde34n2jp795qw86wv9
   - path_regex: kubernetes/.+(\.sops)?\.ya?ml
     input_type: yaml
-    encrypted_regex: ^(data|stringData)$
     mac_only_encrypted: true
     key_groups:
       - age:
