@@ -12,7 +12,7 @@ spec:
   sources:
   - repoURL: 'https://intel.github.io/helm-charts/'
     chart: intel-device-plugins-operator
-    targetRevision: 0.31.0
+    targetRevision: 0.31.1
   destination:
     server: "https://kubernetes.default.svc"
     namespace: system
