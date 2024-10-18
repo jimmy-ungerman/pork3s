@@ -1,0 +1,58 @@
+app-template:
+  controllers:
+    main:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+      containers:
+        app:
+          image:
+            repository: ghcr.io/sct/overseerr
+            tag: 1.33.2
+          env:
+            TZ: America/Boise
+            LOG_LEVEL: "info"
+            PORT: &port 80
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              memory: 2Gi
+      pod:
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
+          fsGroup: 568
+          fsGroupChangePolicy: OnRootMismatch
+      statefulset:
+        volumeClaimTemplates:
+          - name: config
+            accessMode: ReadWriteOnce
+            size: 5Gi
+            storageClass: rook-ceph-block
+            globalMounts:
+              - path: /app/config
+  service:
+    app:
+      controller: main
+      ports:
+        http:
+          port: *port
+  ingress:
+    app:
+      enabled: true
+      className: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: porkboi.io
+        external-dns.alpha.kubernetes.io/hostname: requests.porkboi.io
+      hosts:
+        - host: &host requests.porkboi.io
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: http
+      tls:
+        - hosts:
+            - *host

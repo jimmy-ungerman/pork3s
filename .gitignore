@@ -3,6 +3,7 @@
 Thumbs.db
 # k8s
 kubeconfig
+Chart.lock
 # vscode-sops
 .decrypted~*.yaml
 .decrypted~*.yml

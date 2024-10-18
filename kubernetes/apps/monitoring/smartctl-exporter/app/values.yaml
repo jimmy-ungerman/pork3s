@@ -1,7 +1,0 @@
-fullnameOverride: smartctl-exporter
-config:
-  devices:
-    - /dev/sda
-    - /dev/nvme0n1
-serviceMonitor:
-  enabled: true

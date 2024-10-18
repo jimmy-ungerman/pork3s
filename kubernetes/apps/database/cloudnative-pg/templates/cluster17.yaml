@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres-17
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": post-install, post-upgrade
+spec:
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.0-17
+  enableSuperuserAccess: true
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 50Gi
+    storageClass: openebs-hostpath
+  superuserSecret:
+    name: cloudnative-pg
+  postgresql:
+      parameters:
+        max_connections: "600"
+        shared_buffers: 512MB
+  monitoring:
+    enablePodMonitor: true

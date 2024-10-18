@@ -1,30 +1,16 @@
 ---
 creation_rules:
-  - path_regex: ansible/.*\.sops\.ya?ml
+  - # IMPORTANT: Keep this rule first
+    path_regex: infra/.+(\.sops)?\.ya?ml
+    input_type: yaml
+    encrypted_regex: ^(token|crt|key|id|secret|secretboxEncryptionSecret|ca)$
+    mac_only_encrypted: true
     key_groups:
       - age:
           - age160xmmjztxl2n8pqfexusejr3xf9wz3f8ma2jpxjqde34n2jp795qw86wv9
-  # - path_regex: kubernetes/apps/default/authelia/config/.*\.sops\.y?ml
-  #   key_groups:
-  #     - age:
-  #         - age160xmmjztxl2n8pqfexusejr3xf9wz3f8ma2jpxjqde34n2jp795qw86wv9
-  - path_regex: kubernetes/.*\.sops\.ya?ml
-    key_groups:
-      - age:
-          - age160xmmjztxl2n8pqfexusejr3xf9wz3f8ma2jpxjqde34n2jp795qw86wv9
-  - path_regex: kubernetes/.*\.sops\.ini
-    key_groups:
-      - age:
-          - age160xmmjztxl2n8pqfexusejr3xf9wz3f8ma2jpxjqde34n2jp795qw86wv9
-  - path_regex: kubernetes/.*\.sops\.toml
-    key_groups:
-      - age:
-          - age160xmmjztxl2n8pqfexusejr3xf9wz3f8ma2jpxjqde34n2jp795qw86wv9
-  - path_regex: kubernetes/.*\.sops\.json
-    key_groups:
-      - age:
-          - age160xmmjztxl2n8pqfexusejr3xf9wz3f8ma2jpxjqde34n2jp795qw86wv9
-  - path_regex: infra/.*\.sops\.yaml
+  - path_regex: kubernetes/.+(\.sops)?\.ya?ml
+    input_type: yaml
+    mac_only_encrypted: true
     key_groups:
       - age:
           - age160xmmjztxl2n8pqfexusejr3xf9wz3f8ma2jpxjqde34n2jp795qw86wv9
