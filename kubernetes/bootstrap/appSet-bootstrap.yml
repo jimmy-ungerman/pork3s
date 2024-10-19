@@ -31,6 +31,9 @@ spec:
         name: in-cluster
         namespace: '{{ (split "/" .path.path)._2 }}'
       project: default
+      {{ - if eq .path.basename "external-secrets" }}
+
+      {{ - end }}
       source:
         repoURL: *repoURL
         path: '{{.path.path}}'
@@ -44,5 +47,6 @@ spec:
             maxDuration: 16m
         syncOptions:
           - CreateNamespace=true
-          - ApplyOutOfSyncOnly=true
+          - RespectIgnoreDifferences=true
           - ServerSideApply=true
+          - Validate=false

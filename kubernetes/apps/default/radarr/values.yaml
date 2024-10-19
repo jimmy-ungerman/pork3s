@@ -25,7 +25,7 @@ app-template:
             RADARR__AUTH__METHOD: External
             RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
             RADARR__SERVER__PORT: 80
-            RADARR__LOG__LEVEL: info
+            RADARR__LOG__LEVEL: debug
             RADARR__LOG__DBENABLED: "False"
             RADARR__UPDATE__BRANCH: develop
           envFrom: *envFrom
