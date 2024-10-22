@@ -31,9 +31,6 @@ spec:
         name: in-cluster
         namespace: '{{ (split "/" .path.path)._2 }}'
       project: default
-      {{ - if eq .path.basename "external-secrets" }}
-
-      {{ - end }}
       source:
         repoURL: *repoURL
         path: '{{.path.path}}'
