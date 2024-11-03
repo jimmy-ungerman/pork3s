@@ -6,32 +6,32 @@ metadata:
 spec:
   rules:
     - host: metrics.porkboi.io
-        http:
-          paths:
-            - path: /outpost.goauthentik.io
-              pathType: Prefix
-              backend:
-                service:
-                  name: authentik-server
-                  port:
-                    number: 80
+      http:
+        paths:
+          - path: /outpost.goauthentik.io
+            pathType: Prefix
+            backend:
+              service:
+                name: authentik-server
+                port:
+                  number: 80
     - host: alertmanager.porkboi.io
-        http:
-          paths:
-            - path: /outpost.goauthentik.io
-              pathType: Prefix
-              backend:
-                service:
-                  name: authentik-server
-                  port:
-                    number: 80
+      http:
+        paths:
+          - path: /outpost.goauthentik.io
+            pathType: Prefix
+            backend:
+              service:
+                name: authentik-server
+                port:
+                  number: 80
     - host: hubble.porkboi.io
-        http:
-          paths:
-            - path: /outpost.goauthentik.io
-              pathType: Prefix
-              backend:
-                service:
-                  name: authentik-server
-                  port:
-                    number: 80
+      http:
+        paths:
+          - path: /outpost.goauthentik.io
+            pathType: Prefix
+            backend:
+              service:
+                name: authentik-server
+                port:
+                  number: 80
