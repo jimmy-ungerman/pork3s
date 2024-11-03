@@ -88,6 +88,11 @@ app-template:
               service:
                 identifier: app
                 port: http
+            - path: /outpost.goauthentik.io
+              pathType: Prefix
+              service:
+                name: authentik-server
+                port: 80
       tls:
         - hosts:
             - *host
