@@ -36,6 +36,7 @@ spec:
         path: '{{.path.path}}'
         targetRevision: *revision
       syncPolicy:
+        automated: {}
         retry:
           limit: 10
           backoff:
