@@ -18,15 +18,6 @@
       "ignoreTests": true,
       "matchUpdateTypes": ["patch"],
       "matchPackagePattern": ["ghcr.io/onedr0p/radarr-nightly"]
-    },
-    {
-      "description": "Auto merge GitHub Actions",
-      "matchManagers": ["github-actions"],
-      "matchDatasources": ["github-tags"],
-      "automerge": true,
-      "ignoreTests": true,
-      "automergeType": "branch",
-      "matchUpdateTypes": ["minor", "patch"]
     }
   ]
 }
