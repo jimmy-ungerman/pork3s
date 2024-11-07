@@ -17,7 +17,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/onedr0p/radarr-develop
-            tag: 5.14.0.9383
+            tag: 5.15.0.9412
           env:
             TZ: America/Boise
             RADARR__APP__INSTANCENAME: Radarr
