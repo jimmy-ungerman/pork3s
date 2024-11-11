@@ -6,7 +6,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/dragonflydb/operator
-            tag: v1.1.7
+            tag: v1.1.8
           command: ["/manager"]
           args:
             - --health-probe-bind-address=:8081
