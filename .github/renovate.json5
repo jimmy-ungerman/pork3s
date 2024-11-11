@@ -6,8 +6,6 @@
     ':dependencyDashboard',
     ':semanticCommits',
     ':enablePreCommit',
-    ':automergeDigest',
-    ':automergeBranch',
     'github>jimmy-ungerman/pork3s//.github/renovate/autoMerge.json5',
     'github>jimmy-ungerman/pork3s//.github/renovate/commitMessage.json5',
     'github>jimmy-ungerman/pork3s//.github/renovate/labels.json5',
