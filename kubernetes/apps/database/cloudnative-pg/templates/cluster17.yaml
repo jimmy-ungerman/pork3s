@@ -21,5 +21,28 @@ spec:
       parameters:
         max_connections: "600"
         shared_buffers: 512MB
+  resources:
+    requests:
+      cpu: 500m
+    limits:
+      memory: 4Gi
   monitoring:
     enablePodMonitor: true
+  backup:
+    retentionPolicy: 30d
+    barmanObjectStore: &barmanObjectStore
+      data:
+        compression: bzip2
+      wal:
+        compression: bzip2
+        maxParallel: 8
+      destinationPath: s3://cnpg/
+      endpointURL: https://fb30c9a83696a7cb166c3c13facf6454.r2.cloudflarestorage.com
+      serverName: &currentCluster postgres17-v1
+      s3Credentials:
+        accessKeyId:
+          name: cloudnative-pg
+          key: aws-access-key-id
+        secretAccessKey:
+          name: cloudnative-pg
+          key: aws-secret-access-key
