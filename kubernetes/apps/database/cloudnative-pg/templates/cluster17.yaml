@@ -9,7 +9,7 @@ metadata:
     "helm.sh/hook": post-install, post-upgrade
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:17.0-34
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.1-1
   enableSuperuserAccess: true
   primaryUpdateStrategy: unsupervised
   storage:
