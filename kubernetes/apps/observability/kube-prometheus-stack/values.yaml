@@ -29,6 +29,16 @@ kube-prometheus-stack:
             resources:
               requests:
                 storage: 1Gi
+  kubeScheduler:
+    service:
+      selector:
+        k8s-app: kube-scheduler
+  kubeControllerManager: &kubeControllerManager
+    service:
+      selector:
+        k8s-app: kube-controller-manager
+  kubeEtcd:
+    <<: *kubeControllerManager # etcd runs on control plane nodes
   kubeProxy:
     enabled: false
   prometheus:
