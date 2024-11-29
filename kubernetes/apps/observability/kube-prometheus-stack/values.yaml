@@ -32,15 +32,18 @@ kube-prometheus-stack:
   kubeApiServer:
     serviceMonitor:
       selector:
-        k8s-app: kube-apiserver
+        matchLabels:
+          k8s-app: kube-apiserver
   kubeScheduler:
-    service:
+    serviceMonitor:
       selector:
-        k8s-app: kube-scheduler
+        matchLabels:
+          k8s-app: kube-scheduler
   kubeControllerManager: &kubeControllerManager
-    service:
+    serviceMonitor:
       selector:
-        k8s-app: kube-controller-manager
+        matchLabels:
+          k8s-app: kube-controller-manager
   kubeEtcd:
     <<: *kubeControllerManager # etcd runs on control plane nodes
   kubeProxy:
