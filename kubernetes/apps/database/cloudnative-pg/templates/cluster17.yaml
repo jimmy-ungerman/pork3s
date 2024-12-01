@@ -10,7 +10,7 @@ metadata:
     argocd.argoproj.io/sync-options: ServerSideApply=false
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:17.1-1
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.2-7
   enableSuperuserAccess: true
   primaryUpdateStrategy: unsupervised
   storage:
