@@ -7,7 +7,7 @@ app-template:
         init-db:
           image:
             repository: ghcr.io/onedr0p/postgres-init
-            tag: 16.4
+            tag: 16.6
             pullPolicy: IfNotPresent
           envFrom: &envFrom
             - secretRef:
@@ -16,7 +16,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/onedr0p/sonarr-develop
-            tag: 4.0.10.2624
+            tag: 4.0.11.2724
           env:
             TZ: America/Boise
             SONARR__APP__INSTANCENAME: sonarr

@@ -6,10 +6,10 @@ metadata:
   name: postgres-17
   namespace: {{ .Release.Namespace }}
   annotations:
-    "helm.sh/hook": post-install, post-upgrade
+    argocd.argoproj.io/sync-options: ServerSideApply=false
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:17.0-30
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.2-7
   enableSuperuserAccess: true
   primaryUpdateStrategy: unsupervised
   storage:
@@ -21,5 +21,39 @@ spec:
       parameters:
         max_connections: "600"
         shared_buffers: 512MB
+  resources:
+    requests:
+      cpu: 500m
+    limits:
+      memory: 4Gi
   monitoring:
     enablePodMonitor: true
+  backup:
+    retentionPolicy: 30d
+    barmanObjectStore: &barmanObjectStore
+      data:
+        compression: bzip2
+      wal:
+        compression: bzip2
+        maxParallel: 8
+      destinationPath: s3://cnpg/
+      endpointURL: https://fb30c9a83696a7cb166c3c13facf6454.r2.cloudflarestorage.com
+      serverName: &currentCluster postgres17-v6
+      s3Credentials:
+        accessKeyId:
+          name: cloudnative-pg
+          key: aws-access-key-id
+        secretAccessKey:
+          name: cloudnative-pg
+          key: aws-secret-access-key
+  # Note: previousCluster needs to be set to the name of the previous
+  # cluster when recovering from an existing cnpg cluster
+  bootstrap:
+    recovery:
+      source: &previousCluster postgres17-v5
+  # Note: externalClusters is needed when recovering from an existing cnpg cluster
+  externalClusters:
+    - name: *previousCluster
+      barmanObjectStore:
+        <<: *barmanObjectStore
+        serverName: *previousCluster
