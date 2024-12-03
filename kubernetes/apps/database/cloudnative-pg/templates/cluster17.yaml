@@ -9,7 +9,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "5"
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:17.2-7
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.2-8
   enableSuperuserAccess: true
   primaryUpdateStrategy: unsupervised
   storage:
