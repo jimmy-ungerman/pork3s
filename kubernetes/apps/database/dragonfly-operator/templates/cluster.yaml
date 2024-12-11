@@ -7,7 +7,7 @@ metadata:
   annotations:
     "helm.sh/hook": post-install, post-upgrade
 spec:
-  image: ghcr.io/dragonflydb/dragonfly:v1.25.4
+  image: ghcr.io/dragonflydb/dragonfly:v1.25.5
   replicas: 3
   env:
     - name: MAX_MEMORY
