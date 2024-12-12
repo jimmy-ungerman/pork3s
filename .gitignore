@@ -1,23 +1,18 @@
-# Trash
-.DS_Store
-Thumbs.db
-# k8s
-kubeconfig
-Chart.lock
-# vscode-sops
-.decrypted~*.yaml
-.decrypted~*.yml
-.config.env
-*.agekey
-*.pub
+/.bin/
+/.go/
+/.private/
+/.task/
+/.venv/
+/scripts/
+/**/charts/
+*.secret.env
+*.secret.yaml
+*.crt
 *.key
-# Ansible
-xanmanning.k3s*
-# Terraform
-.terraform
-.terraform.tfstate*
-terraform.tfstate*
-
-# Directories
-charts/
-**/.vscode/
+.decrypted~*
+.DS_Store
+Brewfile.lock.json
+Thumbs.db
+kubeconfig
+talosconfig
+Chart.lock

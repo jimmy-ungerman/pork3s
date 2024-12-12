@@ -1,0 +1,36 @@
+{
+    "editor.fontLigatures": true,
+    "editor.bracketPairColorization.enabled": true,
+    "material-icon-theme.folders.associations": {
+      // top level
+      ".archive": "archive",
+      // .github
+      ".github/workflows": "robot",
+      // namespaces
+      "argocd": "pipe",
+      "cert-manager": "guard",
+      "database": "database",
+      "default": "home",
+      "external-secrets": "secure",
+      "kube-system": "kubernetes",
+      "networking": "connection",
+      "observability": "event",
+      "rook-ceph": "base",
+      "system": "tools",
+  },
+    "material-icon-theme.files.associations": {
+      "*.sops.env": "lock",
+      "*.sops.yaml": "lock"
+    },
+    "yaml.schemaStore.enable": true,
+    "yaml.schemas": {
+      "kubernetes": "./kubernetes/**/*.yaml"
+    },
+    "sops.defaults.ageKeyFile": "age.key",
+    "vs-kubernetes": {
+      "vs-kubernetes.kubeconfig": "./kubeconfig",
+      "vs-kubernetes.knownKubeconfigs": [
+        "./kubeconfig"
+      ]
+    }
+}
