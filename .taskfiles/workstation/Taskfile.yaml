@@ -40,7 +40,7 @@ tasks:
     deps: [brew]
     cmds:
       - python3 -m venv {{.VIRTUAL_ENV}}
-      - '{{.VIRTUAL_ENV}}/bin/python3 -m pip install --upgrade pip'
+      - '{{.VIRTUAL_ENV}}/bin/python3 -m pip install --upgrade pip setuptools wheel'
       - '{{.VIRTUAL_ENV}}/bin/python3 -m pip install --upgrade --requirement "{{.WORKSTATION_RESOURCES_DIR}}/requirements.txt"'
     sources:
       - '{{.WORKSTATION_RESOURCES_DIR}}/requirements.txt'
