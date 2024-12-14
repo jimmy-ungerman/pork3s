@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: bootstrap
+  namespace: argocd
+spec:
+  syncPolicy:
+    applicationsSync: create-only
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: &repoURL https://github.com/jimmy-ungerman/pork3s
+        revision: &revision main
+        directories:
+          # - path: kubernetes/apps/argocd/*
+          - path: kubernetes/apps/cert-manager/*
+          - path: kubernetes/apps/database/*
+          - path: kubernetes/apps/default/*
+          - path: kubernetes/apps/external-secrets/*
+          - path: kubernetes/apps/kube-system/*
+          - path: kubernetes/apps/networking/*
+          - path: kubernetes/apps/observability/*
+          - path: kubernetes/apps/rook-ceph/*
+          - path: kubernetes/apps/system/*
+  template:
+    metadata:
+      name: '{{.path.basename}}'
+    spec:
+      destination:
+        name: in-cluster
+        namespace: '{{ (split "/" .path.path)._2 }}'
+      project: default
+      source:
+        repoURL: *repoURL
+        path: '{{.path.path}}'
+        targetRevision: *revision
+      syncPolicy:
+        automated: {}
+        retry:
+          limit: 10
+          backoff:
+            duration: 1m
+            factor: 2
+            maxDuration: 16m
+        syncOptions:
+          - CreateNamespace=true
+          - RespectIgnoreDifferences=true
+          - ServerSideApply=true
+          - Validate=false

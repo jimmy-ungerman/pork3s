@@ -1,0 +1,56 @@
+app-template:
+  controllers:
+    main:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+      containers:
+        app:
+          image:
+            repository: ghcr.io/onedr0p/tautulli
+            tag: 2.15.0@sha256:96285c7e57dc77b790bb934be25d1d18a7c220b0f9e29748f65b2374bbef24c8
+          env:
+            TZ: America/Boise
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              memory: 512Mi
+      pod:
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
+          fsGroup: 568
+          fsGroupChangePolicy: OnRootMismatch
+      statefulset:
+        volumeClaimTemplates:
+          - name: config
+            accessMode: ReadWriteOnce
+            size: 5Gi
+            storageClass: rook-ceph-block
+            globalMounts:
+              - path: /config
+  service:
+    app:
+      controller: main
+      ports:
+        http:
+          port: 8181
+  ingress:
+    app:
+      enabled: true
+      className: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: porkboi.io
+        external-dns.alpha.kubernetes.io/hostname: tautulli.porkboi.io
+      hosts:
+        - host: &host "tautulli.porkboi.io"
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: http
+      tls:
+        - hosts:
+            - *host
