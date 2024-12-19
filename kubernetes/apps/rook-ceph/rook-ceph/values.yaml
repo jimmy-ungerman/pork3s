@@ -28,7 +28,12 @@ rook-ceph-cluster:
     [global]
     bdev_enable_discard = true
     bdev_async_discard = true
+    osd_class_update_on_start = false
   cephClusterSpec:
+    network:
+      provider: host
+      connections:
+        requireMsgr2: true
     crashCollector:
       disable: false
     dashboard:
@@ -38,6 +43,8 @@ rook-ceph-cluster:
       prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
     mgr:
       modules:
+        - name: insights
+          enabled: true
         - name: pg_autoscaler # This is already enabled by default, but needs to be here so that we don't override the default behavior.
           enabled: true
         - name: rook # This enables the rook module.
