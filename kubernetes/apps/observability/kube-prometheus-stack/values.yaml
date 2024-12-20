@@ -20,12 +20,15 @@ kube-prometheus-stack:
       hosts: ["alertmanager.porkboi.io"]
       pathType: Prefix
     alertmanagerSpec:
-      useExistingSecret: true
-      configSecret: alertmanager-secret
+      alertmanagerConfiguration:
+        name: alertmanager
+        global:
+          resolveTimeout: 5m
+      externalUrl: https://alertmanager.devbu.io
       storage:
         volumeClaimTemplate:
           spec:
-            storageClassName: openebs-hostpath
+            storageClassName: ceph-block
             resources:
               requests:
                 storage: 1Gi
