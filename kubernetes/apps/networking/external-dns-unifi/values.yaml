@@ -39,6 +39,7 @@ external-dns:
   policy: sync
   extraArgs:
     - --annotation-filter=external-dns.alpha.kubernetes.io/target
+    - --ignore-ingress-tls-spec
   sources:
     - ingress
   txtOwnerId: default
