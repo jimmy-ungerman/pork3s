@@ -1,23 +1,63 @@
 app-template:
   controllers:
-    main:
+    cloudflare-ddns:
+      annotations:
+        reloader.stakater.com/auto: "true"
       containers:
         app:
           image:
-            repository: docker.io/oznu/cloudflare-ddns
-            tag: latest
-            pullPolicy: IfNotPresent
-
-          env:
-            PROXIED: "true"
-            RRTYPE: "A"
-            DELETE_ON_STOP: "false"
-            DNS_SERVER: "1.1.1.1"
-            ZONE: porkboi.io
+            repository: ghcr.io/larivierec/cloudflare-ddns
+            tag: v1.0.3@sha256:2ee2ba2f4741a771fdf6333dce33f50a4fc739f64388966d3c7d27c07c22f18b
           envFrom:
             - secretRef:
                 name: cloudflare-ddns-secret
+          args: [
+            "--zone-name", "porkboi.io",
+            "--record-name", "porkboi.io",
+            "--provider", "random"
+          ]
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /health/alive
+                  port: &port 8080
+            readiness:
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /health/ready
+                  port: *port
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+          resources:
+            requests:
+              cpu: 10m
+            limits:
+              memory: 128Mi
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      seccompProfile: { type: RuntimeDefault }
   service:
     app:
-      controller: main
-      enabled: false
+      controller: *app
+      ports:
+        http:
+          port: *port
+  serviceMonitor:
+    app:
+      serviceName: *app
+      endpoints:
+        - port: http
+          scheme: http
+          path: /metrics
+          interval: 1m
+          scrapeTimeout: 10s
