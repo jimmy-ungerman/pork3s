@@ -37,6 +37,8 @@ external-dns:
         initialDelaySeconds: 10
         timeoutSeconds: 5
   policy: upsert-only
+  extraArgs:
+    - --annotation-filter=external-dns.alpha.kubernetes.io/target
   sources:
     - ingress
   txtOwnerId: default
