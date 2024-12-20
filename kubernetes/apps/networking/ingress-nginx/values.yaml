@@ -43,6 +43,8 @@ ingress-nginx:
     extraArgs: 
         default-ssl-certificate: "networking/porkboi-cert"
         publish-status-address: *hostname
+    publishService:
+      enabled: false
     metrics:
       enabled: true
       serviceMonitor:
