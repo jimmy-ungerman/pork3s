@@ -41,6 +41,7 @@ external-dns:
     - --ignore-ingress-tls-spec
   sources:
     - ingress
+    - service
   txtOwnerId: default
   txtPrefix: k8s.
   domainFilters:
