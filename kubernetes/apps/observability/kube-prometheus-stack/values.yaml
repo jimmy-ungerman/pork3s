@@ -24,7 +24,7 @@ kube-prometheus-stack:
         name: alertmanager
         global:
           resolveTimeout: 5m
-      externalUrl: https://alertmanager.devbu.io
+      externalUrl: https://alertmanager.porkboi.io
       storage:
         volumeClaimTemplate:
           spec:
