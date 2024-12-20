@@ -38,7 +38,6 @@ external-dns:
         timeoutSeconds: 5
   policy: sync
   extraArgs:
-    - --annotation-filter=external-dns.alpha.kubernetes.io/target
     - --ignore-ingress-tls-spec
   sources:
     - ingress
