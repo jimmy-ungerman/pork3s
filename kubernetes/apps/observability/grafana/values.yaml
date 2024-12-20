@@ -240,9 +240,6 @@ grafana:
   ingress:
     enabled: true
     ingressClassName: nginx
-    annotations:
-      external-dns.alpha.kubernetes.io/target: porkboi.io
-      external-dns.alpha.kubernetes.io/hostname: grafana.porkboi.io
     hosts:
       - &host grafana.porkboi.io
     tls:

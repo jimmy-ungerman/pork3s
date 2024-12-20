@@ -20,9 +20,6 @@ rook-ceph-cluster:
     createPrometheusRules: true
   ingress:
     dashboard:
-      annotations:
-        external-dns.alpha.kubernetes.io/hostname: rook.porkboi.io
-        external-dns.alpha.kubernetes.io/target: porkboi.io
       ingressClassName: "nginx"
       host:
         name: "rook.porkboi.io"

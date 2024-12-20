@@ -70,8 +70,6 @@ app-template:
       enabled: true
       className: nginx
       annotations:
-        external-dns.alpha.kubernetes.io/target: porkboi.io
-        external-dns.alpha.kubernetes.io/hostname: sonarr.porkboi.io
         nginx.ingress.kubernetes.io/auth-url: |-
             http://authentik-server.default.svc.cluster.local:80/outpost.goauthentik.io/auth/nginx        
         nginx.ingress.kubernetes.io/auth-signin: |-

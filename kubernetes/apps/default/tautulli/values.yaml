@@ -41,9 +41,6 @@ app-template:
     app:
       enabled: true
       className: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: porkboi.io
-        external-dns.alpha.kubernetes.io/hostname: tautulli.porkboi.io
       hosts:
         - host: &host "tautulli.porkboi.io"
           paths:
