@@ -95,7 +95,16 @@ app-template:
             - *host
   persistence:
     config:
-      enabled: true
-      existingClaim: radarr-config
+      existingClaim: radarr
+    cache:
+      existingClaim: radarr-cache
+      globalMounts:
+        - path: /config/MediaCover
+    tmp:
+      type: emptyDir
     media:
-      existingClaim: media-earth
+      type: nfs
+      server: 10.1.0.25
+      path: /mnt/earth/media
+      globalMounts:
+        - path: /media

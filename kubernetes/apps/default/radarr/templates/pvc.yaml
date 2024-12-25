@@ -2,11 +2,22 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: radarr-config
+  name: radarr
   namespace: {{ .Release.Namespace }}
 spec:
   accessModes: ["ReadWriteMany"]
   resources:
     requests:
       storage: 15Gi
+  storageClassName: rook-ceph-filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: radarr-cache
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 10Gi
   storageClassName: rook-ceph-block
