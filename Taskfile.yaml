@@ -6,7 +6,7 @@ set: [pipefail]
 shopt: [globstar]
 
 vars:
-  CLUSTER: '{{.CLUSTER | default "main"}}'
+  CLUSTER: '{{.CLUSTER | default "porkos"}}'
   CLUSTER_DIR: '{{.ROOT_DIR}}/kubernetes/{{.CLUSTER}}'
 
 env:
@@ -15,6 +15,7 @@ env:
 
 includes:
   workstation: .taskfiles/workstation
+  bootstrap: .taskfiles/bootstrap
 
 tasks:
 
