@@ -73,7 +73,7 @@ cilium:
   loadBalancer:
     acceleration: best-effort
     algorithm: maglev
-    mode: dsr.
+    mode: dsr
   localRedirectPolicy: true
   operator:
     replicas: 2
