@@ -61,9 +61,27 @@ app-template:
             - *host
 
   persistence:
+    config:
+      existingClaim: plex
+      # TODO: If setting up Plex for the first time, you'll want to add the globalMounts section
+      globalMounts:
+        - path: /config/Library/Application Support/Plex Media Server
+    # Separate PVC for cache to avoid backing up cache files
+    cache:
+      existingClaim: plex-cache
+      globalMounts:
+        - path: /config/Library/Application Support/Plex Media Server/Cache
+    logs:
+      type: emptyDir
+      globalMounts:
+        - path: /config/Library/Application Support/Plex Media Server/Logs
+    tmp:
+      type: emptyDir
     transcode:
       type: emptyDir
     media:
-      existingClaim: media-earth
+      type: nfs
+      server: 10.1.0.25
+      path: /mnt/earth/media
       globalMounts:
-        - readOnly: true
+        - path: /media
