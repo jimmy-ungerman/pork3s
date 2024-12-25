@@ -83,5 +83,13 @@ app-template:
             - *host
 
   persistence:
+    config:
+      existingClaim: sabnzbd
+    tmp:
+      type: emptyDir
     media:
-      existingClaim: media-earth
+      type: nfs
+      server: 10.1.0.25
+      path: /mnt/earth/media
+      globalMounts:
+        - path: /media
