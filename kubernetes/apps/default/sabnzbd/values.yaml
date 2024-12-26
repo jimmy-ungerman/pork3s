@@ -39,14 +39,6 @@ app-template:
           fsGroup: 568
           fsGroupChangePolicy: OnRootMismatch
           supplementalGroups: [10000]
-      statefulset:
-        volumeClaimTemplates:
-          - name: config
-            accessMode: ReadWriteOnce
-            size: 1Gi
-            storageClass: rook-ceph-block
-            globalMounts:
-              - path: /config
   service:
     app:
       controller: main
@@ -85,6 +77,8 @@ app-template:
   persistence:
     config:
       existingClaim: sabnzbd
+      globalMounts:
+         - path: /config
     tmp:
       type: emptyDir
     media:
