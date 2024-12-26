@@ -4,8 +4,6 @@ kind: CiliumBGPPeeringPolicy
 metadata:
   name: bgp-config-peering-policy
   namespace: {{ .Release.Namespace }}
-  annotations:
-    "helm.sh/hook": post-install, post-upgrade
 spec:
   nodeSelector:
     matchLabels:
@@ -26,8 +24,6 @@ kind: CiliumLoadBalancerIPPool
 metadata:
   name: l2-pool
   namespace: {{ .Release.Namespace }}
-  annotations:
-    "helm.sh/hook": post-install, post-upgrade
 spec:
   allowFirstLastIPs: "Yes"
   blocks:
