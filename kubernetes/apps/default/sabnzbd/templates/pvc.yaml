@@ -5,7 +5,7 @@ metadata:
   name: sabnzbd
   namespace: {{ .Release.Namespace }}
 spec:
-  accessModes: ["ReadWriteMany"]
+  accessModes: ["ReadWriteOnce"]
   resources:
     requests:
       storage: 1Gi
