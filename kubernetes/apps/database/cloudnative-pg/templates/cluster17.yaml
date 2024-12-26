@@ -38,7 +38,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://cnpg/
       endpointURL: https://fb30c9a83696a7cb166c3c13facf6454.r2.cloudflarestorage.com
-      serverName: &currentCluster postgres17-v7
+      serverName: &currentCluster postgres17-v8
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg
@@ -50,7 +50,7 @@ spec:
   # cluster when recovering from an existing cnpg cluster
   bootstrap:
     recovery:
-      source: &previousCluster postgres17-v6
+      source: &previousCluster postgres17-v7
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
   externalClusters:
     - name: *previousCluster
