@@ -105,7 +105,7 @@ app-template:
       type: emptyDir
     media:
       type: nfs
-      server: 10.1.0.25
+      server: nas.porkboi.io
       path: /mnt/earth/media
       globalMounts:
         - path: /media
