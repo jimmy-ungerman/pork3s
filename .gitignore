@@ -16,3 +16,4 @@ Thumbs.db
 kubeconfig
 talosconfig
 Chart.lock
+.infisical.json

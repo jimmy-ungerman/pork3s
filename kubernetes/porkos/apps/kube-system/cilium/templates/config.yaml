@@ -1,0 +1,41 @@
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: l2-pool
+  namespace: {{ .Release.Namespace }}
+spec:
+  allowFirstLastIPs: "Yes"
+  blocks:
+    - start: 10.1.0.2
+      stop: 10.1.0.4
+
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPClusterConfig
+metadata:
+  name: cilium-bgp
+spec:
+  nodeSelector:
+    matchLabels:
+      kubernetes.io/os: "linux"
+  bgpInstances:
+  - name: "instance-64512"
+    localASN: 64512
+    peers:
+    - name: "porkos"
+      peerASN: 64510
+      peerAddress: 10.3.0.1
+      peerConfigRef:
+        name: "cilium-porkos"
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPPeerConfig
+metadata:
+  name: cilium-porkos
+spec:
+  timers:
+    connectRetryTimeSeconds: 120
+    holdTimeSeconds: 90
+    keepAliveTimeSeconds: 30
+  ebgpMultihop: 1
