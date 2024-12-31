@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: bootstrap
+  name: bootstrap-wave-0
   namespace: argocd
 spec:
   syncPolicy:
@@ -13,13 +13,12 @@ spec:
         repoURL: &repoURL https://github.com/jimmy-ungerman/pork3s
         revision: &revision main
         directories:
-          - path: kubernetes/porkos/apps/external-secrets/*
-          - path: kubernetes/porkos/apps/external-secrets/templates
-            exclude: true
-          # - path: kubernetes/porkos/apps/cert-manager/*
+          - path: kubernetes/porkos/apps/external-secrets
   template:
     metadata:
-      name: '{{.path.basename}}'
+      name: '{{ (split "/" .path.path)._3 }}'
+      annotations:
+        argocd.argoproj.io/sync-wave: '0'
     spec:
       destination:
         name: in-cluster
