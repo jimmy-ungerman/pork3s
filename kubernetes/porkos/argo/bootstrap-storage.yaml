@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: bootstrap-wave-3
+  name: bootstrap-storage
   namespace: argocd
 spec:
   syncPolicy:
@@ -13,7 +13,6 @@ spec:
         repoURL: &repoURL https://github.com/jimmy-ungerman/pork3s
         revision: &revision main
         directories:
-          - path: kubernetes/porkos/apps/kube-system/openebs-system
           - path: kubernetes/porkos/apps/rook-ceph
   template:
     metadata:

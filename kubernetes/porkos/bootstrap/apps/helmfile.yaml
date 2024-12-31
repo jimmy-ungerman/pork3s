@@ -27,27 +27,23 @@ repositories:
 releases:
   - name: prometheus-operator-crds
     namespace: observability
-    chart: oci://ghcr.io/prometheus-community/charts/prometheus-operator-crds
-    version: 17.0.2
+    chart: ../../apps/observability/prometheus-operator-crds
 
   - name: cilium
     namespace: kube-system
-    chart: cilium/cilium
-    version: 1.16.5
+    chart: ../../apps/kube-system/cilium
     values: ["helm-values/cilium-helm-values.yaml"]
     needs: ["observability/prometheus-operator-crds"]
 
   - name: coredns
     namespace: kube-system
-    chart: coredns/coredns
-    version: 1.37.0
+    chart: ../../apps/kube-system/coredns
     values: ["helm-values/coredns-helm-values.yaml"]
     needs: ["kube-system/cilium"]
 
   - name: kubelet-csr-approver
     namespace: kube-system
-    chart: postfinance/kubelet-csr-approver
-    version: 1.2.3
+    chart: ../../apps/kube-system/kubelet-csr-approver
     values: ["helm-values/kubelet-csr-approver-helm-values.yaml"]
     needs: ["kube-system/coredns"]
 

@@ -9,7 +9,7 @@ ingress-nginx:
       type: LoadBalancer
       externalTrafficPolicy: Local
       annotations:
-        "io.cilium/lb-ipam-ips": "10.1.0.100"
+        "io.cilium/lb-ipam-ips": "10.1.0.3"
         external-dns.alpha.kubernetes.io/hostname: &hostname porkboi.io
     ingressClassResource:
       default: true

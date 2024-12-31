@@ -1,5 +1,4 @@
 cilium:
-  autoDirectNodeRoutes: true
   bandwidthManager:
     enabled: true
     bbr: true
@@ -19,7 +18,6 @@ cilium:
     name: porkos
   cni:
     exclusive: false
-  devices: enp+
   enableIPv4BIGTCP: true
   endpointRoutes:
     enabled: true
