@@ -1,17 +1,19 @@
 operator:
-  crds:
-    enabled: true
-  pspEnable: false
+  csi:
+    enableVolumeGroupSnapshot: false # TODO: enable this when v1beta1 CRDs are available
+    cephFSKernelMountOptions: ms_mode=prefer-crc
+    enableLiveness: true
+    serviceMonitor:
+      enabled: true
+  enableDiscoveryDaemon: true
   monitoring:
     enabled: true
   resources:
-    limits:
-      cpu: 1000m
-      memory: 512Mi
     requests:
-      cpu: 100m
-      memory: 128Mi
-
+      memory: 128Mi # unchangable
+      cpu: 100m # unchangable
+    limits: {}
+    
 rook-ceph-cluster:
   toolbox:
     enabled: true
@@ -28,7 +30,12 @@ rook-ceph-cluster:
     [global]
     bdev_enable_discard = true
     bdev_async_discard = true
+    osd_class_update_on_start = false
   cephClusterSpec:
+    network:
+      provider: host
+      connections:
+        requireMsgr2: true
     crashCollector:
       disable: false
     dashboard:
@@ -38,6 +45,8 @@ rook-ceph-cluster:
       prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
     mgr:
       modules:
+        - name: insights
+          enabled: true
         - name: pg_autoscaler # This is already enabled by default, but needs to be here so that we don't override the default behavior.
           enabled: true
         - name: rook # This enables the rook module.
@@ -53,7 +62,7 @@ rook-ceph-cluster:
             - name: "/dev/nvme0n1"
         - name: "zuko"
           devices:
-            - name: "/dev/nvme0n1"
+            - name: "/dev/nvme1n1"
         - name: "iroh"
           devices:
             - name: "/dev/nvme0n1"

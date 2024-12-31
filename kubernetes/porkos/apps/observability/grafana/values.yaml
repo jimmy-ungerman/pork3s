@@ -1,4 +1,6 @@
 grafana:
+  deploymentStrategy:
+    type: Recreate
   extraInitContainers:
     - name: 01-init-db
       image: ghcr.io/onedr0p/postgres-init:16.6
@@ -23,6 +25,7 @@ grafana:
     GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
     GF_EXPLORE_ENABLED: true
     GF_FEATURE_TOGGLES_ENABLE: publicDashboards
+    GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
     GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
     GF_SECURITY_COOKIE_SAMESITE: grafana
     GF_SERVER_ROOT_URL: https://grafana.porkboi.io
@@ -51,61 +54,12 @@ grafana:
     auth.basic:
       enabled: false
     auth.anonymous:
-      enabled: false
+      enabled: true
+      org_id: 1
+      org_name: Main Org.
+      org_role: Viewer
     news:
       news_feed_enabled: false
-  dashboardProviders:
-    dashboardproviders.yaml:
-      apiVersion: 1
-      providers:
-        - name: default
-          orgId: 1
-          folder: ""
-          type: file
-          disableDeletion: false
-          editable: true
-          options:
-            path: /var/lib/grafana/dashboards/default
-        - name: ceph
-          orgId: 1
-          folder: Ceph
-          type: file
-          disableDeletion: false
-          editable: true
-          options:
-            path: /var/lib/grafana/dashboards/ceph
-        - name: kubernetes
-          orgId: 1
-          folder: Kubernetes
-          type: file
-          disableDeletion: false
-          editable: true
-          options:
-            path: /var/lib/grafana/dashboards/kubernetes
-        - name: nginx
-          orgId: 1
-          folder: Nginx
-          type: file
-          disableDeletion: false
-          editable: true
-          options:
-            path: /var/lib/grafana/dashboards/nginx
-        - name: argo
-          orgId: 1
-          folder: Argo
-          type: file
-          disableDeletion: false
-          editable: true
-          options:
-            path: /var/lib/grafana/dashboards/argocd
-        - name: unifi
-          orgId: 1
-          folder: Unifi
-          type: file
-          disableDeletion: false
-          editable: true
-          options:
-            path: /var/lib/grafana/dashboards/unifi
   datasources:
     datasources.yaml:
       apiVersion: 1
@@ -136,35 +90,27 @@ grafana:
           url: http://alertmanager-operated.observability.svc.cluster.local:9093
           jsonData:
             implementation: prometheus
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+        - name: default
+          orgId: 1
+          folder: ""
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards/default
   dashboards:
     default:
-      external-dns:
-        # renovate: depName="External-dns"
-        gnetId: 15038
-        revision: 1
+      argocd:
+        url: https://raw.githubusercontent.com/argoproj/argo-cd/refs/heads/master/examples/dashboard.json
         datasource: Prometheus
-      node-exporter-full:
-        # renovate: depName="Node Exporter Full"
-        gnetId: 1860
-        revision: 33
-        datasource: Prometheus
-      dragonfly:
-        url: https://raw.githubusercontent.com/dragonflydb/dragonfly/main/tools/local/monitoring/grafana/provisioning/dashboards/dashboard.json
-        datasource: Prometheus
-      cloudnative-pg:
-        url: https://raw.githubusercontent.com/cloudnative-pg/charts/main/charts/cloudnative-pg/monitoring/grafana-dashboard.json
-        datasource: Prometheus
-      cert-manager:
-        url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
-        datasource: Prometheus
-      external-secrets:
-        url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
-        datasource: Prometheus
-    ceph:
       ceph-cluster:
         # renovate: depName="Ceph Cluster"
         gnetId: 2842
-        revision: 17
+        revision: 18
         datasource: Prometheus
       ceph-osd:
         # renovate: depName="Ceph - OSD (Single)"
@@ -176,54 +122,79 @@ grafana:
         gnetId: 5342
         revision: 9
         datasource: Prometheus
-    kubernetes:
+      cert-manager:
+        # renovate: depName="Cert-manager-Kubernetes"
+        gnetId: 20842
+        revision: 3
+        datasource: Prometheus
+      external-dns:
+        # renovate: depName="External-dns"
+        gnetId: 15038
+        revision: 3
+        datasource: Prometheus
+      external-secrets:
+        url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
+        datasource: Prometheus
       kubernetes-api-server:
         # renovate: depName="Kubernetes / System / API Server"
         gnetId: 15761
-        revision: 14
+        revision: 18
         datasource: Prometheus
       kubernetes-coredns:
         # renovate: depName="Kubernetes / System / CoreDNS"
         gnetId: 15762
-        revision: 13
+        revision: 19
         datasource: Prometheus
       kubernetes-global:
         # renovate: depName="Kubernetes / Views / Global"
         gnetId: 15757
-        revision: 31
+        revision: 42
         datasource: Prometheus
       kubernetes-namespaces:
         # renovate: depName="Kubernetes / Views / Namespaces"
         gnetId: 15758
-        revision: 27
+        revision: 41
         datasource: Prometheus
       kubernetes-nodes:
         # renovate: depName="Kubernetes / Views / Nodes"
         gnetId: 15759
-        revision: 19
+        revision: 32
         datasource: Prometheus
       kubernetes-pods:
         # renovate: depName="Kubernetes / Views / Pods"
-        gNetId: 15760
-        revision: 21
+        gnetId: 15760
+        revision: 34
         datasource: Prometheus
       kubernetes-volumes:
         # renovate: depName="K8s / Storage / Volumes / Cluster"
         gnetId: 11454
         revision: 14
         datasource: Prometheus
-    nginx:
       nginx:
         url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
         datasource: Prometheus
       nginx-request-handling-performance:
         url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
         datasource: Prometheus
-    argo:
-      argocd-dashboard:
-        url: https://raw.githubusercontent.com/argoproj/argo-cd/master/examples/dashboard.json
+      node-exporter-full:
+        # renovate: depName="Node Exporter Full"
+        gnetId: 1860
+        revision: 37
         datasource: Prometheus
-    unifi:
+      node-feature-discovery:
+        url: https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/examples/grafana-dashboard.json
+        datasource: Prometheus
+      prometheus:
+        # renovate: depName="Prometheus"
+        gnetId: 19105
+        revision: 6
+        datasource: Prometheus
+      smart:
+        # renovate: depName="Dashboard for smartctl_exporter"
+        gnetId: 20204
+        revision: 1
+        datasource:
+          - { name: DS_PROMETHEUS, value: Prometheus }
       unifi-insights:
         # renovate: depName="UniFi-Poller: Client Insights - Prometheus"
         gnetId: 11315
@@ -248,7 +219,6 @@ grafana:
     dashboards:
       enabled: true
       searchNamespace: ALL
-      labelValue: ""
       label: grafana_dashboard
       folderAnnotation: grafana_folder
       provider:
@@ -270,9 +240,6 @@ grafana:
   ingress:
     enabled: true
     ingressClassName: nginx
-    annotations:
-      external-dns.alpha.kubernetes.io/target: porkboi.io
-      external-dns.alpha.kubernetes.io/hostname: grafana.porkboi.io
     hosts:
       - &host grafana.porkboi.io
     tls:

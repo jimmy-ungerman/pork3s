@@ -8,6 +8,10 @@ loki:
       log_level: info
     commonConfig:
       replication_factor: 1
+    compactor:
+      working_directory: /var/loki/compactor/retention
+      delete_request_store: filesystem
+      retention_enabled: true
     ingester:
       chunk_encoding: snappy
     storage:
@@ -27,7 +31,7 @@ loki:
     replicas: 1
     persistence:
       enabled: true
-      storageClass: rook-ceph-filesystem
+      storageClass: rook-ceph-block
       size: 50Gi
   gateway:
     replicas: 0
@@ -45,3 +49,8 @@ loki:
     enabled: false
   test:
     enabled: false
+  sidecar:
+    image:
+      repository: ghcr.io/kiwigrid/k8s-sidecar
+    rules:
+      searchNamespace: ALL

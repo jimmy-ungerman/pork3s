@@ -17,7 +17,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/onedr0p/radarr-develop
-            tag: 5.16.0.9485
+            tag: 5.17.0.9555
           env:
             TZ: America/Boise
             RADARR__APP__INSTANCENAME: Radarr
@@ -69,8 +69,6 @@ app-template:
       enabled: true
       className: nginx
       annotations:
-        external-dns.alpha.kubernetes.io/target: porkboi.io
-        external-dns.alpha.kubernetes.io/hostname: radarr.porkboi.io
         nginx.ingress.kubernetes.io/auth-url: |-
             http://authentik-server.default.svc.cluster.local:80/outpost.goauthentik.io/auth/nginx        
         nginx.ingress.kubernetes.io/auth-signin: |-
@@ -97,7 +95,16 @@ app-template:
             - *host
   persistence:
     config:
-      enabled: true
-      existingClaim: radarr-config
+      existingClaim: radarr
+    cache:
+      existingClaim: radarr-cache
+      globalMounts:
+        - path: /config/MediaCover
+    tmp:
+      type: emptyDir
     media:
-      existingClaim: media-earth
+      type: nfs
+      server: nas.porkboi.io
+      path: /mnt/earth/media
+      globalMounts:
+        - path: /media

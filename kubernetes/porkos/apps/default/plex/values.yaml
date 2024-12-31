@@ -8,7 +8,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/onedr0p/plex
-            tag: 1.41.2.9200-c6bbc1b53@sha256:1f28b5e5a964481f80e76db3c986082d2fc3bca2d16d2742704e9adf8349c79c
+            tag: 1.41.3.9314-a0bfb8370@sha256:38fcbef239341db591f8ff87f20777d9a783b79f757fc42e360041d7ba78eada
           env:
             TZ: America/Boise
           resources:
@@ -28,14 +28,6 @@ app-template:
           fsGroup: 568
           fsGroupChangePolicy: OnRootMismatch
           supplementalGroups: [44, 105, 10000]
-      statefulset:
-        volumeClaimTemplates:
-          - name: config
-            accessMode: ReadWriteOnce
-            size: 250Gi
-            storageClass: rook-ceph-block
-            globalMounts:
-              - path: /config
   service:
     app:
       controller: main
@@ -47,9 +39,7 @@ app-template:
       enabled: true
       className: nginx
       annotations:
-        external-dns.alpha.kubernetes.io/target: porkboi.io
         nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-        external-dns.alpha.kubernetes.io/hostname: plex.porkboi.io
       hosts:
         - host: &host "plex.porkboi.io"
           paths:
@@ -63,9 +53,26 @@ app-template:
             - *host
 
   persistence:
+    config:
+      existingClaim: plex
+      # TODO: If setting up Plex for the first time, you'll want to add the globalMounts section
+      globalMounts:
+        - path: /config/Library/Application Support/Plex Media Server
+    cache:
+      existingClaim: plex-cache
+      globalMounts:
+        - path: /config/Library/Application Support/Plex Media Server/Cache
+    logs:
+      type: emptyDir
+      globalMounts:
+        - path: /config/Library/Application Support/Plex Media Server/Logs
+    tmp:
+      type: emptyDir
     transcode:
       type: emptyDir
     media:
-      existingClaim: media-earth
+      type: nfs
+      server: nas.porkboi.io
+      path: /mnt/earth/media
       globalMounts:
-        - readOnly: true
+        - path: /media

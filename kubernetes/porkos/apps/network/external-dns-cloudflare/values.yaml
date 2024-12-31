@@ -17,7 +17,8 @@ external-dns:
           key: api-key
   extraArgs:
     - --cloudflare-proxied
-    - --annotation-filter=external-dns.alpha.kubernetes.io/target
+    - --cloudflare-dns-records-per-page=1000
+    - --ignore-ingress-tls-spec
   policy: sync
   sources: ["ingress"]
   txtPrefix: k8s.

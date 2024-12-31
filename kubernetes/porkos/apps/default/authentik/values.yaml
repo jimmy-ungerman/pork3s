@@ -32,9 +32,6 @@ authentik:
     ingress:
       enabled: true
       ingressClassName: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: porkboi.io
-        external-dns.alpha.kubernetes.io/hostname: id.porkboi.io
       hosts:
         - &host id.porkboi.io
       paths:

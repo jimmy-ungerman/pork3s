@@ -16,7 +16,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/onedr0p/sonarr-develop
-            tag: 4.0.11.2724
+            tag: 4.0.11.2800
           env:
             TZ: America/Boise
             SONARR__APP__INSTANCENAME: sonarr
@@ -70,8 +70,6 @@ app-template:
       enabled: true
       className: nginx
       annotations:
-        external-dns.alpha.kubernetes.io/target: porkboi.io
-        external-dns.alpha.kubernetes.io/hostname: sonarr.porkboi.io
         nginx.ingress.kubernetes.io/auth-url: |-
             http://authentik-server.default.svc.cluster.local:80/outpost.goauthentik.io/auth/nginx        
         nginx.ingress.kubernetes.io/auth-signin: |-
@@ -98,7 +96,16 @@ app-template:
             - *host
   persistence:
     config:
-      enabled: true
-      existingClaim: sonarr-config
+      existingClaim: sonarr
+    cache:
+      existingClaim: sonarr-cache
+      globalMounts:
+        - path: /config/MediaCover
+    tmp:
+      type: emptyDir
     media:
-      existingClaim: media-earth
+      type: nfs
+      server: nas.porkboi.io
+      path: /mnt/earth/media
+      globalMounts:
+        - path: /media

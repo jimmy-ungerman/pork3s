@@ -8,7 +8,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/onedr0p/sabnzbd
-            tag: 4.3.3@sha256:86c645db93affcbf01cc2bce2560082bfde791009e1506dba68269b9c50bc341
+            tag: 4.4.1@sha256:4188d3c29c53de1018edcfd5dc2d0a0c7955b9a239b91ff6c859626abd3494dc
           env:
             TZ: America/Boise
             SABNZBD__PORT: &port 80
@@ -39,14 +39,6 @@ app-template:
           fsGroup: 568
           fsGroupChangePolicy: OnRootMismatch
           supplementalGroups: [10000]
-      statefulset:
-        volumeClaimTemplates:
-          - name: config
-            accessMode: ReadWriteOnce
-            size: 1Gi
-            storageClass: rook-ceph-block
-            globalMounts:
-              - path: /config
   service:
     app:
       controller: main
@@ -58,8 +50,6 @@ app-template:
       enabled: true
       className: nginx
       annotations:
-        external-dns.alpha.kubernetes.io/target: porkboi.io
-        external-dns.alpha.kubernetes.io/hostname: sabnzbd.porkboi.io
         nginx.ingress.kubernetes.io/auth-url: |-
             http://authentik-server.default.svc.cluster.local:80/outpost.goauthentik.io/auth/nginx        
         nginx.ingress.kubernetes.io/auth-signin: |-
@@ -85,5 +75,15 @@ app-template:
             - *host
 
   persistence:
+    config:
+      existingClaim: sabnzbd
+      globalMounts:
+         - path: /config
+    tmp:
+      type: emptyDir
     media:
-      existingClaim: media-earth
+      type: nfs
+      server: nas.porkboi.io
+      path: /mnt/earth/media
+      globalMounts:
+        - path: /media
