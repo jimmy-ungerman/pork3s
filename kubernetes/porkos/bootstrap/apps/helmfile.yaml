@@ -50,10 +50,20 @@ releases:
     version: 1.2.3
     values: ["helm-values/kubelet-csr-approver-helm-values.yaml"]
     needs: ["kube-system/coredns"]
-  
+
+  - name: dragonfly
+    namespace: database
+    createNamespace: true
+    chart: oci://ghcr.io/dragonflydb/dragonfly/helm/dragonfly
+    version: v1.26.0
+    values: ["helm-values/dragonfly-helm-values.yaml"]
+    needs: ["kube-system/cilium"]
+
   - name: argocd
     namespace: argocd
     chart: argocd/argo-cd
     version: 7.7.11
     values: ["helm-values/argocd-helm-values.yaml"]
-    needs: ["kube-system/cilium"]
+    needs: 
+      - "kube-system/cilium"
+      - "database/dragonfly"

@@ -67,7 +67,8 @@ tasks:
     cmds:
       - for: { var: TEMPLATES }
         cmd: dotenvx run --quiet --env-file {{.CLUSTER_DIR}}/bootstrap/bootstrap.env -- minijinja-cli {{.ITEM}} | kubectl apply --server-side -f -
-      - cmd: helmfile -f helmfile.yaml apply --skip-diff-on-install --suppress-diff --selector name=argocd
+      - cmd: helmfile -f {{.CLUSTER_DIR}}/bootstrap/apps/helmfile.yaml sync --selector name=dragonfly
+      - cmd: helmfile -f {{.CLUSTER_DIR}}/bootstrap/apps/helmfile.yaml sync --selector name=argocd
     vars:
       TEMPLATES:
         sh: ls {{.CLUSTER_DIR}}/bootstrap/apps/*.j2

@@ -10,7 +10,6 @@ configs:
       secrets, secrets+literal,
       https
     exec.enabled: true
-    admin.enabled: false
     kustomize.buildOptions: --enable-alpha-plugins --enable-exec
   params:
     server.insecure: true
