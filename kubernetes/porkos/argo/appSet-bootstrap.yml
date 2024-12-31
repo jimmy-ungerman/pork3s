@@ -14,6 +14,7 @@ spec:
         revision: &revision main
         directories:
           - path: kubernetes/porkos/apps/external-secrets/*
+          - path: kubernetes/porkos/apps/cert-manager/*
   template:
     metadata:
       name: '{{.path.basename}}'
