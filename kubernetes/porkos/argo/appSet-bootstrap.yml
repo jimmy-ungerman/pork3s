@@ -13,16 +13,7 @@ spec:
         repoURL: &repoURL https://github.com/jimmy-ungerman/pork3s
         revision: &revision main
         directories:
-          # - path: kubernetes/apps/argocd/*
-          - path: kubernetes/apps/cert-manager/*
-          - path: kubernetes/apps/database/*
-          - path: kubernetes/apps/default/*
-          - path: kubernetes/apps/external-secrets/*
-          - path: kubernetes/apps/kube-system/*
-          - path: kubernetes/apps/networking/*
-          - path: kubernetes/apps/observability/*
-          - path: kubernetes/apps/rook-ceph/*
-          - path: kubernetes/apps/system/*
+          - path: kubernetes/apps/argocd/*
   template:
     metadata:
       name: '{{.path.basename}}'
