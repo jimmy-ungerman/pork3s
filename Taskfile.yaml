@@ -10,9 +10,11 @@ vars:
   CLUSTER_DIR: '{{.ROOT_DIR}}/kubernetes/{{.CLUSTER}}'
 
 env:
-  GOPATH: '{{.ROOT_DIR}}/.go'
-  VIRTUAL_ENV: '{{.ROOT_DIR}}/.venv'
-
+  KUBECONFIG: '{{.CLUSTER_DIR}}/kubeconfig'
+  MINIJINJA_CONFIG_FILE: '{{.ROOT_DIR}}/.minijinja.toml'
+  SOPS_AGE_KEY_FILE: '{{.ROOT_DIR}}/age.key'
+  TALOSCONFIG: '{{.CLUSTER_DIR}}/talosconfig'
+  
 includes:
   workstation: .taskfiles/workstation
   bootstrap: .taskfiles/bootstrap

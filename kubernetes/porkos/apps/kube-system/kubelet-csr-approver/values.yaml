@@ -1,5 +1,5 @@
 kubelet-csr-approver:
   providerRegex: |
-    ^(zuko|toph|iroh)$
+    ^(aang|katara|sokka)$
 
   bypassDnsResolution: true

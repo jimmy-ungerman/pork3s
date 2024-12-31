@@ -1,7 +1,0 @@
-reloader:
-  reloader:
-    reloadStrategy: annotations
-    reloadOnCreate: false
-    podMonitor:
-      enabled: true
-      namespace: kube-system
