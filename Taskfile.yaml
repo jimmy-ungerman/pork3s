@@ -18,6 +18,7 @@ env:
 includes:
   workstation: .taskfiles/workstation
   bootstrap: .taskfiles/bootstrap
+  talos: .taskfiles/talos
 
 tasks:
 

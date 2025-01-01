@@ -1,4 +1,5 @@
-providerRegex: |
-  ^(aang|katara|sokka)$
+kubelet-csr-approver:
+  providerRegex: |
+    ^(aang|katara|sokka)$
 
-bypassDnsResolution: true
+  bypassDnsResolution: true

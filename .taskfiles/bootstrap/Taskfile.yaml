@@ -33,7 +33,8 @@ tasks:
     desc: Bootstrap Apps [CLUSTER=porkos]
     cmds:
       - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
-      - helmfile --quiet --file {{.CLUSTER_DIR}}/bootstrap/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff --selector name=prometheus-operator-crds,cilium,coredns,kubelet-csr-approver
+      - helmfile deps --quiet --file {{.CLUSTER_DIR}}/bootstrap/apps/helmfile.yaml
+      - helmfile --quiet --file {{.CLUSTER_DIR}}/bootstrap/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff --selector name!=argocd,name!=dragonfly
       - until kubectl wait nodes --for=condition=Ready --all --timeout=10m; do sleep 5; done
     requires:
       vars: [CLUSTER]

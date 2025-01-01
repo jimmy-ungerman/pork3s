@@ -17,3 +17,4 @@ kubeconfig
 talosconfig
 Chart.lock
 .infisical.json
+helmfile.lock

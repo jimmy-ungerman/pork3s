@@ -52,20 +52,11 @@ rook-ceph-cluster:
         - name: rook # This enables the rook module.
           enabled: true    
     storage:
-      useAllNodes: false
+      useAllNodes: true
       useAllDevices: false
+      devicePathFilter: /dev/disk/by-id/nvme-Seagate_FireCuda_530_*
       config:
         osdsPerDevice: "1"
-      nodes:
-        - name: "aang"
-          devices:
-            - name: "/dev/nvme1n1"
-        - name: "katara"
-          devices:
-            - name: "/dev/nvme1n1"
-        - name: "sokka"
-          devices:
-            - name: "/dev/nvme1n1"
     resources:
       mgr:
         requests:

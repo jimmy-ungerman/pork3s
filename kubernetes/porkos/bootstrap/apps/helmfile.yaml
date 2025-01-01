@@ -11,19 +11,6 @@ helmDefaults:
   wait: true
   waitForJobs: true
 
-repositories:
-  - name: cilium
-    url: https://helm.cilium.io
-
-  - name: coredns
-    url: https://coredns.github.io/helm
-
-  - name: postfinance
-    url: https://postfinance.github.io/kubelet-csr-approver
-  
-  - name: argocd
-    url: https://argoproj.github.io/argo-helm
-
 releases:
   - name: prometheus-operator-crds
     namespace: observability

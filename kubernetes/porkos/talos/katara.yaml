@@ -1,0 +1,229 @@
+version: v1alpha1
+debug: false
+persist: true
+machine:
+  type: controlplane
+  token: nhg6jx.j0a3349jz6tyu1ho
+  ca:
+    crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJQakNCOGFBREFnRUNBaEJDRVVscDd5UFBpa1U0WGgrdlU1SE1NQVVHQXl0bGNEQVFNUTR3REFZRFZRUUsKRXdWMFlXeHZjekFlRncweU5ERXdNRGd5TURRMU16WmFGdzB6TkRFd01EWXlNRFExTXpaYU1CQXhEakFNQmdOVgpCQW9UQlhSaGJHOXpNQ293QlFZREsyVndBeUVBSmJPbkhyY1RYeVlycVovV1IwcWpqUGY3UnYzY1h0aW11QXFpCjJFM0lkd3FqWVRCZk1BNEdBMVVkRHdFQi93UUVBd0lDaERBZEJnTlZIU1VFRmpBVUJnZ3JCZ0VGQlFjREFRWUkKS3dZQkJRVUhBd0l3RHdZRFZSMFRBUUgvQkFVd0F3RUIvekFkQmdOVkhRNEVGZ1FVRzVjYzJxcmkwcVpHY3RLbAo4Tm82ZTk1dks3UXdCUVlESzJWd0EwRUFlVEw2ZXVEMC9JeUpyeVE2d3Fpb0NrdVlwRzNhTFBBblR4UUFVRHBCClY4SlpBRVZpRWw4bDJ2eDlDSXk1MnRCc2VoZ1QwSHlXbVI5UGFlUi83Ri82QkE9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    key: LS0tLS1CRUdJTiBFRDI1NTE5IFBSSVZBVEUgS0VZLS0tLS0KTUM0Q0FRQXdCUVlESzJWd0JDSUVJQTcyVHhZZzU3Y21FTDg0VVlNQmR6SGM3OXpZVm5pZUpWTHBuaGNvRlVXRwotLS0tLUVORCBFRDI1NTE5IFBSSVZBVEUgS0VZLS0tLS0K
+  certSANs:
+    - 127.0.0.1
+    - 10.3.0.5
+  kubelet:
+    image: ghcr.io/siderolabs/kubelet:v1.32.0
+    extraArgs:
+      rotate-server-certificates: "true"
+    extraConfig:
+      maxPods: 150
+    extraMounts:
+      - destination: /var/mnt/extra
+        type: bind
+        source: /var/mnt/extra
+        options:
+          - bind
+          - rshared
+          - rw
+    defaultRuntimeSeccompProfileEnabled: true
+    nodeIP:
+      validSubnets:
+        - 10.3.0.0/24
+    disableManifestsDirectory: true
+  network:
+    hostname: katara
+    nameservers:
+      - 10.3.0.1
+    interfaces:
+      - interface: enp87s0
+        addresses:
+          - 10.3.0.3/24
+        mtu: 9000
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 10.3.0.1
+            metric: 1024
+        vip:
+          ip: 10.3.0.5
+  install:
+    diskSelector:
+      model: Samsung SSD 870
+    extraKernelArgs:
+      # Meteor Lake CPU / iGPU
+      - i915.enable_guc=3
+      # Less security, faster puter
+      - apparmor=0
+      # Less security, faster puter
+      - init_on_alloc=0
+      # Less security, faster puter
+      - init_on_free=0
+      # PCI Passthrough
+      - intel_iommu=on
+      # PCI Passthrough
+      - iommu=pt
+      # Less security, faster puter
+      - mitigations=off
+      # Less security, faster puter
+      - security=none
+      # Meteor Lake CPU / iGPU
+      - sysctl.kernel.kexec_load_disabled=1
+  disks:
+    - device: /dev/disk/by-id/nvme-Corsair_MP600_MICRO_A828B44200BZRT
+      partitions:
+        - mountpoint: /var/mnt/extra
+  files:
+    - op: create
+      path: /etc/cri/conf.d/20-customization.part
+      content: |
+        [plugins."io.containerd.cri.v1.images"]
+          discard_unpacked_layers = false
+    - op: overwrite
+      path: /etc/nfsmount.conf
+      permissions: 420
+      content: |
+        [ NFSMount_Global_Options ]
+        nfsvers=4.2
+        hard=True
+        nconnect=16
+        noatime=True
+  sysctls:
+    # Watchdog
+    fs.inotify.max_user_watches: 1048576
+    # Watchdog
+    fs.inotify.max_user_instances: 8192
+    # 10Gb/s
+    net.core.default_qdisc: fq
+    # 10Gb/s | Cloudflared / QUIC
+    net.core.rmem_max: 67108864
+    # 10Gb/s | Cloudflared / QUIC
+    net.core.wmem_max: 67108864
+    # 10Gb/s
+    net.ipv4.tcp_congestion_control: bbr
+    # Send and accept data in the opening SYN packet
+    net.ipv4.tcp_fastopen: 3
+    # 10Gb/s | Jumbo frames
+    net.ipv4.tcp_mtu_probing: 1
+    # 10Gb/s
+    net.ipv4.tcp_rmem: 4096 87380 33554432
+    # 10Gb/s
+    net.ipv4.tcp_wmem: 4096 65536 33554432
+    # 10Gb/s
+    net.ipv4.tcp_window_scaling: 1
+    # PostgreSQL
+    vm.nr_hugepages: 1024
+  sysfs:
+    devices.system.cpu.intel_pstate.hwp_dynamic_boost: 1
+    devices.system.cpu.cpu0.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu1.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu2.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu3.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu4.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu5.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu6.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu7.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu8.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu9.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu10.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu11.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu12.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu13.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu14.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu15.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu16.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu17.cpufreq.energy_performance_preference: balance_performance
+  features:
+    rbac: true
+    stableHostname: true
+    kubernetesTalosAPIAccess:
+      enabled: true
+      allowedRoles:
+        - os:admin
+      allowedKubernetesNamespaces:
+        - kube-system
+    apidCheckExtKeyUsage: true
+    diskQuotaSupport: true
+    kubePrism:
+      enabled: true
+      port: 7445
+    hostDNS:
+      enabled: true
+      resolveMemberNames: true
+      forwardKubeDNSToHost: false
+  udev:
+    rules:
+      # Intel GPU
+      - SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
+  kernel:
+    modules:
+      - name: nbd
+  nodeLabels:
+    topology.kubernetes.io/region: porkos
+    topology.kubernetes.io/zone: porkos
+cluster:
+  id: uhXvyyIBMTPjA7VhC07KsWbQwCig5F-mRv8fpemLy4k=
+  secret: cU2k/u9ZnFSSJC5UtRV5dAYJbiFEM9SisgNjdtxj7RM=
+  controlPlane:
+    endpoint: https://10.3.0.5:6443
+  clusterName: porkos
+  network:
+    cni:
+      name: none
+    dnsDomain: cluster.local
+    podSubnets:
+      - 10.244.0.0/16
+    serviceSubnets:
+      - 10.96.0.0/12
+  coreDNS:
+    disabled: true
+  token: nqm7it.2cvegxflr8mioqoe
+  secretboxEncryptionSecret: GoGUi0Jwx4NBG6iQ17vDgUbMGTkg4ggKbryFR0LP0nk=
+  ca:
+    crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJpVENDQVRDZ0F3SUJBZ0lSQUtLY25pWjJYamc5V215RjZ2b0M0bm93Q2dZSUtvWkl6ajBFQXdJd0ZURVQKTUJFR0ExVUVDaE1LYTNWaVpYSnVaWFJsY3pBZUZ3MHlOREV3TURneU1EUTFNekZhRncwek5ERXdNRFl5TURRMQpNekZhTUJVeEV6QVJCZ05WQkFvVENtdDFZbVZ5Ym1WMFpYTXdXVEFUQmdjcWhrak9QUUlCQmdncWhrak9QUU1CCkJ3TkNBQVQ4UkRzU1M0ZXNOdGJGVjRSVFRmVXh3WUZneWNYdkk0SUYxNmw2U2hkQnlFMlVUS2VkZCtBZGFJcnYKYVRpcWZHaEZES3B1N3VWdUd0Vnp5WitZUnVQUG8yRXdYekFPQmdOVkhROEJBZjhFQkFNQ0FvUXdIUVlEVlIwbApCQll3RkFZSUt3WUJCUVVIQXdFR0NDc0dBUVVGQndNQ01BOEdBMVVkRXdFQi93UUZNQU1CQWY4d0hRWURWUjBPCkJCWUVGRGVKc3ppQkVxcFF4RjJUSXQweWMwWkV5Q1Z0TUFvR0NDcUdTTTQ5QkFNQ0EwY0FNRVFDSURIOURFZlYKTWIrL0lOUmdZaXErUnJ5alR4RnBzQlREUW02OWtDaHZlQlBzQWlBZ1doRisrZ3M2VXpneURTMFBoemUwVjdrQgpKSk1ZZDVTbkNOcWkwanBGemc9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSVB5c24wd0R6aW5NdGVXTWQzeFNPTzNmeStha1RMRWRtTkFtVSswRGpSSXdvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFL0VRN0VrdUhyRGJXeFZlRVUwMzFNY0dCWU1uRjd5T0NCZGVwZWtvWFFjaE5sRXlublhmZwpIV2lLNzJrNHFueG9SUXlxYnU3bGJoclZjOG1mbUVianp3PT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=
+  aggregatorCA:
+    crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJYekNDQVFXZ0F3SUJBZ0lRVFhKUmVROVBISlJQRkhITHU2VVMzekFLQmdncWhrak9QUVFEQWpBQU1CNFgKRFRJME1UQXdPREl3TkRVek1Wb1hEVE0wTVRBd05qSXdORFV6TVZvd0FEQlpNQk1HQnlxR1NNNDlBZ0VHQ0NxRwpTTTQ5QXdFSEEwSUFCTndxVVVBNnFLQkg0RzNLbnVsdkdIQUF4VkFENmwzdTJaN09iTW9qSmUzZ0h3c21mSjVkCmtsSkJsR2o4ajBBRlptOVVLaGZZc1psOGs3YnIvdHVBOEdhallUQmZNQTRHQTFVZER3RUIvd1FFQXdJQ2hEQWQKQmdOVkhTVUVGakFVQmdnckJnRUZCUWNEQVFZSUt3WUJCUVVIQXdJd0R3WURWUjBUQVFIL0JBVXdBd0VCL3pBZApCZ05WSFE0RUZnUVVIUlRuQzRuWjZ2alpEdmQxUWNVUWp5N2dUQTh3Q2dZSUtvWkl6ajBFQXdJRFNBQXdSUUlnCkVoQjZ3N2tBNHNXT2lucVpvLzIyd0d5WmtVak5kK2E1c2JQUkpYU0s3M3NDSVFEMTEyS2N6NnkvcWpwTW5zVkQKSmdkcUllQ3B5QUlLK1haTGtTazR1TjdoOEE9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSUJUMHRQTUY2aWNDdUdiS0NQZUZWeVlpaitheEtaZGg5UzB3UWZsdU5EcGpvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFM0NwUlFEcW9vRWZnYmNxZTZXOFljQURGVUFQcVhlN1puczVzeWlNbDdlQWZDeVo4bmwyUwpVa0dVYVB5UFFBVm1iMVFxRjlpeG1YeVR0dXYrMjREd1pnPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=
+  serviceAccount:
+    key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlKS0FJQkFBS0NBZ0VBMkMzSnB2OGdQNktvTHN3dml5RnM5ckdGVjBrU2srMlJ4UjB1dnp4Ny81bDBLMld5CjBzRFFKcTlmekhLaFBFYkNyUnNaa0Z3ZW1razBwK3ZYREVkNm5DNmhtMy9HanpOc2NrNU9haXQzL2dzVVNSeU8KdThKOVNMRmVPOWJxL1V6anFRNTNsUzJXTFlnTjZ6ZFM5blVqakZRc2tZcmRBS3B2Um5vNGVleWtKM3hRcG1tZAp4cnVNR3pOOHBrYU1DcUVmV1lhR2s3bDM0VTZVSnhRMjllY05vUWlFN05jdU9GZER4L29EOURIN3doZEhabUJICnJBV1lLWit1bGVmK1FlWFE2VkFtclRBakFxa0hnVDZhZlc1Q1JpV0JjTGdqcnFCWGtjaGtEaW5ZQUYyTzc2cHYKc1Q0VFRXU0JXMWpKQ0xnSEg0dWRXVWxwdVltZjN0U08wRGd2V3UrUHlpUGRjbXMrNlREb3FzODlsRTlMMEh5SgptdjJHdUdnK01IZTcxazE1QURXRXU3Yy9LYWhJUmdOL3RaOHRTckltcEVUMEdZL1dOeVA2cnRycEJSbk0wa1dTCjlNbU1vT1ZZdFRXQW9UcTFKbzdQOGdPY2J5bWJWWmhGVzVlSkFDeUhUeStsVmVJN055WUFDVVNOSHYyZG1XUjkKV3hBS0tpd0pZSVRGV2lrT0dITjRjTTdVMk9VVnRmQnBxWVNVaEIrb1JFUEJBSEhQdGN1bS9QVG1GdzhodUFibgpOSXNTWlkzNXNBaW1TWW9pZzA0T0ZDUUxENkdBSHJVQ3drUjNkVU01bXAzNVJzL1VuZVZTc0Fidk9xSmlnY3dTCmlLVEFrakx6eXdKZTNFTVpUb1hURlpwUWJvTWhKY2tJcHczREYzcHNoaEhON1o4VktpYUZPS1VxZ0hFQ0F3RUEKQVFLQ0FnQnhSZXkzMkU3cGlTMWUrQmFoYkc1UUJVeTlJOGpjUWt0ellZc3hJVnhIM2Z5RkVORFdwYmxyeTlFQwpxNzNZZTZ0ZVVTamYvNlQ1YXdwd1FwOTRDNnd2VWkvVDd1djM5UllKL3dZUGs1OVlPaTN5OFVmSkVtdmJQelVGClhlUGJ2Z0k4Znh3aHlyVTZQbVFzcjl5RXozUkUvNFlxN1B4SWNRWEZoQjA3cGNlTitSRzVZUFlQUUE1MTRsQ2EKUDdUNWpOdUVhWHp5d3VnUjRyNjJpMTBSRkhTTHdJOEdHdXBaRTBDczlGQkdFRHEreEx2ZzVPb3BOUFU2T2pXYwp6dWJuV0toUzJIQ3JwdUZ4YjJoRFRLNWVzdnQvRGYvNU5FTmVLUjQ1Z1NzTVVOaWh1R1JCS0tsRjBpVURGSHJECmhvNHdSMTFVSmkvWXJTTDgyU1F2K21pcXFnWUZSV0o4TFVyNCtQWDZub2ZSVWx5cmtPM2c5NmdQbExacHZEb3gKRnc1SXdkMFpXVnlkd1dvS3BqRk4zSWw4SDVJbjJiejBXOEJoLzZpekMreHRlVlQzMytIaXcyZkkvUlJaUStveApxZE8xdWtZSnR0Y254TWhJNnFlQjlsVVFvRFl5MGp6cThyUVpRNGRsemZuVnhHNDJPVnMzYXFKL21Melp4MVh2CktMYkI4NWhtemNaT05Fdkx4a2haQlZIU0VMZUNKTW8wcHJWRXptOFpyYjdmbEpEejNZL09WUldPN3UwQjVMZTgKWkZpK3JYVzNZR1Y4OHFrQUU5dEpEcGo1WlBjRnplZU9JWWN0RU1iUWMvMlErYUZqNzNST2QwT1N6Mzc5T1dENQpJOFlYNUIyZ0R5SzNLQlh3QmYrTEVJbFFUVUI5ZUFSb215S3NHbU9GcEF5QTV0a2dFUUtDQVFFQTRRTGxBSCs4CjU4cUtrQXRUbUFvbFh2NHE3ZVp5bVhhWjAxNmVidml6cS9QWmQ2M3FPdTdJeUpqOTRaNktMakdkUUJoVzlFbnMKaXVPVnlOaVlxeC9ZV3B5RmsyOE5sb2JVV1F0UDUxZlB5UWVFVzVpdzBjdkhLbmYvMERQeGZsWTNXVTVKN0hhcApDQWQvYVNzY3FmeHNzQ1Y5bjc3ZEhtVytKQm9takNYenV6WDM1Y0lBeVlWSVVBLy9xNURVeUhRL1plNmQ2c0oyCm4xc1BIZXN0aEkzejFudEFCeS9sSFArdEFBOW1nUkpVVkRXdFRoRC94VEdUUjlFREF0OXlwcTlDZUM5VEl1QUUKR0w3em1XK0lvZU8rL2I1T3hYS3pPMzZReFhKSVE0UTlVZmFOTFhOczRxREhFb04yRThXZHpFLzg3OFBEK3FMZAozZURHbVFycVowUU5ud0tDQVFFQTlmTjkvb3VkTmcwVUJDelBoVmZFMWl1eXNqUkxjK2w4S2tUeVh4L0JnZ1JXClVLZk1zd2pBYWQ1T2YvNmdXd1Rkd1B0aGYyTGs4Z1dxTFlzS2JMZjF3T0FReDJtTzlRU2VXeE1PbnJpcnBlVFUKV1k2aTB1M2QyOFRjeWsvTjlFcG9uOURoMXZtQjRxTFFxQXplRUpjOHF3Z3BGWUsvT1hHMXpZelZYdFJXNzJ3TApLQ09xbUxrbnFXcjc2aXkzdXovaXRPdnh5TGFsdEp0cVlKM05VMnBhb3d4c0dDT1Zwck5oeS9VUzF4RnlCTGhZCjg0U0NidGtiaFNwZi80aTZIZkZqWkZUeVpkdUQxMW1rOTdqRjgyS2lNWUcydGpkRmE0SzgvVWRuVmZ3VXJyZHYKQ2JCejR1cUw4bVM1S1FTbHllWEUzZGRyeEQ3bHErcVY1QjM2UHNlWDd3S0NBUUVBdis4M0pqRFFFNnhxZTZxZAp1T0JXdG12NmRJb1JrU1JnM0xNbVZDU2pKbmRRTmsxTXNzNkN5Tkh3Sm1lVkdRaExTYVE1Y0JJcXl1S05IeERiClVZVk5pU1ZncjcyWUNxR2lPdjV5UHpWaFVlcXVsVzl1ek5hVlluMlA0YXFkUVpZTGlvdEVkWWRXY2puckRldXYKZkxTTWhjakZHdUcxUGp1dGNLQTU1MnhzTm5JM3JtM0pQQjBMN1Bkb3NKRlBZRm9BeGxNL3MwUUQ2YlREOVZKcAp0bHRiOXNXVmZVdjJsTURuY2xpd3FFTFpXaWViV0M4WjdieDNGRmlPeUFHUWkreU50M1V1NWwzT1FNbUpnNFZuCk9DakwveWc1aXlWbkM4WFBlZzBjNVRMRkY4aEc3dEU1dlN0R0JGM005OXFtMnVRVUx2Vi9rNmtmdGljSllQeTEKckRhWm93S0NBUUFIK29RbDA4V2YwVURLK2VFcGhEVmdkVDV3eFgyRkh4Zm1EeUtGcjNRSmtiWnpHMTVxbUdnVgpoeDZvekV2TGFCY0JnYVlpQ2NVL2pLdCttcm9WMk1uaUhlS3RkV0VyMWFDRmQ5TExsMVlLSmFnMTE0aTBxdjY5CmVGOXBPTG1IcVRwSHBQRU9sajErYXFXMkxlU3VTUm13dXEwS2c1bE1kY0hlRHltRTBBS1o5YmxPN2dsRXR3encKVkFZa0RKdFJPYnRTL3l4eXhHb1B0OUwxbTJqandkbDYzSlpOR2lwcW8vc1NNTHNSdXdFbDRnMFFxVVhKN3NVVAp4dElpYWY4UHBac0IwRGVrMGtBdXBqdlJ4VzYyZklhaWNJREszSFFtRHJHdXpiZ3VjK1QvM2ZkK0t2azNiVUJvCjlwZURHeUY5c1RSM3RkdExISGM2NG50R1VTcWpDcnFGQW9JQkFBSHRQRmNrelpTRzVkZVpsVWlrZmcwRjlZNWQKYmdWR3lXTTV4ck04dmtMRjg1QWZwZW1zV0s2dmVLN2VBbWxaM09MQ0RMTTdtRDI3ZU51dTEyQVFvN0dML0R3UgppUjQweEpHeHY2ajMzdEFJbUZkMGdaY3h3YjNTc3Jzc3hJTnR3U3lhSkpITFlYbER4OEhqSTB5NUxMUnJqSFNBCkNJcENPS2lIRjk4V2l4Z2tJb1lMVmRsNzdLYnBSR2tCZUx0bi94ODI2ZjFpOGxMS1J0Q3pjR2YrQ3YvRnhMbjEKOGkyRjVSYWI5WTN0bWlLOVhvQjlzb3BIWUhIWFNSOVBhMEQ3Rm5Yakx5ZmliNFhhWStTaDFxbnNPREdkWC9YbQpBcEhCem03VHFEVTgxK1J2ZVd2NTVQRHExN1Rld3FBNURLVjhDN2VHK1ZLOEpiN3ZsYXU2cUhmNXdxVT0KLS0tLS1FTkQgUlNBIFBSSVZBVEUgS0VZLS0tLS0K
+  apiServer:
+    image: registry.k8s.io/kube-apiserver:v1.32.0
+    certSANs:
+      - 127.0.0.1
+      - 10.3.0.5
+    disablePodSecurityPolicy: true
+    auditPolicy:
+      apiVersion: audit.k8s.io/v1
+      kind: Policy
+      rules:
+        - level: Metadata
+  controllerManager:
+    image: registry.k8s.io/kube-controller-manager:v1.32.0
+    extraArgs:
+      bind-address: 0.0.0.0
+  proxy:
+    disabled: true
+  scheduler:
+    image: registry.k8s.io/kube-scheduler:v1.32.0
+    extraArgs:
+      bind-address: 0.0.0.0
+    config:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: KubeSchedulerConfiguration
+      profiles:
+        - schedulerName: default-scheduler
+          pluginConfig:
+            - name: PodTopologySpread
+              args:
+                defaultingType: List
+                defaultConstraints:
+                  - maxSkew: 1
+                    topologyKey: kubernetes.io/hostname
+                    whenUnsatisfiable: ScheduleAnyway
+  etcd:
+    ca:
+      crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJmakNDQVNTZ0F3SUJBZ0lSQU1mUnZWVk1lSlJoL0x5K09Pc1dDU0l3Q2dZSUtvWkl6ajBFQXdJd0R6RU4KTUFzR0ExVUVDaE1FWlhSalpEQWVGdzB5TkRFd01EZ3lNRFExTXpGYUZ3MHpOREV3TURZeU1EUTFNekZhTUE4eApEVEFMQmdOVkJBb1RCR1YwWTJRd1dUQVRCZ2NxaGtqT1BRSUJCZ2dxaGtqT1BRTUJCd05DQUFTZFFjVnJMM2VICmdQdlhNS3d5OGdHOGRBTFBOblgvT1RyOGJkVk1ac2hmZWYrcExKME10bjJhazRiTkxBVm1heVdXbUdkQTA4YUEKc0pxV0JxWjV0MytSbzJFd1h6QU9CZ05WSFE4QkFmOEVCQU1DQW9Rd0hRWURWUjBsQkJZd0ZBWUlLd1lCQlFVSApBd0VHQ0NzR0FRVUZCd01DTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRkx6d1ViV0NrbjhnCmxHK0lCU01zTlFMKzNhZG1NQW9HQ0NxR1NNNDlCQU1DQTBnQU1FVUNJUUQ0RWlkc28yYzJUMGNZa1hxazJOcW0KaktqT1BsblIvZEJmYWhnOUVxUUQ3UUlnTHNMOVdEZmk1d2xJSERoMnRtZEt5ay90a0Fma1k5T1hQQ1JYOTNPUApvRVE9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSUVQTCt4dkc4MGk2UWVIUmdrQXg3a1V3aWptOTVZeEdjMEdJeWgvcDVHL3NvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFblVIRmF5OTNoNEQ3MXpDc012SUJ2SFFDenpaMS96azYvRzNWVEdiSVgzbi9xU3lkRExaOQptcE9HelN3Rlptc2xscGhuUU5QR2dMQ2FsZ2FtZWJkL2tRPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=
+    extraArgs:
+      listen-metrics-urls: http://0.0.0.0:2381
+    advertisedSubnets:
+      - 10.3.0.0/24
+  allowSchedulingOnMasters: true
