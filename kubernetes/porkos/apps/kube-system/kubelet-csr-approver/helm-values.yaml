@@ -1,4 +1,0 @@
-providerRegex: |
-  ^(aang|katara|sokka)$
-
-bypassDnsResolution: true
