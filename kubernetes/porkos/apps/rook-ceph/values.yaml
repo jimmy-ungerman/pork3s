@@ -57,15 +57,15 @@ rook-ceph-cluster:
       config:
         osdsPerDevice: "1"
       nodes:
-        - name: "toph"
-          devices:
-            - name: "/dev/nvme0n1"
-        - name: "zuko"
+        - name: "aang"
           devices:
             - name: "/dev/nvme1n1"
-        - name: "iroh"
+        - name: "katara"
           devices:
-            - name: "/dev/nvme0n1"
+            - name: "/dev/nvme1n1"
+        - name: "sokka"
+          devices:
+            - name: "/dev/nvme1n1"
     resources:
       mgr:
         requests:
