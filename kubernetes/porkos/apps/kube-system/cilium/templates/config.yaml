@@ -4,6 +4,9 @@ kind: CiliumBGPPeeringPolicy
 metadata:
   name: bgp-config-peering-policy
   namespace: kube-system
+  annotations:
+    "helm.sh/resource-policy": "keep"
+    "helm.sh/hook": "post-install, post-upgrade"
 spec:
   nodeSelector:
     matchLabels:
@@ -24,6 +27,9 @@ kind: CiliumLoadBalancerIPPool
 metadata:
   name: l2-pool
   namespace: kube-system
+  annotations:
+    "helm.sh/resource-policy": "keep"
+    "helm.sh/hook": "post-install, post-upgrade"
 spec:
   allowFirstLastIPs: "Yes"
   blocks:

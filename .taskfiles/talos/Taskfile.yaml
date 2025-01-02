@@ -103,7 +103,7 @@ tasks:
   reset-node:
     desc: Reset Talos on a single node [CLUSTER=main] [IP=required]
     prompt: Reset Talos node '{{.IP}}' on the '{{.CLUSTER}}' cluster ... continue?
-    cmd: talosctl reset --nodes {{.IP}} --graceful=false
+    cmd: talosctl reset --nodes {{.IP}} --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false
     requires:
       vars: [CLUSTER, IP]
     preconditions:
