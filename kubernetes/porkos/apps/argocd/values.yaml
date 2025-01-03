@@ -69,8 +69,8 @@ argo-cd:
         enabled: true
 
   dex:
-    enabled: true
     replicas: 2
+    enabled: true
 
   externalRedis:
     # -- External Redis server host
