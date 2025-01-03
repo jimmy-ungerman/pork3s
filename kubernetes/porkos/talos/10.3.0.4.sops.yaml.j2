@@ -66,6 +66,7 @@ machine:
       - security=none
       # Meteor Lake CPU / iGPU
       - sysctl.kernel.kexec_load_disabled=1
+    image: factory.talos.dev/installer/90a4e766e48276979654396e9862e2aa8fe586e220fd29df96968c4dc18487a6:1.9.1
     wipe: false
   disks:
     - device: /dev/disk/by-id/nvme-Corsair_MP600_MICRO_A828B44200BNF6
