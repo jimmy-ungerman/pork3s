@@ -14,10 +14,9 @@ app-template:
           resources:
             requests:
               cpu: 100m
-              memory: 2Gi
             limits:
               gpu.intel.com/i915: 1
-              memory: 10Gi
+              memory: 16Gi
       pod:
         nodeSelector:
           intel.feature.node.kubernetes.io/gpu: "true"
