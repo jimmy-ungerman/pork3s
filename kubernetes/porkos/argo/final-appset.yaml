@@ -13,18 +13,20 @@ spec:
         repoURL: &repoURL https://github.com/jimmy-ungerman/pork3s
         revision: &revision main
         directories:
-          - path: kubernetes/apps/database/*
-          - path: kubernetes/apps/default/*
-          - path: kubernetes/apps/kube-system/*
-          - path: kubernetes/apps/observability/*
-          - path: kubernetes/apps/system/*
+          - path: kubernetes/porkos/apps/database/*
+          - path: kubernetes/porkos/apps/default/*
+          - path: kubernetes/porkos/apps/kube-system/*
+          - path: kubernetes/porkos/apps/observability/*
+          - path: kubernetes/porkos/apps/system/*
   template:
     metadata:
       name: '{{.path.basename}}'
+      annotations:
+        argocd.argoproj.io/sync-wave: '4'
     spec:
       destination:
         name: in-cluster
-        namespace: '{{ (split "/" .path.path)._2 }}'
+        namespace: '{{ (split "/" .path.path)._3 }}'
       project: default
       source:
         repoURL: *repoURL

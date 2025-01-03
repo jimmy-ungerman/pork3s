@@ -115,7 +115,7 @@ tasks:
   reset-cluster:
     desc: Reset Talos across the whole cluster [CLUSTER=main]
     prompt: Reset the Talos cluster '{{.CLUSTER}}' ... continue?
-    cmd: talosctl reset --nodes {{.IP_ADDRS}} --graceful=false
+    cmd: talosctl reset --nodes {{.IP_ADDRS}} --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false
     vars:
       IP_ADDRS:
         sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
