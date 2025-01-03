@@ -10,7 +10,7 @@ machine:
   certSANs:
     - porkos.porkboi.io
     - 127.0.0.1
-    - 10.3.0.5
+    - 10.3.0.6
   kubelet:
     image: ghcr.io/siderolabs/kubelet:v1.32.0
     extraArgs:
@@ -43,7 +43,7 @@ machine:
             gateway: 10.3.0.1
             metric: 1024
         vip:
-          ip: 10.3.0.5
+          ip: 10.3.0.6
   install:
     diskSelector:
       model: Samsung SSD 870
@@ -163,7 +163,7 @@ cluster:
   id: ENC[AES256_GCM,data:Q6WNyYD8wUZkIjT+Gthwp/ChShdoEmuuNCKvutvFTEvpfcqQVlddxwXkuHo=,iv:WJgEnqH5lVw9A256Fh1qfnAzGWTPCuBn2Ns4sCEYM8I=,tag:vglHHzGbgyyQ2plJsiG+Uw==,type:str]
   secret: ENC[AES256_GCM,data:bVp2BYX4GMhf5Fwm/qCRgD2/sYK5HfymTH9ZKhfh/KRF+kj5qnpv/Jlmmy0=,iv:N7q7lfDsgX9V0x35a6Aw5iKs3Ec00XMqrqjAsbSKMPU=,tag:cntSzQwyyctpgfwVl2vdAQ==,type:str]
   controlPlane:
-    endpoint: https://10.3.0.5:6443
+    endpoint: https://10.3.0.6:6443
   clusterName: porkos
   network:
     cni:
@@ -190,7 +190,7 @@ cluster:
     certSANs:
       - porkos.porkboi.io
       - 127.0.0.1
-      - 10.3.0.5
+      - 10.3.0.6
     disablePodSecurityPolicy: true
     auditPolicy:
       apiVersion: audit.k8s.io/v1
