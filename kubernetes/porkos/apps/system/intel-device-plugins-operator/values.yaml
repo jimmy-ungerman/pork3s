@@ -1,0 +1,3 @@
+intel-device-plugins-operator:
+  controllerExtraArgs: |
+    - --devices=gpu
