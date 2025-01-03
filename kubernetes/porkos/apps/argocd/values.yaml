@@ -62,6 +62,7 @@ argo-cd:
       createSecret: false
 
   controller:
+    replicas: 2
     metrics:
       enabled: true
       serviceMonitor:
@@ -69,6 +70,7 @@ argo-cd:
 
   dex:
     enabled: true
+    replicas: 2
 
   externalRedis:
     # -- External Redis server host
@@ -78,6 +80,7 @@ argo-cd:
     enabled: false
 
   server:
+    replicas: 2
     metrics:
       enabled: true
       serviceMonitor:
@@ -175,30 +178,8 @@ argo-cd:
         enabled: true
 
   applicationSet:
+    replicas: 2
     metrics:
       enabled: true
       serviceMonitor:
         enabled: true
-
-  notifications:
-    enabled: true
-    argocdUrl: "https://argocd.porkboi.io"
-    metrics:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-    notifiers:
-      service.pushover: |
-        token: as77ior9ta9tehqi4ige3y7vdkiiv5
-    templates:
-      template.app-sync-succeeded: |
-        message: |
-          Application {{.app.metadata.name}} has been successfully synced at {{.app.status.operationState.finishedAt}}.
-          Sync operation details are available at: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true .
-    triggers:
-      trigger.on-deployed-github: |
-        - description: Application syncing has succeeded
-          oncePer: app.status.operationState.syncResult.revision
-          send:
-          - app-sync-succeeded
-          when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy' and app.status.sync.status == 'Synced'
