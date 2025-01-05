@@ -16,7 +16,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/onedr0p/sonarr-develop
-            tag: 4.0.11.2815
+            tag: 4.0.12.2825
           env:
             TZ: America/Boise
             SONARR__APP__INSTANCENAME: sonarr
