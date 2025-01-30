@@ -3,14 +3,13 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: immich-config
+  name: immich-configmap
   labels:
     app.kubernetes.io/name: immich
 data:
   DISABLE_REVERSE_GEOCODING: "true"
   ENABLE_MAPBOX: "false"
   LOG_LEVEL: verbose
-  NODE_ENV: production
   REDIS_HOSTNAME: dragonfly.database.svc.cluster.local
   REDIS_PORT: "6379"
   IMMICH_WEB_URL: http://immich-web.default.svc.cluster.local:3000
