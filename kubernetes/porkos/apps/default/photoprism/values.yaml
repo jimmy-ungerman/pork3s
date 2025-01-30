@@ -29,10 +29,15 @@ app-template:
 
   persistence:
     config:
+      existingClaim: photoprism
+      globalMounts:
+        - path: /photoprism/storage
+
+    originals:
       enabled: true
       type: custom
       globalMounts:
-      - path: /photoprism/storage
+      - path: /photoprism/originals
         readOnly: false
       volumeSpec:
         nfs:
