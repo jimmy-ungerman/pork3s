@@ -4,7 +4,7 @@
 <img src="https://user-images.githubusercontent.com/14128371/210153083-55fc62ad-72be-4600-be05-1e5535fedd5d.png" align="center" width="144px" height="144px"/>
 
 ## Pork3s
-The k3s cluster of Pork Chop
+The talos cluster of Pork Chop
 
 </div>
 
