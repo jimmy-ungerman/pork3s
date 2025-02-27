@@ -1,5 +1,5 @@
 apiVersion: v2
-name: photoprism
+name: immich
 version: 0.0.0
 dependencies:
   - name: app-template
