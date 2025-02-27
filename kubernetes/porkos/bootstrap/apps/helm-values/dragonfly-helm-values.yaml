@@ -13,6 +13,7 @@ extraArgs:
   - --proactor_threads=2
   - --cluster_mode=emulated
   - --lock_on_hashtags
+  - --default_lua_flags=allow-undeclared-keys
 
 topologySpreadConstraints:
   - maxSkew: 1
