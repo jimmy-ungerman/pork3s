@@ -8,7 +8,7 @@ spec:
   volumes:
     - name: attach-pv
       persistentVolumeClaim:
-        claimName: config-plex-0
+        claimName: plex
   containers:
   - image: ubuntu
     command:
