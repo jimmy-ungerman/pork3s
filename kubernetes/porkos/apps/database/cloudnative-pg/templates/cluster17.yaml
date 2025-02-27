@@ -9,7 +9,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "5"
 spec:
   instances: 3
-  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:17.2
+  imageName: docker.io/tensorchord/vchord-postgres:pg17-v0.2.1
   enableSuperuserAccess: true
   primaryUpdateStrategy: unsupervised
   storage:
@@ -40,7 +40,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://cnpg/
       endpointURL: https://fb30c9a83696a7cb166c3c13facf6454.r2.cloudflarestorage.com
-      serverName: &currentCluster postgres17-v11
+      serverName: &currentCluster postgres17-v12
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg
@@ -52,7 +52,7 @@ spec:
   # cluster when recovering from an existing cnpg cluster
   bootstrap:
     recovery:
-      source: &previousCluster postgres17-v9
+      source: &previousCluster postgres17-v11
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
   externalClusters:
     - name: *previousCluster
