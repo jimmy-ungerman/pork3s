@@ -5,7 +5,7 @@ app-template:
         app:
           image:
             repository: docker.io/photoprism/photoprism
-            tag: latest@sha256:eea41ec37cdd7b2579c44962075fdf6a88f64ffd5d073259bf96a7bd005bc3cc
+            tag: latest@sha256:3e638113c3f1378501796e0e62633a1f938847c513859a469532f68374432051
           env:
             PHOTOPRISM_STORAGE_PATH: /photoprism/storage
             PHOTOPRISM_ORIGINALS_PATH: /photoprism/originals
