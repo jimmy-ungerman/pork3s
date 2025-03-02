@@ -14,6 +14,5 @@ data:
   REDIS_HOSTNAME: dragonfly-immich.database.svc.cluster.local
   REDIS_PORT: "6379"
   DB_PORT: "5432"
-  IMMICH_SERVER_URL: http://immich.default.svc.cluster.local:2283
   PUBLIC_IMMICH_SERVER_URL: https://pics.porkboi.io
   IMMICH_MACHINE_LEARNING_ENABLED: "false"
