@@ -52,6 +52,10 @@ spec:
   # cluster when recovering from an existing cnpg cluster
   bootstrap:
     initdb:
+      database: immich
+      owner: immich
+      postInitApplicationSQL:
+        - CREATE EXTENSION IF NOT EXISTS vectors;
 
   #   recovery:
   #     source: postgres16-immich-v1
