@@ -56,11 +56,6 @@ spec:
       owner: immich
       postInitApplicationSQL:
         - ALTER USER immich WITH SUPERUSER;
-        # - ALTER DATABASE immch OWNER TO immich;
-        # - CREATE EXTENSION vectors;
-        # - CREATE EXTENSION earthdistance CASCADE;
-        # - ALTER DATABASE immich SET search_path TO "$user", public, vectors;
-        # - ALTER SCHEMA vectors OWNER TO immich;
   #   recovery:
   #     source: postgres16-immich-v1
   # # Note: externalClusters is needed when recovering from an existing cnpg cluster
