@@ -109,3 +109,11 @@ app-template:
       path: /mnt/earth/media
       globalMounts:
         - path: /media
+    scripts:
+      type: configMap
+      name: sonarr-configmap
+      defaultMode: 0775
+      globalMounts:
+        - path: /scripts/tba-refresher.sh
+          subPath: tba-refresher.sh
+          readOnly: true
