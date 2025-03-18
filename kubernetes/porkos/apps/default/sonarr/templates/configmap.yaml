@@ -4,4 +4,4 @@ metadata:
   name: sonarr-configmap
   namespace: {{ .Release.Namespace }}
 data:
-{{ (.Files.Glob "files/recyclarr.yml").AsConfig | indent 4 }}
+{{ (.Files.Glob "files/tbd-refresher.sh").AsConfig | indent 4 }}
