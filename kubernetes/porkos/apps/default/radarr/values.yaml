@@ -17,7 +17,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/home-operations/radarr
-            tag: 5.20.0.9777
+            tag: 5.20.2.9777
           env:
             TZ: America/Boise
             RADARR__APP__INSTANCENAME: Radarr
