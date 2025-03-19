@@ -5,3 +5,4 @@ metadata:
   namespace: {{ .Release.Namespace }}
 data:
 {{ (.Files.Glob "files/tba-refresher.sh").AsConfig | indent 4 }}
+{{ (.Files.Glob "files/pushover-notifier.sh").AsConfig | indent 4 }}
