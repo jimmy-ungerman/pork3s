@@ -117,3 +117,6 @@ app-template:
         - path: /scripts/tba-refresher.sh
           subPath: tba-refresher.sh
           readOnly: true
+        - path: /scripts/pushover-notifier.sh
+          subPath: pushover-notifier.sh
+          readOnly: true
