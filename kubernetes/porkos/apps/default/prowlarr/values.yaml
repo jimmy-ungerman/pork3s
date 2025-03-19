@@ -6,8 +6,8 @@ app-template:
       initContainers:
         init-db:
           image:
-            repository: ghcr.io/onedr0p/postgres-init
-            tag: 16.8
+            repository: ghcr.io/home-operations/postgres-init
+            tag: 17.4.0
             pullPolicy: IfNotPresent
           envFrom: &envFrom
             - secretRef:
@@ -15,8 +15,8 @@ app-template:
       containers:
         app:
           image:
-            repository: ghcr.io/onedr0p/prowlarr-develop
-            tag: 1.32.1.4983@sha256:2843eddba1d11bde19b733a9226b996775fcb39701ca0c6c1e746222ded35dc6
+            repository: ghcr.io/home-operations/prowlarr
+            tag: 1.32.2.4983
           env:
             TZ: America/Boise
             PROWLARR__APP__INSTANCENAME: Prowlarr

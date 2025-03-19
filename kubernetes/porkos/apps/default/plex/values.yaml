@@ -7,8 +7,8 @@ app-template:
       containers:
         app:
           image:
-            repository: ghcr.io/onedr0p/plex
-            tag: 1.41.5.9522-a96edc606@sha256:98a2883445f4901ec816b8dc4d684f94b4a6a21663cf6bde218f274a8c4ef289
+            repository: ghcr.io/home-operations/plex
+            tag: 1.41.5.9522
           env:
             TZ: America/Boise
           resources:

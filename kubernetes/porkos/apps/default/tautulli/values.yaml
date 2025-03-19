@@ -7,8 +7,8 @@ app-template:
       containers:
         app:
           image:
-            repository: ghcr.io/onedr0p/tautulli
-            tag: 2.15.1@sha256:74468ecce40f44c449675ec7fcb7c86ebff89961572d141ad743b8ccbdde3c98
+            repository: ghcr.io/home-operations/tautulli
+            tag: 2.15.1
           env:
             TZ: America/Boise
           resources:
