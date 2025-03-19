@@ -4,5 +4,5 @@ metadata:
   name: sonarr-configmap
   namespace: {{ .Release.Namespace }}
 data:
-{{ (.Files.Glob "files/tba-refresher.sh").AsConfig | indent 4 }}
-{{ (.Files.Glob "files/pushover-notifier.sh").AsConfig | indent 4 }}
+  tba-refresher.sh: {{ tpl (.Files.Get "files/tba-refresher.sh") . | indent 4 }}
+  pushover-notifier.sh: {{ tpl (.Files.Get "files/pushover-notifier.sh") . | indent 4 }}
