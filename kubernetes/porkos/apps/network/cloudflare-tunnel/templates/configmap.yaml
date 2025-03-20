@@ -1,10 +1,15 @@
----
-originRequest:
-  originServerName: external.porkboi.io
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: recyclarr-configmap
+  namespace: {{ .Release.Namespace }}
+data:
+  originRequest:
+    originServerName: external.porkboi.io
 
-ingress:
-  - hostname: porkboi.io
-    service: &svc https://ingress-nginx-controller.network.svc.cluster.local
-  - hostname: "*.porkboi.io"
-    service: *svc
-  - service: http_status:404
+  ingress:
+    - hostname: porkboi.io
+        service: &svc https://ingress-nginx-controller.network.svc.cluster.local
+    - hostname: "*.porkboi.io"
+        service: *svc
+    - service: http_status:404
