@@ -1,0 +1,10 @@
+---
+originRequest:
+  originServerName: external.porkboi.io
+
+ingress:
+  - hostname: porkboi.io
+    service: &svc https://ingress-nginx-controller.network.svc.cluster.local
+  - hostname: "*.porkboi.io"
+    service: *svc
+  - service: http_status:404
