@@ -33,7 +33,7 @@ app-template:
       fsGroupChangePolicy: OnRootMismatch
   service:
     app:
-      controller: home-assistant
+      controller: app
       ports:
         http:
           port: &port 8123
