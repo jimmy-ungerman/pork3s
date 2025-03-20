@@ -1,0 +1,88 @@
+app-template:
+  controllers:
+    home-assistant:
+      annotations:
+        reloader.stakater.com/auto: "true"
+      containers:
+        app:
+          image:
+            repository: ghcr.io/home-operations/home-assistant
+            tag: 2025.3.3@sha256:6a0f0a8f7eaebaf4751ddc0e90c4b931121adf4ac6f4e869d648d4cb996b7f70
+          env:
+            TZ: America/Boise
+            HASS_HTTP_TRUSTED_PROXY_1: 10.2.0.1/24
+            HASS_HTTP_TRUSTED_PROXY_2: 10.42.0.0/16
+          envFrom:
+            - secretRef:
+                name: home-assistant-secret
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+          resources:
+            requests:
+              cpu: 10m
+            limits:
+              memory: 2Gi
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+  service:
+    app:
+      controller: home-assistant
+      ports:
+        http:
+          port: &port 8123
+  ingress:
+    home-assistant:
+      enabled: true
+      className: nginx
+      annotations:
+        nginx.ingress.kubernetes.io/auth-url: |-
+            http://authentik-server.default.svc.cluster.local:80/outpost.goauthentik.io/auth/nginx        
+        nginx.ingress.kubernetes.io/auth-signin: |-
+            https://home.porkboi.io/outpost.goauthentik.io/start?rd=$scheme://$http_host$escaped_request_uri
+        nginx.ingress.kubernetes.io/auth-response-headers: |-
+            Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
+        nginx.ingress.kubernetes.io/auth-snippet: |
+            proxy_set_header X-Forwarded-Host $http_host;
+      hosts:
+        - host: &host "home.porkboi.io"
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: http
+            - path: /outpost.goauthentik.io
+              pathType: ImplementationSpecific
+              service:
+                name: authentik-server
+                port: 80
+      tls:
+        - hosts:
+            - *host
+  persistence:
+    config:
+      existingClaim: home-assistant
+      globalMounts:
+        - path: /config
+    config-cache:
+      existingClaim: home-assistant-cache
+      globalMounts:
+        - path: /config/.venv
+    config-logs:
+      type: emptyDir
+      globalMounts:
+        - path: /config/logs
+    config-tts:
+      type: emptyDir
+      globalMounts:
+        - path: /config/tts
+    tmp:
+      type: emptyDir
+      globalMounts:
+        - path: /tmp
