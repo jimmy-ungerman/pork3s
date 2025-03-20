@@ -1,15 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: recyclarr-configmap
+  name: cloudflare-tunnel-configmap
   namespace: {{ .Release.Namespace }}
 data:
-  originRequest:
-    originServerName: external.porkboi.io
-
-  ingress:
-    - hostname: porkboi.io
-      service: https://ingress-nginx-controller.network.svc.cluster.local
-    - hostname: "*.porkboi.io"
-      service: https://ingress-nginx-controller.network.svc.cluster.local
-    - service: http_status:404
+{{ (.Files.Glob "config/config.yaml").AsConfig | indent 2 }}
