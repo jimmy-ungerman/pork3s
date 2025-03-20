@@ -10,7 +10,7 @@ app-template:
             tag: 2025.3.3@sha256:6a0f0a8f7eaebaf4751ddc0e90c4b931121adf4ac6f4e869d648d4cb996b7f70
           env:
             TZ: America/Boise
-            HASS_HTTP_TRUSTED_PROXY_1: 10.2.0.1/24
+            HASS_HTTP_TRUSTED_PROXY_1: 10.2.0.0/24
             HASS_HTTP_TRUSTED_PROXY_2: 10.42.0.0/16
             HASS_HTTP_TRUSTED_PROXY_3: 10.244.0.0/16
           envFrom:
