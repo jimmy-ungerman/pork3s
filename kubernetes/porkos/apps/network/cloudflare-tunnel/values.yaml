@@ -1,4 +1,4 @@
-cloudflare-tunnel:
+app-template:
   controllers:
     cloudflare-tunnel:
       replicas: 2
