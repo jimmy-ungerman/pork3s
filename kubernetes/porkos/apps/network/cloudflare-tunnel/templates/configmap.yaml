@@ -9,7 +9,7 @@ data:
 
   ingress:
     - hostname: porkboi.io
-        service: &svc https://ingress-nginx-controller.network.svc.cluster.local
+      service: https://ingress-nginx-controller.network.svc.cluster.local
     - hostname: "*.porkboi.io"
-        service: *svc
+      service: https://ingress-nginx-controller.network.svc.cluster.local
     - service: http_status:404
