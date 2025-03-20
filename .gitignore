@@ -18,3 +18,4 @@ talosconfig
 Chart.lock
 .infisical.json
 helmfile.lock
+cloudflare-tunnel.json
