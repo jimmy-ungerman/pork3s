@@ -25,7 +25,7 @@ app-template:
           runAsGroup: 1000
           fsGroup: 1000
           fsGroupChangePolicy: OnRootMismatch
-          supplementalGroups: [44, 105, 10000]
+          supplementalGroups: [44]
   service:
     app:
       controller: main
