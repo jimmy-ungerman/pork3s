@@ -1,9 +1,0 @@
-originRequest:
-  originServerName: external.porkboi.io
-
-ingress:
-  - hostname: porkboi.io
-    service: https://ingress-nginx-controller.network.svc.cluster.local
-  - hostname: "*.porkboi.io"
-    service: https://ingress-nginx-controller.network.svc.cluster.local
-  - service: http_status:404
