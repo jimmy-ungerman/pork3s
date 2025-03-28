@@ -25,6 +25,15 @@ app-template:
               cpu: 10m
             limits:
               memory: 2Gi
+        matter-server:
+          image:
+            repository: ghcr.io/home-assistant-libs/python-matter-server
+            tag: 7.0.1@sha256:828c1cd3f957bb0287a099a439505457a25f5d65ed34281acf19cfbf537fe346
+          env:
+            TZ: America/Boise
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
   defaultPodOptions:
     securityContext:
       runAsNonRoot: true
@@ -73,3 +82,10 @@ app-template:
       type: emptyDir
       globalMounts:
         - path: /tmp
+    matter-server-config:
+      enabled: true
+      existingClaim: matter-server-config
+      advancedMounts:
+        app:
+          matter-server:
+            - path: /data
