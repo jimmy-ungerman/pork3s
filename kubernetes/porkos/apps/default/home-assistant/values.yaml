@@ -7,7 +7,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/home-operations/home-assistant
-            tag: 2025.4.0@sha256:1b6ee3846f0dec0b211701bf60e72955b78493a41f58aab1d584e9f563e8a41d
+            tag: 2025.4.2@sha256:ec6ee6987362b869c8d1fcfa9aa85a86cf1ba8cb4716a53d4dc9d30eb41b1a3e
           env:
             TZ: America/Boise
             HASS_HTTP_TRUSTED_PROXY_1: 10.2.0.0/24
