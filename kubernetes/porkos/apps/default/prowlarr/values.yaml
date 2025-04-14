@@ -16,7 +16,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/home-operations/prowlarr
-            tag: 1.33.1.4997
+            tag: 1.34.0.5016
           env:
             TZ: America/Boise
             PROWLARR__APP__INSTANCENAME: Prowlarr
