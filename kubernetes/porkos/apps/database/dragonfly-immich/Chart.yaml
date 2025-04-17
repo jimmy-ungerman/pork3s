@@ -3,5 +3,5 @@ name: dragonfly-immich
 version: 0.0.0
 dependencies:
   - name: dragonfly
-    version: v1.28.1
+    version: v1.28.2
     repository: "oci://ghcr.io/dragonflydb/dragonfly/helm"
