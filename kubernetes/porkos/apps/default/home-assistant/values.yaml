@@ -31,6 +31,11 @@ app-template:
             tag: 7.1.0b0@sha256:01173ed2d5eccb74622092fdbbca56e855456c2d62cb79c47de8c934c5aa8dd3
           env:
             TZ: America/Boise
+          args:
+            - --storage-path=/data
+            - --paa-root-cert-dir=/data/paa-root-cert
+            - --primary-interface=eth0
+            - --log-level=debug
           securityContext:
             runAsUser: 0
             runAsGroup: 0
