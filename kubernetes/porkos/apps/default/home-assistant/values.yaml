@@ -31,6 +31,8 @@ app-template:
             tag: 7.1.0b0@sha256:01173ed2d5eccb74622092fdbbca56e855456c2d62cb79c47de8c934c5aa8dd3
           env:
             TZ: America/Boise
+            MATTER_SERVER__INSTANCE_NAME: matter-server
+            MATTER_SERVER__PORT: 5580
           args:
             - --storage-path=/data
             - --paa-root-cert-dir=/data/paa-root-cert
@@ -51,6 +53,8 @@ app-template:
       ports:
         http:
           port: &port 8123
+        matter-server:
+          port: 5580
   ingress:
     app:
       enabled: true
