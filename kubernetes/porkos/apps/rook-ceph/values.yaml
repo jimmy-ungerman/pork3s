@@ -1,4 +1,6 @@
 operator:
+  image:
+    tag: v1.17.0
   csi:
     enableVolumeGroupSnapshot: false # TODO: enable this when v1beta1 CRDs are available
     cephFSKernelMountOptions: ms_mode=prefer-crc
