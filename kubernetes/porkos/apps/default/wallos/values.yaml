@@ -7,7 +7,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/ellite/wallos
-            tag: 2.51.0@sha256:318abce4939736b079500ef5e2ddf93a9fced38dd464563abd2f6437f85ee36e
+            tag: 2.52.0@sha256:fe34f19e958fc486767d2e998a6bc4f37ba81609d3dc0540d98b9ebc05fa1c3c
           env:
             TZ: America/Boise
           securityContext:
