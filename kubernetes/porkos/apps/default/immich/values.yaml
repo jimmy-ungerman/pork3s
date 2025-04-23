@@ -32,7 +32,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/immich-app/immich-server
-            tag: v1.132.0
+            tag: v1.132.1
           envFrom: *envFrom
           resources:
             requests:
