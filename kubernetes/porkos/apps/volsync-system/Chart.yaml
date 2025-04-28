@@ -1,0 +1,7 @@
+apiVersion: v2
+name: volsync-system
+version: 0.0.0
+dependencies:
+  - name: volsync
+    version: 0.12.1
+    repository: oci://ghcr.io/home-operations/charts-mirror/volsync
