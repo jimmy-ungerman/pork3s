@@ -14,7 +14,8 @@ app-template:
           args: [
             "--zone-name", "porkboi.io",
             "--record-name", "porkboi.io",
-            "--provider", "random"
+            "--provider", "random",
+            "--create-missing, "true"
           ]
           probes:
             liveness:
