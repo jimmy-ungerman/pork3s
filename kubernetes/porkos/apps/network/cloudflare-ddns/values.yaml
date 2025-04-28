@@ -7,7 +7,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/larivierec/cloudflare-ddns
-            tag: main@sha256:101ed54ef25552920f9e21948c38b5e00972c8b23c7b7d60557bf2481e759a82
+            tag: v1.0.9@sha256:9f3c9939c08499ffd46c7f1cf8f21200792063f129b774d31361c2df3cd8fcdf
           envFrom:
             - secretRef:
                 name: cloudflare-ddns-secret
