@@ -14,7 +14,7 @@ app-template:
           args: [
             "--zone-name", "porkboi.io",
             "--record-name", "porkboi.io",
-            "--provider", "icanhazip"
+            "--provider", "random"
           ]
           probes:
             liveness:
