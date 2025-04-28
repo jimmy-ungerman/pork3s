@@ -15,7 +15,7 @@ app-template:
             "--zone-name", "porkboi.io",
             "--record-name", "porkboi.io",
             "--provider", "random",
-            "--create-missing, "true"
+            "--create-missing", "true"
           ]
           probes:
             liveness:
