@@ -1,0 +1,12 @@
+machine:
+  network:
+    hostname: sokka
+    interfaces:
+      - addresses:
+          - 10.3.0.4/24
+  disks:
+    - device: /dev/disk/by-id/nvme-Corsair_MP600_MICRO_A828B44200BNF6
+      partitions:
+        - mountpoint: /var/mnt/extra
+  install:
+    image: factory.talos.dev/installer/90a4e766e48276979654396e9862e2aa8fe586e220fd29df96968c4dc18487a6:{{ ENV.TALOS_VERSION }}

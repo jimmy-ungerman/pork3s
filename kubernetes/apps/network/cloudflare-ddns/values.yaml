@@ -1,0 +1,64 @@
+app-template:
+  controllers:
+    cloudflare-ddns:
+      annotations:
+        reloader.stakater.com/auto: "true"
+      containers:
+        app:
+          image:
+            repository: ghcr.io/larivierec/cloudflare-ddns
+            tag: v1.0.9@sha256:9f3c9939c08499ffd46c7f1cf8f21200792063f129b774d31361c2df3cd8fcdf
+          envFrom:
+            - secretRef:
+                name: cloudflare-ddns-secret
+          args: [
+            "--zone-name", "porkboi.io",
+            "--record-name", "porkboi.io",
+            "--provider", "random",
+            "--create-missing", "true"
+          ]
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /health/alive
+                  port: &port 8080
+            readiness:
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /health/ready
+                  port: *port
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+          resources:
+            requests:
+              cpu: 10m
+            limits:
+              memory: 128Mi
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      seccompProfile: { type: RuntimeDefault }
+  service:
+    app:
+      controller: &app cloudflare-ddns
+      ports:
+        http:
+          port: *port
+  serviceMonitor:
+    app:
+      serviceName: *app
+      endpoints:
+        - port: http
+          scheme: http
+          path: /metrics
+          interval: 1m
+          scrapeTimeout: 10s
