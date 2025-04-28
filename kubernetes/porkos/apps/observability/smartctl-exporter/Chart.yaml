@@ -3,6 +3,6 @@ name: smartctl-explorer
 version: 0.0.0
 dependencies:
   - name: prometheus-smartctl-exporter
-    version: 0.14.0
+    version: 0.15.1
     repository: https://prometheus-community.github.io/helm-charts
 
