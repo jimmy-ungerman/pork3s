@@ -1,16 +1,23 @@
 app-template:
   controllers:
     main:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
+      type: cronjob
+      cronjob:
+        schedule: 0 0 * * *
+        backoffLimit: 0
+        concurrencyPolicy: Forbid
+        successfulJobsHistory: 1
+        failedJobsHistory: 1
+        ttlSecondsAfterFinished: 86400
       containers:
         app:
           image:
             repository: ghcr.io/recyclarr/recyclarr
-            tag: 7.4.1
+            tag: 7.4.1@sha256:759540877f95453eca8a26c1a93593e783a7a824c324fbd57523deffb67f48e1
           env:
             TZ: America/Boise
+          args:
+            - sync
           envFrom:
             - secretRef:
                 name: radarr-secret
@@ -19,29 +26,26 @@ app-template:
           resources:
             requests:
               cpu: 10m
-              memory: 64M
             limits:
               memory: 128M
-
-      pod:
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
-          fsGroup: 1000
-          fsGroupChangePolicy: OnRootMismatch
-      statefulset:
-        volumeClaimTemplates:
-          - name: config
-            accessMode: ReadWriteOnce
-            size: 1Gi
-            storageClass: rook-ceph-block
-            globalMounts:
-              - path: /config
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
   service:
     app:
       controller: main
       enabled: false
   persistence:
+    config:
+      existingClaim: recyclarr
     config-file:
       type: configMap
       name: recyclarr-configmap
@@ -49,3 +53,13 @@ app-template:
         - path: /config/recyclarr.yml
           subPath: recyclarr.yml
           readOnly: true
+    config-logs:
+      type: emptyDir
+      globalMounts:
+        - path: /config/logs
+    config-repositories:
+      type: emptyDir
+      globalMounts:
+        - path: /config/repositories
+    tmp:
+      type: emptyDir
