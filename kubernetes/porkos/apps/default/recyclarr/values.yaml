@@ -14,8 +14,6 @@ app-template:
           envFrom:
             - secretRef:
                 name: radarr-secret
-            # - secretRef:
-            #     name: radarr4k-secret
             - secretRef:
                 name: sonarr-secret
           resources:
