@@ -16,7 +16,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/home-operations/prowlarr
-            tag: 1.34.1.5021
+            tag: 1.34.1.5021@sha256:8194af3c8a4fa4e6605d51c6ace4b8a40e199897a1dbf6f770c2a05970a8ba87
           env:
             TZ: America/Boise
             PROWLARR__APP__INSTANCENAME: Prowlarr
@@ -41,21 +41,23 @@ app-template:
                 timeoutSeconds: 1
                 failureThreshold: 3
             readiness: *probes
-            startup:
-              enabled: false
           resources:
             requests:
               cpu: 10m
               memory: 128M
             limits:
               memory: 1Gi
-      pod:
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
-          fsGroup: 1000
-          fsGroupChangePolicy: OnRootMismatch
-      
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
   service:
     app:
       controller: main
@@ -94,3 +96,5 @@ app-template:
   persistence:
     config:
       existingClaim: prowlarr
+    tmp:
+      type: emptyDir
