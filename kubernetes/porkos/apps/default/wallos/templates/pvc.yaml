@@ -4,8 +4,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: wallos
 spec:
-  accessModes: ["ReadWriteMany"]
+  accessModes: ["ReadWriteOnce"]
   resources:
     requests:
-      storage: 5Gi
-  storageClassName: rook-ceph-filesystem
+      storage: 1Gi
+  storageClassName: rook-ceph-block
