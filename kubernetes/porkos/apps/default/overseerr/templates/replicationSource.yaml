@@ -5,7 +5,7 @@ kind: ReplicationSource
 metadata:
   name: "overseerr-r2"
 spec:
-  sourcePVC: "config-overseerr-0"
+  sourcePVC: "overseerr"
   trigger:
     schedule: "30 0 * * *"
   restic:
