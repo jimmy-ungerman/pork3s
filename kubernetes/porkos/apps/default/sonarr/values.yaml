@@ -3,15 +3,6 @@ app-template:
     main:
       annotations:
         reloader.stakater.com/auto: "true"
-      initContainers:
-        init-db:
-          image:
-            repository: ghcr.io/home-operations/postgres-init
-            tag: 17.4.0
-            pullPolicy: IfNotPresent
-          envFrom: &envFrom
-            - secretRef:
-                name: sonarr-secret
       containers:
         app:
           image:
@@ -21,14 +12,15 @@ app-template:
             TZ: America/Boise
             SONARR__APP__INSTANCENAME: sonarr
             SONARR__APP__THEME: dark
+            SONARR__AUTH__METHOD: External
             SONARR__SERVER__PORT: &port 80
             SONARR__LOG_LEVEL: info
-            SONARR__AUTH__METHOD: External
             SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
             SONARR__LOG__DBENABLED: "False"
             SONARR__UPDATE__BRANCH: develop
-          envFrom: *envFrom  
-
+          envFrom:
+            - secretRef:
+                name: sonarr-secret  
           resources:
             requests:
               cpu: 10m
@@ -109,14 +101,3 @@ app-template:
       path: /mnt/earth/media
       globalMounts:
         - path: /media
-    scripts:
-      type: configMap
-      name: sonarr-configmap
-      defaultMode: 0775
-      globalMounts:
-        - path: /scripts/tba-refresher.sh
-          subPath: tba-refresher.sh
-          readOnly: true
-        - path: /scripts/pushover-notifier.sh
-          subPath: pushover-notifier.sh
-          readOnly: true
