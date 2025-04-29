@@ -113,7 +113,7 @@ rook-ceph-cluster:
           memory: "1Gi"
   cephBlockPoolsVolumeSnapshotClass:
     enabled: true
-    name: csi-ceph-blockpool
+    name: csi-replicapool
     isDefault: false
     deletionPolicy: Delete
   cephBlockPools:
