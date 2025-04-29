@@ -15,7 +15,7 @@ spec:
     volumeSnapshotClassName: "csi-replicapool"
     cacheCapacity: "15Gi"
     cacheStorageClassName: "rook-ceph-block"
-    cacheAccessModes: ["ReadWriteOnce}"]
+    cacheAccessModes: ["ReadWriteOnce"]
     storageClassName: "rook-ceph-block"
     accessModes: ["ReadWriteOnce}"]
     moverSecurityContext:
