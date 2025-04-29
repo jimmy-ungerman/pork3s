@@ -1,16 +1,6 @@
 grafana:
   deploymentStrategy:
     type: Recreate
-  extraInitContainers:
-    - name: 01-init-db
-      image: ghcr.io/home-operations/postgres-init:17.4.0
-      imagePullPolicy: IfNotPresent
-      envFrom:
-        - secretRef:
-            name: &secret grafana-secret
-
-  replicas: 2
-
   env:
     GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
     GF_AUTH_GENERIC_OAUTH_NAME: "authentik"
@@ -29,7 +19,7 @@ grafana:
     GF_SECURITY_COOKIE_SAMESITE: grafana
     GF_SERVER_ROOT_URL: https://grafana.porkboi.io
   envFromSecrets:
-    - name: *secret
+    - name: grafana-secret
   grafana.ini:
     analytics:
       check_for_updates: false
