@@ -1,14 +1,13 @@
 app-template:
   controllers:
     main:
-      type: statefulset
       annotations:
         reloader.stakater.com/auto: "true"
       containers:
         app:
           image:
             repository: ghcr.io/home-operations/sabnzbd
-            tag: 4.5.1
+            tag: 4.5.1@sha256:4f2e137aea235fc4c42b7da6b9ef86439043b2dad93cc84b80186c60c405ea57
           env:
             TZ: America/Boise
             SABNZBD__PORT: &port 80
@@ -32,13 +31,22 @@ app-template:
                 timeoutSeconds: 1
                 failureThreshold: 3
             readiness: *probes
-      pod:
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
-          fsGroup: 1000
-          fsGroupChangePolicy: OnRootMismatch
-          supplementalGroups: [10000]
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+          resources:
+            requests:
+              cpu: 100m
+            limits:
+              memory: 12Gi
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
   service:
     app:
       controller: main
