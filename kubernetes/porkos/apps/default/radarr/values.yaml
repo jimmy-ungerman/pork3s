@@ -4,20 +4,11 @@ app-template:
     main:
       annotations:
         reloader.stakater.com/auto: "true"
-      initContainers:
-        init-db:
-          image:
-            repository: ghcr.io/home-operations/postgres-init
-            tag: 17.4.0
-            pullPolicy: IfNotPresent
-          envFrom: &envFrom
-            - secretRef:
-                name: radarr-secret
       containers:
         app:
           image:
             repository: ghcr.io/home-operations/radarr
-            tag: 5.23.0.9907
+            tag: 5.23.0.9907@sha256:36cd279903d97e74fc687c937d6a5693a6fb69a01787203795b17ab66fb0e3e9
           env:
             TZ: America/Boise
             RADARR__APP__INSTANCENAME: Radarr
@@ -28,7 +19,9 @@ app-template:
             RADARR__LOG__LEVEL: debug
             RADARR__LOG__DBENABLED: "False"
             RADARR__UPDATE__BRANCH: develop
-          envFrom: *envFrom
+          envFrom:
+            - secretRef:
+                name: radarr-secret
           resources:
             requests:
               cpu: 10m
@@ -48,15 +41,17 @@ app-template:
                 timeoutSeconds: 1
                 failureThreshold: 3
             readiness: *probes
-            startup:
-              enabled: false
-      pod:
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
-          fsGroup: 1000
-          fsGroupChangePolicy: OnRootMismatch
-          supplementalGroups: [10000]
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
   service:
     app:
       controller: main
@@ -108,11 +103,3 @@ app-template:
       path: /mnt/earth/media
       globalMounts:
         - path: /media
-    scripts:
-      type: configMap
-      name: radarr-configmap
-      defaultMode: 0775
-      globalMounts:
-        - path: /scripts/pushover-notifier.sh
-          subPath: pushover-notifier.sh
-          readOnly: true
