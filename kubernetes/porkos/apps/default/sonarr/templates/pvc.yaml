@@ -18,5 +18,5 @@ spec:
   accessModes: ["ReadWriteMany"]
   resources:
     requests:
-      storage: 15Gi
-  storageClassName: rook-ceph-filesystem
+      storage: 5Gi
+  storageClassName: rook-ceph-block
