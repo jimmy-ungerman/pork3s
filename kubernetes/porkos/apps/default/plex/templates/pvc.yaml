@@ -15,8 +15,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: plex
 spec:
-  accessModes: ["ReadWriteMany"]
+  accessModes: ["ReadWriteOnce"]
   resources:
     requests:
       storage: 50Gi
-  storageClassName: rook-ceph-filesystem
+  storageClassName: rook-ceph-block

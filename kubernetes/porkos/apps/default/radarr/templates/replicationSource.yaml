@@ -13,7 +13,7 @@ spec:
     pruneIntervalDays: 14
     repository: "radarr-restic-secret"
     volumeSnapshotClassName: "csi-replicapool"
-    cacheCapacity: "15Gi"
+    cacheCapacity: "2Gi"
     cacheStorageClassName: "rook-ceph-block"
     cacheAccessModes: ["ReadWriteOnce"]
     storageClassName: "rook-ceph-block"
