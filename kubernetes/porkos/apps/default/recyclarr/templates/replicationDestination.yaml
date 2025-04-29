@@ -16,7 +16,7 @@ spec:
     cacheCapacity: "2Gi"
     storageClassName: "rook-ceph-block"
     accessModes: ["ReadWriteOnce"]
-    capacity: "5Gi"
+    capacity: "1Gi"
     moverSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
