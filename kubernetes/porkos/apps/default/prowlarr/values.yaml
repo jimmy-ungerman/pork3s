@@ -18,7 +18,9 @@ app-template:
             PROWLARR__LOG__LEVEL: info
             PROWLARR__SERVER__PORT: &port 80
             PROWLARR__UPDATE__BRANCH: develop
-          envFrom: *envFrom
+          envFrom:
+            - secretRef:
+                name: prowlarr-secret
           probes:
             liveness: &probes
               enabled: true
