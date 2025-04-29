@@ -17,7 +17,7 @@ spec:
     cacheStorageClassName: "rook-ceph-block"
     cacheAccessModes: ["ReadWriteOnce"]
     storageClassName: "rook-ceph-block"
-    accessModes: ["ReadWriteOnce}"]
+    accessModes: ["ReadWriteOnce"]
     moverSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
