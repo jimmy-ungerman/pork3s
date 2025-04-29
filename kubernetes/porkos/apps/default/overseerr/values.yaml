@@ -1,38 +1,46 @@
 app-template:
   controllers:
     main:
-      type: statefulset
       annotations:
         reloader.stakater.com/auto: "true"
       containers:
         app:
           image:
             repository: ghcr.io/sct/overseerr
-            tag: 1.34.0
+            tag: 1.34.0@sha256:4f38f58d68555004d3f487a4c5cbe2823e6a0942d946a25a2d9391d8492240a4
           env:
             TZ: America/Boise
             LOG_LEVEL: "info"
             PORT: &port 80
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /api/v1/status
+                  port: *port
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 1
+                failureThreshold: 3
+            readiness: *probes
           resources:
             requests:
-              cpu: 100m
-              memory: 256Mi
+              cpu: 10m
             limits:
               memory: 2Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
       pod:
         securityContext:
           runAsUser: 1000
           runAsGroup: 1000
           fsGroup: 1000
           fsGroupChangePolicy: OnRootMismatch
-      statefulset:
-        volumeClaimTemplates:
-          - name: config
-            accessMode: ReadWriteOnce
-            size: 5Gi
-            storageClass: rook-ceph-block
-            globalMounts:
-              - path: /app/config
+          runAsNonRoot: true
   service:
     app:
       controller: main
@@ -53,3 +61,18 @@ app-template:
       tls:
         - hosts:
             - *host
+  persistence:
+    config:
+      existingClaim: overseerr
+      globalMounts:
+        - path: /app/config
+    config-cache:
+      existingClaim: overseerr-cache
+      globalMounts:
+        - path: /app/config/cache
+    config-logs:
+      type: emptyDir
+      globalMounts:
+        - path: /app/config/logs
+    tmp:
+      type: emptyDir

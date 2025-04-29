@@ -13,3 +13,14 @@ spec:
     requests:
       storage: "5Gi"
   storageClassName: "rook-ceph-block"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: overseerr-cache
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: rook-ceph-block
