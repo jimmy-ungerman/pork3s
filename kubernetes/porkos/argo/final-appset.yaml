@@ -18,6 +18,7 @@ spec:
           - path: kubernetes/porkos/apps/kube-system/*
           - path: kubernetes/porkos/apps/observability/*
           - path: kubernetes/porkos/apps/system/*
+          - path: kubernetes/porkos/apps/volsync-system
   template:
     metadata:
       name: '{{.path.basename}}'
