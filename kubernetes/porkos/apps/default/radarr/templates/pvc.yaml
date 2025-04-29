@@ -5,7 +5,7 @@ metadata:
   name: radarr
   namespace: {{ .Release.Namespace }}
 spec:
-  accessModes: ["ReadWriteMany"]
+  accessModes: ["ReadWriteOnce"]
   resources:
     requests:
       storage: 5Gi
