@@ -1,42 +1,52 @@
 app-template:
   controllers:
     main:
-      type: statefulset
       annotations:
         reloader.stakater.com/auto: "true"
       containers:
         app:
           image:
             repository: ghcr.io/home-operations/tautulli
-            tag: 2.15.2
+            tag: 2.15.2@sha256:882f5b2a89e3da25716af3f3a293bf93a0111056548e37a55c918cf7789bbb78
           env:
             TZ: America/Boise
+            TAUTULLI__PORT: &port 80
           resources:
             requests:
               cpu: 100m
               memory: 128Mi
             limits:
               memory: 512Mi
-      pod:
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
-          fsGroup: 1000
-          fsGroupChangePolicy: OnRootMismatch
-      statefulset:
-        volumeClaimTemplates:
-          - name: config
-            accessMode: ReadWriteOnce
-            size: 5Gi
-            storageClass: rook-ceph-block
-            globalMounts:
-              - path: /config
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /status
+                  port: *port
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 1
+                failureThreshold: 3
+            readiness: *probes
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
   service:
     app:
       controller: main
       ports:
         http:
-          port: 8181
+          port: *port
   ingress:
     app:
       enabled: true
@@ -51,3 +61,16 @@ app-template:
       tls:
         - hosts:
             - *host
+  persistence:
+    config:
+      existingClaim: tautulli
+    config-cache:
+      existingClaim: tautulli-cache
+      globalMounts:
+        - path: /config/cache
+    config-logs:
+      type: emptyDir
+      globalMounts:
+        - path: /config/logs
+    tmp:
+      type: emptyDir
