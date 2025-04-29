@@ -1,0 +1,26 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: "sonarr-r2"
+spec:
+  sourcePVC: "sonarr"
+  trigger:
+    schedule: "30 0 * * *"
+  restic:
+    copyMethod: "Snapshot"
+    pruneIntervalDays: 14
+    repository: "sonarr-restic-secret"
+    volumeSnapshotClassName: "csi-replicapool"
+    cacheCapacity: "15Gi"
+    cacheStorageClassName: "rook-ceph-block"
+    cacheAccessModes: ["ReadWriteOnce"]
+    storageClassName: "rook-ceph-block"
+    accessModes: ["ReadWriteOnce"]
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    retain:
+      daily: 7
