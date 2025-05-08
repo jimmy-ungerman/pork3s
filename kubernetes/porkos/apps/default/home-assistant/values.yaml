@@ -28,7 +28,7 @@ app-template:
         matter-server:
           image:
             repository: ghcr.io/home-assistant-libs/python-matter-server
-            tag: 7.1.0b0@sha256:01173ed2d5eccb74622092fdbbca56e855456c2d62cb79c47de8c934c5aa8dd3
+            tag: 7.1.0b1@sha256:3d73f0a21cd50c3ab3061716e8b8e4028e4c067041ddfd86e83fa12e2e6dea2f
           env:
             TZ: America/Boise
             MATTER_SERVER__INSTANCE_NAME: matter-server
