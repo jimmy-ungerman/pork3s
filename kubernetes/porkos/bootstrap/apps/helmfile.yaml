@@ -38,7 +38,7 @@ releases:
     namespace: database
     createNamespace: true
     chart: oci://ghcr.io/dragonflydb/dragonfly/helm/dragonfly
-    version: v1.29.0
+    version: v1.30.0
     values: ["helm-values/dragonfly-helm-values.yaml"]
     needs: ["kube-system/cilium"]
 
