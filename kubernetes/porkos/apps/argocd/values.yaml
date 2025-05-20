@@ -11,6 +11,7 @@ argo-cd:
       url: "https://argocd.porkboi.io"
       exec.enabled: true
       admin.enabled: false
+      redis.compression: none
       kustomize.buildOptions: --enable-alpha-plugins --enable-exec
       dex.config: |
         connectors:
@@ -52,6 +53,7 @@ argo-cd:
     params:
       server.insecure: true
       controller.diff.server.side: true
+      redis.compression: none
     rbac:
       policy.csv: |
         p, role:admin, exec, create, */*, allow
