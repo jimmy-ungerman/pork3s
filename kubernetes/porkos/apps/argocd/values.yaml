@@ -36,6 +36,7 @@ argo-cd:
       resource.customizations.ignoreDifferences.external-secrets.io_ExternalSecret: |
         jqPathExpressions:
           - '.spec.dataFrom[]?.find.conversionStrategy'
+          - '.metadata.labels'
           - '.spec.dataFrom[]?.find.decodingStrategy'
           - '.spec.data[]?.remoteRef.decodingStrategy'
           - '.spec.data[]?.remoteRef.conversionStrategy'
