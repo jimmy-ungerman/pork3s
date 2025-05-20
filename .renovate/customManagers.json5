@@ -4,9 +4,9 @@
     {
       "customType": "regex",
       "description": ["Process annotated dependencies"],
-      "fileMatch": [
-        "(^|/).+\\.env$",
-        "(^|/).+\\.ya?ml(?:\\.j2)?$"
+      "managerFilePatterns": [
+        "(^|/).+\\.env$/",
+        "/(^|/).+\\.ya?ml(?:\\.j2)?$/"
       ],
       "matchStrings": [
         "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?\\n.+(:\\s|=)(&\\S+\\s)?(?<currentValue>\\S+)",
