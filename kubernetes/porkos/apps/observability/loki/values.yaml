@@ -48,6 +48,7 @@ loki:
       storageClass: rook-ceph-block
       size: 50Gi
   gateway:
+    enabled: false
     replicas: 0
   backend:
     replicas: 0
