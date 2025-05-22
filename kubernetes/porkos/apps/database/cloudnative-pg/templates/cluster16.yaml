@@ -22,7 +22,7 @@ spec:
         max_connections: "600"
         shared_buffers: 512MB
       shared_preload_libraries:
-        - "vchord.so"
+        - "vectors.so"
   resources:
     requests:
       cpu: 500m
