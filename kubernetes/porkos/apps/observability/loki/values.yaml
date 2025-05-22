@@ -37,6 +37,7 @@ loki:
         rule_path: /rules/fake
     limits_config:
       retention_period: 14d
+      ingestion_rate_strategy: local
   singleBinary:
     replicas: 1
     persistence:
