@@ -38,6 +38,7 @@ loki:
     limits_config:
       retention_period: 14d
       ingestion_rate_strategy: local
+      per_stream_rate_limit: 100MB
   singleBinary:
     replicas: 1
     persistence:
