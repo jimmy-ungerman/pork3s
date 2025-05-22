@@ -12,6 +12,8 @@ loki:
       working_directory: /var/loki/compactor/retention
       delete_request_store: filesystem
       retention_enabled: true
+    image:
+      tag: 3.4.0
     ingester:
       chunk_encoding: snappy
     storage:
