@@ -9,7 +9,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "5"
 spec:
   instances: 3
-  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.9
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.9
   enableSuperuserAccess: true
   primaryUpdateStrategy: unsupervised
   storage:
@@ -22,7 +22,7 @@ spec:
         max_connections: "600"
         shared_buffers: 512MB
       shared_preload_libraries:
-        - "vectors.so"
+        - "vchord.so"
   resources:
     requests:
       cpu: 500m
