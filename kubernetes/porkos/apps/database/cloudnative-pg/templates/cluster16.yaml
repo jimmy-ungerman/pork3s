@@ -51,11 +51,6 @@ spec:
   # Note: previousCluster needs to be set to the name of the previous
   # cluster when recovering from an existing cnpg cluster
   bootstrap:
-    initdb:
-      database: immich
-      owner: immich
-      postInitApplicationSQL:
-        - ALTER USER immich WITH SUPERUSER;
     recovery:
       source: &previousCluster postgres16-immich-v1
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
