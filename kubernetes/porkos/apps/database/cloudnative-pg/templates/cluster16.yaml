@@ -9,7 +9,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "5"
 spec:
   instances: 3
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16
+  imageName: ghcr.io/immich-app/postgres:16-vectorchord0.3.0-pgvector0.8.0
   enableSuperuserAccess: true
   primaryUpdateStrategy: unsupervised
   storage:
@@ -22,6 +22,7 @@ spec:
         max_connections: "600"
         shared_buffers: 512MB
       shared_preload_libraries:
+        - "vectors.so"
         - "vchord.so"
   resources:
     requests:
