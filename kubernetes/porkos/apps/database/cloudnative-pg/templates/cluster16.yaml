@@ -40,7 +40,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://cnpg/
       endpointURL: https://fb30c9a83696a7cb166c3c13facf6454.r2.cloudflarestorage.com
-      serverName: &currentCluster postgres16-immich-v1
+      serverName: &currentCluster postgres16-immich-v2
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg
@@ -56,11 +56,11 @@ spec:
       owner: immich
       postInitApplicationSQL:
         - ALTER USER immich WITH SUPERUSER;
-  #   recovery:
-  #     source: postgres16-immich-v1
-  # # Note: externalClusters is needed when recovering from an existing cnpg cluster
-  # externalClusters:
-  #   - name: *previousCluster
-  #     barmanObjectStore:
-  #       <<: *barmanObjectStore
-  #       serverName: *previousCluster
+    recovery:
+      source: postgres16-immich-v1
+  # Note: externalClusters is needed when recovering from an existing cnpg cluster
+  externalClusters:
+    - name: *previousCluster
+      barmanObjectStore:
+        <<: *barmanObjectStore
+        serverName: *previousCluster
