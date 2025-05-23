@@ -9,7 +9,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "5"
 spec:
   instances: 3
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.9
   enableSuperuserAccess: true
   primaryUpdateStrategy: unsupervised
   storage:
