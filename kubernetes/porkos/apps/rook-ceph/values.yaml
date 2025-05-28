@@ -133,8 +133,6 @@ rook-ceph-cluster:
         isDefault: true
         reclaimPolicy: Delete
         allowVolumeExpansion: true
-        volumeBindingMode: Immediate
-        mountOptions: ["discard"]
         parameters:
           compression_mode: aggressive
           compression_algorithm: zstd
