@@ -31,18 +31,21 @@ rook-ceph-cluster:
       host:
         name: "rook.porkboi.io"
         path: "/"
-  configOverride: |
-    [global]
-    bdev_enable_discard = true
-    bdev_async_discard = true
-    osd_class_update_on_start = false
   cephClusterSpec:
+    global:
+      bdev_enable_discard: "true" # quote
+      bdev_async_discard_threads: "1" # quote
+      osd_class_update_on_start: "false" # quote
+      device_failure_prediction_mode: local # requires mgr module
     network:
       provider: host
       connections:
         requireMsgr2: true
     crashCollector:
       disable: false
+    csi:
+      readAffinity:
+        enabled: true
     dashboard:
       enabled: true
       urlPrefix: /
@@ -52,10 +55,12 @@ rook-ceph-cluster:
       modules:
         - name: insights
           enabled: true
-        - name: pg_autoscaler # This is already enabled by default, but needs to be here so that we don't override the default behavior.
+        - name: pg_autoscaler
           enabled: true
-        - name: rook # This enables the rook module.
+        - name: rook
           enabled: true    
+        - name: diskprediction_local
+          enabled: true
     storage:
       useAllNodes: true
       useAllDevices: false
@@ -128,9 +133,13 @@ rook-ceph-cluster:
         isDefault: true
         reclaimPolicy: Delete
         allowVolumeExpansion: true
+        volumeBindingMode: Immediate
+        mountOptions: ["discard"]
         parameters:
+          compression_mode: aggressive
+          compression_algorithm: zstd
           imageFormat: "2"
-          imageFeatures: layering
+          imageFeatures: layering,fast-diff,object-map,deep-flatten,exclusive-lock
           csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
           csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
           csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
@@ -138,65 +147,5 @@ rook-ceph-cluster:
           csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
           csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
           csi.storage.k8s.io/fstype: ext4
-  cephFileSystems:
-    - name: rook-ceph-filesystem
-      spec:
-        metadataPool:
-          replicated:
-            size: 3
-        dataPools:
-          - failureDomain: host
-            replicated:
-              size: 3
-        metadataServer:
-          activeCount: 1
-          activeStandby: true
-          resources:
-            requests:
-              cpu: "35m"
-              memory: "64M"
-            limits:
-              memory: "600M"
-      storageClass:
-        enabled: true
-        isDefault: false
-        name: rook-ceph-filesystem
-        reclaimPolicy: Delete
-        allowVolumeExpansion: true
-        mountOptions: []
-        parameters:
-          csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
-          csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
-          csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
-          csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
-          csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
-          csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
-          csi.storage.k8s.io/fstype: ext4
-  cephObjectStores:
-    - name: ceph-objectstore
-      spec:
-        metadataPool:
-          failureDomain: osd
-          replicated:
-            size: 3
-        dataPool:
-          failureDomain: osd
-          erasureCoded:
-            dataChunks: 2
-            codingChunks: 1
-        preservePoolsOnDelete: true
-        gateway:
-          port: 80
-          resources:
-            requests:
-              cpu: 1000m
-              memory: 1Gi
-            limits:
-              memory: 2Gi
-          instances: 3
-      storageClass:
-        enabled: true
-        name: ceph-bucket
-        reclaimPolicy: Delete
-        parameters:
-          region: us-east-1
+  cephFileSystems: []
+  cephObjectStores: []
