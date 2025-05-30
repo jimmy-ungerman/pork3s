@@ -1,7 +1,7 @@
 operator:
   image:
     repository: ghcr.io/rook/ceph
-    tag: v1.17.2
+    tag: v1.17.3
   csi:
     cephFSKernelMountOptions: ms_mode=prefer-crc
     # NOTE: Enable the driver and shapshotter if you want to use CephFS
