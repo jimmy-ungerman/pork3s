@@ -4,4 +4,4 @@ metadata:
   name: romm-config
   namespace: {{ .Release.Namespace }}
 data:
-{{ (.Files.Glob "config/config.yaml").AsConfig | indent 2 }}
+{{ (.Files.Glob "config/config.yml").AsConfig | indent 2 }}
