@@ -1,33 +1,32 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: [
     "config:recommended",
     "docker:enableMajor",
-    ":automergeBranch",
-    ":disableRateLimiting",
-    ":dependencyDashboard",
-    ":semanticCommits",
-    ":skipStatusChecks",
-    ":timezone(America/Boise)",
+    "helpers:pinGitHubActionDigests",
     "github>jimmy-ungerman/pork3s//.renovate/autoMerge.json5",
     "github>jimmy-ungerman/pork3s//.renovate/customManagers.json5",
     "github>jimmy-ungerman/pork3s//.renovate/grafanaDashboards.json5",
     "github>jimmy-ungerman/pork3s//.renovate/groups.json5",
     "github>jimmy-ungerman/pork3s//.renovate/labels.json5",
-    "github>jimmy-ungerman/pork3s//.renovate/packageRules.json5",
     "github>jimmy-ungerman/pork3s//.renovate/semanticCommits.json5"
+    ":automergeBranch",
+    ":disableRateLimiting",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":timezone(America/Boise)",
   ],
-  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
-  "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
-  "ignorePaths": ["**/*.sops.*", "**/resources/**"],
-  "helm-values": {
-    "managerFilePatterns": [
+  dependencyDashboardTitle: "Renovate Dashboard 🤖",
+  suppressNotifications: ["prEditedNotification", "prIgnoreNotification"],
+  ignorePaths: ["**/*.sops.*", "**/resources/**"],
+  helm-values: {
+    managerFilePatterns: [
       "/(^|/)kubernetes/.+\\.ya?ml$/"
     ]
   },
-  "kubernetes": {
-    "managerFilePatterns": [
+  kubernetes: {
+    managerFilePatterns: [
       "/(^|/)kubernetes/.+\\.ya?ml$/"
     ]
-  }
+  },
 }
