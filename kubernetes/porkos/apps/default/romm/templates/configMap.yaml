@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: romm-configmap
+  name: romm-config
   namespace: {{ .Release.Namespace }}
 data:
 {{ (.Files.Glob "config/config.yaml").AsConfig | indent 2 }}
