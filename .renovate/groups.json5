@@ -4,7 +4,7 @@
     {
       description: "Cert-Manager Group",
       groupName: "Cert-Manager",
-      matchDatasources: ["docker"],
+      matchDatasources: ["helm", "docker"],
       matchPackageNames: ["/cert-manager/"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
@@ -13,7 +13,7 @@
     {
       description: "Cilium Group",
       groupName: "Cilium",
-      matchDatasources: ["docker"],
+      matchDatasources: ["helm", "docker"],
       matchPackageNames: ["/cilium/"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
@@ -22,7 +22,7 @@
     {
       description: "CoreDNS Group",
       groupName: "CoreDNS",
-      matchDatasources: ["docker"],
+      matchDatasources: ["helm", "docker"],
       matchPackageNames: ["/coredns/"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
@@ -31,7 +31,7 @@
     {
       description: "External Secrets Operator Group",
       groupName: "External Secrets Operator",
-      matchDatasources: ["docker"],
+      matchDatasources: ["helm", "docker"],
       matchPackageNames: ["/external-secrets/"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
@@ -40,7 +40,7 @@
     {
       description: "Intel Device Plugins Group",
       groupName: "Intel-Device-Plugins",
-      matchDatasources: ["docker"],
+      matchDatasources: ["helm", "docker"],
       matchPackageNames: ["/intel-device-plugins-operator/", "/intel-device-plugins-gpu/"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
@@ -49,7 +49,7 @@
     {
       description: "Rook-Ceph Group",
       groupName: "Rook-Ceph",
-      matchDatasources: ["docker"],
+      matchDatasources: ["helm", "docker"],
       matchPackageNames: ["/rook-ceph/", "/rook-ceph-cluster/"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
