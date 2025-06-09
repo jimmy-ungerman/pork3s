@@ -9,7 +9,7 @@
     "github>jimmy-ungerman/pork3s//.renovate/grafanaDashboards.json5",
     "github>jimmy-ungerman/pork3s//.renovate/groups.json5",
     "github>jimmy-ungerman/pork3s//.renovate/labels.json5",
-    "github>jimmy-ungerman/pork3s//.renovate/semanticCommits.json5"
+    "github>jimmy-ungerman/pork3s//.renovate/semanticCommits.json5",
     ":automergeBranch",
     ":disableRateLimiting",
     ":dependencyDashboard",
