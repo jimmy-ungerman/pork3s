@@ -12,7 +12,7 @@
     },
     {
       description: "Auto-merge OCI Charts",
-      matchDatasources: ["docker"],
+      matchDatasources: ["helm","docker"],
       automerge: true,
       automergeType: "pr",
       matchUpdateTypes: ["minor", "patch"],
