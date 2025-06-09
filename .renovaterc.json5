@@ -19,7 +19,7 @@
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   suppressNotifications: ["prEditedNotification", "prIgnoreNotification"],
   ignorePaths: ["**/*.sops.*", "**/resources/**"],
-  helm-values: {
+  "helm-values": {
     managerFilePatterns: [
       "/(^|/)kubernetes/.+\\.ya?ml$/"
     ]
