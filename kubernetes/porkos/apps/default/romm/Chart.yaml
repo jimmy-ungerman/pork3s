@@ -3,5 +3,5 @@ name: romm
 version: 0.0.0
 dependencies:
   - name: app-template
-    version: 4.1.0
+    version: 4.1.1
     repository: "oci://ghcr.io/bjw-s-labs/helm"
