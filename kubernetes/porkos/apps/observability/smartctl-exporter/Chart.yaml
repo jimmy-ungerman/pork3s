@@ -3,6 +3,6 @@ name: smartctl-explorer
 version: 0.0.0
 dependencies:
   - name: prometheus-smartctl-exporter
-    version: 0.15.1
+    version: 0.15.2
     repository: oci://ghcr.io/prometheus-community/charts
 
