@@ -36,7 +36,7 @@ ingress-nginx:
         "http_user_agent": "$http_user_agent"}
       proxy-body-size: 0
       proxy-buffer-size: 16k
-      proxy_busy_buffers_size: 16k
+      proxy-busy-buffers-size: 16k
       ssl-protocols: "TLSv1.3 TLSv1.2"
       use-forwarded-headers: "true"
       forwarded-for-header: "CF-Connecting-IP"
