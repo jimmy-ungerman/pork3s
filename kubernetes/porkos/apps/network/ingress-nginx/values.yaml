@@ -54,27 +54,3 @@ ingress-nginx:
         namespace: network
         namespaceSelector:
           any: true
-  defaultBackend:
-    enabled: true
-    image:
-      repository: ghcr.io/tarampampam/error-pages
-      tag: 3.3.2
-    extraEnvs:
-      - name: TEMPLATE_NAME
-        value: ghost
-      - name: SHOW_DETAILS
-        value: "true"
-    affinity:
-      podAntiAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                  - key: app.kubernetes.io/name
-                    operator: In
-                    values: ["ingress-nginx"]
-                  - key: app.kubernetes.io/component
-                    operator: In
-                    values: ["default-backend"]
-              topologyKey: kubernetes.io/hostname
