@@ -3,9 +3,9 @@ name: rook-ceph
 version: 0.0.0
 dependencies:
   - name: rook-ceph
-    version: v1.17.5
+    version: v1.17.6
     repository: https://charts.rook.io/release
     alias: operator
   - name: rook-ceph-cluster
-    version: v1.17.5
+    version: v1.17.6
     repository: https://charts.rook.io/release
