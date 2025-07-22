@@ -13,7 +13,7 @@ spec:
     pruneIntervalDays: 14
     repository: "plex-restic-secret"
     volumeSnapshotClassName: "csi-replicapool"
-    cacheCapacity: "25Gi"
+    cacheCapacity: "50Gi"
     cacheStorageClassName: "rook-ceph-block"
     cacheAccessModes: ["ReadWriteOnce"]
     storageClassName: "rook-ceph-block"
