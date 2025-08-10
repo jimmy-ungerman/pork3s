@@ -6,7 +6,7 @@ external-dns:
     webhook:
       image:
         repository: ghcr.io/kashalls/external-dns-unifi-webhook
-        tag: v0.6.0
+        tag: v0.6.2
       env:
         - name: UNIFI_HOST
           value: "https://10.0.0.1"
