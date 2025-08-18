@@ -21,7 +21,7 @@ authentik:
   server:
     initContainers:
       - name: init-db
-        image: ghcr.io/home-operations/postgres-init:17.5.0
+        image: ghcr.io/home-operations/postgres-init:17.6.0
         imagePullPolicy: IfNotPresent
         envFrom:
           - secretRef:
