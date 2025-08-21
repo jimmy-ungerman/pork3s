@@ -126,7 +126,7 @@ argo-cd:
       - name: HELM_SECRETS_HELM_PATH
         value: /usr/local/bin/helm
       - name: SOPS_AGE_KEY_FILE # For age
-        value: /helm-secrets-private-keys/key.txt
+        value: /helm-secrets-private-keys/age.agekey
 
     volumes:
       - name: gitops-tools
