@@ -1,0 +1,7 @@
+apiVersion: v2
+name: csi-driver-nfs
+version: 0.0.0
+dependencies:
+  - name: cs-driver-nfs
+    version: 4.11.0
+    repository: "oci://ghcr.io/dragonflydb/dragonfly/helm"

@@ -1,0 +1,14 @@
+csi-driver-nfs:
+  storageClass:
+    create: true
+    name: nfs-slow
+    parameters:
+      server: expanse.internal
+      share: /mnt/eros/Kubernetes
+    mountOptions:
+      - nfsvers=4.2
+      - nconnect=16
+      - hard
+      - noatime
+    reclaimPolicy: Delete
+    volumeBindingMode: Immediate
