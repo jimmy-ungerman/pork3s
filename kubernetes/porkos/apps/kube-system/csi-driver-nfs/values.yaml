@@ -3,8 +3,8 @@ csi-driver-nfs:
     create: true
     name: nfs-slow
     parameters:
-      server: expanse.internal
-      share: /mnt/eros/Kubernetes
+      server: nas.porkboi.io
+      share: /mnt/earth/Kubernetes
     mountOptions:
       - nfsvers=4.2
       - nconnect=16
