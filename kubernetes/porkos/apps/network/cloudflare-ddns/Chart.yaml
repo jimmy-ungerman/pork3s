@@ -3,5 +3,5 @@ name: cloudflare-ddns
 version: 0.0.0
 dependencies:
   - name: app-template
-    version: 4.1.2
+    version: 4.2.0
     repository: "oci://ghcr.io/bjw-s-labs/helm"
