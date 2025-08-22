@@ -10,7 +10,7 @@ app-template:
                 name: romm-secret
           image:
             repository: ghcr.io/home-operations/postgres-init
-            tag: "17.5.0"
+            tag: "17.6.0"
       containers:
         app:
           image:
