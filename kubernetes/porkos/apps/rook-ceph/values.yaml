@@ -41,6 +41,9 @@ rook-ceph-cluster:
         requireMsgr2: true
     crashCollector:
       disable: false
+    csi:
+      readAffinity:
+        enabled: false
     dashboard:
       enabled: true
       urlPrefix: /
