@@ -28,6 +28,7 @@ app-template:
             ENABLE_RESCAN_ON_FILESYSTEM_CHANGE: "true"
             RESCAN_ON_FILESYSTEM_CHANGE_DELAY: 5
             DISABLE_USERPASS_LOGIN: false
+            ROMM_AUTH_SECRET_KEY: ""
             TZ: "America/Boise"
           securityContext:
             allowPrivilegeEscalation: false
