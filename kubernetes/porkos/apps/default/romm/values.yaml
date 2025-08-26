@@ -15,7 +15,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/rommapp/romm
-            tag: 4.1.4@sha256:293b2f0fcd690169923bc1d3ae6b41c709bf0655d8d02e04fd7882fc0ee01286
+            tag: 4.1.6@sha256:2e9cd221a9cefe093c327258e148b762b0e5491ff72f6f79fbe9fc336852654c
           envFrom: *envFrom
           env:
             ROMM_DB_DRIVER: postgresql
