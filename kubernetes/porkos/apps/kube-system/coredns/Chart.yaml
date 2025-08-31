@@ -3,5 +3,5 @@ name: coredns
 version: 0.0.0
 dependencies:
   - name: coredns
-    version: 1.43.2
+    version: 1.43.3
     repository: https://coredns.github.io/helm
