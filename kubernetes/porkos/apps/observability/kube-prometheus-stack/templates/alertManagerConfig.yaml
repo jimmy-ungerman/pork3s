@@ -1,7 +1,0 @@
----
-apiVersion: monitoring.coreos.com/v1alpha1
-kind: AlertmanagerConfig
-metadata:
-  name: alertmanager
-spec:
-{{ (.Files.Get "files/alertmanager.conf") | indent 2 }}

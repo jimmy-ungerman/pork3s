@@ -1,5 +1,0 @@
-intel-device-plugins-gpu:
-  name: intel-gpu-plugin
-  sharedDevNum: 3
-  nodeFeatureRule: false
-  tolerations: []

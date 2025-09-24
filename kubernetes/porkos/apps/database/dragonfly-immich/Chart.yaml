@@ -1,7 +1,0 @@
-apiVersion: v2
-name: dragonfly-immich
-version: 0.0.0
-dependencies:
-  - name: dragonfly
-    version: v1.34.1
-    repository: "oci://ghcr.io/dragonflydb/dragonfly/helm"
