@@ -78,7 +78,7 @@ machine:
             mtu: 9000
   nodeLabels:
     intel.feature.node.kubernetes.io/gpu: "true"
-    topology.kubernetes.io/region: main
+    topology.kubernetes.io/region: porkos
   sysctls:
     fs.inotify.max_user_instances: "8192"
     fs.inotify.max_user_watches: "1048576"
@@ -105,7 +105,7 @@ cluster:
     {% if ENV.IS_CONTROLLER %}
     key: op://kube-secrets/talos/CLUSTER_CA_KEY
     {% endif %}
-  clusterName: main
+  clusterName: porkos
   controlPlane:
     endpoint: https://10.3.0.120:6443
   id: op://kube-secrets/talos/CLUSTER_ID
