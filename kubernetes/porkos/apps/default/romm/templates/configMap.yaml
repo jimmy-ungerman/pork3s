@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: romm-config
-  namespace: {{ .Release.Namespace }}
-data:
-{{ (.Files.Glob "config/config.yml").AsConfig | indent 2 }}

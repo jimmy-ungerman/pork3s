@@ -1,5 +1,0 @@
-kubelet-csr-approver:
-  providerRegex: |
-    ^(aang|katara|sokka)$
-
-  bypassDnsResolution: true
