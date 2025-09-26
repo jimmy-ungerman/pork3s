@@ -114,9 +114,9 @@ cluster:
       name: none
     dnsDomain: cluster.local
     podSubnets:
-      - 10.95.0.0/16
+      - 10.42.0.0/16
     serviceSubnets:
-      - 10.96.0.0/12
+      - 10.43.0.0/16
   secret: op://kube-secrets/talos/CLUSTER_SECRET
   token: op://kube-secrets/talos/CLUSTER_TOKEN
   {% if ENV.IS_CONTROLLER %}
