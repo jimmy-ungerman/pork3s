@@ -71,14 +71,9 @@ machine:
       - interface: enp87s0
         dhcp: true
         mtu: 9000
-        vlans:
-          - # IOT
-            vlanId: 5
-            dhcp: false
-            mtu: 9000
   nodeLabels:
     intel.feature.node.kubernetes.io/gpu: "true"
-    topology.kubernetes.io/region: porkos
+    topology.kubernetes.io/region: main
   sysctls:
     fs.inotify.max_user_instances: "8192"
     fs.inotify.max_user_watches: "1048576"
@@ -105,18 +100,23 @@ cluster:
     {% if ENV.IS_CONTROLLER %}
     key: op://kube-secrets/talos/CLUSTER_CA_KEY
     {% endif %}
-  clusterName: porkos
+  clusterName: main
   controlPlane:
     endpoint: https://10.3.0.120:6443
+  discovery:
+    enabled: true
+    registries:
+      kubernetes: { disabled: true }
+      service: { disabled: false }
   id: op://kube-secrets/talos/CLUSTER_ID
   network:
     cni:
       name: none
     dnsDomain: cluster.local
     podSubnets:
-      - 10.42.0.0/16
+      - 10.95.0.0/16
     serviceSubnets:
-      - 10.43.0.0/16
+      - 10.96.0.0/12
   secret: op://kube-secrets/talos/CLUSTER_SECRET
   token: op://kube-secrets/talos/CLUSTER_TOKEN
   {% if ENV.IS_CONTROLLER %}
@@ -134,10 +134,6 @@ cluster:
       - 127.0.0.1
       - 10.3.0.120
     disablePodSecurityPolicy: true
-    extraArgs:
-      enable-aggregator-routing: "true"
-      feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true
-      runtime-config: admissionregistration.k8s.io/v1beta1=true
     image: registry.k8s.io/kube-apiserver:v1.34.1
   controllerManager:
     extraArgs:
