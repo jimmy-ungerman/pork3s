@@ -134,6 +134,10 @@ cluster:
       - 127.0.0.1
       - 10.3.0.120
     disablePodSecurityPolicy: true
+    extraArgs:
+      enable-aggregator-routing: "true"
+      feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true
+      runtime-config: admissionregistration.k8s.io/v1beta1=true
     image: registry.k8s.io/kube-apiserver:v1.34.1
   controllerManager:
     extraArgs:
