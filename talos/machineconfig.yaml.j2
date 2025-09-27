@@ -93,6 +93,7 @@ machine:
     sunrpc.tcp_slot_table_entries: "128"
     user.max_user_namespaces: "11255"
     vm.nr_hugepages: "1024"
+    net.ipv4.conf.all.accept_redirects: "1"
   token: op://kube-secrets/talos/MACHINE_TOKEN
 cluster:
   ca:
