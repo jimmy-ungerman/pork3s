@@ -41,7 +41,7 @@ spec:
               GATUS_CONFIG_PATH: /config
               GATUS_DELAY_START_SECONDS: 5
               GATUS_WEB_PORT: &port 80
-              TZ: America/New_York
+              TZ: America/Boise
             probes:
               liveness: &probes
                 enabled: true

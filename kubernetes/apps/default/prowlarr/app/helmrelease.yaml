@@ -3,26 +3,32 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: unpoller
+  name: prowlarr
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: unpoller
+    name: prowlarr
   values:
     controllers:
-      unpoller:
+      prowlarr:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: ghcr.io/unpoller/unpoller
-              tag: v2.15.4@sha256:788a890f2dc5aef3e99ce430917221c43b4e084464d38bc6537a8c7294ef8770
+              repository: ghcr.io/home-operations/prowlarr
+              tag: 2.1.2.5186@sha256:3e5e091311bbea32612ef0f74cb56e9bd7f17a7a191a99b36c78825499390868
             env:
+              PROWLARR__APP__INSTANCENAME: Prowlarr
+              PROWLARR__APP__THEME: dark
+              PROWLARR__AUTH__METHOD: External
+              PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              PROWLARR__LOG__DBENABLED: "False"
+              PROWLARR__LOG__LEVEL: info
+              PROWLARR__SERVER__PORT: &port 80
+              PROWLARR__UPDATE__BRANCH: develop
               TZ: America/Boise
-              UP_UNIFI_DEFAULT_ROLE: home-ops
-              UP_UNIFI_DEFAULT_URL: https://unifi.porkboi.io
-              UP_PROMETHEUS_HTTP_LISTEN: 0.0.0.0:80
-              UP_INFLUXDB_DISABLE: true
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -32,8 +38,8 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /health
-                    port: &port 80
+                    path: /ping
+                    port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -45,22 +51,31 @@ spec:
               capabilities: {drop: ["ALL"]}
             resources:
               requests:
-                cpu: 10m
+                cpu: 100m
               limits:
-                memory: 128Mi
+                memory: 1Gi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
           http:
             port: *port
-    serviceMonitor:
+    route:
       app:
-        endpoints:
-          - port: http
-            interval: 2m # Unifi API only polls at 2m intervals
-            scrapeTimeout: 10s
+        hostnames:
+          - "{{ .Release.Name }}.porkboi.io"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+      tmp:
+        type: emptyDir

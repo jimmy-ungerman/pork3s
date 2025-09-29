@@ -2,9 +2,9 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: external-secrets
+namespace: volsync-system
 components:
   - ../../components/common
 resources:
-  - ./external-secrets/ks.yaml
-  - ./onepassword/ks.yaml
+  - ./kopia/ks.yaml
+  - ./volsync/ks.yaml
