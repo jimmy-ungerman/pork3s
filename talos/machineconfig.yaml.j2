@@ -6,9 +6,6 @@ machine:
     {% if ENV.IS_CONTROLLER %}
     key: op://kube-secrets/talos/MACHINE_CA_KEY
     {% endif %}
-  certSANs:
-    - 127.0.0.1
-    - 10.3.0.120
   features:
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
@@ -103,7 +100,7 @@ cluster:
     {% endif %}
   clusterName: main
   controlPlane:
-    endpoint: https://10.3.0.120:6443
+    endpoint: https://kube.porkboi.io:6443
   discovery:
     enabled: true
     registries:
@@ -132,8 +129,7 @@ cluster:
       rules:
         - level: Metadata
     certSANs:
-      - 127.0.0.1
-      - 10.3.0.120
+      - kube.porkboi.io
     disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: "true"
