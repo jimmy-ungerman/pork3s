@@ -84,7 +84,7 @@ spec:
       media:
         type: nfs
         server: nas.porkboi.io
-        path: /mnt/air/data/media
+        path: /mnt/air/data
         globalMounts:
           - path: /media
       tmp:
