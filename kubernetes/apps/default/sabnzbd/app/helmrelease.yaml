@@ -79,7 +79,7 @@ spec:
       tmpfs:
         type: emptyDir
         advancedMounts:
-          nzbget:
+          sabnzbd:
             app:
               - path: /tmp
                 subPath: tmp
