@@ -2,7 +2,7 @@
 radarr:
   remux-web-1080p:
     base_url: http://radarr:80
-    api_key: !env_var RADARR__AUTH__APIKEY
+    api_key: !env_var RADARR_AUTH_APIKEY
     quality_definition:
       type: movie
     delete_old_custom_formats: true
@@ -85,7 +85,7 @@ radarr:
 sonarr:
   tv:
     base_url: http://sonarr:80
-    api_key: !env_var SONARR__AUTH__APIKEY
+    api_key: !env_var SONARR_AUTH_APIKEY
 
     delete_old_custom_formats: true
     replace_existing_custom_formats: true
