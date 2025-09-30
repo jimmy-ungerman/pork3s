@@ -18,7 +18,7 @@ spec:
         share: /mnt/air/Kubernetes
       mountOptions:
         - nfsvers=4.2
-        - nconnect=16
+        - nconnect=4
         - hard
         - noatime
       reclaimPolicy: Delete
