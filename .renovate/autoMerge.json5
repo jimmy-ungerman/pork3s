@@ -1,18 +1,18 @@
 {
-  $schschemaema: "https://docs.renovatebot.com/renovate-schema.json",
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
   packageRules: [
     {
-      description: "Auto-merge trusted container digests updates",
+      description: "Auto-merge trusted container digests",
       matchDatasources: ["docker"],
       automerge: true,
       automergeType: "pr",
       matchUpdateTypes: ["digest"],
-      matchPackagePatterns: ["/home-operations/"],
-      ignoreTests: false
+      matchPackageNames: ["/home-operations/"],
+      ignoreTests: false,
     },
     {
       description: "Auto-merge OCI Charts",
-      matchDatasources: ["helm","docker"],
+      matchDatasources: ["docker"],
       automerge: true,
       automergeType: "pr",
       matchUpdateTypes: ["minor", "patch"],
@@ -29,12 +29,25 @@
       ignoreTests: true,
     },
     {
+      description: "Auto-merge trusted GitHub Actions",
+      matchManagers: ["github-actions"],
+      matchPackageNames: [
+        "/^actions\//",
+        "/^renovatebot\//",
+      ],
+      automerge: true,
+      automergeType: "branch",
+      matchUpdateTypes: ["minor", "patch", "digest"],
+      minimumReleaseAge: "1 minute",
+      ignoreTests: true,
+    },
+    {
       description: "Auto-merge GitHub Releases",
       matchDatasources: ["github-releases"],
       automerge: true,
       automergeType: "branch",
       matchUpdateTypes: ["minor", "patch"],
-      matchPackageNames: ["/external-dns/", "/prometheus-operator/"],
+      matchPackageNames: ["/external-dns/", "/gateway-api/", "/prometheus-operator/"],
       ignoreTests: true,
     },
   ],
