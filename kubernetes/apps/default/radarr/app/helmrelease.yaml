@@ -83,7 +83,7 @@ spec:
           - path: /config/MediaCover
       media:
         type: nfs
-        server: nas.pokboi.io
+        server: nas.porkboi.io
         path: /mnt/air/data/media
         globalMounts:
           - path: /media
