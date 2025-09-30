@@ -1,22 +1,26 @@
 ---
 area/bootstrap:
   - changed-files:
-      - any-glob-to-any-file: "kubernetes/**/bootstrap/*"
-area/docs:
-  - changed-files:
       - any-glob-to-any-file:
-          - "README.md"
+          - bootstrap/**/*
+
 area/github:
   - changed-files:
-      - any-glob-to-any-file: ".github/**/*"
+      - any-glob-to-any-file:
+          - .github/**/*
+
 area/kubernetes:
   - changed-files:
-      - any-glob-to-any-file: "kubernetes/**/*"
-area/talos:
-  - changed-files:
-      - any-glob-to-any-file: "kubernetes/**/talos/*"
-area/taskfile:
+      - any-glob-to-any-file:
+          - kubernetes/**/*
+
+area/renovate:
   - changed-files:
       - any-glob-to-any-file:
-          - ".taskfiles/**/*"
-          - "Taskfile.yaml"
+          - .renovate/**/*
+          - .renovaterc.json5
+
+area/talos:
+  - changed-files:
+      - any-glob-to-any-file:
+          - talos/**/*
