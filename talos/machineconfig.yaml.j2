@@ -67,6 +67,12 @@ machine:
     interfaces:
       - interface: enp87s0
         dhcp: true
+        mtu: 9000
+        vlans:
+          - # IOT
+            vlanId: 5
+            dhcp: false
+            mtu: 9000
   nodeLabels:
     intel.feature.node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/region: main

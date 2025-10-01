@@ -13,5 +13,6 @@ resources:
   - ./descheduler/ks.yaml
   - ./intel-device-plugin-operator/ks.yaml
   - ./metrics-server/ks.yaml
+  - ./multus/ks.yaml
   - ./reloader/ks.yaml
   - ./snapshot-controller/ks.yaml
