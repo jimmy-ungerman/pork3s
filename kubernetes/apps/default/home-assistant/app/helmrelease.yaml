@@ -20,7 +20,7 @@ spec:
               repository: ghcr.io/home-operations/home-assistant
               tag: 2025.9.4@sha256:55c7db16301626265c6c8132985137ca0798303773dafa244e562353baa93a6f
             env:
-              TZ: America/New_York
+              TZ: America/Boise
               HASS_HTTP_TRUSTED_PROXY_1: 10.7.0.0/24
               HASS_HTTP_TRUSTED_PROXY_2: 10.42.0.0/16
             envFrom:
@@ -59,8 +59,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.turbo.ac"
-          - hass.turbo.ac
+          - "{{ .Release.Name }}.porkboi.io"
+          - hass.porkboi.io
         parentRefs:
           - name: envoy-external
             namespace: network

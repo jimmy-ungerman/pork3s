@@ -16,7 +16,7 @@
     ":disableRateLimiting",
     ":dependencyDashboard",
     ":semanticCommits",
-    ":timezone(America/New_York)",
+    ":timezone(America/Boise)",
   ],
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   suppressNotifications: [
