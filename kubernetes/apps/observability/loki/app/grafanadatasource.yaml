@@ -1,0 +1,13 @@
+apiVersion: integreatly.org/v1alpha1
+kind: GrafanaDataSource
+metadata:
+  name: loki-datasource # A unique name for your data source resource
+spec:
+  name: loki
+  datasources:
+    - name: Loki
+      type: loki
+      access: proxy
+      url: http://loki-headless.observability.svc.cluster.local:3100
+      version: 1
+      editable: false
