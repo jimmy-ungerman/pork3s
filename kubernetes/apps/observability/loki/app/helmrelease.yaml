@@ -33,6 +33,9 @@ spec:
         log_level: info
       storage:
         type: filesystem
+        bucketNames:
+          chunks: 'my-loki-chunks-bucket'
+          ruler: 'my-loki-ruler-bucket'
         filesystem:
           chunks_directory: /var/loki/chunks
           rules_directory: /var/loki/rules
