@@ -12,6 +12,7 @@ spec:
   values:
     controllers:
       gatus:
+        type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -91,8 +92,16 @@ spec:
             - apiGroups:
                 - ""
               resources:
-                - configmaps
-                - secrets
+                - services
+              verbs:
+                - get
+                - watch
+                - list
+            - apiGroups:
+                - gateway.networking.k8s.io
+              resources:
+                - gateways
+                - httproutes
               verbs:
                 - get
                 - watch
