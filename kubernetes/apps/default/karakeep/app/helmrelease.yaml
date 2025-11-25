@@ -41,6 +41,12 @@ spec:
                   secretKeyRef:
                     name: karakeep-secret
                     key: meilisearch_master_key
+              NEXTAUTH_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: karakeep-secret
+                    key: encryption_key
+              NEXTAUTH_URL: https://karakeep.porkboi.io
               DISABLE_NEW_RELEASE_CHECK: true
               COREPACK_INTEGRITY_KEYS: 0
             probes:
