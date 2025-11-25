@@ -102,10 +102,6 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /config/Library/Application Support/Plex Media Server
-      config-cache:
-        existingClaim: "{{ .Release.Name }}-cache"
-        globalMounts:
-          - path: /config/Library/Application Support/Plex Media Server/Cache
       media:
         type: nfs
         server: nas.porkboi.io
