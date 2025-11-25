@@ -9,6 +9,7 @@ resources:
   - ./namespace.yaml
   - ./actual/ks.yaml
   - ./home-assistant/ks.yaml
+  - ./karakeep/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
