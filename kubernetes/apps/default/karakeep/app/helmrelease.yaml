@@ -163,7 +163,7 @@ spec:
         hostnames:
           - karakeep.porkboi.io
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-external
             namespace: network
 
         rules:
