@@ -1,13 +1,9 @@
-/.bin/
-/.go/
 /.private/
 /.task/
 /.venv/
-/scripts/
-/**/charts/
-*.secret.env
-*.secret.yaml
 *.crt
+*.env
+*.iso
 *.key
 .decrypted~*
 .DS_Store
@@ -15,7 +11,3 @@ Brewfile.lock.json
 Thumbs.db
 kubeconfig
 talosconfig
-Chart.lock
-.infisical.json
-helmfile.lock
-cloudflare-tunnel.json
