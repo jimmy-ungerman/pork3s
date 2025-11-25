@@ -100,6 +100,12 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /config/Library/Application Support/Plex Media Server
+      config-cache:
+        existingClaim: "{{ .Release.Name }}-cache"
+        globalMounts:
+          - path: /config/Library/Application Support/Plex Media Server/Cache
       media:
         type: nfs
         server: nas.porkboi.io
@@ -107,5 +113,12 @@ spec:
         globalMounts:
           - path: /media
             readOnly: true
-      tmp:
+      tmpfs:
         type: emptyDir
+        advancedMounts:
+          plex:
+            app:
+              - path: /config/Library/Application Support/Plex Media Server/Logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp
