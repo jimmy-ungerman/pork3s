@@ -3,22 +3,18 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app snmp-exporter
-  namespace: &namespace observability
+  name: intel-gpu-resource-driver
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/defaults
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: intel-gpu-resource-driver
+      namespace: kube-system
   interval: 1h
-  path: ./kubernetes/apps/observability/snmp-exporter/app
+  path: ./kubernetes/apps/kube-system/intel-gpu-resource-driver/app
   prune: true
-  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
-  timeout: 5m
-  wait: false
+  targetNamespace: kube-system

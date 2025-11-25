@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: kopia
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: kopia
+  interval: 1h
   values:
     controllers:
       kopia:
@@ -69,7 +69,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
-            sectionName: https
     configMaps:
       config:
         data:

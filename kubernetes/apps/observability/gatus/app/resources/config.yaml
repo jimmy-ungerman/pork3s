@@ -41,7 +41,6 @@ ui:
   buttons:
     - name: Github
       link: https://github.com/jimmy-ungerman
-
     - name: Homelab
       link: https://github.com/jimmy-ungerman/pork3s
 
