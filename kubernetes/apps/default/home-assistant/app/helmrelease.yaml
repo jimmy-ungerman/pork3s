@@ -76,11 +76,13 @@ spec:
         existingClaim: "{{ .Release.Name }}-cache"
         globalMounts:
           - path: /config/.venv
-      usb-devices:
+      usb:
+        enabled: true
         type: hostPath
-        hostPath: /dev/bus/usb
+        hostPath: /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_18988c238445ed11b141c58f0a86e0b4-if00-port0
+        hostPathType: CharDevice
         globalMounts:
-          - path: /dev/bus/usb
+          - path: /dev/ttyUSB0
       tmpfs:
         type: emptyDir
         advancedMounts:
