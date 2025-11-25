@@ -6,14 +6,6 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./ocirepository.yaml
-  - ./pvc.yaml
-configMapGenerator:
-  - name: sonarr-loki-rules
-    files:
-      - sonarr.yaml=./lokirule.yaml
-    options:
-      labels:
-        loki_rule: "true"
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

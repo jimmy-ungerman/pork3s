@@ -46,12 +46,16 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: {drop: ["ALL"]}
             resources:
+              claims:
+                - name: gpu
               requests:
                 cpu: 100m
               limits:
-                gpu.intel.com/i915: 1
                 memory: 16Gi
     defaultPodOptions:
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: plex
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
@@ -77,7 +81,6 @@ spec:
         parentRefs:
           - name: envoy-external
             namespace: network
-            sectionName: https
         rules:
           - backendRefs:
               - identifier: app
@@ -97,12 +100,6 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-        globalMounts:
-          - path: /config/Library/Application Support/Plex Media Server
-      config-cache:
-        existingClaim: "{{ .Release.Name }}-cache"
-        globalMounts:
-          - path: /config/Library/Application Support/Plex Media Server/Cache
       media:
         type: nfs
         server: nas.porkboi.io
@@ -110,12 +107,5 @@ spec:
         globalMounts:
           - path: /media
             readOnly: true
-      tmpfs:
+      tmp:
         type: emptyDir
-        advancedMounts:
-          plex:
-            app:
-              - path: /config/Library/Application Support/Plex Media Server/Logs
-                subPath: logs
-              - path: /tmp
-                subPath: tmp

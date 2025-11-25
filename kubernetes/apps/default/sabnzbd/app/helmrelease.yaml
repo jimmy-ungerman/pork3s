@@ -68,7 +68,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
-            sectionName: https
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
@@ -76,10 +75,5 @@ spec:
         type: nfs
         server: nas.porkboi.io
         path: /mnt/air/data
-      tmpfs:
+      tmp:
         type: emptyDir
-        advancedMounts:
-          sabnzbd:
-            app:
-              - path: /tmp
-                subPath: tmp
