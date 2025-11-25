@@ -5,25 +5,21 @@ kind: Kustomization
 metadata:
   name: actual
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: actual
   components:
     - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
-  path: "./kubernetes/apps/selfhosted/actual/app"
+  path: ./kubernetes/apps/default/actual/app
   postBuild:
     substitute:
       APP: actual
-      VOLSYNC_CLAIM: actual-data
+      VOLSYNC_CAPACITY: 5Gi
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: selfhosted
-  timeout: 5m
+  targetNamespace: default
   wait: false
