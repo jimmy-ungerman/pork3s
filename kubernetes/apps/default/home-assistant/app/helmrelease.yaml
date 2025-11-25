@@ -27,9 +27,6 @@ spec:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
             securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
               privileged: true
             resources:
               requests:
