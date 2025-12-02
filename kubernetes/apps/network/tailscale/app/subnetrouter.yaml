@@ -1,0 +1,11 @@
+apiVersion: tailscale.com/v1alpha1
+kind: Connector
+metadata:
+  name: ts-lan
+spec:
+  replicas: 1
+  hostnamePrefix: ts-lan-cidrs
+  subnetRouter:
+    advertiseRoutes:
+      - "10.2.0.0/24"
+      - "10.3.0.0/24"
