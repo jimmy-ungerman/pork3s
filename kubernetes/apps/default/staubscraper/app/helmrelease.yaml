@@ -22,8 +22,6 @@ spec:
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
-            securityContext:
-              allowPrivilegeEscalation: false
             resources:
               requests:
                 cpu: "500m"
@@ -47,6 +45,7 @@ spec:
       tmp:
         type: emptyDir
       dshm:
+        enabled: true
         type: emptyDir
         medium: Memory
         globalMounts:
