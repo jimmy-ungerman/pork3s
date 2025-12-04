@@ -46,3 +46,9 @@ spec:
     persistence:
       tmp:
         type: emptyDir
+      dshm:
+        type: emptyDir
+        medium: Memory
+        globalMounts:
+          - path: /dev/shm
+            readOnly: false
