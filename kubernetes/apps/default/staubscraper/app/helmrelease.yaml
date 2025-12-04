@@ -43,3 +43,6 @@ spec:
         ports:
           http:
             port: 5000
+    persistence:
+      tmp:
+        type: emptyDir
