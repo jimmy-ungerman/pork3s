@@ -29,13 +29,6 @@ spec:
               limits:
                 cpu: "1000m"
                 memory: "2048Mi"
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1200
-        runAsGroup: 1200
-        fsGroup: 1200
-        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
@@ -44,10 +37,3 @@ spec:
     persistence:
       tmp:
         type: emptyDir
-      dshm:
-        enabled: true
-        type: emptyDir
-        medium: Memory
-        globalMounts:
-          - path: /dev/shm
-            readOnly: false
