@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jimmy-ungerman/staubscraper
-              tag: 1.0.1@sha256:024633df61c2c1e39423d1009773e09a55587cbd4c34f614fd248cc12fe3e65a
+              tag: 1.0.2@sha256:920fb8c143a6ac8a5040faa44b05937cee662dedabb2f42450eb2f83c7dcb2a1
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
