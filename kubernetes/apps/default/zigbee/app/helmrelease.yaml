@@ -43,9 +43,9 @@ spec:
               ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: "false"
               ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://10.5.0.64:6638
               ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: zstack
-            envFrom:
-              - secretRef:
-                  name: "{{ .Release.Name }}-secret"
+            # envFrom:
+            #   - secretRef:
+            #       name: "{{ .Release.Name }}-secret"
             probes:
               liveness:
                 enabled: true
