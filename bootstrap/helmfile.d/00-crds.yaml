@@ -22,7 +22,7 @@ releases:
   - name: envoy-gateway
     namespace: network
     chart: oci://mirror.gcr.io/envoyproxy/gateway-helm
-    version: v1.6.0
+    version: v1.6.1
 
   - name: grafana-operator
     namespace: observability
@@ -32,9 +32,9 @@ releases:
   - name: keda
     namespace: observability
     chart: oci://ghcr.io/home-operations/charts-mirror/keda
-    version: 2.18.1
+    version: 2.18.2
 
   - name: kube-prometheus-stack
     namespace: observability
     chart: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
-    version: 79.7.1
+    version: 80.2.0
