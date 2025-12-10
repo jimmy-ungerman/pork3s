@@ -35,11 +35,11 @@ spec:
                 memory: 100Mi
     defaultPodOptions:
       annotations:
-        k8s.v1.cni.cncf.io/networks: |
+        k8s.v1.cni.cncf.io/networks: |-
           [{
-            "name": "iot-vlan",
+            "name": "iot",
             "namespace": "kube-system",
-            "ips": ["192.168.50.9/24"]
+            "ips": ["10.5.0.21/24"]
           }]
       hostUsers: false
       securityContext:
