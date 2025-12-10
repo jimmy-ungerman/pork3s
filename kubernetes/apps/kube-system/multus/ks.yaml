@@ -33,6 +33,11 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/kube-system/multus/networks
   prune: true
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: iot-v6
+        optional: false
   sourceRef:
     kind: GitRepository
     name: flux-system

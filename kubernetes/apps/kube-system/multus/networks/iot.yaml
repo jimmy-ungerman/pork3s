@@ -18,16 +18,17 @@ spec:
           "ipam": {
             "type": "static",
             "routes": [
-              {"dst": "0.0.0.0/0", "gw": "10.5.0.1"}
+              {"dst": "0.0.0.0/0", "gw": "10.5.0.1"},
+              { "dst": "::/0", "gw": "${IPV6_IOT_PREFIX}::1" }
             ]
           }
         },
         {
           "type": "tuning",
           "sysctl": {
-            "net.ipv6.conf.IFNAME.accept_ra": "2",
+            "net.ipv6.conf.IFNAME.accept_ra": "1",
             "net.ipv6.conf.IFNAME.accept_ra_rt_info_max_plen": "64",
-            "net.ipv6.conf.IFNAME.forwarding": "1"
+            "net.ipv6.conf.IFNAME.forwarding": "0"
           }
         },
         {
