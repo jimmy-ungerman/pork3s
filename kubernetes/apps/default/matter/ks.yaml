@@ -16,6 +16,10 @@ spec:
     substitute:
       APP: matter
       VOLSYNC_CAPACITY: 1Gi
+    substituteFrom:
+      - kind: Secret
+        name: iot-v6
+        optional: false
   prune: true
   sourceRef:
     kind: GitRepository
