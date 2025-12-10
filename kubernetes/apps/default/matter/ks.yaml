@@ -18,7 +18,7 @@ spec:
       VOLSYNC_CAPACITY: 1Gi
     substituteFrom:
       - kind: Secret
-        name: iot-v6
+        name: iot-ipv6
         optional: false
   prune: true
   sourceRef:
