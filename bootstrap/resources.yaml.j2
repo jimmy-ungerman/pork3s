@@ -31,3 +31,11 @@ metadata:
   namespace: default
 stringData:
   IPV6_IOT_PREFIX: op://kube-secrets/iot-v6/IOT_V6_PREFIX
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: iot-ipv6
+  namespace: kube-system
+stringData:
+  IPV6_IOT_PREFIX: op://kube-secrets/iot-v6/IOT_V6_PREFIX
