@@ -22,7 +22,7 @@ spec:
             ]
           }
         },
-                {
+        {
           "type": "tuning",
           "sysctl": {
             "net.ipv6.conf.IFNAME.accept_ra": "1",
