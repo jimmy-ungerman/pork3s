@@ -72,6 +72,7 @@ spec:
       app:
         hostnames:
           - "{{ .Release.Name }}.porkboi.io"
+          - requests.porkboi.io
         parentRefs:
           - name: envoy-external
             namespace: network

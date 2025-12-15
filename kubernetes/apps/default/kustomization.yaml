@@ -12,7 +12,6 @@ resources:
   - ./karakeep/ks.yaml
   - ./matter/ks.yaml
   - ./mosquitto/ks.yaml
-  - ./overseerr/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
