@@ -26,7 +26,7 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/seer-team/seerr
+              repository: ghcr.io/seerr-team/seerr
               tag: develop@sha256:36cd35d318b092fb87fcefd36553d14391798754709260324cfe5479b11e38c7
             env:
               TZ: America/Boise
