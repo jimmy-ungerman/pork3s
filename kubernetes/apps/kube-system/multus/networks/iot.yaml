@@ -13,7 +13,7 @@ spec:
         {
           "type": "macvlan",
           "capabilities": { "ips": true },
-          "master": "enp87s0.5",
+          "master": "bond0.5",
           "mode": "bridge",
           "ipam": {
             "type": "static",
