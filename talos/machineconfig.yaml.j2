@@ -11,7 +11,7 @@ machine:
     diskQuotaSupport: true
     hostDNS:
       enabled: true
-      forwardKubeDNSToHost: false
+      forwardKubeDNSToHost: true
       resolveMemberNames: true
     kubePrism:
       enabled: true
@@ -19,14 +19,12 @@ machine:
     {% if ENV.IS_CONTROLLER %}
     kubernetesTalosAPIAccess:
       allowedKubernetesNamespaces:
-        - actions-runner-system
         - system-upgrade
       allowedRoles:
         - os:admin
       enabled: true
     {% endif %}
     rbac: true
-    stableHostname: true
   files:
     - op: create
       path: /etc/cri/conf.d/20-customization.part
@@ -48,34 +46,24 @@ machine:
   install:
     diskSelector:
       model: Samsung SSD 870
-    image: factory.talos.dev/metal-installer/7771e8842270fe76018b71ab47a8231ca8d9e49ac850b3c1533fe72b8c5950e7:v1.12.0 
+    image: factory.talos.dev/metal-installer/cc720ffb8efc8f12637b8660a86448a88b3f89f516995fb9c67bf80564e723b1:v1.12.0 
     wipe: false
   kernel:
     modules:
       - name: nbd
+      - name: thunderbolt
+      - name: thunderbolt_net
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
     extraConfig:
-      featureGates:
-        ImageVolume: true
       serializeImagePulls: false
     image: ghcr.io/siderolabs/kubelet:v1.35.0
     nodeIP:
       validSubnets:
         - 10.3.0.0/24
-  network:
-    interfaces:
-      - interface: enp87s0
-        dhcp: true
-        mtu: 9000
-        vlans:
-          - # IOT
-            vlanId: 5
-            dhcp: false
-            mtu: 9000
   nodeLabels:
-    intel.feature.node.kubernetes.io/gpu: "true"
+    node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/region: main
   sysctls:
     fs.inotify.max_user_instances: "8192"
@@ -86,17 +74,19 @@ machine:
     net.ipv4.neigh.default.gc_thresh1: "4096"
     net.ipv4.neigh.default.gc_thresh2: "8192"
     net.ipv4.neigh.default.gc_thresh3: "16384"
+    net.ipv4.ping_group_range: 0 2147483647
     net.ipv4.tcp_congestion_control: bbr
     net.ipv4.tcp_fastopen: "3"
     net.ipv4.tcp_mtu_probing: "1"
+    net.ipv4.tcp_notsent_lowat: "131072"
     net.ipv4.tcp_rmem: 4096 87380 33554432
+    net.ipv4.tcp_slow_start_after_idle: "0"
     net.ipv4.tcp_window_scaling: "1"
     net.ipv4.tcp_wmem: 4096 65536 33554432
     sunrpc.tcp_max_slot_table_entries: "128"
     sunrpc.tcp_slot_table_entries: "128"
     user.max_user_namespaces: "11255"
     vm.nr_hugepages: "1024"
-    net.ipv4.conf.all.accept_redirects: "1"
   token: op://kube-secrets/talos/MACHINE_TOKEN
 cluster:
   ca:
@@ -110,8 +100,10 @@ cluster:
   discovery:
     enabled: true
     registries:
-      kubernetes: { disabled: true }
-      service: { disabled: false }
+      kubernetes:
+        disabled: true
+      service:
+        disabled: false
   id: op://kube-secrets/talos/CLUSTER_ID
   network:
     cni:
@@ -139,7 +131,7 @@ cluster:
     disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: "true"
-      feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true
+      feature-gates: MutatingAdmissionPolicy=true
       runtime-config: admissionregistration.k8s.io/v1beta1=true
     image: registry.k8s.io/kube-apiserver:v1.35.0
   controllerManager:
@@ -184,6 +176,32 @@ cluster:
   serviceAccount:
     key: op://kube-secrets/talos/CLUSTER_SERVICEACCOUNT_KEY
   {% endif %}
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: net0
+selector:
+  match: link.driver == "igc" && mac(link.permanent_addr).startsWith("88:ae:dd:72:")
+---
+apiVersion: v1alpha1
+kind: BondConfig
+name: bond0
+links:
+  - net0
+bondMode: active-backup
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: bond0
+clientIdentifier: mac
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.5
+vlanID: 70
+parent: bond0
+mtu: 9000
 ---
 apiVersion: v1alpha1
 kind: UserVolumeConfig

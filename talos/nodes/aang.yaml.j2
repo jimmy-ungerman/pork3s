@@ -1,7 +1,9 @@
 ---
 machine:
-  network:
-    hostname: aang
   nodeLabels:
     topology.kubernetes.io/zone: m
   type: controlplane
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: aang
