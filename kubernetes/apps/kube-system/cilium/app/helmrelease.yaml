@@ -30,7 +30,7 @@ spec:
       exclusive: false
     dashboards:
       enabled: true
-    devices: bond0
+    devices: bond+
     endpointRoutes:
       enabled: true
     envoy:
