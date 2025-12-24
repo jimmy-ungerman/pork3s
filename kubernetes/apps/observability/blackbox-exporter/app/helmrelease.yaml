@@ -10,6 +10,7 @@ spec:
     name: blackbox-exporter
   interval: 1h
   values:
+    fullnameOverride: blackbox-exporter
     config:
       modules:
         http_2xx:
