@@ -36,8 +36,6 @@ spec:
               limits:
                 memory: 2Gi
     defaultPodOptions:
-      nodeSelector:
-        kubernetes.io/hostname: sokka
       annotations:
         k8s.v1.cni.cncf.io/networks: |-
           [{
