@@ -15,7 +15,7 @@ spec:
         - jetkvm-aang.porkboi.io
         - aang.porkboi.io
         - katara.porkboi.io
-        - sokka.porkboi.io
+        # - sokka.porkboi.io
         - zigbee-controller.porkboi.io
   metricRelabelings:
     - targetLabel: service
