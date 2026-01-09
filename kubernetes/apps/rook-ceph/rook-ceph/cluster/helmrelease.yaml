@@ -24,7 +24,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
-            sectionName: https
     cephClusterSpec:
       cephConfig:
         global:
@@ -44,6 +43,9 @@ spec:
         urlPrefix: /
         ssl: false
         prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
+      mon:
+        # Until 3rd node comes in
+        allowMultiplePerNode: true
       mgr:
         modules:
           - name: diskprediction_local
@@ -58,6 +60,10 @@ spec:
         provider: host
         connections:
           requireMsgr2: true
+      resources:
+        osd:
+          limits:
+            memory: 8Gi
       storage:
         useAllNodes: true
         useAllDevices: false
@@ -69,7 +75,7 @@ spec:
         spec:
           failureDomain: host
           replicated:
-            size: 2
+            size: 3
         storageClass:
           enabled: true
           name: ceph-block
@@ -101,11 +107,11 @@ spec:
         spec:
           metadataPool:
             replicated:
-              size: 2
+              size: 3
           dataPools:
             - failureDomain: host
               replicated:
-                size: 2
+                size: 3
               name: data0
           metadataServer:
             activeCount: 1
