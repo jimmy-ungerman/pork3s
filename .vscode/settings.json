@@ -7,7 +7,6 @@
       // .github
       ".github/workflows": "robot",
       // namespaces
-      "argocd": "pipe",
       "cert-manager": "guard",
       "database": "database",
       "default": "home",
@@ -19,14 +18,11 @@
       "system": "tools",
   },
     "material-icon-theme.files.associations": {
-      "*.sops.env": "lock",
-      "*.sops.yaml": "lock"
     },
     "yaml.schemaStore.enable": true,
     "yaml.schemas": {
       "kubernetes": "./kubernetes/**/*.yaml"
     },
-    "sops.defaults.ageKeyFile": "age.key",
     "vs-kubernetes": {
       "vs-kubernetes.kubeconfig": "./kubeconfig",
       "vs-kubernetes.knownKubeconfigs": [
