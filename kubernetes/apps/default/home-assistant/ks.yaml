@@ -18,10 +18,6 @@ spec:
     substitute:
       APP: home-assistant
       VOLSYNC_CAPACITY: 5Gi
-    substituteFrom:
-      - kind: Secret
-        name: iot-ipv6
-        optional: false
   prune: true
   sourceRef:
     kind: GitRepository
