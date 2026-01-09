@@ -44,8 +44,7 @@ spec:
         ssl: false
         prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
       mon:
-        # Until 3rd node comes in
-        allowMultiplePerNode: true
+        count: 2
       mgr:
         modules:
           - name: diskprediction_local
