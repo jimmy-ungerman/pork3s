@@ -1,5 +1,4 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/k8s.cni.cncf.io/networkattachmentdefinition_v1.json
 apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata:
@@ -7,27 +6,18 @@ metadata:
 spec:
   config: |-
     {
-      "cniVersion": "0.3.1",
-      "name": "iot",
+      "cniVersion": "1.1.0",
+      "name": "multus-iot",
       "plugins": [
         {
           "type": "macvlan",
-          "capabilities": { "ips": true },
           "master": "bond0.5",
           "mode": "bridge",
           "ipam": {
             "type": "static",
             "routes": [
-              {"dst": "0.0.0.0/0", "gw": "10.5.0.1"},
+              { "dst": "0.0.0.0/0", "gw": "10.5.0.1" }
             ]
-          }
-        },
-        {
-          "type": "tuning",
-          "sysctl": {
-            "net.ipv6.conf.IFNAME.accept_ra": "1",
-            "net.ipv6.conf.IFNAME.accept_ra_rt_info_max_plen": "64",
-            "net.ipv6.conf.IFNAME.forwarding": "0"
           }
         },
         {
