@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/k8s.cni.cncf.io/networkattachmentdefinition_v1.json
 apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata:
@@ -6,7 +7,7 @@ metadata:
 spec:
   config: |-
     {
-      "cniVersion": "1.1.0",
+      "cniVersion": "0.3.1",
       "name": "iot",
       "plugins": [
         {
@@ -16,7 +17,7 @@ spec:
           "ipam": {
             "type": "static",
             "routes": [
-              { "dst": "0.0.0.0/0", "gw": "10.5.0.1" }
+              {"dst": "0.0.0.0/0", "gw": "10.5.0.1"}
             ]
           }
         },
