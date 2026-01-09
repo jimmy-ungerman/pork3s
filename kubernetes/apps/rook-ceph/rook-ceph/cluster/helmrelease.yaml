@@ -44,7 +44,7 @@ spec:
         ssl: false
         prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
       mon:
-        count: 2
+        count: 2 # Fix when new node comes in
       mgr:
         modules:
           - name: diskprediction_local
