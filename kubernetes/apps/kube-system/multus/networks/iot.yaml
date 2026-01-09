@@ -7,7 +7,7 @@ spec:
   config: |-
     {
       "cniVersion": "1.1.0",
-      "name": "multus-iot",
+      "name": "iot",
       "plugins": [
         {
           "type": "macvlan",
