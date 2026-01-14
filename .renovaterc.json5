@@ -32,6 +32,7 @@
   },
   "helm-values": {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
+    ignorePaths: ["kubernetes/apps/observability/loki/app/helmrelease.yaml"]
   },
   kubernetes: {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
