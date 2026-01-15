@@ -29,19 +29,13 @@ sonarr:
           - 026d5aadd1a6b4e550b134cb6c72b3ca # Uncensored
         assign_scores_to:
           - name: Remux-1080p - Anime
-            score: 1000 # Adjust scoring as desired
-
-      - trash_ids:
-          - b2550eb333d27b75833e25b8c2557b38 # 10bit
-        assign_scores_to:
-          - name: Remux-1080p - Anime
-            score: 1000 # Adjust scoring as desired
+            score: 1000
 
       - trash_ids:
           - 418f50b10f1907201b6cfdf881f467b7 # Anime Dual Audio
         assign_scores_to:
           - name: Remux-1080p - Anime
-            score: 2000 # Adjust scoring as desired
+            score: 2000
 radarr:
   radarr:
     base_url: http://radarr.default.svc.cluster.local
