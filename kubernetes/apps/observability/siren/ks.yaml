@@ -7,7 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: kube-prometheus-stack
-      namespace: observabilitiy
+      namespace: observability
   interval: 1h
   path: ./kubernetes/apps/observability/siren/app
   prune: true
