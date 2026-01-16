@@ -1,0 +1,51 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name pork-zoomies
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: gha-runner-scale-set
+  interval: 1h
+  values:
+    githubConfigUrl: https://github.com/jimmy-ungerman/pork3s
+    githubConfigSecret: pork-zoomies-secret
+    minRunners: 1
+    maxRunners: 3
+    containerMode:
+      type: kubernetes
+      kubernetesModeWorkVolumeClaim:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: openebs-hostpath
+        resources:
+          requests:
+            storage: 25Gi
+    controllerServiceAccount:
+      name: actions-runner-controller
+      namespace: actions-runner-system
+    template:
+      spec:
+        containers:
+          - name: runner
+            image: ghcr.io/home-operations/actions-runner:2.331.0@sha256:17e4be4e4664067b9a5f2e43d0e66e0a249654f3783a0a3f17448844a5422be5
+            command:
+              - /home/runner/run.sh
+            env:
+              - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
+                value: "false"
+              - name: NODE
+                valueFrom:
+                  fieldRef:
+                    fieldPath: status.hostIP
+            volumeMounts:
+              - mountPath: /var/run/secrets/talos.dev
+                name: talos
+                readOnly: true
+        serviceAccountName: *name
+        volumes:
+          - name: talos
+            secret:
+              secretName: *name
