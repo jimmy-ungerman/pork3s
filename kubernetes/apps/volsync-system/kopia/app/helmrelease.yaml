@@ -95,7 +95,7 @@ spec:
       repository:
         type: nfs
         server: nas.porkboi.io
-        path: /mnt/air/VolsyncKopia
+        path: /mnt/backups/VolsyncKopia
         globalMounts:
           - path: /repository
       tmpfs:
