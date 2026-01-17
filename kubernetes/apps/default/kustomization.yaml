@@ -9,6 +9,7 @@ resources:
   - ./namespace.yaml
   - ./actual/ks.yaml
   - ./agregarr/ks.yaml
+  - ./bazarr/ks.yaml
   - ./home-assistant/ks.yaml
   - ./karakeep/ks.yaml
   - ./mosquitto/ks.yaml
