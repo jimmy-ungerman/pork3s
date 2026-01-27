@@ -12,6 +12,7 @@ resources:
   - ./bazarr/ks.yaml
   - ./home-assistant/ks.yaml
   - ./karakeep/ks.yaml
+  - ./matter-server/ks.yaml
   - ./mosquitto/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
