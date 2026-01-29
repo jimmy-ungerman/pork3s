@@ -19,14 +19,11 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/cloudflare/cloudflared
+              repository: mirror.gcr.io/cloudflare/cloudflared
               tag: 2026.1.2@sha256:e9bcb2ef08d25632ff74344e73a025f4f4bf12718335b196fa0e670cacace8c5
             env:
               NO_AUTOUPDATE: true
               TUNNEL_METRICS: 0.0.0.0:8080
-              TUNNEL_ORIGIN_ENABLE_HTTP2: true
-              TUNNEL_POST_QUANTUM: true # disable when using http2
-              TUNNEL_TRANSPORT_PROTOCOL: quic # http2
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -74,13 +71,12 @@ spec:
         data:
           config.yaml: |-
             ingress:
-              - hostname: porkboi.io
-                originRequest:
-                  originServerName: porkboi.io
-                service: https://envoy-external.{{ .Release.Namespace }}.svc.cluster.local:443
               - hostname: "*.porkboi.io"
                 originRequest:
+                  http2Origin: true
+                  keepAliveTimeout: 3600s
                   originServerName: external.porkboi.io
+                  tcpKeepAlive: 7200s
                 service: https://envoy-external.{{ .Release.Namespace }}.svc.cluster.local:443
               - service: http_status:404
     persistence:
