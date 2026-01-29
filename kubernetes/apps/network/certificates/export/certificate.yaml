@@ -12,6 +12,10 @@ spec:
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt-production
-  secretName: porkboi-io-tls
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+    rotationPolicy: Always
+  secretName: turbo-ac-tls
   usages:
     - digital signature
