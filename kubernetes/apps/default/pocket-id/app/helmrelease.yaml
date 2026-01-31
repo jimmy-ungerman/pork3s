@@ -30,7 +30,6 @@ spec:
             env:
               APP_URL: https://oidc.porkboi.io
               DB_PROVIDER: postgres
-              ENCRYPTION_KEY_FILE: /encryption/ENCRYPTION_KEY
               KEYS_PATH: /data/keys
               UPLOAD_PATH: /data/uploads
               ANALYTICS_DISABLED: true
