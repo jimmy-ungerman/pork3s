@@ -48,6 +48,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
         supplementalGroups: [100]
+
     service:
       app:
         ports:
@@ -56,11 +57,12 @@ spec:
 
     route:
       app:
-        hostnames: ["oidc.porkboi.io"]
+        hostnames:
+          - oidc.porkboi.io
         parentRefs:
           - name: envoy-external
             namespace: network
-
+            
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"
