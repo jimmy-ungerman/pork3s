@@ -21,7 +21,7 @@ spec:
               tag: 18.1
             envFrom: &envFrom
               - secretRef:
-                  name: postgres-pocket-id
+                  name: pocket-id-secret
         containers:
           app:
             image:
