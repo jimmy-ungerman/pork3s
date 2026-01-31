@@ -67,10 +67,6 @@ spec:
         parentRefs:
           - name: envoy-external
             namespace: networking
-        rules:
-          - backendRefs:
-              - port: *port
-                name: *app
     service:
       app:
         controller: *app
