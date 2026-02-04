@@ -8,6 +8,8 @@ spec:
   staticConfigs:
     - targets:
         - nas.porkboi.io:9100
+      labels:
+        node: ba-sing-se
   metricsPath: /metrics
   relabelings:
     - action: replace
@@ -23,6 +25,8 @@ spec:
   staticConfigs:
     - targets:
         - nas.porkboi.io:9633
+      labels:
+        node: ba-sing-se
   metricsPath: /metrics
   relabelings:
     - action: replace
@@ -38,6 +42,8 @@ spec:
   staticConfigs:
     - targets:
         - jetkvm-aang.porkboi.io
+      labels:
+        node: jetkvm-aang
   metricsPath: /metrics
   relabelings:
     - action: replace
