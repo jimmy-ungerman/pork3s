@@ -13,12 +13,13 @@ spec:
     fullnameOverride: *app
     serviceMonitor:
       enabled: true
+      endpoints:
+        - port: http
+          interval: 1m
+          relabelings:
+            - action: replace
+              sourceLabels:
+                - __meta_kubernetes_endpoint_node_name
+              targetLabel: node
     prometheusRules:
       enabled: false
-    extraEnv:
-      - name: NODE_NAME
-        valueFrom:
-          fieldRef:
-            fieldPath: spec.nodeName
-    extraArgs:
-      - "--labels=node=$(NODE_NAME)"
