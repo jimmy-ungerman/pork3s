@@ -15,3 +15,10 @@ spec:
       enabled: true
     prometheusRules:
       enabled: false
+    extraEnv:
+      - name: NODE_NAME
+        valueFrom:
+          fieldRef:
+            fieldPath: spec.nodeName
+    extraArgs:
+      - "--labels=node=$(NODE_NAME)"
