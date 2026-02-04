@@ -12,14 +12,16 @@ spec:
   values:
     storageClass:
       create: true
-      name: nfs-slow
+      name: nfs-bench
       parameters:
         server: nas.porkboi.io
         share: /mnt/air/Kubernetes
       mountOptions:
         - nfsvers=4.2
-        - nconnect=4
         - hard
+        - nconnect=8
         - noatime
+        - rsize=1048576
+        - wsize=1048576
       reclaimPolicy: Delete
       volumeBindingMode: Immediate
