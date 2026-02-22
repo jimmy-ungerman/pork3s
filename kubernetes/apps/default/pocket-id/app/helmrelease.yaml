@@ -32,6 +32,7 @@ spec:
               DB_PROVIDER: postgres
               UPLOAD_PATH: /app/data/uploads
               ANALYTICS_DISABLED: true
+              ALLOW_USER_SIGNUPS: open
               TRUST_PROXY: true
               TZ: America/Boise
             envFrom: *envFrom
