@@ -16,9 +16,9 @@ resources:
   - ./mosquitto/ks.yaml
   - ./plex/ks.yaml
   - ./pocket-id/ks.yaml
+  - ./profilarr/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
-  - ./recyclarr/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./seerr/ks.yaml
   - ./sonarr/ks.yaml
