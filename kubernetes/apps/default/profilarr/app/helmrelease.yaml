@@ -32,9 +32,6 @@ spec:
                   periodSeconds: 30
                   timeoutSeconds: 5
                   failureThreshold: 3
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities: {drop: ["ALL"]}
             resources:
               requests:
                 cpu: 25m
@@ -42,7 +39,6 @@ spec:
                 memory: 1Gi
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
