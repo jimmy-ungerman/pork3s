@@ -13,5 +13,6 @@ spec:
       secret:
         secretName: &secret tailscale-operator-secret
     operatorConfig:
+      hostname: "tailscale-operator"
       podAnnotations:
         secret.reloader.stakater.com/reload: *secret
