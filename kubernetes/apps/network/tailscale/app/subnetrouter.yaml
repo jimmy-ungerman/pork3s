@@ -7,6 +7,4 @@ spec:
   hostnamePrefix: ts-lan-cidrs
   subnetRouter:
     advertiseRoutes:
-      - "10.2.0.0/24"
-      - "10.3.0.0/24"
       - "10.7.0.0/24"
