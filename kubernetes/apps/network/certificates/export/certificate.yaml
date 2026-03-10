@@ -16,6 +16,6 @@ spec:
     algorithm: ECDSA
     size: 256
     rotationPolicy: Always
-  secretName: turbo-ac-tls
+  secretName: porkboi-io-tls
   usages:
     - digital signature
