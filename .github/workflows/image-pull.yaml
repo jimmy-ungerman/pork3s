@@ -66,6 +66,7 @@ jobs:
             --all-namespaces
             --path /github/workspace/kubernetes/flux/cluster
             --enable-images
+            --only-images
             --output json
             --output-file images.json
 
