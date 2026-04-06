@@ -30,7 +30,7 @@ spec:
               DEDUPARR_SERVICE__PORT: &port 80
               DEDUPARR_SONARR_SERIES_ENABLED: true
               DEDUPARR_SONARR_SERIES_URL: http://sonarr.default.svc.cluster.local
-              TZ: America/New_York
+              TZ: America/Boise
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
