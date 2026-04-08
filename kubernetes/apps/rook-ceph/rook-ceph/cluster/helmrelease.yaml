@@ -82,7 +82,7 @@ spec:
           mountOptions:
             - discard
           parameters:
-            compression_mode: passive
+            compression_mode: aggressive
             compression_algorithm: zstd
             imageFormat: "2"
             imageFeatures: layering,fast-diff,object-map,deep-flatten,exclusive-lock
