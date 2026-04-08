@@ -10,29 +10,13 @@ spec:
     name: rook-ceph-cluster
   interval: 1h
   values:
-    monitoring:
-      enabled: true
-      createPrometheusRules: true
-    toolbox:
-      enabled: true
-    route:
-      dashboard:
-        host:
-          name: rook.porkboi.io
-          path: /
-          pathType: PathPrefix
-        parentRefs:
-          - name: envoy-internal
-            namespace: network
+    configOverride: |
+      [global]
+      bdev_enable_discard = true
+      bdev_async_discard = true
+      osd_class_update_on_start = false
+      mon_data_avail_warn = 15
     cephClusterSpec:
-      cephConfig:
-        global:
-          bdev_enable_discard: "true" # quote
-          bdev_async_discard_threads: "1" # quote
-          osd_class_update_on_start: "false" # quote
-          device_failure_prediction_mode: local # requires mgr module
-        mon:
-          mon_data_avail_warn: "15"
       cleanupPolicy:
         wipeDevicesFromOtherClusters: true
       crashCollector:
@@ -47,13 +31,7 @@ spec:
         prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
       mgr:
         modules:
-          - name: diskprediction_local
-            enabled: true
-          - name: insights
-            enabled: true
           - name: pg_autoscaler
-            enabled: true
-          - name: rook
             enabled: true
       network:
         provider: host
@@ -74,6 +52,20 @@ spec:
         devicePathFilter: /dev/disk/by-id/nvme-Seagate_FireCuda_530_*
         config:
           osdsPerDevice: "1"
+    monitoring:
+      enabled: true
+      createPrometheusRules: true
+    toolbox:
+      enabled: true
+    route:
+      dashboard:
+        host:
+          name: rook.porkboi.io
+          path: /
+          pathType: PathPrefix
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
     cephBlockPools:
       - name: ceph-blockpool
         spec:
@@ -90,7 +82,7 @@ spec:
           mountOptions:
             - discard
           parameters:
-            compression_mode: aggressive
+            compression_mode: passive
             compression_algorithm: zstd
             imageFormat: "2"
             imageFeatures: layering,fast-diff,object-map,deep-flatten,exclusive-lock
@@ -104,7 +96,7 @@ spec:
     cephBlockPoolsVolumeSnapshotClass:
       enabled: true
       name: csi-ceph-blockpool
-      isDefault: false
+      isDefault: true
       deletionPolicy: Delete
     cephFileSystems: []
     cephObjectStores: []
