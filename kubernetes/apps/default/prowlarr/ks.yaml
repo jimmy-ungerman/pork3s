@@ -6,7 +6,7 @@ metadata:
   name: prowlarr
 spec:
   components:
-    - ../../../../components/nfs-scaler
+    - ../../../../components/zeroscaler
     - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
