@@ -1,32 +1,52 @@
 {
-    "editor.fontLigatures": true,
-    "editor.bracketPairColorization.enabled": true,
-    "material-icon-theme.folders.associations": {
-      // top level
-      ".archive": "archive",
-      // .github
-      ".github/workflows": "robot",
-      // namespaces
-      "cert-manager": "guard",
-      "database": "database",
-      "default": "home",
-      "external-secrets": "secure",
-      "kube-system": "kubernetes",
-      "networking": "connection",
-      "observability": "event",
-      "rook-ceph": "base",
-      "system": "tools",
+  "editor.fontLigatures": true,
+  "editor.bracketPairColorization.enabled": true,
+  "files.associations": {
+    "**/*.json5": "json5",
   },
-    "material-icon-theme.files.associations": {
-    },
-    "yaml.schemaStore.enable": true,
-    "yaml.schemas": {
-      "kubernetes": "./kubernetes/**/*.yaml"
-    },
-    "vs-kubernetes": {
-      "vs-kubernetes.kubeconfig": "./kubeconfig",
-      "vs-kubernetes.knownKubeconfigs": [
-        "./kubeconfig"
-      ]
-    }
+  "files.trimTrailingWhitespace": true,
+  "material-icon-theme.files.associations": {
+    "*.gotmpl": "smarty",
+    "helmfile.yaml": "helm",
+    "kubeconfig": "kubernetes",
+    "talosconfig": "kubernetes",
+  },
+  "material-icon-theme.folders.associations": {
+    // top level
+    ".github/workflows": "ci",
+    ".private": "archive",
+    ".renovate": "robot",
+    "bootstrap": "seeders",
+    "bootstrap/helmfile.d": "helm",
+    "flux": "pipe",
+    "talos": "linux",
+    // namespaces
+    "actions-runner-system": "github",
+    "cert-manager": "guard",
+    "default": "home",
+    "external-secrets": "secure",
+    "flux-system": "pipe",
+    "kube-system": "kubernetes",
+    "network": "connection",
+    "o11y": "event",
+    "openebs-system": "base",
+    "rook-ceph": "dump",
+    "system-upgrade": "update",
+    "volsync-system": "aws",
+  },
+  "vs-kubernetes": {
+    "vs-kubernetes.kubeconfig": "./kubeconfig",
+    "vs-kubernetes.knownKubeconfigs": ["./kubeconfig"],
+  },
+  "window.zoomLevel": 0,
+  "yaml.schemaStore.enable": true,
+  "yaml.schemas": {
+    "kubernetes": "./kubernetes/**/*.yaml",
+  },
+  "[just]": {
+    "editor.defaultFormatter": "nefrob.vscode-just-syntax",
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "bluebrown.yamlfmt",
+  },
 }

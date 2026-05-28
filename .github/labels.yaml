@@ -2,15 +2,13 @@
 # Areas
 - name: area/bootstrap
   color: "0e8a16"
-- name: area/docs
-  color: "0e8a16"
 - name: area/github
   color: "0e8a16"
 - name: area/kubernetes
   color: "0e8a16"
-- name: area/talos
+- name: area/renovate
   color: "0e8a16"
-- name: area/taskfile
+- name: area/talos
   color: "0e8a16"
 # Renovate Types
 - name: renovate/container
@@ -22,6 +20,8 @@
 - name: renovate/github-release
   color: "027fa0"
 - name: renovate/helm
+  color: "027fa0"
+- name: renovate/talos
   color: "027fa0"
 # Semantic Types
 - name: type/digest

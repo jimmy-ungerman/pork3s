@@ -1,12 +1,11 @@
 {
-    "recommendations": [
-        "albert.TabOut",
-        "britesnow.vscode-toggle-quotes",
-        "fcrespo82.markdown-table-formatter",
-        "mitchdenny.ecdc",
-        "will-stone.in-any-case",
-        "BriteSnow.vscode-toggle-quotes",
-        "HashiCorp.terraform",
-        "PKief.material-icon-theme",
-    ]
+  "recommendations": [
+    "bluebrown.yamlfmt",
+    "blueglassblock.better-json5",
+    "hverlin.mise-vscode",
+    "irongeek.vscode-env",
+    "nefrob.vscode-just-syntax",
+    "PKief.material-icon-theme",
+    "redhat.vscode-yaml",
+  ],
 }
