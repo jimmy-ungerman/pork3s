@@ -2,9 +2,9 @@
 version: v1alpha1
 machine:
   ca:
-    crt: op://kube-secrets/talos/MACHINE_CA_CRT
+    crt: ref+op://kube-secrets/talos/MACHINE_CA_CRT
     {% if ENV.IS_CONTROLLER %}
-    key: op://kube-secrets/talos/MACHINE_CA_KEY
+    key: ref+op://kube-secrets/talos/MACHINE_CA_KEY
     {% endif %}
   features:
     apidCheckExtKeyUsage: true
@@ -48,7 +48,7 @@ machine:
   install:
     diskSelector:
       model: Samsung SSD 870
-    image: factory.talos.dev/metal-installer/cc720ffb8efc8f12637b8660a86448a88b3f89f516995fb9c67bf80564e723b1:v1.13.2
+    image: factory.talos.dev/metal-installer/{{ ENV.SCHEMATIC }}:v1.13.2
     wipe: false
   kernel:
     modules:
@@ -89,12 +89,12 @@ machine:
     sunrpc.tcp_slot_table_entries: "128"
     user.max_user_namespaces: "11255"
     vm.nr_hugepages: "1024"
-  token: op://kube-secrets/talos/MACHINE_TOKEN
+  token: ref+op://kube-secrets/talos/MACHINE_TOKEN
 cluster:
   ca:
-    crt: op://kube-secrets/talos/CLUSTER_CA_CRT
+    crt: ref+op://kube-secrets/talos/CLUSTER_CA_CRT
     {% if ENV.IS_CONTROLLER %}
-    key: op://kube-secrets/talos/CLUSTER_CA_KEY
+    key: ref+op://kube-secrets/talos/CLUSTER_CA_KEY
     {% endif %}
   clusterName: main
   controlPlane:
@@ -106,7 +106,7 @@ cluster:
         disabled: true
       service:
         disabled: false
-  id: op://kube-secrets/talos/CLUSTER_ID
+  id: ref+op://kube-secrets/talos/CLUSTER_ID
   network:
     cni:
       name: none
@@ -115,12 +115,12 @@ cluster:
       - 10.42.0.0/16
     serviceSubnets:
       - 10.43.0.0/16
-  secret: op://kube-secrets/talos/CLUSTER_SECRET
-  token: op://kube-secrets/talos/CLUSTER_TOKEN
+  secret: ref+op://kube-secrets/talos/CLUSTER_SECRET
+  token: ref+op://kube-secrets/talos/CLUSTER_TOKEN
   {% if ENV.IS_CONTROLLER %}
   aggregatorCA:
-    crt: op://kube-secrets/talos/CLUSTER_AGGREGATORCA_CRT
-    key: op://kube-secrets/talos/CLUSTER_AGGREGATORCA_KEY
+    crt: ref+op://kube-secrets/talos/CLUSTER_AGGREGATORCA_CRT
+    key: ref+op://kube-secrets/talos/CLUSTER_AGGREGATORCA_KEY
   allowSchedulingOnControlPlanes: true
   apiServer:
     auditPolicy:
@@ -145,8 +145,8 @@ cluster:
     advertisedSubnets:
       - 10.3.0.0/24
     ca:
-      crt: op://kube-secrets/talos/CLUSTER_ETCD_CA_CRT
-      key: op://kube-secrets/talos/CLUSTER_ETCD_CA_KEY
+      crt: ref+op://kube-secrets/talos/CLUSTER_ETCD_CA_CRT
+      key: ref+op://kube-secrets/talos/CLUSTER_ETCD_CA_KEY
     extraArgs:
       listen-metrics-urls: http://0.0.0.0:2381
   proxy:
@@ -173,9 +173,9 @@ cluster:
     extraArgs:
       bind-address: 0.0.0.0
     image: registry.k8s.io/kube-scheduler:v1.36.1
-  secretboxEncryptionSecret: op://kube-secrets/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
+  secretboxEncryptionSecret: ref+op://kube-secrets/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   serviceAccount:
-    key: op://kube-secrets/talos/CLUSTER_SERVICEACCOUNT_KEY
+    key: ref+op://kube-secrets/talos/CLUSTER_SERVICEACCOUNT_KEY
   {% endif %}
 ---
 apiVersion: v1alpha1
