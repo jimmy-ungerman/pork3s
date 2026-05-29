@@ -41,7 +41,7 @@
   "window.zoomLevel": 0,
   "yaml.schemaStore.enable": true,
   "yaml.schemas": {
-    "kubernetes": "./kubernetes/**/*.yaml",
+    "kubernetes": "./kubernetes/**/*.yaml"
   },
   "[just]": {
     "editor.defaultFormatter": "nefrob.vscode-just-syntax",

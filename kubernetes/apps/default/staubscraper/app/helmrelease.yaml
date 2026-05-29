@@ -18,17 +18,30 @@ spec:
           app:
             image:
               repository: ghcr.io/jimmy-ungerman/staubscraper
-              tag: main@sha256:6a208f74e9b7fd47da3ac1dc4163853d85f2825d7f28e96610fcfc96be7f22a4 
+              tag: 2.0.0@sha256:62c03914a4f94ea56c7b90b3525c52f6adf80cea95591ccbb36aecec4a99b8f0
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
             resources:
               requests:
-                cpu: "500m"
-                memory: "1024Mi"
+                cpu: "10m"
+                memory: "50Mi"
               limits:
-                cpu: "1000m"
-                memory: "2048Mi"
+                cpu: "200m"
+                memory: "512Mi"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: 5123
+                  initialDelaySeconds: 25
+                  periodSeconds: 10
+                  timeoutSeconds: 2
+                  failureThreshold: 3
+              readiness: *probes
     service:
       app:
         ports:
