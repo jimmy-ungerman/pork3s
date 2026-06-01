@@ -17,7 +17,7 @@ spec:
     httproute:
       enabled: true
       parentRefs:
-        - name: envoy-internal
+        - name: envoy-external
           namespace: network
       hostnames:
         - psuparlay.porkboi.io
