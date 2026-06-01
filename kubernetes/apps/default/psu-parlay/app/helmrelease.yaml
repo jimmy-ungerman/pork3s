@@ -12,6 +12,8 @@ spec:
   values:
     app:
       storage: "2Gi"
+      image:
+        tag: 0.1.0
     httproute:
       enabled: true
       parentRefs:
