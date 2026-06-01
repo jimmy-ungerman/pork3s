@@ -12,7 +12,7 @@ spec:
   values:
     app:
       storage: "2Gi"
-    httpRoute:
+    httproute:
       enabled: true
       parentRefs:
         - name: envoy-internal
