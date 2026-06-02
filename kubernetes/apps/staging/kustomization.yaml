@@ -7,3 +7,4 @@ components:
   - ../../components/alerts
 resources:
   - ./namespace.yaml
+  - ./psu-parlay/ks.yaml
