@@ -15,10 +15,6 @@ spec:
       image:
         repository: ghcr.io/jimmy-ungerman/psu-parlay
         tag: pr-7@sha256:7f1fddad63422c9f3db6e8dfd0d47ec1810694df73014a34bf8a7777ebbdba3c # updated automatically by deploy-staging workflow
-      dataSource:
-        name: psu-parlay-prod-snap
-        kind: VolumeSnapshot
-        apiGroup: snapshot.storage.k8s.io
     httproute:
       enabled: true
       parentRefs:
@@ -26,4 +22,3 @@ spec:
           namespace: network
       hostnames:
         - psuparlay-staging.porkboi.io
-
