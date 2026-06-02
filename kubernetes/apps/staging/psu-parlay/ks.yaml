@@ -3,12 +3,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: psu-parlay-staging
+  name: psu-parlay-pr-6
 spec:
   interval: 1h
   path: ./kubernetes/apps/staging/psu-parlay/app
   prune: true
-  suspend: true
+  suspend: false
   sourceRef:
     kind: GitRepository
     name: flux-system
