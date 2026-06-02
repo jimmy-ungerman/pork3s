@@ -153,7 +153,6 @@ spec:
         - 10.42.0.0/16
   http2:
     onInvalidMessage: TerminateStream
-  http3: {}
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
@@ -161,7 +160,6 @@ spec:
   tls:
     minVersion: "1.2"
     alpnProtocols:
-      - h3
       - h2
       - http/1.1
 ---

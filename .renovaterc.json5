@@ -72,6 +72,16 @@
       minimumGroupSize: 2,
     },
     {
+      description: "PSU Parlay",
+      groupName: "psuParlay",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/psu-parlay/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
       description: "Flux Operator Group",
       groupName: "flux-operator",
       matchDatasources: ["docker"],
