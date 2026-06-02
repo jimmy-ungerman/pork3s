@@ -8,7 +8,6 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/staging/psu-parlay/app
   prune: true
-  suspend: true
   sourceRef:
     kind: GitRepository
     name: flux-system
