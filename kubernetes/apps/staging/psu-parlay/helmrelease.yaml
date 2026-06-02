@@ -1,0 +1,24 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: psu-parlay-staging
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: psu-parlay-staging
+  values:
+    app:
+      storage: "2Gi"
+      image:
+        repository: ghcr.io/jimmy-ungerman/psu-parlay
+        tag: latest  # updated automatically by deploy-staging workflow
+    httproute:
+      enabled: true
+      parentRefs:
+        - name: envoy-internal
+          namespace: network
+      hostnames:
+        - psuparlay.staging.porkboi.io
