@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: psu-parlay-pr-8
+  name: psu-parlay-pr-9
 spec:
   interval: 1h
   chartRef:
@@ -14,7 +14,7 @@ spec:
       storage: "2Gi"
       image:
         repository: ghcr.io/jimmy-ungerman/psu-parlay
-        tag: pr-8@sha256:b390819d8835e5699acf5dce5a545e8686c1f80f608c6d0367525963daa14d98 # updated automatically by deploy-staging workflow
+        tag: pr-9@sha256:ad69f125ed9d7ef3c5068ea9ae8ec016c67bb72eb39f6af6c05cbf7e6a8ecc4f # updated automatically by deploy-staging workflow
     httproute:
       enabled: true
       parentRefs:
