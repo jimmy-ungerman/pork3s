@@ -14,7 +14,7 @@ spec:
       storage: "2Gi"
       image:
         repository: ghcr.io/jimmy-ungerman/psu-parlay
-        tag: 1.0.10@sha256:ce74ed63830d90d9b2bb2543a711a5cfd783499c0e788c5a7f73ea70d2d8c93d
+        tag: 1.0.11@sha256:d9eb0d01b950334e707f36b3a84f4d5a272a31bebc479b134eac377ff1bf0b3f
     httproute:
       enabled: true
       parentRefs:
