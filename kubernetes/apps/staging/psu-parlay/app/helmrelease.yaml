@@ -21,4 +21,4 @@ spec:
         - name: envoy-internal
           namespace: network
       hostnames:
-        - psuparlay.staging.porkboi.io
+        - psuparlay-staging.porkboi.io
