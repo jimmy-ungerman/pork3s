@@ -10,7 +10,7 @@ on:
       - .renovaterc.json5
       - .renovate/**.json5
   schedule:
-    - cron: 0 * * * *
+    - cron: 20 * * * *
   workflow_dispatch:
     inputs:
       dryRun:
@@ -50,8 +50,8 @@ jobs:
         uses: 1password/load-secrets-action@92467eb28f72e8255933372f1e0707c567ce2259 # v4.0.0 # zizmor: ignore[unpinned-tools]
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          GITHUB_BOT_APP_CLIENT_ID: op://kube-secrets/github-bot/GITHUB_BOT_APP_CLIENT_ID
-          GITHUB_BOT_APP_PRIVATE_KEY: op://kube-secrets/github-bot/GITHUB_BOT_APP_PRIVATE_KEY
+          GITHUB_BOT_APP_CLIENT_ID: op://kubernetes/github-bot/GITHUB_BOT_APP_CLIENT_ID
+          GITHUB_BOT_APP_PRIVATE_KEY: op://kubernetes/github-bot/GITHUB_BOT_APP_PRIVATE_KEY
 
       - name: Generate Token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
@@ -59,19 +59,22 @@ jobs:
         with:
           client-id: ${{ steps.load-secrets.outputs.GITHUB_BOT_APP_CLIENT_ID }}
           private-key: ${{ steps.load-secrets.outputs.GITHUB_BOT_APP_PRIVATE_KEY }}
+          permission-checks: write
           permission-contents: write
-          permission-pull-requests: write
           permission-issues: write
+          permission-pull-requests: write
+          permission-statuses: write
+          permission-vulnerability-alerts: read
           permission-workflows: write
 
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           persist-credentials: false
           token: ${{ steps.app-token.outputs.token }}
 
       - name: Run Renovate
-        uses: renovatebot/github-action@693b9ef15eec82123529a37c782242f091365961 # v46.1.14
+        uses: renovatebot/github-action@8217b3fc286df088d7c27f3255fe8414463bc0fd # v46.1.15
         env:
           LOG_LEVEL: ${{ inputs.logLevel || 'debug' }}
           RENOVATE_AUTODISCOVER: true
