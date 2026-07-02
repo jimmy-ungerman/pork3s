@@ -24,7 +24,7 @@ spec:
               DEDUPARR_LOG_LEVEL: info
               DEDUPARR_RADARR_MOVIES_ENABLED: true
               DEDUPARR_RADARR_MOVIES_URL: http://radarr.default.svc.cluster.local
-              DEDUPARR_REMOVE_FROM_CLIENT: false
+              DEDUPARR_REMOVE_FROM_CLIENT: true
               DEDUPARR_SCHEDULE: service
               DEDUPARR_SERVICE__INTERVAL: 2m
               DEDUPARR_SERVICE__PORT: &port 80
