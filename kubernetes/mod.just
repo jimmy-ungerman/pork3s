@@ -123,7 +123,7 @@ migrate-to-kopiur app ns='default' capacity='5Gi':
     git -C "{{ source_directory() }}/.." push
 
     echo "==> Reconciling flux..."
-    flux reconcile kustomization ${APP} -n ${NAMESPACE} --timeout=2m
+    flux reconcile kustomization ${APP} -n ${NAMESPACE} --with-source --timeout=2m
 
     echo "==> Waiting for PVC to be bound..."
     kubectl wait pvc/${APP} -n ${NAMESPACE} --for=jsonpath='{.status.phase}'=Bound --timeout=5m
