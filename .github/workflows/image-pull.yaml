@@ -46,16 +46,13 @@ jobs:
         with:
           cache: false
           tool_versions: |
-            github:home-operations/flate latest
+            github:home-operations/flate 0.4.9
 
       - name: Extract Images
         id: extract
-        env:
-          FLATE_OUTPUT: json
-          FLATE_PATH: ./kubernetes/flux/cluster
         run: |
           echo 'images<<EOF' >> $GITHUB_OUTPUT
-          flate diff images >> $GITHUB_OUTPUT
+          flate diff images -p ./kubernetes/flux/cluster -o json >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
 
   pull:
@@ -93,4 +90,6 @@ jobs:
 
       - name: All jobs passed or skipped?
         if: ${{ !(contains(needs.*.result, 'failure')) }}
+        env:
+          RESULTS: ${{ toJSON(needs.*.result) }}
         run: echo "All jobs passed or skipped" && echo "${{ toJSON(needs.*.result) }}"

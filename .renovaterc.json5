@@ -1,8 +1,7 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    "github>home-operations/renovate-presets#2.1.0",
-    ":timezone(America/Boise)",
+    "github>home-operations/renovate-presets#2.1.0", ":timezone(America/Boise)",
   ],
   packageRules: [
     // Auto-merge rules
@@ -116,6 +115,11 @@
         commitMessageTopic: "{{{groupName}}} group",
       },
       minimumGroupSize: 2,
+    },
+    {
+      description: "Hold Rook-Ceph at v1.19.x",
+      matchPackageNames: ["/rook-ceph/", "/rook-ceph-cluster/"],
+      allowedVersions: "<1.20.0",
     },
     // Labeling rules
     {

@@ -1,6 +1,13 @@
 {
-  "editor.fontLigatures": true,
   "editor.bracketPairColorization.enabled": true,
+  "editor.fontLigatures": true,
+  "editor.guides.bracketPairs": true,
+  "editor.guides.bracketPairsHorizontal": true,
+  "editor.guides.highlightActiveBracketPair": true,
+  "editor.hover.delay": 1500,
+  "editor.rulers": [100],
+  "editor.stickyScroll.enabled": false,
+  "explorer.autoReveal": true,
   "files.associations": {
     "**/*.json5": "json5",
   },
@@ -9,7 +16,7 @@
     "*.gotmpl": "smarty",
     "helmfile.yaml": "helm",
     "kubeconfig": "kubernetes",
-    "talosconfig": "kubernetes",
+    "talosconfig": "kubernetes"
   },
   "material-icon-theme.folders.associations": {
     // top level
@@ -32,7 +39,7 @@
     "openebs-system": "base",
     "rook-ceph": "dump",
     "system-upgrade": "update",
-    "volsync-system": "aws",
+    "kopiur-system": "aws"
   },
   "vs-kubernetes": {
     "vs-kubernetes.kubeconfig": "./kubeconfig",
@@ -44,9 +51,21 @@
     "kubernetes": "./kubernetes/**/*.yaml"
   },
   "[just]": {
-    "editor.defaultFormatter": "nefrob.vscode-just-syntax",
+    "editor.defaultFormatter": "nefrob.vscode-just-syntax"
   },
   "[yaml]": {
-    "editor.defaultFormatter": "bluebrown.yamlfmt",
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
+  "[json]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[json5]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  }
 }
