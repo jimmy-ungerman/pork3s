@@ -14,7 +14,7 @@ spec:
           name: kopiur-repository-secret
           namespace: kopiur-system
       bucket: kopiur
-      endpoint: nas.porkboi.io:3900
+      endpoint: nas.porkboi.io:30188
       region: ba-sing-se
       tls:
         disableTls: true
