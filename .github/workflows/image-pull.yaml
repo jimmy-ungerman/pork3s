@@ -92,4 +92,4 @@ jobs:
         if: ${{ !(contains(needs.*.result, 'failure')) }}
         env:
           RESULTS: ${{ toJSON(needs.*.result) }}
-        run: echo "All jobs passed or skipped" && echo "${{ toJSON(needs.*.result) }}"
+        run: echo "All jobs passed or skipped" && echo "$RESULTS"
