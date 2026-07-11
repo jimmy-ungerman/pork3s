@@ -6,7 +6,7 @@ metadata:
   name: gatus
 spec:
   interval: 1h
-  path: ./kubernetes/apps/observability/gatus/app
+  path: ./kubernetes/apps/o11y/gatus/app
   prune: true
   sourceRef:
     kind: GitRepository

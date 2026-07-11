@@ -6,7 +6,7 @@ metadata:
   name: kromgo
 spec:
   interval: 1h
-  path: ./kubernetes/apps/observability/kromgo/app
+  path: ./kubernetes/apps/o11y/kromgo/app
   prune: true
   sourceRef:
     kind: GitRepository

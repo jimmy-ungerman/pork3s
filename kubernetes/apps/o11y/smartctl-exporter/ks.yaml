@@ -6,7 +6,7 @@ metadata:
   name: smartctl-exporter
 spec:
   interval: 1h
-  path: ./kubernetes/apps/observability/smartctl-exporter/app
+  path: ./kubernetes/apps/o11y/smartctl-exporter/app
   prune: true
   sourceRef:
     kind: GitRepository
