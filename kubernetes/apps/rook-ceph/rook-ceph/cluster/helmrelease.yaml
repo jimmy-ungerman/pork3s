@@ -17,7 +17,7 @@ spec:
       bdev_async_discard = true
       osd_class_update_on_start = false
       mon_data_avail_warn = 15
-      # EOF 
+      # EOF
     cephClusterSpec:
       cleanupPolicy:
         wipeDevicesFromOtherClusters: true
@@ -30,7 +30,7 @@ spec:
         enabled: true
         urlPrefix: /
         ssl: false
-        prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
+        prometheusEndpoint: http://prometheus-operated.o11y.svc.cluster.local:9090
       mgr:
         modules:
           - name: pg_autoscaler

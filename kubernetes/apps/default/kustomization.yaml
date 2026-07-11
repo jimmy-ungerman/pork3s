@@ -5,15 +5,15 @@ kind: Kustomization
 namespace: default
 components:
   - ../../components/alerts
+  - ../../components/kopiur/secret
+
 resources:
   - ./namespace.yaml
-  - ./actual/ks.yaml
-  - ./agregarr/ks.yaml
   - ./bazarr/ks.yaml
+  - ./chaski/ks.yaml
   - ./deduparr/ks.yaml
   - ./home-assistant/ks.yaml
   - ./karakeep/ks.yaml
-  - ./matter-server/ks.yaml
   - ./mosquitto/ks.yaml
   - ./plex/ks.yaml
   - ./profilarr/ks.yaml
@@ -23,5 +23,5 @@ resources:
   - ./sabnzbd/ks.yaml
   - ./seerr/ks.yaml
   - ./sonarr/ks.yaml
-  - ./zigbee/ks.yaml
   - ./staubscraper/ks.yaml
+  - ./zigbee/ks.yaml

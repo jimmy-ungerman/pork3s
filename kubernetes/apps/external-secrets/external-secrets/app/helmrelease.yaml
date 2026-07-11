@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -15,10 +15,5 @@ spec:
       enabled: true
     grafanaDashboard:
       enabled: true
-    certController:
-      serviceMonitor:
-        enabled: true
     webhook:
       replicaCount: 2
-      serviceMonitor:
-        enabled: true
