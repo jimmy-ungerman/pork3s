@@ -15,7 +15,7 @@ helmDefaults:
   waitForJobs: true
 
 bases:
-  - defaults.yaml
+  - default.yaml
 
 defaultInherit: default
 
@@ -68,7 +68,7 @@ releases:
     needs:
       - cert-manager/cert-manager
 
-  - name: onepassword-connect
+  - name: onepassword
     namespace: external-secrets
     hooks:
       - # Wait for CRDs to be available
@@ -97,7 +97,7 @@ releases:
   - name: flux-operator
     namespace: flux-system
     needs:
-      - external-secrets/onepassword-connect
+      - external-secrets/onepassword
 
   - name: flux-instance
     namespace: flux-system
