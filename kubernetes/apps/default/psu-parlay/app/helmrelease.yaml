@@ -10,15 +10,31 @@ spec:
     kind: OCIRepository
     name: psu-parlay
   values:
-    app:
-      storage: "2Gi"
-      image:
-        repository: ghcr.io/jimmy-ungerman/psu-parlay
-        tag: 1.0.15@sha256:5369b922fefba061c59116159babeb6c62817023c82013ce84ca1466f9c51d29
-    httproute:
-      enabled: true
-      parentRefs:
-        - name: envoy-external
-          namespace: network
-      hostnames:
-        - psuparlay.porkboi.io
+    controllers:
+      psu-parlay:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/jimmy-ungerman/psu-parlay
+              tag: 1.0.16@sha256:dd86c8030633c9369e61f56901e44b602eb32474015fbd4b5342e2723a1e72c2
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+    service:
+      app:
+        ports:
+          http:
+            port: 3001
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.porkboi.io"
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
