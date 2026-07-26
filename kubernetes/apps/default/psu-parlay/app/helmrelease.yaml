@@ -30,7 +30,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.porkboi.io"
+          - "psuparlay.porkboi.io"
         parentRefs:
           - name: envoy-external
             namespace: network
