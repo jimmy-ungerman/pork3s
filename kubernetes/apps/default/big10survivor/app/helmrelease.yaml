@@ -1,0 +1,42 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: psu-parlay
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: big10survivor
+  values:
+    controllers:
+      big10survivor:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/jimmy-ungerman/big10survivor
+              tag: 1.0.0@sha256:77978facaf16f49213882690ab75a2f9abc299da6d2be61b49ae79b0f0f07ce3
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+    service:
+      app:
+        ports:
+          http:
+            port: 3002
+    route:
+      app:
+        hostnames:
+          - "survivor.porkboi.io"
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /app/data
