@@ -48,7 +48,7 @@ spec:
               - --storage-path=/data
               - --primary-interface=net1
             env:
-              TZ: Europe/Belgrade
+              TZ: America/Boise
               PORT: &port 5580
               LOG_LEVEL: info
             securityContext:
