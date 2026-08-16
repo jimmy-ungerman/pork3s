@@ -117,4 +117,4 @@ spec:
 
     persistence:
       data:
-        existingClaim: otbr-data
+        existingClaim: otbr
