@@ -16,6 +16,7 @@ resources:
   - ./home-assistant/ks.yaml
   - ./karakeep/ks.yaml
   - ./mosquitto/ks.yaml
+  - ./otbr/ks.yaml
   - ./plex/ks.yaml
   - ./profilarr/ks.yaml
   - ./prowlarr/ks.yaml

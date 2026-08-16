@@ -1,0 +1,120 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: otbr
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: otbr
+  values:
+    controllers:
+      otbr:
+        strategy: Recreate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"iot",
+                "namespace": "kube-system",
+                "ips": ["10.50.0.30/24", "fd00:50::246/64"],
+                "mac": "4a:e3:b1:72:c5:9d"
+              }]
+          securityContext:
+            runAsNonRoot: false
+            runAsUser: 0
+            runAsGroup: 0
+            fsGroup: 0
+            fsGroupChangePolicy: OnRootMismatch
+            sysctls:
+              - name: net.ipv6.conf.all.forwarding
+                value: "1"
+              - name: net.ipv6.conf.net1.forwarding
+                value: "1"
+              - name: net.ipv6.conf.net1.accept_ra
+                value: "2"
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/ownbee/hass-otbr-docker
+              tag: v0.3.0@sha256:5ca7008462e94d4c937aca8c1c9a60e709d6d300625363c161b946683032d5b1
+            env:
+              DEVICE: /tmp/ttyOTBR
+              NETWORK_DEVICE: "10.5.0.64:6638"
+              BACKBONE_IF: net1
+              OTBR_REST_PORT: &port 8081
+              BAUDRATE: "460800"
+              FLOW_CONTROL: "0"
+              NAT64: "0"
+            securityContext:
+              privileged: true
+            probes:
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /node
+                    port: *port
+                  periodSeconds: 10
+                  timeoutSeconds: 2
+                  failureThreshold: 30
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /node
+                    port: *port
+                  periodSeconds: 10
+                  timeoutSeconds: 2
+                  failureThreshold: 3
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /node
+                    port: *port
+                  periodSeconds: 30
+                  timeoutSeconds: 2
+                  failureThreshold: 3
+            resources:
+              requests:
+                cpu: 10m
+                memory: 64Mi
+              limits:
+                memory: 512Mi
+
+    service:
+      app:
+        controller: otbr
+        ports:
+          http:
+            port: *port
+
+    route:
+      app:
+        annotations:
+          # / returns 404; probe the OTBR REST health endpoint (same as the container probes).
+          gatus.home-operations.com/endpoint: |
+            url: https://otbr.nikola.wtf/node
+        hostnames:
+          - "{{ .Release.Name }}.nikola.wtf"
+        parentRefs:
+          - name: internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: otbr
+                port: *port
+
+    persistence:
+      data:
+        existingClaim: otbr-data
