@@ -1,0 +1,94 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: matter-server
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: matter-server
+
+  values:
+    controllers:
+      matter-server:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"multus-iot",
+                "namespace": "network",
+                "ips": ["10.5.0.31/24", "fd22:ae86:237c:1::31/64"],
+                "mac": "3a:f2:c8:91:b7:44"
+              }]
+          securityContext:
+            runAsNonRoot: false
+            runAsUser: 0
+            runAsGroup: 0
+            fsGroup: 0
+            fsGroupChangePolicy: OnRootMismatch
+            sysctls:
+              - name: net.ipv6.conf.net1.accept_ra
+                value: "2"
+              - name: net.ipv6.conf.net1.accept_ra_defrtr
+                value: "1"
+              - name: net.ipv6.conf.net1.accept_ra_rt_info_max_plen
+                value: "64"
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/matter-js/matterjs-server
+              tag: 1.4.0@sha256:54232d0d3e7dff5a54759469d2753399270412b4c30c55b31750a4595e4cb236
+            args:
+              - --storage-path=/data
+              - --primary-interface=net1
+            env:
+              TZ: Europe/Belgrade
+              PORT: &port 5580
+              LOG_LEVEL: info
+            securityContext:
+              privileged: true
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 10m
+                memory: 256Mi
+              limits:
+                memory: 1Gi
+
+    service:
+      app:
+        controller: matter-server
+        ports:
+          http:
+            port: *port
+
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.nikola.wtf"
+        parentRefs:
+          - name: internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: matter-server
+                port: *port
+
+    persistence:
+      data:
+        existingClaim: matter-server
+      tmp:
+        type: emptyDir
