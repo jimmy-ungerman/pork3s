@@ -77,11 +77,10 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.nikola.wtf"
+          - "{{ .Release.Name }}.porboi.io"
         parentRefs:
-          - name: internal
+          - name: envoy-internal
             namespace: network
-            sectionName: https
         rules:
           - backendRefs:
               - name: matter-server

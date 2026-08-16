@@ -102,13 +102,12 @@ spec:
         annotations:
           # / returns 404; probe the OTBR REST health endpoint (same as the container probes).
           gatus.home-operations.com/endpoint: |
-            url: https://otbr.nikola.wtf/node
+            url: https://otbr.porkboi.io/node
         hostnames:
-          - "{{ .Release.Name }}.nikola.wtf"
+          - "{{ .Release.Name }}.porkboi.io"
         parentRefs:
-          - name: internal
+          - name: envoy-internal
             namespace: network
-            sectionName: https
         rules:
           - backendRefs:
               - name: otbr
