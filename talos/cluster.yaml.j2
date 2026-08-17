@@ -1,0 +1,69 @@
+---
+version: v1alpha1
+machine:
+  ca:
+    crt: op://kube-secrets/talos/MACHINE_CA_CRT
+  features:
+    apidCheckExtKeyUsage: true
+    diskQuotaSupport: true
+    rbac: true
+  token: op://kube-secrets/talos/MACHINE_TOKEN
+cluster:
+  ca:
+    crt: op://kube-secrets/talos/CLUSTER_CA_CRT
+  clusterName: main
+  controlPlane:
+    endpoint: https://kube.porkboi.io:6443
+  token: op://kube-secrets/talos/CLUSTER_TOKEN
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: net0
+selector:
+  match: link.driver == "igc" && mac(link.permanent_addr).startsWith("88:ae:dd:72:")
+---
+apiVersion: v1alpha1
+kind: BondConfig
+name: bond0
+links:
+  - net0
+bondMode: active-backup
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: bond0
+clientIdentifier: mac
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.5
+vlanID: 5
+parent: bond0
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: ResolverConfig
+hostDNS:
+  enabled: true
+  forwardKubeDNSToHost: true # Requires Cilium socketLB features
+  resolveMemberNames: true
+---
+apiVersion: v1alpha1
+kind: DiscoveryServiceConfig
+name: default
+endpoint: https://discovery.talos.dev/
+---
+apiVersion: v1alpha1
+kind: DiscoveryIdentityConfig
+clusterID: op://kube-secrets/talos/CLUSTER_ID
+clusterSecret: op://kube-secrets/talos/CLUSTER_SECRET
+---
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+installer:
+  image: factory.talos.dev/metal-installer/{{ schematic }}:v1.14.0-rc.1
+  provisioning:
+    diskSelector:
+      match: disk.model == "Samsung SSD 870"
+    wipe: false
