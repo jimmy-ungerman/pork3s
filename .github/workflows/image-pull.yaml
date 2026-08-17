@@ -28,10 +28,14 @@ jobs:
           patterns: kubernetes/**/*
 
   extract:
-    if: ${{ needs.filter.outputs.changed-files != '[]' }}
+    if: >-
+      ${{
+        needs.filter.outputs.changed-files != '[]' &&
+        github.event.pull_request.head.repo.full_name == github.repository
+      }}
     needs: filter
     name: Image Pull - Extract Images
-    runs-on: ubuntu-latest
+    runs-on: pork-zoomies
     outputs:
       images: ${{ steps.extract.outputs.images }}
     steps:
@@ -56,7 +60,11 @@ jobs:
           echo 'EOF' >> $GITHUB_OUTPUT
 
   pull:
-    if: ${{ needs.extract.outputs.images != '[]' }}
+    if: >-
+      ${{
+        needs.extract.outputs.images != '[]' &&
+        github.event.pull_request.head.repo.full_name == github.repository
+      }}
     needs: extract
     name: Image Pull - Pull Images
     runs-on: pork-zoomies
