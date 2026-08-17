@@ -36,7 +36,6 @@
     "kube-system": "kubernetes",
     "network": "connection",
     "o11y": "event",
-    "openebs-system": "base",
     "rook-ceph": "dump",
     "system-upgrade": "update",
     "kopiur-system": "aws"
