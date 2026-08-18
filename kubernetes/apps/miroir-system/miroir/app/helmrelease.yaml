@@ -1,0 +1,30 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: miroir
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: miroir
+  interval: 1h
+  values:
+    nodes:
+      aang:
+        backend: lvmthin
+        device: /dev/disk/by-partlabel/r-miroir
+      katara:
+        backend: lvmthin
+        device: /dev/disk/by-partlabel/r-miroir
+      sokka:
+        backend: lvmthin
+        device: /dev/disk/by-partlabel/r-miroir
+    storageClass:
+      create: true
+      name: miroir-local
+      isDefault: false
+    replicatedStorageClass:
+      create: true
+      name: miroir-replicated
+      isDefault: false
