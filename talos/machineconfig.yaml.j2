@@ -2,9 +2,9 @@
 version: v1alpha1
 machine:
   ca:
-    crt: ref+op://kube-secrets/talos/MACHINE_CA_CRT
+    crt: op://kube-secrets/talos/MACHINE_CA_CRT
     {% if ENV.CONTROLPLANE %}
-    key: ref+op://kube-secrets/talos/MACHINE_CA_KEY
+    key: op://kube-secrets/talos/MACHINE_CA_KEY
     {% endif %}
   features:
     apidCheckExtKeyUsage: true
@@ -98,12 +98,12 @@ machine:
     sunrpc.tcp_slot_table_entries: "128"
     user.max_user_namespaces: "11255"
     vm.nr_hugepages: "1024"
-  token: ref+op://kube-secrets/talos/MACHINE_TOKEN
+  token: op://kube-secrets/talos/MACHINE_TOKEN
 cluster:
   ca:
-    crt: ref+op://kube-secrets/talos/CLUSTER_CA_CRT
+    crt: op://kube-secrets/talos/CLUSTER_CA_CRT
     {% if ENV.CONTROLPLANE %}
-    key: ref+op://kube-secrets/talos/CLUSTER_CA_KEY
+    key: op://kube-secrets/talos/CLUSTER_CA_KEY
     {% endif %}
   clusterName: main
   controlPlane:
@@ -115,7 +115,7 @@ cluster:
         disabled: true
       service:
         disabled: false
-  id: ref+op://kube-secrets/talos/CLUSTER_ID
+  id: op://kube-secrets/talos/CLUSTER_ID
   network:
     cni:
       name: none
@@ -124,12 +124,12 @@ cluster:
       - 10.42.0.0/16
     serviceSubnets:
       - 10.43.0.0/16
-  secret: ref+op://kube-secrets/talos/CLUSTER_SECRET
-  token: ref+op://kube-secrets/talos/CLUSTER_TOKEN
+  secret: op://kube-secrets/talos/CLUSTER_SECRET
+  token: op://kube-secrets/talos/CLUSTER_TOKEN
   {% if ENV.CONTROLPLANE %}
   aggregatorCA:
-    crt: ref+op://kube-secrets/talos/CLUSTER_AGGREGATORCA_CRT
-    key: ref+op://kube-secrets/talos/CLUSTER_AGGREGATORCA_KEY
+    crt: op://kube-secrets/talos/CLUSTER_AGGREGATORCA_CRT
+    key: op://kube-secrets/talos/CLUSTER_AGGREGATORCA_KEY
   allowSchedulingOnControlPlanes: true
   apiServer:
     auditPolicy:
@@ -155,8 +155,8 @@ cluster:
     advertisedSubnets:
       - 10.3.0.0/24
     ca:
-      crt: ref+op://kube-secrets/talos/CLUSTER_ETCD_CA_CRT
-      key: ref+op://kube-secrets/talos/CLUSTER_ETCD_CA_KEY
+      crt: op://kube-secrets/talos/CLUSTER_ETCD_CA_CRT
+      key: op://kube-secrets/talos/CLUSTER_ETCD_CA_KEY
     extraArgs:
       listen-metrics-urls: http://0.0.0.0:2381
   proxy:
@@ -183,9 +183,9 @@ cluster:
     extraArgs:
       bind-address: 0.0.0.0
     image: registry.k8s.io/kube-scheduler:v1.36.3
-  secretboxEncryptionSecret: ref+op://kube-secrets/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
+  secretboxEncryptionSecret: op://kube-secrets/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   serviceAccount:
-    key: ref+op://kube-secrets/talos/CLUSTER_SERVICEACCOUNT_KEY
+    key: op://kube-secrets/talos/CLUSTER_SERVICEACCOUNT_KEY
   {% endif %}
 ---
 apiVersion: v1alpha1
