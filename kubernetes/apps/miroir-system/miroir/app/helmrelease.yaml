@@ -10,21 +10,20 @@ spec:
     name: miroir
   interval: 1h
   values:
-    nodes:
-      aang:
-        backend: lvmthin
-        device: /dev/disk/by-partlabel/r-miroir
-      katara:
-        backend: lvmthin
-        device: /dev/disk/by-partlabel/r-miroir
-      sokka:
-        backend: lvmthin
-        device: /dev/disk/by-partlabel/r-miroir
-    storageClass:
-      create: true
-      name: miroir-local
-      isDefault: false
-    replicatedStorageClass:
-      create: true
-      name: miroir-replicated
-      isDefault: false
+    autoEvictAfter: 1h
+    drbd:
+      alExtents: 6007
+    groupSnapshots:
+      enabled: true
+    monitoring:
+      dashboards:
+        enabled: true
+        grafanaOperator:
+          enabled: true
+          matchLabels:
+            dashboards: grafana
+      podMonitor:
+        enabled: true
+      prometheusRule:
+        enabled: true
+    replicaCount: 2
