@@ -63,10 +63,10 @@ apiVersion: v1alpha1
 kind: UnattendedInstallConfig
 installer:
   image: factory.talos.dev/metal-installer/{{ schematic }}:v1.14.0-rc.1
-  provisioning:
-    diskSelector:
-      match: disk.model == "Samsung SSD 870"
-    wipe: false
+provisioning:
+  diskSelector:
+    match: disk.model == "Samsung SSD 870"
+  wipe: false
 ---
 apiVersion: v1alpha1
 kind: RawVolumeConfig
