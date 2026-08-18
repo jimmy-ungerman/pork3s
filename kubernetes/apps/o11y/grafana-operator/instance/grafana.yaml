@@ -29,7 +29,6 @@ spec:
       angular_support_enabled: "true"
     server:
       enable_gzip: "true"
-      root_url: https://grafana.porkboi.io
   deployment:
     spec:
       strategy:
@@ -58,6 +57,13 @@ spec:
             - name: grafana-data
               persistentVolumeClaim:
                 claimName: grafana-pvc
+  httpRoute:
+    spec:
+      hostnames:
+        - grafana.porkboi.io
+      parentRefs:
+        - name: envoy-internal
+          namespace: network
   persistentVolumeClaim:
     spec:
       accessModes:
