@@ -11,6 +11,9 @@ spec:
   interval: 1h
   values:
     cephClusterSpec:
+      cephConfig:
+        mon:
+          mon_cluster_log_level: info
       cleanupPolicy:
         wipeDevicesFromOtherClusters: true
       crashCollector:
@@ -28,7 +31,6 @@ spec:
           - name: pg_autoscaler
             enabled: true
       network:
-        provider: host
         connections:
           requireMsgr2: true
       resources:
@@ -39,8 +41,6 @@ spec:
         useAllNodes: true
         useAllDevices: false
         devicePathFilter: /dev/disk/by-id/nvme-Seagate_FireCuda_530_*
-        config:
-          osdsPerDevice: "1"
     monitoring:
       enabled: true
       createPrometheusRules: true
