@@ -173,9 +173,8 @@ config:
   crashLoopBackOff:
     maxContainerRestartPeriod: 60s
   imageMaximumGCAge: 168h
-  extraConfig:
-    allowedUnsafeSysctls:
-      - net.ipv6.conf.*
+  allowedUnsafeSysctls:
+    - net.ipv6.conf.*
   maxParallelImagePulls: 3
   serializeImagePulls: false
   shutdownGracePeriod: 90s
