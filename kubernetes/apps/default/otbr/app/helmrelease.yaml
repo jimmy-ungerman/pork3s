@@ -25,11 +25,6 @@ spec:
                 "mac": "4a:e3:b1:72:c5:9d"
               }]
           securityContext:
-            runAsNonRoot: false
-            runAsUser: 0
-            runAsGroup: 0
-            fsGroup: 0
-            fsGroupChangePolicy: OnRootMismatch
             sysctls:
               - name: net.ipv6.conf.all.forwarding
                 value: "1"
@@ -39,80 +34,71 @@ spec:
                 value: "2"
               - name: net.ipv6.conf.net1.accept_ra_rt_info_max_plen
                 value: "64"
+            seccompProfile:
+              type: RuntimeDefault
         containers:
           app:
             image:
               repository: ghcr.io/wittdennis/homeassistant-otbr
               tag: 4.2.1@sha256:81f366342b6f1e85d5cbb0f0d6abde7e77375a0cccf8de0f215d734b3a709cd4
+            lifecycle:
+              postStart:
+                exec:
+                  command:
+                    # Set TX power
+                    - sh
+                    - -c
+                    - for i in $(seq 1 60); do ot-ctl txpower 20 >/dev/null 2>&1 && exit 0; sleep 2; done; exit 0
             env:
               BACKBONE_IF: net1
               BAUDRATE: "460800"
               FIREWALL: "1"
               NAT64: "1"
               NETWORK_DEVICE: "10.5.0.64:6638"
+              S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: 1
+              S6_READ_ONLY_ROOT: 1
             securityContext:
-              privileged: true
-            probes:
-              startup:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /node
-                    port: *port
-                  periodSeconds: 10
-                  timeoutSeconds: 2
-                  failureThreshold: 30
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /node
-                    port: *port
-                  periodSeconds: 10
-                  timeoutSeconds: 2
-                  failureThreshold: 3
-              liveness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /node
-                    port: *port
-                  periodSeconds: 30
-                  timeoutSeconds: 2
-                  failureThreshold: 3
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+                add:
+                  - NET_ADMIN
+                  - NET_RAW
             resources:
               requests:
-                cpu: 10m
+                cpu: 50m
                 memory: 64Mi
               limits:
-                memory: 512Mi
+                memory: 128Mi
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /node/state
+                    port: &port 8081
+              readiness: *probe
 
     service:
-      app:
+      otbr:
         controller: otbr
         ports:
           http:
             port: *port
 
-    route:
-      app:
-        annotations:
-          # / returns 404; probe the OTBR REST health endpoint (same as the container probes).
-          gatus.home-operations.com/endpoint: |
-            url: https://otbr.porkboi.io/node
-        hostnames:
-          - "{{ .Release.Name }}.porkboi.io"
-        parentRefs:
-          - name: envoy-internal
-            namespace: network
-        rules:
-          - backendRefs:
-              - name: otbr
-                port: *port
-
     persistence:
       data:
         existingClaim: otbr
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /run
+            subPath: run
+      tun:
+        type: hostPath
+        hostPath: /dev/net/tun
+        hostPathType: CharDevice
+        globalMounts:
+          - path: /dev/net/tun
