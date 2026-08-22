@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: ghcr.io/wittdennis/homeassistant-otbr
-              tag: 4.2.1@sha256:81f366342b6f1e85d5cbb0f0d6abde7e77375a0cccf8de0f215d734b3a709cd4
+              tag: 4.2.2@sha256:80f35717025aa5a15ce593232c2531e67e123e3e439545d5320e35a7c60da017
             lifecycle:
               postStart:
                 exec:
