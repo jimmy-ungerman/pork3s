@@ -8,9 +8,6 @@ spec:
   components:
     - ../../../../components/zeroscaler
     - ../../../../components/kopiur/backup
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
   interval: 1h
   path: ./kubernetes/apps/default/radarr/app
   postBuild:
