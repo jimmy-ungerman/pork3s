@@ -86,8 +86,6 @@ spec:
             value: "2"
           - name: net.ipv6.conf.backbone.accept_ra_rt_info_max_plen
             value: "64"
-        seccompProfile:
-          type: RuntimeDefault
     service:
       otbr-slzb-mr4:
         controller: otbr-slzb-mr4
