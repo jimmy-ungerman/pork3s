@@ -105,11 +105,11 @@ spec:
           slzb-mr4:
             otbr:
               - path: /data
-                subPath: cottage
+                subPath: slzb-mr4
           slzb-m5u:
             otbr:
               - path: /data
-                subPath: house
+                subPath: slzb-m5u
       tmpfs:
         type: emptyDir
         globalMounts:
