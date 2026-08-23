@@ -11,7 +11,7 @@ spec:
     name: otbr
   values:
     controllers:
-      otbr-slzb-mr4:
+      slzb-mr4:
         strategy: Recreate
         annotations:
           reloader.stakater.com/auto: "true"
@@ -58,7 +58,7 @@ spec:
                     path: /node/state
                     port: &port 8081
               readiness: *probe
-      otbr-slzb-m5u:
+      slzb-m5u:
         pod:
           annotations:
             k8s.v1.cni.cncf.io/networks: |
@@ -72,7 +72,7 @@ spec:
                 }
               ]
         containers:
-          otbr-slzb-m5u:
+          otbr:
             <<: *container
             env:
               <<: *env
@@ -87,13 +87,13 @@ spec:
           - name: net.ipv6.conf.backbone.accept_ra_rt_info_max_plen
             value: "64"
     service:
-      otbr-slzb-mr4:
-        controller: otbr-slzb-mr4
+      slzb-mr4:
+        controller: slzb-mr4
         ports:
           http:
             port: *port
-      otbr-slzb-m5u:
-        controller: otbr-slzb-m5u
+      slzb-m5u:
+        controller: slzb-m5u
         ports:
           http:
             port: *port
@@ -102,11 +102,11 @@ spec:
       data:
         existingClaim: otbr
         advancedMounts:
-          otbr-slzb-mr4:
+          slzb-mr4:
             otbr:
               - path: /data
                 subPath: cottage
-          otbr-slzb-m5u:
+          slzb-m5u:
             otbr:
               - path: /data
                 subPath: house
