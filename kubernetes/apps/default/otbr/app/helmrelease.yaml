@@ -46,7 +46,7 @@ spec:
               BAUDRATE: "460800"
               FIREWALL: "1"
               NAT64: "1"
-              NETWORK_DEVICE: "10.5.0.64:6638"
+              NETWORK_DEVICE: "10.5.0.61:6638"
               S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: 1
               S6_READ_ONLY_ROOT: 1
             securityContext:
