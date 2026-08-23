@@ -16,7 +16,8 @@ spec:
         - aang.porkboi.io
         - katara.porkboi.io
         - sokka.porkboi.io
-        - zigbee-controller.porkboi.io
+        - slzb-mr4.porkboi.io
+        - slzb-mr5u.porkboi.io
   metricRelabelings:
     - targetLabel: service
       replacement: blackbox-exporter
