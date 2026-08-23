@@ -11,7 +11,7 @@ spec:
     name: otbr
   values:
     controllers:
-      otbr:
+      otbr-slzb-mr4:
         strategy: Recreate
         annotations:
           reloader.stakater.com/auto: "true"
@@ -24,24 +24,12 @@ spec:
                 "ips": ["10.5.0.30/24", "fd22:ae86:237c:1::30/64"],
                 "mac": "4a:e3:b1:72:c5:9d"
               }]
-          securityContext:
-            sysctls:
-              - name: net.ipv6.conf.all.forwarding
-                value: "1"
-              - name: net.ipv6.conf.net1.forwarding
-                value: "1"
-              - name: net.ipv6.conf.net1.accept_ra
-                value: "2"
-              - name: net.ipv6.conf.net1.accept_ra_rt_info_max_plen
-                value: "64"
-            seccompProfile:
-              type: RuntimeDefault
         containers:
-          app:
+          otbr: &container
             image:
               repository: ghcr.io/wittdennis/homeassistant-otbr
               tag: 4.2.2@sha256:80f35717025aa5a15ce593232c2531e67e123e3e439545d5320e35a7c60da017
-            env:
+            env: &env
               BACKBONE_IF: net1
               BAUDRATE: "460800"
               FIREWALL: "1"
@@ -70,10 +58,44 @@ spec:
                     path: /node/state
                     port: &port 8081
               readiness: *probe
-
+      otbr-slzb-m5u:
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [
+                {
+                  "name":"iot",
+                  "namespace": "kube-system",
+                  "interface": "net1",
+                  "ips": ["10.5.0.29/24", "fd22:ae86:237c:1::29/64"],
+                  "mac": "64:16:7F:61:46:5C"
+                }
+              ]
+        containers:
+          otbr-slzb-m5u:
+            <<: *container
+            env:
+              <<: *env
+              NETWORK_DEVICE: "10.5.0.196:6638"
+    defaultPodOptions:
+      securityContext:
+        sysctls:
+          - name: net.ipv6.conf.all.forwarding
+            value: "1"
+          - name: net.ipv6.conf.backbone.accept_ra
+            value: "2"
+          - name: net.ipv6.conf.backbone.accept_ra_rt_info_max_plen
+            value: "64"
+        seccompProfile:
+          type: RuntimeDefault
     service:
-      otbr:
-        controller: otbr
+      otbr-slzb-mr4:
+        controller: otbr-slzb-mr4
+        ports:
+          http:
+            port: *port
+      otbr-slzb-m5u:
+        controller: otbr-slzb-m5u
         ports:
           http:
             port: *port
@@ -81,6 +103,15 @@ spec:
     persistence:
       data:
         existingClaim: otbr
+        advancedMounts:
+          otbr-slzb-mr4:
+            otbr:
+              - path: /data
+                subPath: cottage
+          otbr-slzb-m5u:
+            otbr:
+              - path: /data
+                subPath: house
       tmpfs:
         type: emptyDir
         globalMounts:
