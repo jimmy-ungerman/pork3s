@@ -46,6 +46,7 @@ spec:
             args:
               - --storage-path=/data
               - --primary-interface=net1
+              - --default-fabric-label=Home Assistant
             env:
               TZ: America/Boise
               PORT: &port 5580
