@@ -52,7 +52,6 @@ jobs:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           GITHUB_BOT_APP_CLIENT_ID: op://kube-secrets/github-bot/GITHUB_BOT_APP_CLIENT_ID
           GITHUB_BOT_APP_PRIVATE_KEY: op://kube-secrets/github-bot/GITHUB_BOT_APP_PRIVATE_KEY
-          OCHARTED_USERNAME: op://kube-secrets/ocharted/OCHARTED_USERNAME
           OCHARTED_PASSWORD: op://kube-secrets/ocharted/OCHARTED_PASSWORD
 
       - name: Generate Token
@@ -87,7 +86,6 @@ jobs:
           RENOVATE_PLATFORM_COMMIT: true
           RENOVATE_SECRETS: |-
             {
-              "OCHARTED_USERNAME": "jimmy",
               "OCHARTED_PASSWORD": "${{ steps.load-secrets.outputs.OCHARTED_PASSWORD }}"
             }
         with:
