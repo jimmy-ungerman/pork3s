@@ -17,7 +17,7 @@
       description: "Authenticate against the ocharted OCI registry",
       matchHost: "ocharted.porkboi.io",
       hostType: "docker",
-      username: "{{ secrets.OCHARTED_USERNAME }}",
+      username: "jimmy",
       password: "{{ secrets.OCHARTED_PASSWORD }}",
     },
   ],
