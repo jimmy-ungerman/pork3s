@@ -87,7 +87,7 @@ jobs:
           RENOVATE_PLATFORM_COMMIT: true
           RENOVATE_SECRETS: |-
             {
-              "OCHARTED_USERNAME": "${{ steps.load-secrets.outputs.OCHARTED_USERNAME }}",
+              "OCHARTED_USERNAME": "jimmy",
               "OCHARTED_PASSWORD": "${{ steps.load-secrets.outputs.OCHARTED_PASSWORD }}"
             }
         with:
