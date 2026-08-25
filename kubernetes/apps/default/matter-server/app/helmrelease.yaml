@@ -78,7 +78,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.porboi.io"
+          - "{{ .Release.Name }}.porkboi.io"
         parentRefs:
           - name: envoy-internal
             namespace: network
