@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jimmy-ungerman/big10survivor
-              tag: 1.2.0@sha256:fca131c14bf9424371e3f7ad8bb325712969ec769d1632729dcc9429462b5b37
+              tag: 1.2.1@sha256:c3aa8bc6d7824080ca57b8eca92b531b54c3ff623e23f34cda54366897f60693
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
