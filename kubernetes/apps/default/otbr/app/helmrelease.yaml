@@ -28,7 +28,7 @@ spec:
           otbr: &container
             image:
               repository: ghcr.io/wittdennis/homeassistant-otbr
-              tag: 4.2.2@sha256:80f35717025aa5a15ce593232c2531e67e123e3e439545d5320e35a7c60da017
+              tag: 4.2.3@sha256:1b53b0b3488e1ee0929c1b28a231552f81cdb0cbdc4bcd75a91c2711ab6967fc
             env: &env
               BACKBONE_IF: net1
               BAUDRATE: "460800"
