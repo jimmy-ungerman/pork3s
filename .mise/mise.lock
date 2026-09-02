@@ -274,7 +274,7 @@ checksum = "sha256:57693d8e93d1b04e7b7de46aca53ecd63e97564e73de36a68428d7ff08d83
 url = "https://nodejs.org/dist/v26.8.1/node-v26.8.1-win-x64.zip"
 
 [[tools.oxfmt]]
-version = "0.65.0"
+version = "0.66.0"
 backend = "npm:oxfmt"
 
 [[tools.shellcheck]]
