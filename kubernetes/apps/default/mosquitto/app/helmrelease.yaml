@@ -23,7 +23,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -46,7 +46,7 @@ spec:
       app:
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: mosquitto.porkboi.io
+          external-dns.kubernetes.io/hostname: mosquitto.porkboi.io
           gatus.home-operations.com/endpoint: |-
             group: services
           lbipam.cilium.io/ips: 10.7.0.129
