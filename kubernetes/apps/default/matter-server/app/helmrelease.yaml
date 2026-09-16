@@ -34,6 +34,8 @@ spec:
             sysctls:
               - name: net.ipv6.conf.net1.accept_ra
                 value: "2"
+              - name: net.ipv6.conf.net1.accept_ra_defrtr
+                value: "1"
               - name: net.ipv6.conf.all.forwarding
                 value: "1"
               - name: net.ipv6.conf.net1.accept_ra_rt_info_max_plen
@@ -52,6 +54,7 @@ spec:
               TZ: America/Boise
               PORT: &port 5580
               LOG_LEVEL: info
+              DEFAULT_FABRIC_LABEL: Home Assistant
             securityContext:
               privileged: true
             probes:
