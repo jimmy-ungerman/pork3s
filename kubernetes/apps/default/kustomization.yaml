@@ -15,7 +15,6 @@ resources:
   - ./cleanrr/ks.yaml
   - ./home-assistant/ks.yaml
   - ./karakeep/ks.yaml
-  - ./mosquitto/ks.yaml
   - ./plex/ks.yaml
   - ./profilarr/ks.yaml
   - ./prowlarr/ks.yaml
@@ -25,4 +24,3 @@ resources:
   - ./seerr/ks.yaml
   - ./sonarr/ks.yaml
   - ./staubscraper/ks.yaml
-  - ./zigbee/ks.yaml
