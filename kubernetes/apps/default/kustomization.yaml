@@ -15,9 +15,7 @@ resources:
   - ./cleanrr/ks.yaml
   - ./home-assistant/ks.yaml
   - ./karakeep/ks.yaml
-  - ./matter-server/ks.yaml
   - ./mosquitto/ks.yaml
-  - ./otbr/ks.yaml
   - ./plex/ks.yaml
   - ./profilarr/ks.yaml
   - ./prowlarr/ks.yaml
