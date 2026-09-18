@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jimmy-ungerman/big10survivor
-              tag: 1.14.0@sha256:1a454716a1aaddd32b079774dfb290a6b549ad78feb1211bcb4002d766d278cd
+              tag: 1.14.1@sha256:8d09865fe334fadcb439d1211e60c1bfce27ab0aaece54bb626d8cc0eb8b64e1
             env:
               ENTRY_FEE: "25"
             envFrom:
