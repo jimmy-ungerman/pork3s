@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jimmy-ungerman/psu-parlay
-              tag: 3.6.3@sha256:6a7fcbe0a9b9bcf169bee12505048d69cf5d881a4507f165272874eb365a9c1f
+              tag: 3.6.4@sha256:cf528fd8aaae9b0f8db6ecff5482dc8e8da2a31d519c91e3445f062146a97412
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
