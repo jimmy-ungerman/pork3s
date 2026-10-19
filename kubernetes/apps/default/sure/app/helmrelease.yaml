@@ -1,0 +1,156 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: sure
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: sure
+  interval: 1h
+  values:
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+
+    controllers:
+      sure:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          migrate:
+            image: &image
+              repository: ghcr.io/we-promise/sure
+              tag: 0.7.5@sha256:46c0cedf89cf5c801f91ced894d1d1e6e401b6352fe1b5b4ba242f9b192a5807
+            command:
+              - /bin/sh
+              - -c
+              - DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rake db:prepare
+            env: &env
+              APP_DOMAIN: sure.porkboi.io
+              DB_HOST: sure-postgres-rw.default.svc.cluster.local
+              DB_PORT: "5432"
+              MALLOC_ARENA_MAX: "2"
+              POSTGRES_DB: sure
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: sure-postgres-app
+                    key: password
+              POSTGRES_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: sure-postgres-app
+                    key: username
+              RAILS_ASSUME_SSL: "true"
+              RAILS_ENV: production
+              RAILS_FORCE_SSL: "false"
+              RAILS_LOG_TO_STDOUT: "true"
+              RAILS_MAX_THREADS: "3"
+              REDIS_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: sure-dragonfly-secret
+                    key: password
+              REDIS_URL:
+                value: redis://:$(REDIS_PASSWORD)@sure-dragonfly.default.svc.cluster.local:6379/0
+                dependsOn: REDIS_PASSWORD
+              SECRET_KEY_BASE:
+                valueFrom:
+                  secretKeyRef:
+                    name: sure-secret
+                    key: SECRET_KEY_BASE
+              SELF_HOSTED: "true"
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+        containers:
+          app:
+            image: *image
+            env:
+              <<: *env
+              PORT: &port "3000"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /up
+                    port: 3000
+                  periodSeconds: 15
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /up
+                    port: 3000
+                  periodSeconds: 5
+                  timeoutSeconds: 5
+                  failureThreshold: 40
+            securityContext: *securityContext
+            resources:
+              requests:
+                cpu: 25m
+              limits:
+                memory: 1Gi
+          worker:
+            image: *image
+            command:
+              - bundle
+              - exec
+              - sidekiq
+            env: *env
+            securityContext: *securityContext
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 768Mi
+
+    service:
+      app:
+        controller: sure
+        ports:
+          http:
+            port: 3000
+
+    persistence:
+      storage:
+        existingClaim: sure
+        advancedMounts:
+          sure:
+            app:
+              - path: /rails/storage
+            worker:
+              - path: /rails/storage
+      sidekiq-cron-patch:
+        type: configMap
+        name: "{{ .Release.Name }}-configmap"
+        globalMounts:
+          - path: /rails/config/initializers/zz_sidekiq_cron_patch.rb
+            subPath: zz_sidekiq_cron_patch.rb
+            readOnly: true
+
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.porkboi.io"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 3000

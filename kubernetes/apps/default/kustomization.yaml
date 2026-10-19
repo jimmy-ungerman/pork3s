@@ -6,6 +6,7 @@ namespace: default
 components:
   - ../../components/alerts
   - ../../components/kopiur/secret
+  - ../../components/postgres/secret
 
 resources:
   - ./namespace.yaml
@@ -24,3 +25,4 @@ resources:
   - ./seerr/ks.yaml
   - ./sonarr/ks.yaml
   - ./staubscraper/ks.yaml
+  - ./sure/ks.yaml
