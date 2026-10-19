@@ -24,7 +24,7 @@ spec:
         kind: GitRepository
         url: https://github.com/jimmy-ungerman/pork3s
         ref: refs/heads/main
-        path: kubernetes/flux/cluster
+        path: kubernetes/apps
         interval: 1h
       kustomize:
         patches:
