@@ -14,7 +14,7 @@ The talos cluster of Pork Chop
 [![Talos](https://kromgo.porkboi.io/badges/talos_version?style=for-the-badge)](https://talos.dev)&nbsp;&nbsp;
 [![Kubernetes](https://kromgo.porkboi.io/badges/kubernetes_version?style=for-the-badge)](https://kubernetes.io)&nbsp;&nbsp;
 [![Flux](https://kromgo.porkboi.io/badges/flux_version?style=for-the-badge)](https://fluxcd.io)&nbsp;&nbsp;
-[![Renovate](https://img.shields.io/github/actions/workflow/status/onedr0p/home-ops/renovate.yaml?branch=main&label=&logo=renovatebot&style=for-the-badge&color=blue)](https://github.com/onedr0p/home-ops/actions/workflows/renovate.yaml)
+![Renovate](https://img.shields.io/badge/enabled-blue?logo=renovate)
 
 </div>
 
