@@ -46,11 +46,19 @@ spec:
             memory: 8Gi
       security:
         cephx:
+          allowedCiphers: [aes256k]
           daemon:
             keyRotationPolicy: KeyGeneration
             keyGeneration: 2
           csi:
-            keyType: aes # aes256k requires kernel 7.0+
+            keyRotationPolicy: KeyGeneration
+            keyGeneration: 2
+            keepPriorKeyCountMax: 0
+            keyType: aes256k # Talos 1.14+ backports the kernel 7.0 aes256k support
+          rbdMirrorPeer:
+            keyRotationPolicy: KeyGeneration
+            keyGeneration: 2
+            keyType: aes256k
       storage:
         useAllNodes: true
         useAllDevices: false
