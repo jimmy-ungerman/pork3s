@@ -10,12 +10,6 @@
   // The Main ruleset does not require up-to-date branches, and `auto` would
   // still rebase every automerge PR each time main moves
   rebaseWhen: "conflicted",
-  lockFileMaintenance: {
-    enabled: true,
-    schedule: ["before 3am on the first day of the month"],
-    commitMessageExtra: "({{manager}})",
-    additionalBranchPrefix: "{{manager}}-",
-  },
   hostRules: [
     {
       description: "Authenticate against the ocharted OCI registry",
@@ -119,12 +113,6 @@
       minimumGroupSize: 5,
     },
     {
-      description: "Mise Tools Group",
-      matchManagers: ["mise"],
-      groupName: "mise tools",
-      groupSlug: "mise-tools",
-    },
-    {
       description: "Rook-Ceph Group",
       groupName: "rook-ceph",
       matchDatasources: ["docker"],
@@ -135,8 +123,7 @@
       minimumGroupSize: 2,
     },
     {
-      // After the mise tools catch-all so talos wins its own group; unites the
-      // mise pin, the factory installer image, and the tuppr upgrade version
+      // Unites the factory installer image and the tuppr upgrade version
       description: "Talos Group",
       groupName: "talos",
       matchPackageNames: ["siderolabs/talos"],
@@ -144,12 +131,6 @@
         commitMessageTopic: "{{{groupName}}} group",
       },
       minimumGroupSize: 2,
-    },
-    {
-      description: "1Password CLI is not resolvable on GitHub, bump manually",
-      matchManagers: ["mise"],
-      matchDepNames: ["1password-cli"],
-      enabled: false,
     },
     {
       description: "Keep CloudNativePG on Postgres 18 until the extension images move with it",
