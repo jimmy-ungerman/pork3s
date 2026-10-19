@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: ${APP}-postgres
+spec:
+  instances: ${CNPG_INSTANCES:=1}
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.6-standard-trixie
+  enablePDB: ${CNPG_PDB:=false}
+  enableSuperuserAccess: false
+  bootstrap:
+    initdb:
+      database: ${CNPG_DATABASE:=${APP}}
+      owner: ${CNPG_OWNER:=${APP}}
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: ${APP}-postgres
+        serverName: ${CNPG_SERVER:=${APP}-postgres}
+  resources:
+    requests:
+      cpu: ${CNPG_CPU:=50m}
+    limits:
+      memory: ${CNPG_MEMORY:=1Gi}
+  storage:
+    size: ${CNPG_CAPACITY:=5Gi}
+    storageClass: ${CNPG_STORAGECLASS:=ceph-block}
