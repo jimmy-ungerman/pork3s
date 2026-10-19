@@ -19,7 +19,7 @@ spec:
         name: cnpg-backup-secret
         key: AWS_REGION
     data:
-      compression: zstd
+      compression: gzip
     wal:
       compression: zstd
       maxParallel: 4
