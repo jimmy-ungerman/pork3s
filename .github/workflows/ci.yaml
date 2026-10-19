@@ -49,7 +49,7 @@ jobs:
         run: |
           {
             echo 'images<<EOF'
-            mise exec "github:home-operations/flate@${FLATE_VERSION}" -- flate diff images -p ./kubernetes/flux/cluster -o json
+            mise exec "github:home-operations/flate@${FLATE_VERSION}" -- flate diff images -p ./kubernetes/apps -o json
             echo 'EOF'
           } >> "$GITHUB_OUTPUT"
 
