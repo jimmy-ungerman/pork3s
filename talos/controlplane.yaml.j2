@@ -35,6 +35,7 @@ certExtraSANs:
   - kube.porkboi.io
 extraArgs:
   enable-aggregator-routing: "true"
+  feature-gates: HPAScaleToZero=true
 image: registry.k8s.io/kube-apiserver:v1.37.1
 ---
 apiVersion: v1alpha1
@@ -70,6 +71,7 @@ apiVersion: v1alpha1
 kind: KubeControllerManagerConfig
 extraArgs:
   bind-address: 0.0.0.0
+  feature-gates: HPAScaleToZero=true
 image: registry.k8s.io/kube-controller-manager:v1.37.1
 ---
 apiVersion: v1alpha1
