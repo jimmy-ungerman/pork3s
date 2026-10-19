@@ -2,10 +2,14 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
     "github>home-operations/renovate-presets#8.1.0",
+    "github>home-operations/renovate-presets//apps/cnpg.json5#8.1.0",
     "github>home-operations/renovate-presets//apps/grafanaDashboards.json5#8.1.0",
     "github>home-operations/renovate-presets//apps/talosFactory.json5#8.1.0",
     ":timezone(America/Boise)",
   ],
+  // The Main ruleset does not require up-to-date branches, and `auto` would
+  // still rebase every automerge PR each time main moves
+  rebaseWhen: "conflicted",
   lockFileMaintenance: {
     enabled: true,
     schedule: ["before 3am on the first day of the month"],
@@ -47,9 +51,9 @@
       matchManagers: ["github-actions"],
       matchUpdateTypes: ["minor", "patch", "digest"],
       automerge: true,
-      automergeType: "branch",
+      automergeType: "pr",
       minimumReleaseAge: "3 days",
-      ignoreTests: true,
+      ignoreTests: false,
     },
     {
       description: "Auto-merge trusted GitHub Actions",
@@ -57,25 +61,25 @@
       matchPackageNames: ["/^actions\\//", "/^renovatebot\\//"],
       matchUpdateTypes: ["minor", "patch", "digest"],
       automerge: true,
-      automergeType: "branch",
+      automergeType: "pr",
       minimumReleaseAge: "1 minute",
-      ignoreTests: true,
+      ignoreTests: false,
     },
     {
       description: "Auto-merge Grafana dashboards",
       matchDatasources: ["custom.grafana-dashboards"],
       matchUpdateTypes: ["major"],
       automerge: true,
-      automergeType: "branch",
-      ignoreTests: true,
+      automergeType: "pr",
+      ignoreTests: false,
     },
     {
       description: "Auto-merge Renovate Presents",
       matchManagers: ["renovate-config"],
       matchUpdateTypes: ["minor", "patch"],
       automerge: true,
-      automergeType: "branch",
-      ignoreTests: true,
+      automergeType: "pr",
+      ignoreTests: false,
     },
     // Grouping rules
     {
@@ -146,6 +150,22 @@
       matchManagers: ["mise"],
       matchDepNames: ["1password-cli"],
       enabled: false,
+    },
+    {
+      description: "Keep CloudNativePG on Postgres 18 until the extension images move with it",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/cloudnative-pg/postgresql"],
+      allowedVersions: "/^18\\./",
+    },
+    // Commit message rules
+    {
+      // The flux manager also extracts HelmRelease values images, so the file
+      // name is the only signal that a docker dep is a chart
+      description: "Title OCI chart updates as charts instead of images",
+      matchDatasources: ["docker"],
+      matchFileNames: ["**/ocirepository.yaml"],
+      semanticCommitScope: "helm",
+      commitMessageTopic: "chart {{depName}}",
     },
     // Labeling rules
     {
