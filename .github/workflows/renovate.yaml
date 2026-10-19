@@ -41,7 +41,7 @@ permissions:
 jobs:
   main:
     name: Renovate
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions:
       packages: read
     steps:
