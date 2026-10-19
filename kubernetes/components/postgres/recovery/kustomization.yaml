@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+patches:
+  - target:
+      group: postgresql.cnpg.io
+      kind: Cluster
+    patch: |-
+      apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      metadata:
+        name: not-used
+      spec:
+        bootstrap:
+          initdb: null
+          recovery:
+            source: source
+        externalClusters:
+          - name: source
+            plugin:
+              name: barman-cloud.cloudnative-pg.io
+              parameters:
+                barmanObjectName: ${APP}-postgres
+                serverName: ${CNPG_SOURCE_SERVER:=${APP}-postgres}
