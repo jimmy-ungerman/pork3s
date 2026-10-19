@@ -15,6 +15,7 @@ spec:
       repository: mirror.gcr.io/coredns/coredns
     replicaCount: 2
     k8sAppLabelOverride: kube-dns
+    priorityClassName: system-cluster-critical
     serviceAccount:
       create: true
     service:
