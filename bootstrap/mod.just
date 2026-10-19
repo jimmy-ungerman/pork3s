@@ -46,7 +46,7 @@ kubeconfig lb="cilium":
     fi
 
 [private]
-base: ready
+base: api-ready nodes-ready
     just log info "Running stage..." "stage" "{{ recipe_name() }}"
     if ! kustomize build {{ source_directory() }}/kustomize/apps | just template - | kubectl apply --server-side --force-conflicts -f -; then
         just log fatal "Failed to apply base manifests" "stage" "{{ recipe_name() }}"
@@ -62,9 +62,20 @@ apps:
         just log fatal "Failed to sync helmfile" "stage" "{{ recipe_name() }}"
     fi
 
-# Wait until nodes register as Ready=False. They only become Ready=True once the CNI is healthy.
+# Wait until every apiserver answers /readyz. Helm and kubectl calls after this stage are not retried.
 [private]
-ready:
+api-ready:
+    just log info "Running stage..." "stage" "{{ recipe_name() }}"
+    for n in {{ nodes }}; do
+        until [[ "$(curl -ks -o /dev/null -w '%{http_code}' --connect-timeout 2 "https://${n}:6443/readyz")" == "200" ]]; do
+            just log info "Waiting for kube-apiserver. Retrying in 5 seconds..." "stage" "{{ recipe_name() }}" "node" "$n"
+            sleep 5
+        done
+    done
+
+# Wait until every node registers as Ready=False. They only become Ready=True once the CNI is healthy.
+[private]
+nodes-ready:
     just log info "Running stage..." "stage" "{{ recipe_name() }}"
     if ! kubectl wait nodes --for=condition=Ready=True --all --timeout=10s &>/dev/null; then
         until kubectl wait nodes --for=condition=Ready=False --all --timeout=10s &>/dev/null; do
