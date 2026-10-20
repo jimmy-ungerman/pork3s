@@ -7,3 +7,11 @@ resources:
   - ./pvc.yaml
   - ./helmrelease.yaml
   - ./ocirepository.yaml
+configMapGenerator:
+  - name: home-assistant-configmap
+    files:
+      - smartbridge.py=./resources/smartbridge.py
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
