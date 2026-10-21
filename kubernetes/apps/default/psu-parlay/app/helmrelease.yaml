@@ -18,10 +18,32 @@ spec:
           app:
             image:
               repository: ghcr.io/jimmy-ungerman/psu-parlay
-              tag: 3.7.2@sha256:5df5ed80718c601d39ae694f022fc7dec348f93eecad506cc391ed1d47f98c02
+              tag: 3.8.0@sha256:54935083eaa36333a4250bd9008dd34cfbd4bd01b84f932f670457f074471192
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: 3001
+                  initialDelaySeconds: 10
+                  periodSeconds: 10
+                  timeoutSeconds: 2
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /readyz
+                    port: 3001
+                  periodSeconds: 10
+                  timeoutSeconds: 2
+                  failureThreshold: 3
     service:
       app:
         ports:
