@@ -27,6 +27,8 @@ jobs:
     if: ${{ github.event_name == 'pull_request' }}
     name: Image Pull - Extract Images
     runs-on: ubuntu-26.04
+    permissions:
+      contents: read
     outputs:
       images: ${{ steps.extract.outputs.images }}
     steps:
@@ -62,6 +64,8 @@ jobs:
     needs: image-pull-extract
     name: Image Pull - Pull Images
     runs-on: pork-zoomies
+    permissions:
+      contents: read
     strategy:
       matrix:
         image: ${{ fromJSON(needs.image-pull-extract.outputs.images) }}
