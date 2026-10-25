@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/home-assistant
-              tag: 2026.10.2@sha256:a582f4b113e3018517a5ae9727b873e262aa787fa97f07b97b71bfc57f14d470
+              tag: 2026.10.4@sha256:81271a8bbe2a6019659e9d5cde98b884dd0d67fad6819bb4ab177dceb0c1c5e1
             env:
               TZ: America/Boise
               HASS_HTTP_TRUSTED_PROXY_1: 10.7.0.0/24
@@ -76,15 +76,3 @@ spec:
           - path: /config/.venv
       tmp:
         type: emptyDir
-      # Temporary: patched pylutron-caseta 0.29.0 smartbridge.py with the one-line
-      # fix from gurumitts/pylutron-caseta#218. Python 3.14.8 (HA 2026.10.1+)
-      # rejects its server_hostname="" TLS connection, breaking Lutron Caseta
-      # (gurumitts/pylutron-caseta#217). Remove this mount and resources/smartbridge.py
-      # once an HA release ships a pylutron-caseta newer than 0.29.0.
-      pylutron-caseta-patch:
-        type: configMap
-        name: "{{ .Release.Name }}-configmap"
-        globalMounts:
-          - path: /usr/local/lib/python3.14/site-packages/pylutron_caseta/smartbridge.py
-            subPath: smartbridge.py
-            readOnly: true
