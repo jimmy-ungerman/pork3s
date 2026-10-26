@@ -48,7 +48,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -70,6 +70,7 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
+            path: /api/v1/status
             conditions: ["[STATUS] == 200"]
         hostnames:
           - "{{ .Release.Name }}.porkboi.io"
