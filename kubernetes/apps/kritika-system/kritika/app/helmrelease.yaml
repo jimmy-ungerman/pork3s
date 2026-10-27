@@ -1,0 +1,95 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kritika
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: kritika
+  interval: 1h
+  values:
+    replicas: 1
+    deploymentAnnotations:
+      reloader.stakater.com/auto: "true"
+    config:
+      webUrl: https://{{ .Release.Name }}.porkboi.io
+      auth:
+        admin:
+          password: { env: KRITIKA_AUTH_ADMIN_PASSWORD }
+      review:
+        model: chatgpt/~sol-latest
+        fallback: xai/grok-4.7
+      apps:
+        github:
+          accounts: [jimmy-ungerman]
+          clientId: { env: KRITIKA_GITHUB_CLIENT_ID }
+          privateKey: { env: KRITIKA_GITHUB_PRIVATE_KEY }
+          webhookSecret: { env: KRITIKA_GITHUB_WEBHOOK_SECRET }
+      providers:
+        chatgpt: { type: chatgpt }
+        xai:
+          type: openai
+          baseUrl: https://api.x.ai/v1
+          apiKey: { env: KRITIKA_XAI_API_KEY }
+          pricing:
+            grok-4.7: { input: 2, output: 6, cacheRead: 0.5 }
+      egress:
+        allow: ["*"]
+        deny: [10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, "*.internal"]
+      trigger:
+        exclude:
+          - { name: forks, expr: pr.fork }
+    envFrom:
+      - secretRef:
+          name: kritika-secret
+    database:
+      app:
+        existingSecret: kritika-postgres-app
+      owner:
+        existingSecret: kritika-postgres-credentials
+      runner:
+        existingSecret: kritika-postgres-runner
+    gatewayCache:
+      enabled: true
+    runner:
+      podTemplate:
+        spec:
+          resources:
+            requests:
+              cpu: 10m
+              memory: 512Mi
+            limits:
+              memory: 2Gi
+          runtimeClassName: gvisor
+    httpRoute:
+      enabled: true
+      annotations:
+        gatus.home-operations.com/endpoint: |-
+          conditions: ["[STATUS] == 200"]
+          path: /api/v1/meta
+      parentRefs:
+        - name: envoy-external
+          namespace: network
+      hostnames:
+        - "{{ .Release.Name }}.porkboi.io"
+    monitoring:
+      dashboards:
+        enabled: true
+        grafanaOperator:
+          enabled: true
+          matchLabels:
+            dashboards: grafana
+      prometheusRule:
+        enabled: true
+      serviceMonitor:
+        enabled: true
+    networkPolicy:
+      postgres:
+        podSelector:
+          cnpg.io/cluster: kritika-postgres
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
