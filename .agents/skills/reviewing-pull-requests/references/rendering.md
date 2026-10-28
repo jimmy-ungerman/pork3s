@@ -31,9 +31,7 @@ on the changed line only when it belongs to the HelmRelease under review
 and the change caused it: a value the chart's schema rejects, a template
 that errors on this repository's values. A failure of another
 HelmRelease, or a source that could not be fetched, says nothing about the
-change. A chart whose `OCIRepository` points at `ocharted.porkboi.io` never
-fetches here (a private, authenticated proxy): read it upstream as
-SKILL.md's ocharted entry describes.
+change.
 
 A render that succeeds is an offline approximation of what the cluster
 applies: CRDs and Secrets are left out, patches Flux applies from a parent

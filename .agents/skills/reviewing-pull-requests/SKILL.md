@@ -58,13 +58,6 @@ read every intermediate release, breaking changes land in the middle.
   that project's own GitHub repository. Chart version and app version
   differ: read the chart's changelog, and the application's too when
   `appVersion` moved.
-- A path under `ocharted.porkboi.io/<host>/<path>/<chart>` is this
-  cluster's ocharted proxy of the classic Helm repository
-  `https://<host>/<path>`: the project is the one that publishes that
-  repository, and its changelog and releases are on its GitHub. The proxy
-  has a private address and needs credentials, so it cannot be read from
-  here: read `Chart.yaml` and `values.yaml` at the new tag from the
-  project's repository instead, and say that the chart was not rendered.
 - A repository that publishes many charts prefixes its release tags with
   the chart name (`<chart>-1.2.3`, not `v1.2.3`). When a release is not
   found, list releases and look for the chart name.
