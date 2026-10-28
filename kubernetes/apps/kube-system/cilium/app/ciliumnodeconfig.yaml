@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cilium.io/ciliumnodeconfig_v2.json
+# Node-by-node netkit -> veth migration (cilium/cilium#47913, gVisor runners on netkit L3).
+# Label a node, drain it and reboot it so its agent starts with no netkit endpoints:
+#   kubectl label node <node> pork3s.io/cilium-datapath=veth
+# Remove once bpf.datapathMode is veth in the HelmRelease.
+apiVersion: cilium.io/v2
+kind: CiliumNodeConfig
+metadata:
+  name: datapath-veth
+spec:
+  nodeSelector:
+    matchLabels:
+      pork3s.io/cilium-datapath: veth
+  defaults:
+    datapath-mode: veth
