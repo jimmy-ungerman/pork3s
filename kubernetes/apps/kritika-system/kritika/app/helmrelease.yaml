@@ -25,6 +25,12 @@ spec:
       confidence:
         model: anthropic/~sonnet-latest
         fallback: xai/grok-4.7
+      embedding:
+        model: openrouter/voyageai/voyage-code-4
+        dims: 1024
+        documentPrompt: "Represent the document for retrieval: "
+        queryPrompt: "Represent the query for retrieving supporting documents: "
+        similarFloor: 0.3
       apps:
         github:
           accounts: [jimmy-ungerman]
@@ -38,6 +44,7 @@ spec:
           pricing:
             ~sonnet-latest: { input: 2, output: 10, cacheRead: 0.2, cacheWrite: 2.5 }
         chatgpt: { type: chatgpt }
+        openrouter: { type: openrouter, apiKey: { env: KRITIKA_OPENROUTER_API_KEY } }
         xai:
           type: openai
           baseUrl: https://api.x.ai/v1
