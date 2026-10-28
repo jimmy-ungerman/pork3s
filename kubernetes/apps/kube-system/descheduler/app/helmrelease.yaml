@@ -55,6 +55,9 @@ spec:
                 nodeAffinityType:
                   - requiredDuringSchedulingIgnoredDuringExecution
             - name: RemovePodsViolatingNodeTaints
+              args:
+                excludedTaints:
+                  - node.cilium.io/agent-not-ready # set while a Cilium agent restarts; evicting for it drains the node
             - name: RemovePodsViolatingTopologySpreadConstraint
           plugins:
             balance:
