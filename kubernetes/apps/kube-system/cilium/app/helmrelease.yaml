@@ -15,7 +15,7 @@ spec:
       enabled: true
       bbr: true
     bpf:
-      datapathMode: netkit # TODO: veth fixes cilium/cilium#47913, but switching needs every pod on a node gone first (agent refuses mixed modes)
+      datapathMode: veth # netkit breaks gVisor pods and double-enforces ingress policy (cilium/cilium#47913)
       masquerade: true
       preallocateMaps: true
     bpfClockProbe: true
