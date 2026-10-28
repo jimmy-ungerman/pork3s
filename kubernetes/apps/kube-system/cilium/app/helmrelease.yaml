@@ -15,14 +15,14 @@ spec:
       enabled: true
       bbr: true
     bpf:
-      datapathMode: netkit
+      datapathMode: veth # netkit + endpointRoutes double-enforces ingress policy: https://github.com/cilium/cilium/issues/47913
       masquerade: true
       preallocateMaps: true
     bpfClockProbe: true
     bgpControlPlane:
       enabled: true
     cgroup:
-      automount:
+      autoMount:
         enabled: false
       hostRoot: /sys/fs/cgroup
     cni:
