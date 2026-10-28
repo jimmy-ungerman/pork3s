@@ -10,15 +10,6 @@
   // The Main ruleset does not require up-to-date branches, and `auto` would
   // still rebase every automerge PR each time main moves
   rebaseWhen: "conflicted",
-  hostRules: [
-    {
-      description: "Authenticate against the ocharted OCI registry",
-      matchHost: "ocharted.porkboi.io",
-      hostType: "docker",
-      username: "jimmy",
-      password: "{{ secrets.OCHARTED_PASSWORD }}",
-    },
-  ],
   packageRules: [
     // Auto-merge rules
     {
