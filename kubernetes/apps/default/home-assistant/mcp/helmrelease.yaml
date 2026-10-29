@@ -21,6 +21,8 @@ spec:
               tag: 9.0.0@sha256:0298113732140c9d725171dc3f1dc5b6a53b03815482536ee2236e17e8cd1bdd
             command: ["ha-mcp-web"]
             env:
+              ENABLE_BETA_FEATURES: true
+              ENABLE_YAML_CONFIG_EDITING: true
               FASTMCP_CHECK_FOR_UPDATES: "off"
               HA_MCP_CONFIG_DIR: &configDir /config
               HA_MCP_DISABLE_UPDATE_CHECK: true
