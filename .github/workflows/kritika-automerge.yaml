@@ -11,18 +11,25 @@ on:
   pull_request_review:
     types:
       - submitted
+  # Kritika's check comes from a GitHub App, so check_run fires for it
   check_run:
+    types:
+      - completed
+  # Build Success is an Actions job, which check_run never fires for
+  workflow_run: # zizmor: ignore[dangerous-triggers] only main's script runs, and it re-reads live PR state
+    workflows:
+      - CI
     types:
       - completed
 
 permissions: {}
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.event.check_run.pull_requests[0].number }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.event.check_run.pull_requests[0].number || github.event.workflow_run.pull_requests[0].number }}
   cancel-in-progress: false
 
 jobs:
-  # Runs whenever a required check finishes, Kritika reviews, or a label is removed.
+  # Runs when CI or Kritika's check succeeds, Kritika reviews, or a label is removed.
   # The merge decision is made in .github/scripts/kritika-automerge.sh against the
   # PR's current head, labels, reviews and checks, never against this event's payload.
   merge:
@@ -36,9 +43,15 @@ jobs:
         ) ||
         (
           github.event_name == 'check_run' &&
-          (github.event.check_run.name == 'Kritika / Review' || github.event.check_run.name == 'Build Success') &&
+          github.event.check_run.name == 'Kritika / Review' &&
           github.event.check_run.conclusion == 'success' &&
           github.event.check_run.pull_requests[0].number
+        ) ||
+        (
+          github.event_name == 'workflow_run' &&
+          github.event.workflow_run.conclusion == 'success' &&
+          github.event.workflow_run.event == 'pull_request' &&
+          github.event.workflow_run.pull_requests[0].number
         ) ||
         (
           github.event_name == 'pull_request' &&
@@ -80,7 +93,7 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           GH_REPO: ${{ github.repository }}
-          PR_NUMBER: ${{ github.event.pull_request.number || github.event.check_run.pull_requests[0].number }}
+          PR_NUMBER: ${{ github.event.pull_request.number || github.event.check_run.pull_requests[0].number || github.event.workflow_run.pull_requests[0].number }}
         run: .github/scripts/kritika-automerge.sh "$PR_NUMBER"
 
   # Not tied to a Kritika approval: it must also fire for a PR whose approval is long past.
