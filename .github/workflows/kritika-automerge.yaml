@@ -6,30 +6,56 @@ on:
   pull_request:
     types:
       - labeled
+      - unlabeled
       - synchronize
   pull_request_review:
     types:
       - submitted
+  check_run:
+    types:
+      - completed
 
 permissions: {}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.event.check_run.pull_requests[0].number }}
+  cancel-in-progress: false
+
 jobs:
-  automerge:
-    name: Automerge
-    # Kritika approves with the body "kritika: confidence 5/5 with low risk at <sha>."
-    # Only Renovate PRs (porky-bot) are eligible, and never major updates.
+  # Runs whenever a required check finishes, Kritika reviews, or a label is removed.
+  # The merge decision is made in .github/scripts/kritika-automerge.sh against the
+  # PR's current head, labels, reviews and checks, never against this event's payload.
+  merge:
+    name: Merge
     if: >-
       ${{
-        github.event_name == 'pull_request_review' &&
-        github.event.review.state == 'approved' &&
-        github.event.review.user.login == 'porkboiai' &&
-        startsWith(github.event.review.body, 'kritika: confidence 5/5 with low risk') &&
-        github.event.pull_request.user.login == 'porky-bot[bot]' &&
-        !contains(github.event.pull_request.labels.*.name, 'type/major') &&
-        !contains(github.event.pull_request.labels.*.name, 'hold')
+        (
+          github.event_name == 'pull_request_review' &&
+          github.event.review.user.login == 'porkboiai' &&
+          github.event.pull_request.user.login == 'porky-bot[bot]'
+        ) ||
+        (
+          github.event_name == 'check_run' &&
+          (github.event.check_run.name == 'Kritika / Review' || github.event.check_run.name == 'Build Success') &&
+          github.event.check_run.conclusion == 'success' &&
+          github.event.check_run.pull_requests[0].number
+        ) ||
+        (
+          github.event_name == 'pull_request' &&
+          github.event.action == 'unlabeled' &&
+          github.event.pull_request.user.login == 'porky-bot[bot]'
+        )
       }}
     runs-on: ubuntu-26.04
     steps:
+      # The default branch supplies the script, so a PR branch can never change what runs with the token
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+          sparse-checkout: .github/scripts
+
       - name: Load Secrets
         id: load-secrets
         uses: 1password/load-secrets-action@70062d7a876d3eb6334754fa26efd2fbd90c32f2 # v5.0.1 # zizmor: ignore[unpinned-tools]
@@ -47,48 +73,28 @@ jobs:
           permission-contents: write
           permission-pull-requests: write
 
-      # Re-check the live PR: the review may predate a push or an exclusion label.
-      - name: Verify Eligibility
-        id: verify
+      # Squash-merges without --auto when Kritika approved the current head at 5/5
+      # with low risk and every required check has succeeded. --match-head-commit
+      # makes GitHub refuse the merge if the branch moved since the decision.
+      - name: Merge
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           GH_REPO: ${{ github.repository }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          REVIEWED_SHA: ${{ github.event.review.commit_id }}
-        run: |
-          pr=$(gh pr view "$PR_NUMBER" --json headRefOid,labels,state)
-          head=$(jq -r .headRefOid <<<"$pr")
-          excluded=$(jq -r '[.labels[].name | select(. == "type/major" or . == "hold")] | length' <<<"$pr")
-          state=$(jq -r .state <<<"$pr")
-          if [[ "$state" == "OPEN" && "$head" == "$REVIEWED_SHA" && "$excluded" == "0" ]]; then
-            echo "eligible=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "Not eligible: state=$state head=$head reviewed=$REVIEWED_SHA excluded=$excluded"
-          fi
+          PR_NUMBER: ${{ github.event.pull_request.number || github.event.check_run.pull_requests[0].number }}
+        run: .github/scripts/kritika-automerge.sh "$PR_NUMBER"
 
-      # Merges once the required checks (Kritika / Review, Build Success) pass.
-      # --match-head-commit only guards this call; the cancel job below covers later pushes.
-      - name: Enable Auto-merge
-        if: ${{ steps.verify.outputs.eligible == 'true' }}
-        env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          GH_REPO: ${{ github.repository }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          HEAD_SHA: ${{ github.event.review.commit_id }}
-        run: gh pr merge "$PR_NUMBER" --auto --squash --match-head-commit "$HEAD_SHA"
-
+  # Not tied to a Kritika approval: it must also fire for a PR whose approval is long past.
+  # This workflow never leaves auto-merge enabled, so this only withdraws one set elsewhere,
+  # such as by hand or by Renovate, when the PR is held, becomes a major update or is pushed to.
   cancel:
     name: Cancel Auto-merge
-    # Auto-merge outlives pushes and label changes, so withdraw it when the PR
-    # gets a new head (needs a fresh Kritika approval) or an exclusion label.
     if: >-
       ${{
         github.event_name == 'pull_request' &&
         github.event.pull_request.user.login == 'porky-bot[bot]' &&
         (
           github.event.action == 'synchronize' ||
-          github.event.label.name == 'type/major' ||
-          github.event.label.name == 'hold'
+          (github.event.action == 'labeled' && (github.event.label.name == 'hold' || github.event.label.name == 'type/major'))
         )
       }}
     runs-on: ubuntu-26.04
@@ -107,7 +113,6 @@ jobs:
         with:
           client-id: ${{ steps.load-secrets.outputs.GITHUB_BOT_APP_CLIENT_ID }}
           private-key: ${{ steps.load-secrets.outputs.GITHUB_BOT_APP_PRIVATE_KEY }}
-          permission-contents: write
           permission-pull-requests: write
 
       - name: Disable Auto-merge
