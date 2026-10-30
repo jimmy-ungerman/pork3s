@@ -1,0 +1,54 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: nut-exporter-rules
+spec:
+  groups:
+    - name: nut-exporter.rules
+      rules:
+        - alert: UPSOnBattery
+          expr: network_ups_tools_ups_status{flag="OB"} == 1
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: >-
+              UPS {{ $labels.ups }} is running on battery
+
+        - alert: UPSLowBattery
+          expr: network_ups_tools_ups_status{flag="LB"} == 1
+          for: 0m
+          labels:
+            severity: critical
+          annotations:
+            summary: >-
+              UPS {{ $labels.ups }} battery is low
+
+        - alert: UPSReplaceBattery
+          expr: network_ups_tools_ups_status{flag="RB"} == 1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: >-
+              UPS {{ $labels.ups }} battery needs to be replaced
+
+        - alert: UPSOverload
+          expr: network_ups_tools_ups_load > 80
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: >-
+              UPS {{ $labels.ups }} load is {{ $value }}%
+
+        - alert: UPSExporterDown
+          expr: absent(network_ups_tools_ups_status)
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: >-
+              No UPS metrics are being scraped (is NUT on the NAS reachable?)

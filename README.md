@@ -26,6 +26,7 @@ The talos cluster of Pork Chop
 [![Pod-Count](https://kromgo.porkboi.io/badges/cluster_pod_count?style=flat-square)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
 [![CPU-Usage](https://kromgo.porkboi.io/badges/cluster_cpu_usage?style=flat-square)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
 [![Memory-Usage](https://kromgo.porkboi.io/badges/cluster_memory_usage?style=flat-square)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Power-Usage](https://kromgo.porkboi.io/badges/cluster_power_usage?style=flat-square)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
 [![Alerts](https://kromgo.porkboi.io/badges/cluster_alert_count?style=flat-square)](https://github.com/home-operations/kromgo)
 
 </div>
