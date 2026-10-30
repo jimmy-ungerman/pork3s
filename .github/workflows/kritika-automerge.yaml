@@ -1,0 +1,53 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Kritika Automerge
+
+on:
+  pull_request_review:
+    types:
+      - submitted
+
+permissions: {}
+
+jobs:
+  automerge:
+    name: Automerge
+    # Kritika approves with the body "kritika: confidence 5/5 with low risk at <sha>."
+    # Only Renovate PRs (porky-bot) are eligible, and never major updates.
+    if: >-
+      ${{
+        github.event.review.state == 'approved' &&
+        github.event.review.user.login == 'porkboiai' &&
+        startsWith(github.event.review.body, 'kritika: confidence 5/5 with low risk') &&
+        github.event.pull_request.user.login == 'porky-bot[bot]' &&
+        !contains(github.event.pull_request.labels.*.name, 'type/major') &&
+        !contains(github.event.pull_request.labels.*.name, 'hold')
+      }}
+    runs-on: ubuntu-26.04
+    steps:
+      - name: Load Secrets
+        id: load-secrets
+        uses: 1password/load-secrets-action@70062d7a876d3eb6334754fa26efd2fbd90c32f2 # v5.0.1 # zizmor: ignore[unpinned-tools]
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          GITHUB_BOT_APP_CLIENT_ID: op://kube-secrets/github-bot/GITHUB_BOT_APP_CLIENT_ID
+          GITHUB_BOT_APP_PRIVATE_KEY: op://kube-secrets/github-bot/GITHUB_BOT_APP_PRIVATE_KEY
+
+      - name: Generate Token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        id: app-token
+        with:
+          client-id: ${{ steps.load-secrets.outputs.GITHUB_BOT_APP_CLIENT_ID }}
+          private-key: ${{ steps.load-secrets.outputs.GITHUB_BOT_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+
+      # Merges once the required checks (Kritika / Review, Build Success) pass.
+      # --match-head-commit drops the merge if the branch moved after the approval.
+      - name: Enable Auto-merge
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ github.event.review.commit_id }}
+        run: gh pr merge "$PR_NUMBER" --auto --squash --match-head-commit "$HEAD_SHA"
