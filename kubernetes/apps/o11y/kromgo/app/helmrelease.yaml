@@ -53,6 +53,12 @@ spec:
           valueExpr: string(result) + "%"
           colorExpr: 'colorScale(result, [35.0, 75.0], ["green", "orange", "red"])'
 
+        - id: cluster_power_usage
+          title: Power
+          query: avg(network_ups_tools_ups_load * network_ups_tools_ups_realpower_nominal / 100)
+          valueExpr: humanizeCommas(math.round(result)) + "w"
+          colorExpr: 'colorScale(result, [300.0, 600.0], ["green", "orange", "red"])'
+
         - id: cluster_age_days
           title: Age
           query: round((time() - min(kube_node_created)) / 86400)
