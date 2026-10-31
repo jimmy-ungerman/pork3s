@@ -15,7 +15,7 @@ spec:
             severity: warning
           annotations:
             summary: >-
-              The Odds API calls are failing ({{ $labels.error_code }}); check the API key or quota
+              The Odds API calls are failing; check the API key or quota (psuparlay_odds_api_last_error_info has the error code)
 
         - alert: PsuParlayOddsApiMockMode
           expr: psuparlay_odds_api_mock_mode == 1
