@@ -5,7 +5,7 @@
 # Output: {merge: bool, reasons: [string], verdict: the Kritika review for the head, or null}
 .pr.headRefOid as $head
 | (.reviews
-    | map(select(.author == "porkboiai" and .commit_id == $head and (.body | startswith("kritika:"))))
+    | map(select(.author == "porkboiai[bot]" and .commit_id == $head and (.body | startswith("kritika:"))))
     | sort_by(.submitted_at)
     | last) as $verdict
 | (.checks | group_by(.name) | map(sort_by(.at) | last)) as $latest
