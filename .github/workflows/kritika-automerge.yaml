@@ -22,10 +22,6 @@ on:
 
 permissions: {}
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.event.workflow_run.pull_requests[0].number || github.event.sha }}
-  cancel-in-progress: false
-
 jobs:
   # Runs when CI or Kritika's status succeeds, Kritika reviews, or a label is removed.
   # The merge decision is made in .github/scripts/kritika-automerge.sh against the
@@ -57,6 +53,11 @@ jobs:
           github.event.pull_request.user.login == 'porky-bot[bot]'
         )
       }}
+    # On the job, not the workflow: Flux posts ~50 commit statuses per merge to main, and a
+    # workflow-level group would let those skipped runs cancel each other out of the queue
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.event.workflow_run.pull_requests[0].number || github.event.sha }}
+      cancel-in-progress: false
     runs-on: ubuntu-26.04
     steps:
       # The default branch supplies the script, so a PR branch can never change what runs with the token
