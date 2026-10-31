@@ -51,11 +51,11 @@ fixtures() {
   jq -n --arg head "$head" '{state: "open", head: {sha: $head}, user: {login: "porky-bot[bot]"}, labels: [{name: "type/patch"}]}' \
     | jq "$pr_edit" > "$work/pr.json"
   jq -n --arg head "$head" --arg old "$old" --arg selected "$selected_url" --arg older "$older_url" --arg stale "$stale_url" '[
-    {user: {login: "porkboiai"}, state: "APPROVED", commit_id: $old, submitted_at: "2026-10-30T08:00:00Z", html_url: $stale,
+    {user: {login: "porkboiai[bot]"}, state: "APPROVED", commit_id: $old, submitted_at: "2026-10-30T08:00:00Z", html_url: $stale,
      body: "kritika: confidence 5/5 with low risk at \($old[0:7])."},
-    {user: {login: "porkboiai"}, state: "COMMENTED", commit_id: $head, submitted_at: "2026-10-30T09:00:00Z", html_url: $older,
+    {user: {login: "porkboiai[bot]"}, state: "COMMENTED", commit_id: $head, submitted_at: "2026-10-30T09:00:00Z", html_url: $older,
      body: "kritika: confidence 4/5 with medium risk at \($head[0:7])."},
-    {user: {login: "porkboiai"}, state: "APPROVED", commit_id: $head, submitted_at: "2026-10-30T10:00:00Z", html_url: $selected,
+    {user: {login: "porkboiai[bot]"}, state: "APPROVED", commit_id: $head, submitted_at: "2026-10-30T10:00:00Z", html_url: $selected,
      body: "kritika: confidence 5/5 with low risk at \($head[0:7])."}
   ]' > "$work/reviews.json"
   jq -n '{statusCheckRollup: [
