@@ -2,7 +2,7 @@
 # Input:  {pr: {state, headRefOid, author, labels: [name]},
 #          reviews: [{author, state, body, commit_id, submitted_at}],
 #          checks: [{name, conclusion, at}], required: [name]}
-# Output: {merge: bool, reasons: [string]}
+# Output: {merge: bool, reasons: [string], verdict: the Kritika review for the head, or null}
 .pr.headRefOid as $head
 | (.reviews
     | map(select(.author == "porkboiai" and .commit_id == $head and (.body | startswith("kritika:"))))
@@ -25,4 +25,4 @@
         elif $check.conclusion != "SUCCESS" then "required check not successful: \($name) (\($check.conclusion))"
         else empty end)
   ] as $reasons
-| {merge: ($reasons | length == 0), reasons: $reasons}
+| {merge: ($reasons | length == 0), reasons: $reasons, verdict: $verdict}
