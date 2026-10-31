@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: psu-parlay-rules
+spec:
+  groups:
+    - name: psu-parlay.rules
+      rules:
+        - alert: PsuParlayOddsApiFailing
+          expr: psuparlay_odds_api_last_call_ok == 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: >-
+              The Odds API calls are failing ({{ $labels.error_code }}); check the API key or quota
+
+        - alert: PsuParlayOddsApiMockMode
+          expr: psuparlay_odds_api_mock_mode == 1
+          for: 15m
+          labels:
+            severity: warning
+          annotations:
+            summary: >-
+              psu-parlay has no ODDS_API_KEY and is serving simulated spreads
