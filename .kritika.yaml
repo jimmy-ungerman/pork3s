@@ -1,5 +1,15 @@
 ---
 # yaml-language-server: $schema=https://kritika.home-operations.com/kritika.schema.json
+confidence:
+  # Renovate's pull requests must reach 5/5 for Kritika / Review to pass, which is
+  # what lets GitHub's native auto-merge release them. Everyone else's are scored
+  # and shown but never held. Approval (5/5, low risk) comes from the admin config.
+  threshold: 5
+  risk: low
+  gate:
+    when:
+      - name: renovate
+        expr: pr.headRef.startsWith("renovate/")
 skills:
   scope:
     reviewing-pull-requests:
