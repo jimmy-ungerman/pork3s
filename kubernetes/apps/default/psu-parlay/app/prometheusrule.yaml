@@ -15,7 +15,16 @@ spec:
             severity: warning
           annotations:
             summary: >-
-              The Odds API calls are failing; check the API key or quota (psuparlay_odds_api_last_error_info has the error code)
+              The Odds API calls are failing; check the API key (psuparlay_odds_api_last_error_info has the error code)
+
+        - alert: PsuParlayOddsApiCreditsExhausted
+          expr: psuparlay_odds_api_credits_exhausted == 1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: >-
+              The Odds API monthly credits are exhausted
 
         - alert: PsuParlayOddsApiMockMode
           expr: psuparlay_odds_api_mock_mode == 1
