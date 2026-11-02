@@ -13,6 +13,16 @@
   packageRules: [
     // Auto-merge rules
     {
+      // Renovate enables GitHub's native auto-merge; the Main ruleset's required
+      // Kritika / Review (gated at 5/5 in .kritika.yaml) and Build Success checks
+      // decide when it actually merges
+      description: "Auto-merge non-major updates once Kritika and CI pass",
+      matchUpdateTypes: ["minor", "patch", "digest"],
+      automerge: true,
+      automergeType: "pr",
+      ignoreTests: false,
+    },
+    {
       description: "Auto-merge trusted OCI digests",
       matchDatasources: ["docker"],
       matchUpdateTypes: ["digest"],
