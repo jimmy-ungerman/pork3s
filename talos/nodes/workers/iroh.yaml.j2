@@ -3,12 +3,12 @@ apiVersion: v1alpha1
 kind: HostnameConfig
 hostname: iroh
 ---
-# TODO: fill from `talosctl get links -n <ip> --insecure` while booted from the ISO
+# Onboard 10GbE (Realtek RTL8127, in-kernel r8169 driver). The ConnectX-7 ports use mlx5_core and are left alone.
 apiVersion: v1alpha1
 kind: LinkAliasConfig
 name: net0
 selector:
-  match: link.driver == "TODO" && mac(link.permanent_addr).startsWith("TODO:")
+  match: link.driver == "r8169" && mac(link.permanent_addr).startsWith("4c:bb:47:")
 ---
 apiVersion: v1alpha1
 kind: BondConfig
@@ -27,13 +27,13 @@ apiVersion: v1alpha1
 kind: UnattendedInstallConfig
 provisioning:
   diskSelector:
-    match: system_disk # TODO: replace with disk.model == "..." once known (`talosctl get disks --insecure`)
-  wipe: false
+    match: disk.model == "SAMSUNG MZALC4T0HBL1-00B07" # Internal 4TB NVMe (not the USB installer)
+  wipe: true # Replaces the factory DGX OS install on this disk
 ---
 apiVersion: v1alpha1
 kind: KubeNodeConfig
 labels:
-  topology.kubernetes.io/zone: m # TODO: confirm zone
+  topology.kubernetes.io/zone: m
   node.kubernetes.io/gpu: "true"
   node.kubernetes.io/ai: "true"
 taints:
