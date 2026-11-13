@@ -49,9 +49,12 @@ jobs:
         env:
           MISE_GITHUB_TOKEN: ${{ github.token }}
         run: |
+          set -o pipefail
           {
             echo 'images<<EOF'
-            mise exec "github:home-operations/flate@${FLATE_VERSION}" -- flate diff images -p ./kubernetes/apps --skip-kinds Secret,CustomResourceDefinition,ClusterPolicy -o json
+            # Drop arm64-only images (the Spark's vLLM): the pull job runs on an amd64 node and cannot pull them
+            mise exec "github:home-operations/flate@${FLATE_VERSION}" -- flate diff images -p ./kubernetes/apps --skip-kinds Secret,CustomResourceDefinition,ClusterPolicy -o json |
+              jq -c 'map(select(startswith("ghcr.io/miaai-lab/") | not))'
             echo 'EOF'
           } >> "$GITHUB_OUTPUT"
 
