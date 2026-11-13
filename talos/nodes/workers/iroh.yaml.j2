@@ -16,7 +16,7 @@ name: bond0 # Same name as the mini PCs so Cilium's `devices: bond+` matches (al
 links:
   - net0
 bondMode: active-backup
-# TODO: add mtu: 9000 only once the Spark NIC/driver is confirmed to support it (mini PCs use 9000)
+mtu: 9000 # Match the mini PCs (and Ceph); the bond applies it to its slave NIC
 ---
 apiVersion: v1alpha1
 kind: DHCPv4Config
