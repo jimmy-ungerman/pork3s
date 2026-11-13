@@ -1,0 +1,156 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: vllm
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: vllm
+  interval: 1h
+  values:
+    defaultPodOptions:
+      runtimeClassName: nvidia
+      # Only the tainted AI node (iroh); everything else stays off it
+      nodeSelector:
+        node.kubernetes.io/ai: "true"
+      tolerations:
+        - key: ai
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+
+    controllers:
+      vllm:
+        forceRename: vllm
+        strategy: Recreate # One GPU: never run two pods at once
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/miaai-lab/mia-vllm-gb10-linear-b12x
+              tag: latest@sha256:19627342e1da2607f4db50745dca30e57d7dd0ebff06062f03fd69b43a252931
+            # Settings follow the MiaAI-Lab Qwen3.6-35B-A3B NVFP4 DGX Spark recipe, except:
+            #  - gpu-memory-utilization 0.45 (recipe: 0.80) so the unified-memory pool keeps headroom
+            #  - no --trust-remote-code and no --allowed-media-domains '*'
+            command:
+              - /usr/local/bin/vllm
+            args:
+              - serve
+              - unsloth/Qwen3.6-35B-A3B-NVFP4
+              - --served-model-name
+              - qwen3.6-35b-a3b
+              - --host
+              - 0.0.0.0
+              - --port
+              - "8000"
+              - --tensor-parallel-size
+              - "1"
+              - --moe-backend
+              - auto
+              - --gpu-memory-utilization
+              - "0.45"
+              - --linear-backend
+              - flashinfer_b12x
+              - --attention-backend
+              - flashinfer
+              - --max-model-len
+              - "262144"
+              - --max-num-seqs
+              - "24"
+              - --max-num-batched-tokens
+              - "32768"
+              - --enable-chunked-prefill
+              - --async-scheduling
+              - --kv-cache-dtype
+              - fp8
+              - --limit-mm-per-prompt
+              - '{"image":4}'
+              - --speculative-config
+              - '{"method":"mtp","num_speculative_tokens":2,"moe_backend":"triton"}'
+              - --reasoning-parser
+              - qwen3
+              - --default-chat-template-kwargs
+              - '{"enable_thinking":true,"preserve_thinking":true}'
+              - --tool-call-parser
+              - qwen3_coder
+              - --enable-auto-tool-choice
+              - --override-generation-config
+              - '{"temperature":0.6,"top_p":0.95,"top_k":20,"min_p":0.0,"presence_penalty":0.0,"repetition_penalty":1.0}'
+            env:
+              VLLM_TARGET_DEVICE: cuda
+              CUTE_DSL_ARCH: sm_121a
+              HF_HOME: /models/huggingface
+              XDG_CACHE_HOME: /models/cache # Persist Triton/FlashInfer JIT caches across restarts
+              VLLM_CACHE_ROOT: /models/vllm-cache
+            probes:
+              # First start downloads about 20 GB and loads it, so allow up to an hour
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &port 8000
+                  periodSeconds: 10
+                  failureThreshold: 360
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  periodSeconds: 30
+                  failureThreshold: 6
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  periodSeconds: 10
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 2
+                memory: 8Gi
+              limits:
+                nvidia.com/gpu: 1
+
+    service:
+      app:
+        forceRename: vllm
+        controller: vllm
+        primary: true
+        ports:
+          http:
+            port: *port
+
+    serviceMonitor:
+      app:
+        endpoints:
+          - port: http
+            path: /metrics
+            interval: 30s
+
+    persistence:
+      models:
+        type: hostPath
+        hostPath: /var/lib/ai-models # Talos /var covers the whole NVMe; survives reboots and upgrades
+        hostPathType: DirectoryOrCreate
+        globalMounts:
+          - path: /models
+      shm:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 16Gi
+        globalMounts:
+          - path: /dev/shm
