@@ -6,7 +6,7 @@ metadata:
   name: ${APP}-postgres
 spec:
   instances: ${CNPG_INSTANCES:=1}
-  imageName: ghcr.io/cloudnative-pg/postgresql:18.6-standard-trixie
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.7-standard-trixie
   enablePDB: ${CNPG_PDB:=false}
   enableSuperuserAccess: false
   bootstrap:
