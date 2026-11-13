@@ -28,6 +28,7 @@ apiVersion: v1alpha1
 kind: KubeNodeConfig
 labels:
   node-role.kubernetes.io/control-plane: ""
+  node.kubernetes.io/gpu: "true" # Intel iGPU
 ---
 apiVersion: v1alpha1
 kind: KubeAPIServerConfig
@@ -126,11 +127,6 @@ allowedKubernetesNamespaces:
   - system-upgrade
 ---
 # Mini PC hardware (Intel NUC-class control plane nodes)
-apiVersion: v1alpha1
-kind: KubeNodeConfig
-labels:
-  node.kubernetes.io/gpu: "true" # Intel iGPU
----
 apiVersion: v1alpha1
 kind: UnattendedInstallConfig
 provisioning:
