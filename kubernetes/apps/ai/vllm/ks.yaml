@@ -21,4 +21,4 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: ai
-  timeout: 30m
+  timeout: 70m # Must outlast the HelmRelease timeout (65m)

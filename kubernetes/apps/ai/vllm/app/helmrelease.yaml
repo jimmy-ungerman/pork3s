@@ -9,6 +9,7 @@ spec:
     kind: OCIRepository
     name: vllm
   interval: 1h
+  timeout: 65m # Covers the 60 min startup probe plus scheduling and image pull time
   values:
     defaultPodOptions:
       runtimeClassName: nvidia
