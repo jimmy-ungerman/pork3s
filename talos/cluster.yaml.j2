@@ -18,6 +18,8 @@ cluster:
 ---
 apiVersion: v1alpha1
 kind: ResolverConfig
+searchDomains:
+  domains: []
 hostDNS:
   enabled: true
   forwardKubeDNSToHost: true # Requires Cilium socketLB features
@@ -36,7 +38,7 @@ clusterSecret: op://kube-secrets/talos/CLUSTER_SECRET
 apiVersion: v1alpha1
 kind: UnattendedInstallConfig
 installer:
-  image: factory.talos.dev/metal-installer/{{ schematic }}:v1.14.5
+  image: factory.talos.dev/metal-installer/{{ schematic }}:v1.14.6
 ---
 apiVersion: v1alpha1
 kind: FilesystemTrimConfig
