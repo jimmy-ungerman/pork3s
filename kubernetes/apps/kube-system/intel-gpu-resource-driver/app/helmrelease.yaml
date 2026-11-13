@@ -14,6 +14,8 @@ spec:
       staticPath: /run/cdi
       dynamicPath: /run/cdi
     kubeletPlugin:
+      nodeSelector:
+        kubernetes.io/arch: amd64 # Intel GPUs only; skips the arm64 NVIDIA Spark
       privileged: true
       healthMonitoring:
         enabled: false

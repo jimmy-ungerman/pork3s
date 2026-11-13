@@ -1,0 +1,66 @@
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: iroh
+---
+# Onboard 10GbE (Realtek RTL8127, in-kernel r8169 driver). The ConnectX-7 ports use mlx5_core and are left alone.
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: net0
+selector:
+  match: link.driver == "r8169" && mac(link.permanent_addr).startsWith("4c:bb:47:")
+---
+apiVersion: v1alpha1
+kind: BondConfig
+name: bond0 # Same name as the mini PCs so Cilium's `devices: bond+` matches (aliases are not kernel names)
+links:
+  - net0
+bondMode: active-backup
+# TODO: add mtu: 9000 only once the Spark NIC/driver is confirmed to support it (mini PCs use 9000)
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: bond0
+clientIdentifier: mac
+---
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+provisioning:
+  diskSelector:
+    match: disk.model == "SAMSUNG MZALC4T0HBL1-00B07" # Internal 4TB NVMe (not the USB installer)
+  wipe: true # Replaces the factory DGX OS install on this disk
+---
+apiVersion: v1alpha1
+kind: KubeNodeConfig
+labels:
+  topology.kubernetes.io/zone: m
+  node.kubernetes.io/gpu: "true"
+  node.kubernetes.io/ai: "true"
+taints:
+  ai: "true:NoSchedule" # Only workloads that tolerate this run here (keeps Rook, apps off the Spark)
+---
+# GPU Operator is installed with driver/toolkit disabled; Talos extensions provide them
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: nvidia
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: nvidia_uvm
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: nvidia_drm
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: nvidia_modeset
+---
+# GPU and OS share one unified-memory pool; keep headroom for the kubelet and system daemons
+apiVersion: v1alpha1
+kind: KubeletConfig
+config:
+  systemReserved:
+    memory: 8Gi
+  kubeReserved:
+    memory: 2Gi

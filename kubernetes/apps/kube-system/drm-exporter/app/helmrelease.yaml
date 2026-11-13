@@ -10,6 +10,8 @@ spec:
     name: drm-exporter
   interval: 1h
   values:
+    nodeSelector:
+      kubernetes.io/arch: amd64 # Intel GPUs only; skips the arm64 NVIDIA Spark
     dra:
       enabled: true
       deviceClassName: gpu.intel.com
