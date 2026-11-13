@@ -23,6 +23,12 @@
       ignoreTests: false,
     },
     {
+      // Merging bumps talosupgrade.yaml, which makes tuppr roll the nodes
+      description: "Never auto-merge Talos upgrades",
+      matchPackageNames: ["siderolabs/talos"],
+      automerge: false,
+    },
+    {
       description: "Auto-merge trusted OCI digests",
       matchDatasources: ["docker"],
       matchUpdateTypes: ["digest"],
