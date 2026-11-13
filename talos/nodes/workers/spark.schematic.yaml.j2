@@ -5,6 +5,5 @@ customization:
     - pci=pcie_bus_safe # Without it ConnectX-7 uses 128B PCIe payload and tops out ~97Gb/s instead of ~110Gb/s
   systemExtensions:
     officialExtensions:
-      - siderolabs/nfsrahead # NFS Readahead
       - siderolabs/nonfree-kmod-nvidia-production # Proprietary NVIDIA kernel modules
       - siderolabs/nvidia-container-toolkit-production # Must match the kmod driver version
