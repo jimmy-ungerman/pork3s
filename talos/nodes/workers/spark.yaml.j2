@@ -1,0 +1,46 @@
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: spark # TODO: confirm hostname
+---
+# TODO: fill from `talosctl get links -n <ip> --insecure` while booted from the ISO
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: net0
+selector:
+  match: link.driver == "TODO" && mac(link.permanent_addr).startsWith("TODO:")
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: net0
+clientIdentifier: mac
+---
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+provisioning:
+  diskSelector:
+    match: system_disk # TODO: replace with disk.model == "..." once known (`talosctl get disks --insecure`)
+  wipe: false
+---
+apiVersion: v1alpha1
+kind: KubeNodeConfig
+labels:
+  topology.kubernetes.io/zone: m # TODO: confirm zone
+  node.kubernetes.io/gpu: "true"
+---
+# GPU Operator is installed with driver/toolkit disabled; Talos extensions provide them
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: nvidia
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: nvidia_uvm
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: nvidia_drm
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: nvidia_modeset
