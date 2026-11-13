@@ -11,8 +11,16 @@ selector:
   match: link.driver == "TODO" && mac(link.permanent_addr).startsWith("TODO:")
 ---
 apiVersion: v1alpha1
+kind: BondConfig
+name: bond0 # Same name as the mini PCs so Cilium's `devices: bond+` matches (aliases are not kernel names)
+links:
+  - net0
+bondMode: active-backup
+# TODO: add mtu: 9000 only once the Spark NIC/driver is confirmed to support it (mini PCs use 9000)
+---
+apiVersion: v1alpha1
 kind: DHCPv4Config
-name: net0
+name: bond0
 clientIdentifier: mac
 ---
 apiVersion: v1alpha1
