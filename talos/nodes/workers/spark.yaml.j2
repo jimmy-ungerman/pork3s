@@ -27,6 +27,9 @@ kind: KubeNodeConfig
 labels:
   topology.kubernetes.io/zone: m # TODO: confirm zone
   node.kubernetes.io/gpu: "true"
+  node.kubernetes.io/ai: "true"
+taints:
+  ai: "true:NoSchedule" # Only workloads that tolerate this run here (keeps Rook, apps off the Spark)
 ---
 # GPU Operator is installed with driver/toolkit disabled; Talos extensions provide them
 apiVersion: v1alpha1

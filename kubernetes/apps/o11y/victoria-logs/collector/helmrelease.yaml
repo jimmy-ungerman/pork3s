@@ -14,6 +14,11 @@ spec:
     global:
       image:
         registry: quay.io
+    tolerations:
+      - key: ai
+        operator: Equal
+        value: "true"
+        effect: NoSchedule # Collect logs from the tainted Spark
     podMonitor:
       enabled: true
     remoteWrite:
