@@ -47,3 +47,12 @@ name: nvidia_drm
 apiVersion: v1alpha1
 kind: KernelModuleConfig
 name: nvidia_modeset
+---
+# GPU and OS share one unified-memory pool; keep headroom for the kubelet and system daemons
+apiVersion: v1alpha1
+kind: KubeletConfig
+config:
+  systemReserved:
+    memory: 8Gi
+  kubeReserved:
+    memory: 2Gi
