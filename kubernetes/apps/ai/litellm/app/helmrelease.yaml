@@ -1,0 +1,142 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: litellm
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: litellm
+  interval: 1h
+  values:
+    controllers:
+      litellm:
+        forceRename: litellm
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/berriai/litellm-database
+              tag: v1.109.1@sha256:932c54440654f8f8466a85887612d95dcfb04ae2fc01257844332f4bf3b96986
+            args:
+              - --config
+              - /app/config.yaml
+              - --port
+              - "4000"
+            env:
+              LITELLM_LOG: INFO
+              LITELLM_MODE: PRODUCTION
+              DATABASE_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: litellm-postgres-app
+                    key: uri
+              LITELLM_MASTER_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: litellm-secret
+                    key: LITELLM_MASTER_KEY
+              LITELLM_SALT_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: litellm-secret
+                    key: LITELLM_SALT_KEY
+            probes:
+              # First start runs the Prisma database migrations
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health/readiness
+                    port: &port 4000
+                  periodSeconds: 10
+                  failureThreshold: 60
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health/liveliness
+                    port: *port
+                  periodSeconds: 30
+                  failureThreshold: 4
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health/readiness
+                    port: *port
+                  periodSeconds: 10
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512Mi
+              limits:
+                memory: 2Gi
+
+    configMaps:
+      config:
+        data:
+          config.yaml: |
+            model_list:
+              # Thinking on (the model's default): chat and coding
+              - model_name: qwen3.6-35b-a3b
+                litellm_params:
+                  model: openai/qwen3.6-35b-a3b
+                  api_base: http://vllm.ai.svc.cluster.local:8000/v1
+                  api_key: none
+              # Thinking off: lower latency, for Home Assistant voice
+              - model_name: qwen3.6-35b-a3b-instant
+                litellm_params:
+                  model: openai/qwen3.6-35b-a3b
+                  api_base: http://vllm.ai.svc.cluster.local:8000/v1
+                  api_key: none
+                  extra_body:
+                    chat_template_kwargs:
+                      enable_thinking: false
+            general_settings:
+              master_key: os.environ/LITELLM_MASTER_KEY
+              database_url: os.environ/DATABASE_URL
+            litellm_settings:
+              drop_params: true
+              request_timeout: 600
+              telemetry: false
+
+    service:
+      app:
+        forceRename: litellm
+        controller: litellm
+        primary: true
+        ports:
+          http:
+            port: *port
+
+    route:
+      app:
+        hostnames:
+          - litellm.porkboi.io
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+
+    persistence:
+      config:
+        type: configMap
+        identifier: config
+        globalMounts:
+          - path: /app/config.yaml
+            subPath: config.yaml
+            readOnly: true
