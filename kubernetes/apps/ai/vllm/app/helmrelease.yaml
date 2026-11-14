@@ -10,6 +10,18 @@ spec:
     name: vllm
   interval: 1h
   timeout: 65m # Covers the 60 min startup probe plus scheduling and image pull time
+  postRenderers:
+    # app-template cannot set progressDeadlineSeconds, and the default (10 min) marks the
+    # Deployment stalled while the model is still downloading and loading, which fails Helm early
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+              name: vllm
+            patch: |
+              - op: add
+                path: /spec/progressDeadlineSeconds
+                value: 3900
   values:
     defaultPodOptions:
       runtimeClassName: nvidia
