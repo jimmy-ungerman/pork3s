@@ -5,5 +5,6 @@ metadata:
   name: _
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
+    kopiur.home-operations.com/privileged-movers: "true"
   labels:
     pod-security.kubernetes.io/enforce: privileged # vLLM mounts a hostPath for model weights

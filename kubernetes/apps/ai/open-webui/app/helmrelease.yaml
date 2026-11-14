@@ -1,0 +1,118 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: open-webui
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: open-webui
+  interval: 1h
+  timeout: 10m
+  values:
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000 # Same user as the Kopiur backup mover so it can read the data
+
+    controllers:
+      open-webui:
+        forceRename: open-webui
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/open-webui/open-webui
+              tag: v0.13.3@sha256:46b59158e6558eeb980bc828e0f1b30238ad24d82ed84d5e5eda1dab2a082f14
+            env:
+              HOME: /tmp
+              # start.sh otherwise generates the key in /app/backend, which is root-owned and not writable as UID 1000
+              WEBUI_SECRET_KEY_FILE: /app/backend/data/.webui_secret_key
+              WEBUI_URL: https://chat.porkboi.io
+              # Models come from LiteLLM, not Ollama
+              ENABLE_OLLAMA_API: "false"
+              OPENAI_API_BASE_URL: http://litellm.ai.svc.cluster.local:4000/v1
+              OPENAI_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: litellm-secret
+                    key: LITELLM_MASTER_KEY # TODO: swap for a dedicated LiteLLM virtual key
+              DEFAULT_MODELS: qwen3.6-35b-a3b
+              # Titles, tags and follow-ups would burn thinking tokens on the default model
+              TASK_MODEL_EXTERNAL: qwen3.6-35b-a3b-instant
+              # The first account created becomes the admin, whatever ENABLE_SIGNUP says, so there is
+              # no route yet: create the admin over a kubectl port-forward first (see the route note below).
+              # Later signups wait as pending; set ENABLE_SIGNUP to "false" once the admin exists.
+              ENABLE_SIGNUP: "true"
+              DEFAULT_USER_ROLE: pending
+              SCARF_NO_ANALYTICS: "true"
+              DO_NOT_TRACK: "true"
+              ANONYMIZED_TELEMETRY: "false"
+            probes:
+              # First start downloads the small embedding model; stay under the 10 min progress deadline
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &port 8080
+                  periodSeconds: 10
+                  failureThreshold: 48
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  periodSeconds: 30
+                  failureThreshold: 4
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  periodSeconds: 10
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512Mi
+              limits:
+                memory: 2Gi
+
+    service:
+      app:
+        forceRename: open-webui
+        controller: open-webui
+        primary: true
+        ports:
+          http:
+            port: *port
+
+    # No route on purpose. Bootstrap the first administrator over a local port-forward:
+    #   kubectl -n ai port-forward service/open-webui 8080:8080   # then open http://localhost:8080
+    # and only then add the chat.porkboi.io HTTPRoute (envoy-internal, port 8080) in a follow-up change.
+    # ENABLE_SIGNUP=false alone does not stop the first account from registering in this image.
+
+    persistence:
+      data:
+        existingClaim: open-webui
+        globalMounts:
+          - path: /app/backend/data
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
