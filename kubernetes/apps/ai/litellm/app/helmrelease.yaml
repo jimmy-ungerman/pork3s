@@ -80,9 +80,9 @@ spec:
             resources:
               requests:
                 cpu: 100m
-                memory: 512Mi
+                memory: 768Mi
               limits:
-                memory: 2Gi
+                memory: 1Gi
 
     configMaps:
       config:
@@ -112,7 +112,7 @@ spec:
               maximum_spend_logs_retention_interval: 1d
             litellm_settings:
               drop_params: true
-              request_timeout: 600
+              request_timeout: 180
               telemetry: false
               callbacks: ["prometheus"]
             router_settings:

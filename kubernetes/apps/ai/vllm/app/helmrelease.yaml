@@ -46,7 +46,7 @@ spec:
               repository: ghcr.io/miaai-lab/mia-vllm-gb10-linear-b12x
               tag: latest@sha256:19627342e1da2607f4db50745dca30e57d7dd0ebff06062f03fd69b43a252931
             # Settings follow the MiaAI-Lab Qwen3.6-35B-A3B NVFP4 DGX Spark recipe, except:
-            #  - gpu-memory-utilization 0.45 (recipe: 0.80) so the unified-memory pool keeps headroom
+            #  - gpu-memory-utilization 0.70 (recipe: 0.80) — conservative middle ground
             #  - no --trust-remote-code and no --allowed-media-domains '*'
             command:
               - /usr/local/bin/vllm
@@ -64,7 +64,7 @@ spec:
               - --moe-backend
               - auto
               - --gpu-memory-utilization
-              - "0.45"
+              - "0.70"
               - --linear-backend
               - flashinfer_b12x
               - --attention-backend
@@ -72,7 +72,7 @@ spec:
               - --max-model-len
               - "262144"
               - --max-num-seqs
-              - "24"
+              - "64"
               - --max-num-batched-tokens
               - "32768"
               - --enable-chunked-prefill
@@ -164,6 +164,6 @@ spec:
       shm:
         type: emptyDir
         medium: Memory
-        sizeLimit: 16Gi
+        sizeLimit: 4Gi
         globalMounts:
           - path: /dev/shm
