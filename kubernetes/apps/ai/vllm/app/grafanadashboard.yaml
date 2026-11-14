@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/grafana.integreatly.org/grafanadashboard_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: vllm
+spec:
+  allowCrossNamespaceImport: true
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  # vLLM's official "Performance Statistics" dashboard, pinned to a commit of vllm-project/vllm
+  url: https://raw.githubusercontent.com/vllm-project/vllm/8d2cff8140eb2c5f6a7b28948c0944d11898d9d2/examples/observability/dashboards/grafana/performance_statistics.json

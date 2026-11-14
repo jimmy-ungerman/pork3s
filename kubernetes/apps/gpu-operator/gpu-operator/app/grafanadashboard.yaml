@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/grafana.integreatly.org/grafanadashboard_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: dcgm-exporter
+spec:
+  allowCrossNamespaceImport: true
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  # NVIDIA DCGM Exporter Dashboard. Revision 2 uses the metric names this exporter publishes
+  # (DCGM_FI_DEV_GPU_UTIL, GPU_TEMP, POWER_USAGE, SM_CLOCK); newer GitHub versions renamed them.
+  url: https://grafana.com/api/dashboards/12239/revisions/2/download
