@@ -45,10 +45,9 @@ spec:
               DEFAULT_MODELS: qwen3.6-35b-a3b
               # Titles, tags and follow-ups would burn thinking tokens on the default model
               TASK_MODEL_EXTERNAL: qwen3.6-35b-a3b-instant
-              # The first account created becomes the admin, whatever ENABLE_SIGNUP says, so there is
-              # no route yet: create the admin over a kubectl port-forward first (see the route note below).
-              # Later signups wait as pending; set ENABLE_SIGNUP to "false" once the admin exists.
-              ENABLE_SIGNUP: "true"
+              # The admin was bootstrapped over a port-forward before this route existed. Signup is now
+              # closed: new accounts are created by the admin from the admin panel.
+              ENABLE_SIGNUP: "false"
               DEFAULT_USER_ROLE: pending
               SCARF_NO_ANALYTICS: "true"
               DO_NOT_TRACK: "true"
@@ -102,10 +101,17 @@ spec:
           http:
             port: *port
 
-    # No route on purpose. Bootstrap the first administrator over a local port-forward:
-    #   kubectl -n ai port-forward service/open-webui 8080:8080   # then open http://localhost:8080
-    # and only then add the chat.porkboi.io HTTPRoute (envoy-internal, port 8080) in a follow-up change.
-    # ENABLE_SIGNUP=false alone does not stop the first account from registering in this image.
+    route:
+      app:
+        hostnames:
+          - chat.porkboi.io
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
 
     persistence:
       data:
