@@ -107,10 +107,20 @@ spec:
             general_settings:
               master_key: os.environ/LITELLM_MASTER_KEY
               database_url: os.environ/DATABASE_URL
+              # Keep the spend-log table from growing forever
+              maximum_spend_logs_retention_period: 30d
+              maximum_spend_logs_retention_interval: 1d
             litellm_settings:
               drop_params: true
               request_timeout: 600
               telemetry: false
+              callbacks: ["prometheus"]
+            router_settings:
+              # Single vLLM backend: a cooldown only keeps rejecting requests after
+              # vLLM is healthy again, since there is no second deployment to fail over to
+              disable_cooldowns: true
+              num_retries: 2
+              retry_after: 5
 
     service:
       app:
@@ -120,6 +130,13 @@ spec:
         ports:
           http:
             port: *port
+
+    serviceMonitor:
+      app:
+        endpoints:
+          - port: http
+            path: /metrics/
+            interval: 30s
 
     route:
       app:
