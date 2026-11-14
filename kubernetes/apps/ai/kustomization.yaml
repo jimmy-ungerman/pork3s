@@ -6,7 +6,9 @@ namespace: ai
 
 components:
   - ../../components/alerts
+  - ../../components/postgres/secret
 
 resources:
   - ./namespace.yaml
+  - ./litellm/ks.yaml
   - ./vllm/ks.yaml
