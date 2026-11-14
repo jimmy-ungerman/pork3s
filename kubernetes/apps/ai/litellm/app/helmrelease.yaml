@@ -9,6 +9,7 @@ spec:
     kind: OCIRepository
     name: litellm
   interval: 1h
+  timeout: 12m # Startup probe allows 10 min for DB migrations, plus scheduling and image pull
   values:
     controllers:
       litellm:
