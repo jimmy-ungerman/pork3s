@@ -31,6 +31,8 @@ spec:
               tag: v0.13.3@sha256:46b59158e6558eeb980bc828e0f1b30238ad24d82ed84d5e5eda1dab2a082f14
             env:
               HOME: /tmp
+              # start.sh otherwise generates the key in /app/backend, which is root-owned and not writable as UID 1000
+              WEBUI_SECRET_KEY_FILE: /app/backend/data/.webui_secret_key
               WEBUI_URL: https://chat.porkboi.io
               # Models come from LiteLLM, not Ollama
               ENABLE_OLLAMA_API: "false"
@@ -43,8 +45,9 @@ spec:
               DEFAULT_MODELS: qwen3.6-35b-a3b
               # Titles, tags and follow-ups would burn thinking tokens on the default model
               TASK_MODEL_EXTERNAL: qwen3.6-35b-a3b-instant
-              # The first account created becomes the admin; later signups wait as pending.
-              # Set ENABLE_SIGNUP to "false" once your account exists.
+              # The first account created becomes the admin, whatever ENABLE_SIGNUP says, so there is
+              # no route yet: create the admin over a kubectl port-forward first (see the route note below).
+              # Later signups wait as pending; set ENABLE_SIGNUP to "false" once the admin exists.
               ENABLE_SIGNUP: "true"
               DEFAULT_USER_ROLE: pending
               SCARF_NO_ANALYTICS: "true"
@@ -99,17 +102,10 @@ spec:
           http:
             port: *port
 
-    route:
-      app:
-        hostnames:
-          - chat.porkboi.io
-        parentRefs:
-          - name: envoy-internal
-            namespace: network
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
+    # No route on purpose. Bootstrap the first administrator over a local port-forward:
+    #   kubectl -n ai port-forward service/open-webui 8080:8080   # then open http://localhost:8080
+    # and only then add the chat.porkboi.io HTTPRoute (envoy-internal, port 8080) in a follow-up change.
+    # ENABLE_SIGNUP=false alone does not stop the first account from registering in this image.
 
     persistence:
       data:
