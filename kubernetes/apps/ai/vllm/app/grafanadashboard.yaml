@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/grafana.integreatly.org/grafanadashboard_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: vllm
+spec:
+  allowCrossNamespaceImport: true
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  # Locally adapted copy of vLLM's "Performance Statistics" dashboard, from vllm-project/vllm@8d2cff8140eb2c5f6a7b28948c0944d11898d9d2
+  # (examples/observability/dashboards/grafana/performance_statistics.json). Only the nine time-series
+  # queries differ: rate windows use [$__rate_interval] instead of [$__interval], and each has a 30s
+  # Prometheus min step. vLLM is scraped every 30s but the Grafana datasource assumes 15s, so the
+  # default windows could hold fewer than two samples. The stat panels keep their [$__range] windows.
+  configMapRef:
+    name: vllm-dashboard
+    key: performance_statistics.json
