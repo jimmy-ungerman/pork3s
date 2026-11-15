@@ -73,6 +73,9 @@ spec:
                   storage: 50Gi
     prometheus-node-exporter:
       fullnameOverride: node-exporter
+      extraArgs:
+        # iroh's thermal_zone sysfs returns EIO, which fails the whole scrape
+        - --no-collector.thermal_zone
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
     grafana:
