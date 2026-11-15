@@ -115,6 +115,8 @@ spec:
               request_timeout: 180
               telemetry: false
               callbacks: ["prometheus"]
+              # /metrics is cluster-internal; let the ServiceMonitor scrape it without the master key
+              require_auth_for_metrics_endpoint: false
             router_settings:
               # Single vLLM backend: a cooldown only keeps rejecting requests after
               # vLLM is healthy again, since there is no second deployment to fail over to
