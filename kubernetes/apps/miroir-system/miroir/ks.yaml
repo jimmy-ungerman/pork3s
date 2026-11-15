@@ -26,6 +26,9 @@ metadata:
 spec:
   dependsOn:
     - name: miroir
+  # StorageClass parameters are immutable; force recreates the class on change
+  # (existing PVs keep their own replica layout)
+  force: true
   interval: 1h
   path: ./kubernetes/apps/miroir-system/miroir/config
   prune: true

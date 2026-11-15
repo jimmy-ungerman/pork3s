@@ -11,6 +11,9 @@ spec:
   interval: 1h
   values:
     autoEvictAfter: 1h
+    # A volume whose pod settles on a node without a copy (it holds only a
+    # diskless tie-breaker leg) gets a local replica after this long
+    autoDiskfulAfter: 1h
     drbd:
       alExtents: 6007
     groupSnapshots:
@@ -26,4 +29,13 @@ spec:
         enabled: true
       prometheusRule:
         enabled: true
+        overrides:
+          # Replicas resync together after agent restarts / node maintenance
+          # (observed episodes: 35min to 2h10m), so only page if it drags on
+          MiroirVolumeNotUpToDate:
+            for: 3h
+          # Dragonfly's pod can land on a node without a replica after a reboot;
+          # it works over the network, so only flag it if it persists
+          MiroirVolumeRemoteConsumer:
+            for: 24h
     replicaCount: 2
