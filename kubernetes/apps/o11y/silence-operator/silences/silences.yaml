@@ -54,26 +54,4 @@ metadata:
 spec:
   matchers:
     - name: alertname
-      value: KubeHpaMaxedOut---
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/observability.giantswarm.io/silence_v1alpha2.json
-apiVersion: observability.giantswarm.io/v1alpha2
-kind: Silence
-metadata:
-  name: miroir-kopiur-cache-not-up-to-date
-spec:
-  matchers:
-    - name: alertname
-      value: MiroirVolumeNotUpToDate
-    - name: pvc
-      value: kopiur-cache-.*
-      matchType: "=~"
----
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/observability.giantswarm.io/silence_v1alpha2.json
-apiVersion: observability.giantswarm.io/v1alpha2
-kind: Silence
-metadata:
-  name: miroir-remote-consumer
-spec:
-  matchers:
-    - name: alertname
-      value: MiroirVolumeRemoteConsumer
+      value: KubeHpaMaxedOut
