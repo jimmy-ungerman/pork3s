@@ -31,4 +31,8 @@ spec:
           # (observed episodes: 35min to 2h10m), so only page if it drags on
           MiroirVolumeNotUpToDate:
             for: 3h
+          # Dragonfly's pod can land on a node without a replica after a reboot;
+          # it works over the network, so only flag it if it persists
+          MiroirVolumeRemoteConsumer:
+            for: 24h
     replicaCount: 2
