@@ -24,6 +24,7 @@ resources:
   - ./prowlarr/ks.yaml
   - ./psu-parlay/ks.yaml
   - ./radarr/ks.yaml
+  - ./rethink/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./seerr/ks.yaml
   - ./sonarr/ks.yaml

@@ -1,0 +1,126 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: rethink
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: rethink
+
+  values:
+    controllers:
+      rethink:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        strategy: Recreate
+
+        pod:
+          annotations:
+            # Own address on the IoT VLAN so LG appliances can reach rethink on 443/8883
+            # without going through the cluster gateway. Reserve this IP/MAC in UniFi.
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"iot",
+                "namespace": "kube-system",
+                "ips": ["10.5.0.32/24"],
+                "mac": "3a:f2:c8:91:b7:32"
+              }]
+          securityContext:
+            sysctls:
+              # rethink binds 443 and 8883 (appliances don't accept other ports)
+              - name: net.ipv4.ip_unprivileged_port_start
+                value: "0"
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/anszom/rethink
+              tag: dev@sha256:9d2b2dc7d02668f98bedd1d8d1b68cd4494f172bcdfc7c0f4b420b6b19afacc7
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 443
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 443
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 443
+                  failureThreshold: 30
+                  periodSeconds: 5
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 64Mi
+              limits:
+                memory: 256Mi
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    configMaps:
+      config:
+        data:
+          config.json: |-
+            {
+              "hostname": "rethink.porkboi.io",
+              "homeassistant": {
+                "mqtt_url": "mqtt://mosquitto.default.svc.cluster.local:1883",
+                "discovery_prefix": "homeassistant",
+                "rethink_prefix": "rethink",
+                "mqtt_user": "",
+                "mqtt_pass": ""
+              },
+              "ca_key_file": "/app/data/ca.key",
+              "ca_cert_file": "/app/data/ca.cert",
+              "https_port": 443,
+              "mqtts_port": 8883,
+              "thinq1_https_port": 46030,
+              "thinq1_port": 47878,
+              "management_port": { "bind": 44401, "address": "127.0.0.1" },
+              "bridge": {
+                "dns": ["https://1.1.1.1/dns-query", "https://8.8.8.8/dns-query"],
+                "storage_path": "/app/data/state"
+              },
+              "log": ["status", "incoming", "HTTPS", "publish", "MGMT"]
+            }
+
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /app/data
+      config:
+        type: configMap
+        identifier: config
+        globalMounts:
+          - path: /app/data/config.json
+            subPath: config.json
+            readOnly: true
