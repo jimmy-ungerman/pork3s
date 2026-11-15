@@ -29,6 +29,11 @@ spec:
                 "mac": "3a:f2:c8:91:b7:32"
               }]
           securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
             sysctls:
               # rethink binds 443 and 8883 (appliances don't accept other ports)
               - name: net.ipv4.ip_unprivileged_port_start
@@ -76,14 +81,6 @@ spec:
                 memory: 64Mi
               limits:
                 memory: 256Mi
-
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
 
     configMaps:
       config:
