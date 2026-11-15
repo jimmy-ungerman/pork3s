@@ -26,4 +26,9 @@ spec:
         enabled: true
       prometheusRule:
         enabled: true
+        overrides:
+          # Replicas resync together after agent restarts / node maintenance
+          # (observed episodes: 35min to 2h10m), so only page if it drags on
+          MiroirVolumeNotUpToDate:
+            for: 3h
     replicaCount: 2

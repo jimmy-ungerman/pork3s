@@ -25,7 +25,7 @@ spec:
       resources:
         requests:
           storage: ${DRAGONFLY_CAPACITY:=1Gi}
-      storageClassName: ${DRAGONFLY_STORAGECLASS:=miroir-slow-local}
+      storageClassName: ${DRAGONFLY_STORAGECLASS:=miroir-slow}
   env:
     - name: MAX_MEMORY
       valueFrom:
