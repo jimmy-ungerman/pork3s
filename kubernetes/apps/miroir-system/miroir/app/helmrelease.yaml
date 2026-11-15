@@ -11,6 +11,9 @@ spec:
   interval: 1h
   values:
     autoEvictAfter: 1h
+    # A volume whose pod settles on a node without a copy (it holds only a
+    # diskless tie-breaker leg) gets a local replica after this long
+    autoDiskfulAfter: 1h
     drbd:
       alExtents: 6007
     groupSnapshots:
