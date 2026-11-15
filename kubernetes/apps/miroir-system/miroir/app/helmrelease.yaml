@@ -26,4 +26,11 @@ spec:
         enabled: true
       prometheusRule:
         enabled: true
+        overrides:
+          # Kopiur cache volumes briefly resync after backups and node reboots
+          MiroirVolumeNotUpToDate:
+            for: 1h
+          # Dragonfly is intentionally consumed from a node without a replica
+          MiroirVolumeRemoteConsumer:
+            disabled: true
     replicaCount: 2
