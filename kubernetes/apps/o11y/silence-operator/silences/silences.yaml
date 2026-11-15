@@ -55,3 +55,17 @@ spec:
   matchers:
     - name: alertname
       value: KubeHpaMaxedOut
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/observability.giantswarm.io/silence_v1alpha2.json
+apiVersion: observability.giantswarm.io/v1alpha2
+kind: Silence
+metadata:
+  name: iroh-memory-high-utilization
+spec:
+  # iroh is a GB10 with unified CPU/GPU memory; vLLM reserves ~70% for the GPU
+  # (plus model page cache), so ~90% used is the steady state
+  matchers:
+    - name: alertname
+      value: NodeMemoryHighUtilization
+    - name: instance
+      value: 10.3.0.5:9100
