@@ -9,9 +9,6 @@ spec:
   instanceSelector:
     matchLabels:
       dashboards: grafana
-  datasources:
-    - datasourceName: prometheus
-      inputName: DS_PROMETHEUS
-  # NVIDIA DCGM Exporter Dashboard. Revision 2 uses the metric names this exporter publishes
-  # (DCGM_FI_DEV_GPU_UTIL, GPU_TEMP, POWER_USAGE, SM_CLOCK); newer GitHub versions renamed them.
-  url: https://grafana.com/api/dashboards/12239/revisions/2/download
+  # NVIDIA DCGM Exporter dashboard, pinned to the commit matching exporter 4.9.0 (renamed metrics:
+  # DCGM_FI_DEV_GPU_TEMP_CELSIUS, GPU_UTIL_RATIO, ...). Uses a native Prometheus datasource selector.
+  url: https://raw.githubusercontent.com/NVIDIA/dcgm-exporter/4e663a526c4624ad0e18ad816f09b7be2c5348a7/grafana/dcgm-exporter-dashboard.json
