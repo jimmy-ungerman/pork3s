@@ -38,4 +38,8 @@ spec:
           # it works over the network, so only flag it if it persists
           MiroirVolumeRemoteConsumer:
             for: 24h
+          # Fires critical if Prometheus loses scrapes from the only UpToDate replica while the
+          # others resync (missing metrics read as zero); re-enable once it checks for absent series
+          MiroirVolumeNoUpToDateReplica:
+            disabled: true
     replicaCount: 2
