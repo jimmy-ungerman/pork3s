@@ -107,6 +107,9 @@ spec:
             general_settings:
               master_key: os.environ/LITELLM_MASTER_KEY
               database_url: os.environ/DATABASE_URL
+              # 1.110.0 enables the spend-logs ledger by default; keep the existing spend writer so an
+              # image rollback to 1.109.x cannot strand pending ledger deliveries.
+              use_spend_logs_ledger: false
               # Keep the spend-log table from growing forever
               maximum_spend_logs_retention_period: 30d
               maximum_spend_logs_retention_interval: 1d
