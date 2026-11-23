@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: kritika
   labels:
-    # Opt out of the cluster-wide automatic rollback (see flux-instance patches). A rollback
-    # to an older chart strands queued index_update jobs. To deliberately revert: wait for the
-    # last new-version replica to stop, then as the DB owner run the rollback SQL from the
-    # upstream docs (configuration.md, "thread workers") to move index_update jobs back to index.
+    # Opt out of the cluster-wide automatic rollback (see flux-instance patches).
+    # Only downgrades to 0.0.122 or earlier strand index_update jobs. For such a downgrade,
+    # wait until all 0.0.123 or later replicas have stopped, then run the rollback SQL as the DB owner:
+    # https://github.com/home-operations/kritika/blob/0.0.124/docs/src/content/docs/configuration.md#thread-workers
     pork3s.io/auto-rollback: "false"
 spec:
   upgrade:
