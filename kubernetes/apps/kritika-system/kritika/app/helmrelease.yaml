@@ -4,7 +4,16 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: kritika
+  labels:
+    # Opt out of the cluster-wide automatic rollback (see flux-instance patches). A rollback
+    # to an older chart strands queued index_update jobs. To deliberately revert: wait for the
+    # last new-version replica to stop, then as the DB owner run the rollback SQL from the
+    # upstream docs (configuration.md, "thread workers") to move index_update jobs back to index.
+    pork3s.io/auto-rollback: "false"
 spec:
+  upgrade:
+    strategy:
+      name: RetryOnFailure
   chartRef:
     kind: OCIRepository
     name: kritika
