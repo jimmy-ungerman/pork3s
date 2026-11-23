@@ -9,6 +9,7 @@ spec:
     kind: OCIRepository
     name: miroir
   interval: 1h
+  timeout: 12m # Allow up to 2m per storage agent for DRBD readiness, plus rollout overhead
   values:
     autoEvictAfter: 1h
     # A volume whose pod settles on a node without a copy (it holds only a
