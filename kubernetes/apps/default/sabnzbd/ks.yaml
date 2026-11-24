@@ -16,7 +16,7 @@ spec:
       KOPIUR_CAPACITY: 1Gi
   prune: true
   sourceRef:
-    kind: GitRepository
-    name: flux-system
+    kind: ExternalArtifact
+    name: default.sabnzbd
     namespace: flux-system
   targetNamespace: default

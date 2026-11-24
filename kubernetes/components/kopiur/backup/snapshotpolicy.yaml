@@ -10,6 +10,9 @@ spec:
   mover:
     cache:
       capacity: ${KOPIUR_CAPACITY:=5Gi}
+      # Metadata also sets the index-blob cache budget; leave room for both and sweep overhead.
+      contentCacheSize: { percent: 50 }
+      metadataCacheSize: { percent: 12 }
       mode: Persistent
       storageClassName: miroir-slow
     securityContext:

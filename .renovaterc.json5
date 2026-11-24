@@ -11,6 +11,17 @@
   // still rebase every automerge PR each time main moves
   rebaseWhen: "conflicted",
   packageRules: [
+    // The apps/cnpg preset also extracts the vchord Database version pin as the stale
+    // vchord-scratch image. The pin is tracked by its `# renovate:` annotation (home-operations/vchord)
+    // instead; the preset's Cluster image tracking is untouched.
+    {
+      description: "Disable stale vchord-scratch extraction for the kritika Database manifest",
+      matchManagers: ["custom.regex"],
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/tensorchord/vchord-scratch"],
+      matchFileNames: ["kubernetes/apps/kritika-system/kritika/database/database.yaml"],
+      enabled: false,
+    },
     // Auto-merge rules
     {
       description: "Auto-merge trusted OCI digests",

@@ -1,0 +1,9 @@
+---
+# Reference-only objects flate needs to render but that are created out-of-band
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cloudflare-tunnel-id-secret
+  namespace: network
+stringData:
+  CLOUDFLARE_TUNNEL_ID: 00000000-0000-0000-0000-000000000000

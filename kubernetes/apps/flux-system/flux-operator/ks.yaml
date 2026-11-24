@@ -8,6 +8,7 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/flux-system/flux-operator/app
   prune: true
+  # Stays on the GitRepository: flux-instance depends on this Kustomization to install the operator.
   sourceRef:
     kind: GitRepository
     name: flux-system

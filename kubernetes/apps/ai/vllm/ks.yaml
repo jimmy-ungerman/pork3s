@@ -17,8 +17,8 @@ spec:
   path: ./kubernetes/apps/ai/vllm/app
   prune: true
   sourceRef:
-    kind: GitRepository
-    name: flux-system
+    kind: ExternalArtifact
+    name: ai.vllm
     namespace: flux-system
   targetNamespace: ai
   timeout: 70m # Must outlast the HelmRelease timeout (65m)
