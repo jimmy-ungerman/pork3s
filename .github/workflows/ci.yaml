@@ -87,6 +87,31 @@ jobs:
           MISE_GITHUB_TOKEN: ${{ github.token }}
         run: mise exec "talosctl@${TALOS_VERSION}" -- talosctl --nodes "$NODE" image pull "$IMAGE"
 
+  flate:
+    name: Flate
+    runs-on: ubuntu-26.04
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Mise
+        uses: jdx/mise-action@90f833d396d0cc3674b631d2d225e306476c303a # v5.2.10
+        with:
+          cache: false
+          install: false
+
+      # Secrets created out-of-band are stubbed in .github/flate/supply.yaml
+      # `flate diff` never renders the FluxInstance root layer, so shared components are only checked by a full run
+      - name: Run Flate
+        env:
+          MISE_GITHUB_TOKEN: ${{ github.token }}
+          MISE_NO_HOOKS: "1"
+        run: mise exec "github:home-operations/flate@${FLATE_VERSION}" -- flate test --path ./kubernetes/apps --supply .github/flate/supply.yaml
+
   zizmor:
     name: Zizmor
     runs-on: ubuntu-26.04
@@ -108,6 +133,7 @@ jobs:
     if: ${{ !cancelled() }}
     name: Build Success
     needs:
+      - flate
       - image-pull-extract
       - image-pull
       - zizmor
