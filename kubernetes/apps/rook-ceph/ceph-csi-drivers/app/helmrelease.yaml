@@ -8,6 +8,9 @@ spec:
   chartRef:
     kind: OCIRepository
     name: ceph-csi-drivers
+  dependsOn:
+    - name: envoy-gateway
+      namespace: network
   interval: 1h
   values:
     # Rook-compatible values, see
@@ -88,7 +91,9 @@ spec:
             enabled: false
         controllerPlugin:
           # With this gate on, the provisioner never becomes ready without the
-          # ReferenceGrant CRD (from envoy-gateway) and the RBAC in rbac.yaml
+          # ReferenceGrant CRD (bundled with the envoy-gateway chart's Gateway API
+          # CRDs, v1.6.1 experimental channel, which includes ReferenceGrant) and
+          # the RBAC in rbac.yaml. spec.dependsOn below waits for that release.
           containerExtraArgs:
             csi-provisioner:
               - --feature-gates=CrossNamespaceVolumeDataSource=true
