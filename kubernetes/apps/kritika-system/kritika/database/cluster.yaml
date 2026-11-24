@@ -13,9 +13,6 @@ spec:
     extensions:
       - name: vchord
         image:
-          # 1.1.1 -> 1.3.0 upgrade (preflight for zero-norm/invalid embeddings in index_chunks,
-          # conditional concurrent rebuild, post-upgrade validation):
-          # https://github.com/jimmy-ungerman/pork3s/blob/main/docs/runbooks/kritika-vchord-upgrade.md
           reference: ghcr.io/home-operations/vchord:1.3.0@sha256:c705b2313d64370eb19d3958a32ff1c68bbd76dd015dfe0ecceae9649949965a
         dynamic_library_path:
           - /usr/lib/postgresql/18/lib/
