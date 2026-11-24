@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: &name pork-zoomies
+spec:
+  endpointSelector:
+    matchLabels:
+      runner: *name
+  enableDefaultDeny:
+    egress: false
+  # Runners execute PR-controlled code with cluster-admin and Talos os:admin, so
+  # block the LAN (RFC1918) except the pod/service CIDRs and the node subnet.
+  egressDeny:
+    - toCIDRSet:
+        - cidr: 10.0.0.0/8
+          except:
+            - 10.3.0.0/24
+            - 10.42.0.0/16
+            - 10.43.0.0/16
+    - toCIDR:
+        - 172.16.0.0/12
+    - toCIDR:
+        - 192.168.0.0/16
