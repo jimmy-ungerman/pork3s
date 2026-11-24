@@ -31,15 +31,6 @@ spec:
       full:
         cron: 0 3 * * *
         jitter: 1h
-  moverDefaults:
-    cache:
-      # Kopia's own defaults are 5000 MiB per budget, larger than the whole cache
-      # PVC, so the sweeper never runs and the cache fills the volume. The
-      # metadata budget applies twice (kopia caps the index-blobs cache at the
-      # same size). The smallest cache PVCs are 1Gi (big10survivor, sabnzbd), so
-      # content + 2 x metadata = 768 MiB must stay under that.
-      contentCacheSizeMb: 256
-      metadataCacheSizeMb: 256
   parameters:
     epoch:
       minDuration: 1h
