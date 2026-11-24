@@ -9,7 +9,7 @@ spec:
   path: ./kubernetes/apps/kube-system/ocharted/app
   prune: true
   sourceRef:
-    kind: GitRepository
-    name: flux-system
+    kind: ExternalArtifact
+    name: kube-system.ocharted
     namespace: flux-system
   targetNamespace: kube-system

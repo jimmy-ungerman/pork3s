@@ -19,7 +19,7 @@ spec:
       APP: open-webui
   prune: true
   sourceRef:
-    kind: GitRepository
-    name: flux-system
+    kind: ExternalArtifact
+    name: ai.open-webui
     namespace: flux-system
   targetNamespace: ai

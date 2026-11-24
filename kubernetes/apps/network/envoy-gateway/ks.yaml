@@ -11,7 +11,7 @@ spec:
   path: ./kubernetes/apps/network/envoy-gateway/app
   prune: true
   sourceRef:
-    kind: GitRepository
-    name: flux-system
+    kind: ExternalArtifact
+    name: network.envoy-gateway
     namespace: flux-system
   targetNamespace: network
