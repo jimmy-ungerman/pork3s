@@ -9,6 +9,7 @@ spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:18.7-standard-bookworm
   enablePDB: false
   enableSuperuserAccess: false
+  primaryUpdateMethod: switchover
   postgresql:
     extensions:
       - name: vchord
