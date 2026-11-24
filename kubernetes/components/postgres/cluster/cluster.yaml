@@ -9,6 +9,14 @@ spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:18.7-standard-trixie
   enablePDB: ${CNPG_PDB:=false}
   enableSuperuserAccess: false
+  primaryUpdateMethod: switchover
+  affinity:
+    podAntiAffinityType: required
+  postgresql:
+    synchronous:
+      method: any
+      number: 1
+      dataDurability: preferred
   bootstrap:
     initdb:
       database: ${CNPG_DATABASE:=${APP}}
