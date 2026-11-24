@@ -101,6 +101,7 @@
     {
       description: "Kubernetes Group",
       groupName: "kubernetes",
+      separateMinorPatch: true,
       matchDatasources: ["docker"],
       matchPackageNames: [
         "/kube-apiserver/",
