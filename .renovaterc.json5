@@ -10,17 +10,6 @@
   // The Main ruleset does not require up-to-date branches, and `auto` would
   // still rebase every automerge PR each time main moves
   rebaseWhen: "conflicted",
-  customManagers: [
-    {
-      description: "Process CNPG extension image references",
-      customType: "regex",
-      managerFilePatterns: ["/\\.ya?ml$/"],
-      matchStrings: [
-        "reference:\\s+(?<depName>[^@\\s]+):(?<currentValue>[^@\\s/]+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?",
-      ],
-      datasourceTemplate: "docker",
-    },
-  ],
   packageRules: [
     // Auto-merge rules
     {
