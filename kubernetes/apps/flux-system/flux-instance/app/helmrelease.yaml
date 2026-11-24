@@ -73,6 +73,7 @@ spec:
                               group: helm.toolkit.fluxcd.io
                               kind: HelmRelease
                               labelSelector: pork3s.io/auto-rollback!=false
+                        retryInterval: 2m
                     target:
                       group: kustomize.toolkit.fluxcd.io
                       kind: Kustomization
