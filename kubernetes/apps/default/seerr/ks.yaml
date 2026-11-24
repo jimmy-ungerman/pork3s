@@ -16,7 +16,7 @@ spec:
       KOPIUR_CAPACITY: 10Gi
   prune: true
   sourceRef:
-    kind: ExternalArtifact
-    name: seerr
+    kind: GitRepository
+    name: flux-system
     namespace: flux-system
   targetNamespace: default

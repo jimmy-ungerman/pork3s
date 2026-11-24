@@ -15,7 +15,7 @@ spec:
       KOPIUR_CAPACITY: 1Gi
   prune: true
   sourceRef:
-    kind: ExternalArtifact
-    name: big10survivor
+    kind: GitRepository
+    name: flux-system
     namespace: flux-system
   targetNamespace: default

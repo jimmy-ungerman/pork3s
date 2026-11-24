@@ -27,7 +27,7 @@ spec:
       APP: litellm
   prune: true
   sourceRef:
-    kind: ExternalArtifact
-    name: litellm
+    kind: GitRepository
+    name: flux-system
     namespace: flux-system
   targetNamespace: ai

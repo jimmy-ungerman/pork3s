@@ -14,7 +14,7 @@ spec:
   path: ./kubernetes/apps/dragonfly-system/dragonfly-operator/app
   prune: true
   sourceRef:
-    kind: ExternalArtifact
-    name: dragonfly-operator
+    kind: GitRepository
+    name: flux-system
     namespace: flux-system
   targetNamespace: dragonfly-system

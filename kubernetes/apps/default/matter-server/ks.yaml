@@ -17,7 +17,7 @@ spec:
       APP: matter-server
   prune: true
   sourceRef:
-    kind: ExternalArtifact
-    name: matter-server
+    kind: GitRepository
+    name: flux-system
     namespace: flux-system
   targetNamespace: default

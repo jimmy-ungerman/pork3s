@@ -30,7 +30,7 @@ spec:
       APP: sure
   prune: true
   sourceRef:
-    kind: ExternalArtifact
-    name: sure
+    kind: GitRepository
+    name: flux-system
     namespace: flux-system
   targetNamespace: default

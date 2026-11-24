@@ -9,7 +9,7 @@ spec:
   path: ./kubernetes/apps/default/chaski/app
   prune: true
   sourceRef:
-    kind: ExternalArtifact
-    name: chaski
+    kind: GitRepository
+    name: flux-system
     namespace: flux-system
   targetNamespace: default

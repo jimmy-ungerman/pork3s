@@ -9,6 +9,6 @@ components:
 
 resources:
   - ./namespace.yaml
-  - ./artifactgenerator.yaml
+  - ./artifactgenerator/ks.yaml
   - ./flux-instance/ks.yaml
   - ./flux-operator/ks.yaml

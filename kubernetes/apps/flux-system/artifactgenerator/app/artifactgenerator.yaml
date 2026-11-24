@@ -11,7 +11,7 @@ spec:
       name: flux-system
   pathPattern: "@repo/kubernetes/apps/{namespace}/{app}"
   artifacts:
-    - name: "{app}"
+    - name: "{namespace}.{app}"
       originRevision: "@repo"
       copy:
         - from: "@repo/kubernetes/apps/{namespace}/{app}/**"

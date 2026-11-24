@@ -15,7 +15,7 @@ spec:
         name: cloudflare-tunnel-id-secret
   prune: true
   sourceRef:
-    kind: ExternalArtifact
-    name: cloudflare-tunnel
+    kind: GitRepository
+    name: flux-system
     namespace: flux-system
   targetNamespace: network

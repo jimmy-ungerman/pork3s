@@ -14,7 +14,7 @@ spec:
   path: ./kubernetes/apps/gpu-operator/gpu-operator/app
   prune: true
   sourceRef:
-    kind: ExternalArtifact
-    name: gpu-operator
+    kind: GitRepository
+    name: flux-system
     namespace: flux-system
   targetNamespace: gpu-operator

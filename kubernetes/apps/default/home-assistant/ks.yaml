@@ -17,8 +17,8 @@ spec:
       APP: home-assistant
   prune: true
   sourceRef:
-    kind: ExternalArtifact
-    name: home-assistant
+    kind: GitRepository
+    name: flux-system
     namespace: flux-system
   targetNamespace: default
 ---
@@ -37,7 +37,7 @@ spec:
       APP: home-assistant-mcp
   prune: true
   sourceRef:
-    kind: ExternalArtifact
-    name: home-assistant
+    kind: GitRepository
+    name: flux-system
     namespace: flux-system
   targetNamespace: default

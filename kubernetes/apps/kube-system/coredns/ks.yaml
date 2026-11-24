@@ -9,7 +9,7 @@ spec:
   path: ./kubernetes/apps/kube-system/coredns/app
   prune: true
   sourceRef:
-    kind: ExternalArtifact
-    name: coredns
+    kind: GitRepository
+    name: flux-system
     namespace: flux-system
   targetNamespace: kube-system

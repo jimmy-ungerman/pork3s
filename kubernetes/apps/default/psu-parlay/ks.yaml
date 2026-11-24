@@ -15,7 +15,7 @@ spec:
       KOPIUR_CAPACITY: 2Gi
   prune: true
   sourceRef:
-    kind: ExternalArtifact
-    name: psu-parlay
+    kind: GitRepository
+    name: flux-system
     namespace: flux-system
   targetNamespace: default

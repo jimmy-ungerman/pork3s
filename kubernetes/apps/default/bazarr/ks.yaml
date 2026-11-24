@@ -15,7 +15,7 @@ spec:
       APP: bazarr
   prune: true
   sourceRef:
-    kind: ExternalArtifact
-    name: bazarr
+    kind: GitRepository
+    name: flux-system
     namespace: flux-system
   targetNamespace: default

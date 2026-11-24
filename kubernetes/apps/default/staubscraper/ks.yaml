@@ -9,7 +9,7 @@ spec:
   path: ./kubernetes/apps/default/staubscraper/app
   prune: true
   sourceRef:
-    kind: ExternalArtifact
-    name: staubscraper
+    kind: GitRepository
+    name: flux-system
     namespace: flux-system
   targetNamespace: default

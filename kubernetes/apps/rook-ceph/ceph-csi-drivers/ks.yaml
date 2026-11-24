@@ -16,7 +16,7 @@ spec:
   path: ./kubernetes/apps/rook-ceph/ceph-csi-drivers/app
   prune: true
   sourceRef:
-    kind: ExternalArtifact
-    name: ceph-csi-drivers
+    kind: GitRepository
+    name: flux-system
     namespace: flux-system
   targetNamespace: rook-ceph
