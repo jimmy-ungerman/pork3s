@@ -12,7 +12,13 @@ spec:
   # CNPG rejects changes to imageName and postgresql.parameters in the same update.
   # Apply them separately and let the first rollout finish before applying the second.
   primaryUpdateMethod: switchover
+  affinity:
+    podAntiAffinityType: required
   postgresql:
+    synchronous:
+      method: any
+      number: 1
+      dataDurability: preferred
     extensions:
       - name: vchord
         image:
