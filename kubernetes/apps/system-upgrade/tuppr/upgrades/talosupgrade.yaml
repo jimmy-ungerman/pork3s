@@ -36,4 +36,4 @@ spec:
     - apiVersion: miroir.home-operations.com/v1alpha1
       kind: MiroirVolume
       expr: |-
-        status.phase == 'Ready'
+        has(object.metadata.deletionTimestamp) || status.phase == 'Ready'
