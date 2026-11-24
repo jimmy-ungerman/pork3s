@@ -7,6 +7,12 @@ machine:
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
     rbac: true
+  # The host network namespace cannot resolve cluster DNS, so this is the
+  # pinned ClusterIP of the talos-logs-relay Service.
+  logging:
+    destinations:
+      - endpoint: tcp://10.43.0.60:6050/
+        format: json_lines
   token: op://kube-secrets/talos/MACHINE_TOKEN
 cluster:
   ca:
@@ -99,6 +105,11 @@ content: |
     discard_unpacked_layers = false
   [plugins."io.containerd.cri.v1.runtime"]
     device_ownership_from_security_context = true
+---
+apiVersion: v1alpha1
+kind: KmsgLogConfig
+name: talos-logs-relay
+url: tcp://10.43.0.60:6050/
 ---
 apiVersion: v1alpha1
 kind: KubeNodeConfig
