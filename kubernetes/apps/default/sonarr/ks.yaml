@@ -16,7 +16,7 @@ spec:
       KOPIUR_CAPACITY: 5Gi
   prune: true
   sourceRef:
-    kind: GitRepository
-    name: flux-system
+    kind: ExternalArtifact
+    name: default.sonarr
     namespace: flux-system
   targetNamespace: default

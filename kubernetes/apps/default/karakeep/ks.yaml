@@ -14,7 +14,7 @@ spec:
       APP: karakeep
   prune: true
   sourceRef:
-    kind: GitRepository
-    name: flux-system
+    kind: ExternalArtifact
+    name: default.karakeep
     namespace: flux-system
   targetNamespace: default
