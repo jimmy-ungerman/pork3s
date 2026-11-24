@@ -15,4 +15,4 @@ spec:
     # ALTER EXTENSION. Take a verified pg_dump of kritika before publishing a new pin.
     - name: vchord
       # renovate: datasource=docker depName=ghcr.io/home-operations/vchord
-      version: "1.3.0"
+      version: "1.5.0"
