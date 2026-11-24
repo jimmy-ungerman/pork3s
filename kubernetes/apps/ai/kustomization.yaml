@@ -6,7 +6,6 @@ namespace: ai
 
 components:
   - ../../components/alerts
-  - ../../components/kopiur/secret
   - ../../components/postgres/secret
 
 resources:
