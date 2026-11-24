@@ -53,7 +53,7 @@ jobs:
           {
             echo 'images<<EOF'
             # Drop arm64-only images (the Spark's vLLM): the pull job runs on an amd64 node and cannot pull them
-            mise exec "github:home-operations/flate@${FLATE_VERSION}" -- flate diff images -p ./kubernetes/apps --skip-kinds Secret,CustomResourceDefinition,ClusterPolicy -o json |
+            mise exec "github:home-operations/flate@${FLATE_VERSION}" -- flate diff images -p ./kubernetes/apps --supply .github/fixtures/flate/cloudflare-tunnel-id-secret.yaml --skip-kinds Secret,CustomResourceDefinition,ClusterPolicy -o json |
               jq -c 'map(select(startswith("ghcr.io/miaai-lab/") | not))'
             echo 'EOF'
           } >> "$GITHUB_OUTPUT"
