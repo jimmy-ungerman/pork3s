@@ -7,7 +7,8 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      runner: *name
+      actions.github.com/scale-set-name: *name
+      app.kubernetes.io/component: runner
   enableDefaultDeny:
     egress: false
   # Runners execute PR-controlled code with cluster-admin and Talos os:admin, so
