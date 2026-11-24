@@ -115,3 +115,42 @@ After each rebuild check `indisvalid` is true (a failed concurrent rebuild leave
 select indexrelid::regclass, indisvalid from pg_index
 where indexrelid::regclass::text ~ '^index_chunks_[0-9]{2}_embedding_idx';
 ```
+
+## Rollback
+
+### Before publishing: verified backup
+
+The `Cluster` has no `spec.backup`, so there is no barman or volume-snapshot backup to lean on.
+Take a logical, PostgreSQL-consistent dump, and verify it before the PR is merged:
+
+```bash
+kubectl exec -n kritika-system kritika-postgres-1 -c postgres -- \
+  pg_dump -d kritika -Fc --no-owner > kritika-pre-vchord-1.3.0.dump
+shasum -a 256 kritika-pre-vchord-1.3.0.dump | tee kritika-pre-vchord-1.3.0.dump.sha256
+pg_restore --list kritika-pre-vchord-1.3.0.dump >/dev/null   # catalog is readable
+```
+
+Then prove it restores: load it into a scratch database on a cluster running the **old** image
+and pin, and compare row counts and one similarity query with the baseline. A dump that has not
+been restored is not a verified backup.
+
+Record the dump location, checksum and the baseline in the PR before merging.
+
+### After a failed post-upgrade validation
+
+A manifest revert alone does not downgrade: the database is already at extension 1.3.0 and no
+`1.3.0--1.1.1` script exists. Restore instead:
+
+1. Stop writers: scale `kritika` to zero (or suspend its HelmRelease).
+2. Revert the PR so the cluster runs the **1.1.1 image**
+   (`ghcr.io/tensorchord/vchord-scratch:pg18-v1.1.1`) **and the `Database` pin is `1.1.1`**.
+3. Recreate the `kritika` database empty on that cluster (drop it, let CNPG recreate it from the
+   `Database` resource at 1.1.1, or restore into a fresh `Cluster` built from the old
+   manifests).
+4. Restore the verified dump: `pg_restore -d kritika --no-owner --role=kritika kritika-pre-vchord-1.3.0.dump`.
+   Indexes are rebuilt by the restore under 1.1.1.
+5. Confirm `extversion` is `1.1.1`, row counts match the dump, and the baseline similarity query
+   behaves as before, then scale `kritika` back up.
+
+Data written between the dump and the rollback is lost, so keep kritika stopped, or at least not
+indexing, from the backup until validation finishes.
