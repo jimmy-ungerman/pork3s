@@ -28,6 +28,7 @@ kind: Probe
 metadata:
   name: ltcp
 spec:
+  jobName: nfs_probe
   module: tcp_connect
   prober:
     url: blackbox-exporter.o11y.svc.cluster.local:9115
