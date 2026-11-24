@@ -24,7 +24,7 @@ spec:
   path: ./kubernetes/apps/external-secrets/onepassword/app
   prune: true
   sourceRef:
-    kind: GitRepository
-    name: flux-system
+    kind: ExternalArtifact
+    name: onepassword
     namespace: flux-system
   targetNamespace: external-secrets
