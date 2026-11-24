@@ -9,11 +9,26 @@ spec:
     matchLabels:
       actions.github.com/scale-set-name: *name
       app.kubernetes.io/component: runner
+  # Runners execute PR-controlled code with cluster-admin and Talos os:admin.
+  # Default-deny stays off, so internet egress is unchanged; only the denies
+  # below apply. A deny always wins over an allow.
+  #
+  # Still reachable on purpose, and not listed below:
+  #   - DNS: CoreDNS pods are in 10.42.0.0/16.
+  #   - Kubernetes API: the in-cluster Service (10.43.0.1) and the apiserver
+  #     backends on the nodes (10.3.0.0/24, host network).
+  #   - Talos API: talosctl talks to the node IP (10.3.0.0/24, port 50000).
+  #   - envoy-external (LoadBalancer 10.7.0.126): it serves the same apps that
+  #     are already public, so it is not a private Service.
+  #   - kube-api (LoadBalancer 10.7.0.120, kube.porkboi.io): the backends are the
+  #     host-network apiservers above, which the runner needs.
   enableDefaultDeny:
     egress: false
-  # Runners execute PR-controlled code with cluster-admin and Talos os:admin, so
-  # block the LAN (RFC1918) except the pod/service CIDRs and the node subnet.
   egressDeny:
+    # Off-cluster private ranges. These do NOT block the LoadBalancer VIPs in
+    # 10.7.0.0/24 from inside the cluster: Cilium translates a Service to its
+    # backend pod before policy is evaluated, and pod IPs are in the excepted
+    # 10.42.0.0/16. The Services below are therefore denied by backend identity.
     - toCIDRSet:
         - cidr: 10.0.0.0/8
           except:
@@ -24,3 +39,21 @@ spec:
         - 172.16.0.0/12
     - toCIDR:
         - 192.168.0.0/16
+    # Backends of the private LoadBalancer Services. Selectors and namespaces
+    # are copied from each Service's spec.selector.
+    # envoy-internal (LoadBalancer 10.7.0.121, namespace network): the
+    # internal-only gateway.
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: network
+            app.kubernetes.io/name: envoy
+            app.kubernetes.io/component: proxy
+            app.kubernetes.io/managed-by: envoy-gateway
+            gateway.networking.k8s.io/gateway-name: envoy-internal
+    # plex (LoadBalancer 10.7.0.128, namespace default)
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: default
+            app.kubernetes.io/name: plex
+            app.kubernetes.io/instance: plex
+            app.kubernetes.io/controller: plex
