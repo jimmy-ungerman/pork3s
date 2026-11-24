@@ -19,6 +19,8 @@ spec:
               or
               (increase(fluentbit_output_dropped_records_total{job="talos-logs-relay", name="victorialogs"}[30m]) > 0)
               or
+              (increase(fluentbit_output_retries_total{job="talos-logs-relay", name="victorialogs"}[5m]) > 0)
+              or
               (last_over_time(fluentbit_storage_fs_chunks{job="talos-logs-relay"}[5m]) > 10)
             )
           for: 15m
