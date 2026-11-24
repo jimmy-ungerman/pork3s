@@ -92,8 +92,6 @@ jobs:
     runs-on: ubuntu-26.04
     permissions:
       contents: read
-    env:
-      FLATE_PATH: ./kubernetes/apps
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -111,7 +109,8 @@ jobs:
       - name: Run Flate
         env:
           MISE_GITHUB_TOKEN: ${{ github.token }}
-        run: mise exec "github:home-operations/flate@${FLATE_VERSION}" -- flate test --supply .github/flate/supply.yaml
+          MISE_NO_HOOKS: "1"
+        run: mise exec "github:home-operations/flate@${FLATE_VERSION}" -- flate test --path ./kubernetes/apps --supply .github/flate/supply.yaml
 
   zizmor:
     name: Zizmor
