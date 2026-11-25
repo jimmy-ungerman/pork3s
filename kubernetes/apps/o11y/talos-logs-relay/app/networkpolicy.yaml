@@ -1,0 +1,35 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: talos-logs-relay
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: talos-logs-relay
+  # Selecting the pods enables default-deny ingress, so only the rules below
+  # are allowed. Egress is untouched.
+  ingress:
+    # Talos sends its logs from the host network namespace to the pinned
+    # ClusterIP 10.43.0.60 (internalTrafficPolicy: Local), so the source is the
+    # local host. The kubelet probes also come from the host, on the HTTP
+    # server port.
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "6050"
+              protocol: TCP
+            - port: "2020"
+              protocol: TCP
+    # Prometheus scrapes the Fluent Bit metrics.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: o11y
+            app.kubernetes.io/name: prometheus
+            app.kubernetes.io/instance: kube-prometheus-stack
+      toPorts:
+        - ports:
+            - port: "2020"
+              protocol: TCP
